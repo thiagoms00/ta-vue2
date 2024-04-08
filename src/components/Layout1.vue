@@ -49,7 +49,7 @@
 
                 </form>
             
-            <ContButton @click="checkAnswer"/>
+            <ContButton class="button-m1" @click="checkAnswer"/>
 
         </div>  
     </div>
@@ -74,27 +74,27 @@
                 <form action="" class="question-form form-m2" >
 
                     <div class="alternative" @click="clickAlternative(1)">
-                        <input type="radio" id="alt1" name="question-choice" value="1" class="option">
-                        <label for="alt1" class="radio-text" id="radioLabel1">{{questionAlt1}}</label><br>
+                        <input type="radio" id="alt1" name="question-choice" value="1" class="option option-m2">
+                        <label for="alt1" class="radio-text radioM2" id="radioLabel1">{{questionAlt1}}</label><br>
                     </div>
             
                     <div class="alternative" @click="clickAlternative(2)">
 
-                        <input type="radio" id="alt2" name="question-choice" value="2" class="option">
-                        <label for="alt2" class="radio-text" id="radioLabel2">{{questionAlt2}}</label><br>
+                        <input type="radio" id="alt2" name="question-choice" value="2" class="option option-m2">
+                        <label for="alt2" class="radio-text radioM2" id="radioLabel2">{{questionAlt2}}</label><br>
                         
                     </div>
 
                     <div class="alternative" @click="clickAlternative(3)">
-                        <input type="radio" id="alt3" name="question-choice" value="3" class="option">
-                        <label for="alt3" class="radio-text" id="radioLabel3">{{questionAlt3}}</label>
+                        <input type="radio" id="alt3" name="question-choice" value="3" class="option option-m2">
+                        <label for="alt3" class="radio-text radioM2" id="radioLabel3">{{questionAlt3}}</label>
                     </div>
 
                         <!-- <br> -->  
                     
                     <div class="alternative" @click="clickAlternative(4)">
-                        <input type="radio" id="alt4" name="question-choice" value="4" class="option">
-                        <label for="alt4" class="radio-text" id="radioLabel4">{{questionAlt4}}</label>
+                        <input type="radio" id="alt4" name="question-choice" value="4" class="option option-m2">
+                        <label for="alt4" class="radio-text radioM2" id="radioLabel4">{{questionAlt4}}</label>
                     </div>
                         
                     <br>  
@@ -242,8 +242,9 @@
 
         </div>
 
-        <button class="question-button button-m5" @click="checkAnswer()">Continuar</button>
+        <ContButton class="question-button button-m5" @click="checkAnswer"/>
 
+        
 
     </div>
     </div>
@@ -565,7 +566,7 @@ export default {
                 aux = document.getElementById("questionForm"); 
                 aux.style.marginTop = '4vh';
                 aux = document.getElementById("questionStatement");
-                aux.style.fontSize = '27px';
+                aux.style.fontSize = '1.0rem';
             break;
 
             case 'LP_H07_03_008':
@@ -988,14 +989,14 @@ export default {
 
         //ordem_0 = [0,1,2,3,4,5,6,7,8,9,10];                //Para testar sequencialmente, comentar depois.
         //ordem_1 = [0,1,2,3,4,5,6,7,8,9,10,11,12];           //Para testar sequencialmente, comentar depois.  
-        /* ordem_2 = [];
+      /*   ordem_2 = [];
         ordem_3 = [];
         for (let i = 0; i < 45; i++) {
             ordem_2.push(i);
         }
         for (let i = 0; i < 27; i++) {
             ordem_3.push(i);
-        }  */
+        }   */
  
         this.ordem = [ordem_0, ordem_1, ordem_2, ordem_3];
 
@@ -1105,7 +1106,7 @@ export default {
         let prn = this.multiplica_array(this.seq_prob_ndom);                     //probabiliade da sequência de respostas, dado que não domine o conteudo
       
         this.PSR = prs*this.PS/(this.PS*prs+(1-this.PS)*prn);                    //probabilidade de dominio do conteúdo, dada a sequência de respostas
-
+        this.PSR = 0.8;
         console.log("probabilidade dominio conteudo = ", +this.PSR);
         this.jiter += 1
         // Tomada de decisão:
@@ -1364,9 +1365,9 @@ export default {
         ordem_2 = this.shuffleArray(ordem_2);
         ordem_3 = this.shuffleArray(ordem_3);
 
-        /* ordem_0 = [0,1,2,3,4,5,6,7,8,9];                //Para testar sequencialmente, comentar depois.
-        ordem_1 = [0,1,2,3,4,5,6,7,8,9,10,11];           //Para testar sequencialmente, comentar depois.  
-         */
+       /*  ordem_0 = [0,1,2,3,4,5,6,7,8,9];                //Para testar sequencialmente, comentar depois.
+        ordem_1 = [0,1,2,3,4,5,6,7,8,9,10,11];           //Para testar sequencialmente, comentar depois.   */
+         
         this.ordem = [ordem_0, ordem_1, ordem_2, ordem_3];
     },
 
@@ -1470,6 +1471,7 @@ export default {
 
  }
  
+ 
  /* icone para caso existam dois audios na questão */
  .mega2{
     align-self: center;
@@ -1511,6 +1513,7 @@ export default {
     visibility: visible;
     opacity: 1;
 }
+
 
 .questionText-div{
     display: flex;
@@ -1567,7 +1570,7 @@ export default {
 .question-text{
     margin-top: 20.5vh;
     padding-left: 1.5vw;
-    font-size: 24px;
+    font-size: 1.6rem;
     font-family: Manrope;
     width: 95%;
     height: 6vh;
@@ -1620,7 +1623,7 @@ export default {
 
 
 .radio-text{
-    font-size: 23px;
+    font-size: 1.6rem;
     margin-left: 13px;
     color: rgba(0, 0, 0, 0.889);
     font-family: Manrope-light;
@@ -1732,7 +1735,9 @@ export default {
 
 .button-m5{
     margin-top: 0px;
-    width: 23vw;
+    width: 22vw;
+    height: 8vh;
+    font-size: 1.55rem;
 }
 
 /* Layout 5 (Imagens nas alternativas) */
@@ -1779,7 +1784,7 @@ export default {
 
 .button-m4{
     width: 20vw;
-    margin-top: 25vh;
+    margin-top: 22vh;
 }
 
 .icon-questionImg{
@@ -1804,4 +1809,95 @@ export default {
 .sub-title{
     font-family: Manrope-Light;
 }
+
+@media (max-width: 1550px) {
+    .icon-mega{
+        width: 70px;
+        height: 70px;
+    }
+
+    .icon-mega .tooltipText{
+        font-size: 1rem;
+        width:7vw;
+        margin-left:-3.5vw;
+    }
+
+    .radio-text{
+        font-size: 1.2rem;
+    }
+
+    /* Layout 1 */
+
+    .text-title{
+        font-size: 1.2rem;
+    }
+
+    .question-statement{
+        font-size: 1.2rem;
+    }
+
+    .question-text{
+        font-size: 1.1rem;
+    }
+
+    .radio-text{
+        font-size:1.1rem;
+    }
+
+    .button-m1{
+        width: 18vw;
+        height: 8vh;
+        font-size: 1.2rem;
+    }
+
+    /* Layout 2 */
+
+    .button-m2{
+        width: 17vw;
+        height: 6vh;
+        font-size: 1.1rem;
+    }
+
+
+    .questionText-m2{
+        font-size: 0.9rem;
+    }
+
+    .radioM2{
+        font-size: 0.9rem;
+    }
+
+    .option-m2{
+        width: 16px;
+    }
+
+    /* Layout 3 */
+
+    
+
+    /* Layout 4 */
+
+    .button-m4{
+        margin-top: 16vh;
+        height:8vh;
+        font-size: 1.2rem;
+    }
+
+    /* Layout 5 */
+
+    .button-m5{
+        margin-top: 3vh;
+        width: 21vw;
+        height: 7vh;
+        font-size: 1.15rem;
+    }
+
+   
+}
+
+
+
+
+
+
 </style>
