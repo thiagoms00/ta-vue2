@@ -1106,7 +1106,6 @@ export default {
         let prn = this.multiplica_array(this.seq_prob_ndom);                     //probabiliade da sequência de respostas, dado que não domine o conteudo
       
         this.PSR = prs*this.PS/(this.PS*prs+(1-this.PS)*prn);                    //probabilidade de dominio do conteúdo, dada a sequência de respostas
-        this.PSR = 0.8;
         console.log("probabilidade dominio conteudo = ", +this.PSR);
         this.jiter += 1
         // Tomada de decisão:
