@@ -1,0 +1,132 @@
+<template>
+  <v-container class="fill-height">
+    <v-sheet class="
+        d-flex align-center justify-center flex-column
+        text-center mx-auto px-4
+        rounded-lg" elevation="10" rounded-shaped color="grey-lighten-5" width="55vw" height="70vh" border="md">
+      <LogoPlanoA />
+      <v-container style="max-width: 600px;">
+        <v-container class="d-flex">
+          <p class="text-h2">Login</p>
+        </v-container>
+
+        <v-form v-model="valid" class="w-40" @submit.prevent="submitForm">
+          <v-container>
+            <v-text-field v-model="email" :rules="emailRules" label="Aluno" variant="outlined" bg-color="white"
+              color="#1E3892" prepend-inner-icon="mdi-account">
+
+            </v-text-field>
+
+            <v-text-field v-model="senha" :rules="senhaRules" label="Senha" variant="outlined" bg-color="white"
+              color="#1E3892" prepend-inner-icon="mdi-lock-outline">
+
+            </v-text-field>
+          </v-container>
+          <v-btn class="flex-grow-1" height="55" size="large" type="submit" width="500" variant="flat" color="#1E3892"
+            elevation-15 :loading="loading"> 
+            {{ buttonText }} 
+          </v-btn>
+
+          <v-alert v-if="error" type="error" class="mt-4">{{ error }}</v-alert>
+
+        </v-form>
+
+
+
+        <v-divider class="my-4"></v-divider>
+
+
+      </v-container>
+    </v-sheet>
+  </v-container>
+
+
+</template>
+
+<script>
+import LogoPlanoA from './LogoPlanoA.vue'
+import { mapActions } from 'vuex'
+
+
+export default {
+  name: 'LoginForm',
+  components: {
+    LogoPlanoA,
+  },
+
+  data: () => ({
+    loading: false,
+    buttonText: 'Entrar',
+
+    error: '',
+
+    valid: false,
+    email: '',
+    senha: '',
+
+    emailRules: [
+      value => {
+        if (value) return true
+
+        return 'Insira um usuário.'
+      }
+    ],
+    senhaRules: [
+      value => {
+        if (value) return true
+
+        return 'Insira sua senha.'
+      }
+    ],
+  }),
+
+  methods: {
+    ...mapActions([
+      'login'
+    ]),
+
+    submitForm() {
+      console.log(this.email, this.senha);
+      this.buttonText = 'Carregando...';
+      this.loading = true;
+      this.error = '';
+
+      // Processamento do formulário
+      const userData = {
+        aluno: this.email,
+        senha: this.senha
+      };
+
+      this.login(userData)
+      .then(() => {
+        // Ação a ser executada após o login bem-sucedido
+        console.log('Login bem-sucedido');
+        this.$router.push('/welcome')
+      })
+      .catch((error) => {
+        // Ação a ser executada se ocorrer um erro durante o login
+        console.error('Erro no login:', error);
+        this.error = 'Usuário ou senha incorretos. Por favor, tente novamente.';
+        this.loading = false;
+        this.buttonText = 'Entrar';
+
+        setTimeout(() => {
+        
+        // Define loading para false para esconder o botão de carregamento
+        this.error = '';
+        // Aqui você pode adicionar lógica para tratar a resposta do backend
+      }, 5000);
+
+      });
+
+      // Redirecionar para outra página após o envio do formulário
+      // 
+    },
+
+
+
+
+  }
+}
+
+</script>
