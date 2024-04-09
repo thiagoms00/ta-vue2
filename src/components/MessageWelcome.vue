@@ -34,7 +34,7 @@ import Megaphone from './Megaphone.vue'
       },
       methods: {
         proximaPagina() {
-          this.$router.push('/TestStart');
+          this.$router.push('/testStart');
         }
   }
       

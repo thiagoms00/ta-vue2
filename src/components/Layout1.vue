@@ -154,7 +154,7 @@
 
                 </form>
             
-            <ContButton id="buttonM3" @click="checkAnswer()"/>
+            <ContButton id="buttonM3" class="button-m3" @click="checkAnswer()"/>
 
         </div>  
     </div>
@@ -208,7 +208,7 @@
                     <span class="tooltipText">Escutar</span>
                 </div>
 
-                <form action="" class="question-form form-alt" >
+                <form action="" class="question-form form-alt form-m5" >
                     
                     <div class="alternative" @click="clickAlternative(1)">
                             <input type="radio" id="alt1" name="question-choice" value="1" class="option">
@@ -436,6 +436,15 @@ export default {
 
     methods:{
       
+     resetStyle(){         //Chamado sempre que um item novo é exibido na tela.
+        let aux;
+        aux = document.getElementById("questionStatement");
+        aux.style.fontSize = '';
+        aux.style.letterSpacing = '';
+        aux.style.textAlign = '';
+        aux.style.fontFamily = '';
+        aux.style.fontWeight = '';
+     },
       
      checkAnswer(){        //Vê se o aluno acertou a questão.
 
@@ -509,6 +518,8 @@ export default {
           
     
           switch(this.questionId){
+
+          
             
             case 'LP_H07_02_020':
                 aux = document.getElementById("imgM3");
@@ -534,8 +545,8 @@ export default {
             break;
             case 'LP_H03_00_014':
                 aux = document.getElementById("questionStatement");
-                aux.style.fontSize = '120px';
-                aux.style.letterSpacing = '15px';
+                aux.style.fontSize = '100px';
+                aux.style.letterSpacing = '10px';
                 aux.style.textAlign = 'center';
                 aux.style.fontFamily = 'Manrope-Light';
                 aux.style.fontWeight = '300';
@@ -659,7 +670,7 @@ export default {
 
             case 'LP_H07_03_016':
             aux = document.getElementById("imgM3");
-            aux.style.width = '38vw';
+            aux.style.width = '33vw';
             aux = document.getElementById("questionForm"); 
             aux.style.marginTop = '4vh';
             break;
@@ -686,12 +697,21 @@ export default {
             break;
             case 'LP_H09_01_003':
             aux = document.getElementById("imgM3");
-            aux.style.width = '30vw';
+            aux.style.width = '25vw';
+            break;
+            case 'LP_H07_02_013':
+            aux = document.getElementById("imgM3");
+            aux.style.width = '40vw';     
             break;
             case 'LP_H08_02_002':   
             aux = document.getElementById("imgM3");
             aux.style.width = '22vw';
             aux.style.marginLeft = '9vw';
+            break;
+            case 'LP_H09_02_003':
+            aux = document.getElementById("imgM3");
+            aux.style.marginLeft = '2vw';
+            aux.style.width = '36vw';     
             break;
            
             case 'LP_H07_02_012':
@@ -988,16 +1008,16 @@ export default {
         ordem_3 = this.shuffleArray(ordem_3);
 
         //ordem_0 = [0,1,2,3,4,5,6,7,8,9,10];                //Para testar sequencialmente, comentar depois.
-        //ordem_1 = [0,1,2,3,4,5,6,7,8,9,10,11,12];           //Para testar sequencialmente, comentar depois.  
-      /*   ordem_2 = [];
+       // ordem_1 = [0,1,2,3,4,5,6,7,8,9,10,11,12];           //Para testar sequencialmente, comentar depois.  
+        /* ordem_2 = [];
         ordem_3 = [];
         for (let i = 0; i < 45; i++) {
             ordem_2.push(i);
         }
         for (let i = 0; i < 27; i++) {
             ordem_3.push(i);
-        }   */
- 
+        }  
+  */
         this.ordem = [ordem_0, ordem_1, ordem_2, ordem_3];
 
         this.resetaExtrato(this.nestr,this.jquest);
@@ -1069,6 +1089,9 @@ export default {
 
     async aplicaQuestao(value){                              //Função chamada sempre que o usuario clicar no "continuar"
         console.clear();
+        if(this.jsonData.questoes[this.questionNumber].id == 'LP_H03_00_014'){
+            this.resetStyle();
+        }
 
         // "Aplica" uma questão, verificando se o aluno acertou ou não.
         this.dadosTeste.qtdQuestoes++;
@@ -1272,7 +1295,7 @@ export default {
     },
 
     async changeQuestion(){
-
+       
         this.questionNumber = this.ordem[this.nestr][this.ind_questao];
         this.questionId = this.jsonData.questoes[this.questionNumber].id
         this.questionText = this.jsonData.questoes[this.questionNumber].text; 
@@ -1364,8 +1387,8 @@ export default {
         ordem_2 = this.shuffleArray(ordem_2);
         ordem_3 = this.shuffleArray(ordem_3);
 
-       /*  ordem_0 = [0,1,2,3,4,5,6,7,8,9];                //Para testar sequencialmente, comentar depois.
-        ordem_1 = [0,1,2,3,4,5,6,7,8,9,10,11];           //Para testar sequencialmente, comentar depois.   */
+        //ordem_0 = [0,1,2,3,4,5,6,7,8,9];                //Para testar sequencialmente, comentar depois.
+       // ordem_1 = [0,1,2,3,4,5,6,7,8,9,10,11];           //Para testar sequencialmente, comentar depois.  
          
         this.ordem = [ordem_0, ordem_1, ordem_2, ordem_3];
     },
@@ -1696,9 +1719,9 @@ export default {
 }
 
 .img-m3{
-    margin-left: 0.5vw;
+    margin-left: 0.8vw;
     align-self: center;
-    width: 45vw;
+    width: 42vw;
     height: auto;
 }
 
@@ -1825,6 +1848,11 @@ export default {
         font-size: 1.2rem;
     }
 
+
+    .question-form{
+        margin-top: 3vh;
+    }
+
     /* Layout 1 */
 
     .text-title{
@@ -1847,14 +1875,23 @@ export default {
         width: 18vw;
         height: 8vh;
         font-size: 1.2rem;
+        margin-top: 18vh;
     }
 
     /* Layout 2 */
 
+    .form-m2{
+        margin-left: 16.8vw;
+        height: 25vh;
+        margin-top: 0;
+    }
+
+
     .button-m2{
         width: 17vw;
-        height: 6vh;
+        height: 7vh;
         font-size: 1.1rem;
+        margin-left: 60vw;
     }
 
 
@@ -1872,7 +1909,21 @@ export default {
 
     /* Layout 3 */
 
+    .button-m3{
+        font-size: 1.15rem;
+        width: 18vw;
+        height: 8vh;
+        margin-top: 17vh;
+    }
     
+    .img-m3{
+        margin-left: 1.8vw;
+        align-self: center;
+        width: 34vw;
+        height: auto;
+    }
+
+
 
     /* Layout 4 */
 
@@ -1882,6 +1933,8 @@ export default {
         font-size: 1.2rem;
     }
 
+    
+   
     /* Layout 5 */
 
     .button-m5{
@@ -1889,6 +1942,10 @@ export default {
         width: 21vw;
         height: 7vh;
         font-size: 1.15rem;
+    }
+
+    .form-m5{
+        margin-top: 15vh;
     }
 
    

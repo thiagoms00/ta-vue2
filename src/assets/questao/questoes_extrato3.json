@@ -1,27 +1,6 @@
 {
     "questoes" : [                                                    
-        {
-            "id" : "LP_H02_02_003",                             
-            "layout" : "m4",
-            "type" : "Lingua portuguesa",
-            "textTitle":"",
-            "qText":"",
-            "img1":"url(/src/assets/imgs/extrato3/LP_H02_02_003_M/LP_H02_02_003_M.png)",
-            "img2":"",
-            "text": "",
-            "audio1": "/src/assets/audios/extrato3/LP_H02_02_003_M.mp3",
-            "audio2": "",
-            "alt1": "url(/src/assets/imgs/extrato3/LP_H02_02_003_M/1.png)",
-            "alt2": "url(/src/assets/imgs/extrato3/LP_H02_02_003_M/2.png)",
-            "alt3": "url(/src/assets/imgs/extrato3/LP_H02_02_003_M/3.png)",
-            "alt4": "url(/src/assets/imgs/extrato3/LP_H02_02_003_M/4.png)",
-            "answer" : "4",
-            "fonte" :"",
-            "alt1Img": "url(/src/assets/imgs/extrato3/LP_H02_02_003_M/1.png)",
-            "alt2Img": "url(/src/assets/imgs/extrato3/LP_H02_02_003_M/2.png)",
-            "alt3Img": "url(/src/assets/imgs/extrato3/LP_H02_02_003_M/3.png)",
-            "alt4Img": "url(/src/assets/imgs/extrato3/LP_H02_02_003_M/4.png)"
-        },
+      
         {
             "id" : "LP_H09_01_009",                             
             "layout" : "m3",
@@ -78,7 +57,7 @@
         },
         {
             "id" : "LP_H08_03_002",                             
-            "layout" : "m1",
+            "layout" : "m3",
             "type" : "Lingua portuguesa",
             "textTitle":"",
             "qText":"",
@@ -151,7 +130,7 @@
         },
         {
             "id" : "LP_H10_02_002",                             
-            "layout" : "m1",
+            "layout" : "m3",
             "type" : "Lingua portuguesa",
             "textTitle":"",
             "qText":"",
@@ -296,7 +275,7 @@
         },
         {
             "id" : "LP_H09_02_001",                             
-            "layout" : "m1",
+            "layout" : "m3",
             "type" : "Lingua portuguesa",
             "textTitle":"",
             "qText":"",
@@ -368,7 +347,7 @@
         },
         {
             "id" : "LP_H06_00_004",                             
-            "layout" : "m1",
+            "layout" : "m3",
             "type" : "Lingua portuguesa",
             "textTitle":"",
             "qText":"",
@@ -440,7 +419,7 @@
         },
         {
             "id" : "LP_H07_02_013",                             
-            "layout" : "m1",
+            "layout" : "m3",
             "type" : "Lingua portuguesa",
             "textTitle":"",
             "qText":"",
@@ -476,7 +455,7 @@
         },
         {
             "id" : "LP_H09_02_003",                             
-            "layout" : "m1",
+            "layout" : "m3",
             "type" : "Lingua portuguesa",
             "textTitle":"",
             "qText":"",

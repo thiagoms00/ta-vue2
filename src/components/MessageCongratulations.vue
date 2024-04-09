@@ -5,24 +5,24 @@
           text-center mx-auto px-4
           rounded-lg" elevation="10" rounded-shaped color="grey-lighten-5" width="50vw" height="60vh" border="md">
         
-        <v-container class="d-flex flex-column align-center">
+        <v-container class="d-flex flex-column align-center mainContainer">
 
           <div class="icon-msg mr-2">
             <v-img
                 max-height="73"
                 width="73"
                 src="../assets/imgs/happy2.svg"
-                cover
+                contain
             ></v-img> 
             <h1 class="msg mt-3">Parabéns! Você concluiu a sua atividade.</h1>
           </div>
           
           <v-divider class="my-4 " width="70%"></v-divider>
 
-          <Megaphone class="mt-1" />
+          <Megaphone class="icon-mega3" />
 
           <p class="finish-msg ml-2 mt-4">Clique no botão abaixo para finalizar o teste!</p>
-          <v-btn class ="flex-grow-1 mt-10 finish-btn" height="55" size="large" width="50%" variant="flat" color="#1E3892"  elevation-15 @click="proximaPagina"> Finalizar </v-btn>
+          <v-btn class ="flex-grow-1 mt-4 finish-btn" height="50" size="large" width="50%" variant="flat" color="#1E3892"  elevation-15 @click="proximaPagina"> Finalizar </v-btn>
 
           
           
@@ -72,7 +72,7 @@ import Megaphone from './Megaphone.vue'
 }
 
 .msg{
-  margin-left: 0.5vw;
+  margin-left: 0.2vw;
   font-size: 2.1rem;
 }
 
@@ -83,5 +83,28 @@ import Megaphone from './Megaphone.vue'
 .finish-btn{
   margin-top: 10px
 }
+
+@media(max-width: 1550px){
+    .msg{
+        font-size: 1.4rem;
+        margin-left: 0;
+    } 
+    
+    .icon-msg{
+      max-height: 10vh;
+      width: 40vw;
+    }
+
+    .mainContainer{
+    }
+
+    .finish-msg{
+      font-size: 1.5rem;
+    }
+
+    .icon-mega3{
+      margin-top: 0;
+    }
+} 
 
 </style>

@@ -1,7 +1,7 @@
 <template>
     <div class="main-div">
         <v-container class="d-flex justify-end align-end absoluteClass h-100" fluid>
-            <LogoImpacto />
+            //<LogoImpacto />
         </v-container>
         <MessageCongratulations/>
 
@@ -15,7 +15,7 @@ import MessageCongratulations from '@/components/MessageCongratulations.vue'
 export default {
     name: 'Congratulations',
     components:{
-        LogoImpacto,
+        //LogoImpacto,
         MessageCongratulations
     }
 }

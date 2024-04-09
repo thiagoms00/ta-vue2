@@ -1,10 +1,8 @@
 <template>
-    <v-img 
-        max-height="120"
-        width="250"
-        :aspect-ratio="3/2"
+    <v-img class="logo-plan"
+        
         src="../assets/imgs/Logo-PlanoA-removebg.png"
-        cover
+        contain
     ></v-img> 
 </template>
 
@@ -13,4 +11,19 @@
         name:'LogoPlanoA'
     }
 </script>
+
+<style>
+.logo-plan{
+    width: 18vw;
+    height: auto;
+}
+
+@media(max-width: 1400px) {
+    .logo-plan{
+        width: 15vw;
+        height: auto;   
+    }
+}
+
+</style>
 

@@ -1,18 +1,18 @@
 <template>
-  <v-container class="fill-height">
+  <v-container class="fill-height teste">
     <v-sheet class="
         d-flex align-center justify-center flex-column
         text-center mx-auto px-4
         rounded-lg" elevation="10" rounded-shaped color="grey-lighten-5" width="55vw" height="70vh" border="md">
       <LogoPlanoA />
-      <v-container style="max-width: 600px;">
+      <v-container style="max-width: 32vw;">
         <v-container class="d-flex">
-          <p class="text-h2">Login</p>
+          <h1 class="text-login">Login</h1>
         </v-container>
 
         <v-form v-model="valid" class="w-40" @submit.prevent="submitForm">
           <v-container>
-            <v-text-field v-model="email" :rules="emailRules" label="Aluno" variant="outlined" bg-color="white"
+            <v-text-field class="aluno-field" v-model="email" :rules="emailRules" label="Aluno" variant="outlined" bg-color="white"
               color="#1E3892" prepend-inner-icon="mdi-account">
 
             </v-text-field>
@@ -22,7 +22,7 @@
 
             </v-text-field>
           </v-container>
-          <v-btn class="flex-grow-1" height="55" size="large" type="submit" width="500" variant="flat" color="#1E3892"
+          <v-btn class="btnTeste" size="large" type="submit" variant="flat" color="#1E3892"
             elevation-15 :loading="loading"> 
             {{ buttonText }} 
           </v-btn>
@@ -80,6 +80,13 @@ export default {
     ],
   }),
 
+  created (){
+      console.log(window.innerWidth);
+      console.log(window.innerHeight);
+      console.log('teste');
+
+    },
+
   methods: {
     ...mapActions([
       'login'
@@ -123,6 +130,8 @@ export default {
       // 
     },
 
+   
+
 
 
 
@@ -130,3 +139,40 @@ export default {
 }
 
 </script>
+
+
+<style>
+
+
+.text-login{
+  font-size:3rem;
+  font-family: Manrope;
+}
+
+.btnTeste{
+  width: 24vw;
+  height: 10vh;
+  font-family: Manrope;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+@media(max-width: 1400px) {
+
+  .text-login{
+    font-size:2rem;
+  }
+
+  .aluno-field{
+    height: auto;
+  }
+
+  .btnTeste{
+    width: 40vw;
+    border: 1px solid red;
+  }
+
+
+}
+ 
+</style>

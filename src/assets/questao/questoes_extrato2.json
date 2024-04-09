@@ -2,7 +2,7 @@
     "questoes" : [                                                    
         {
             "id" : "LP_H02_01_003",                             
-            "layout" : "m1",
+            "layout" : "m3",
             "type" : "Lingua portuguesa",
             "textTitle":"",
             "qText":"",
@@ -76,7 +76,7 @@
         },
         {
             "id" : "LP_H06_00_008",                             
-            "layout" : "m1",
+            "layout" : "m3",
             "type" : "Lingua portuguesa",
             "textTitle":"",
             "qText":"",
@@ -238,7 +238,7 @@
         },
         {
             "id" : "LP_H06_00_002",                             
-            "layout" : "m1",
+            "layout" : "m3",
             "type" : "Lingua portuguesa",
             "textTitle":"",
             "qText":"",
@@ -382,7 +382,7 @@
         },
         {
             "id" : "LP_H07_02_014",                             
-            "layout" : "m1",
+            "layout" : "m3",
             "type" : "Lingua portuguesa",
             "textTitle":"",
             "qText":"",
@@ -418,7 +418,7 @@
         },
         {
             "id" : "LP_H08_01_012",                             
-            "layout" : "m1",
+            "layout" : "m3",
             "type" : "Lingua portuguesa",
             "textTitle":"",
             "qText":"",
@@ -452,24 +452,7 @@
             "answer" : "foram responsáveis pela propagação da Peste Negra.",
             "fonte": "http://guiadoscuriosos.com.br/categorias/2005/1/10-curiosidades-sobre-ratos.html."
         },
-        {
-            "id" : "LP_H09_03_009",                             
-            "layout" : "m3",
-            "type" : "Lingua portuguesa",
-            "textTitle":"",
-            "qText":"",
-            "img1":"url(/src/assets/imgs/extrato2/LP_H09_03_009_F4.jpg)",
-            "img2":"",
-            "text": "O objetivo do texto é",
-            "audio1": "/src/assets/audios/extrato2/LP_H09_03_009_F.mp3",
-            "audio2": "",
-            "alt1": "anunciar um produto.",
-            "alt2": "divertir o leitor.",
-            "alt3": "ensinar a fazer algo.",
-            "alt4": "listar produtos.",
-            "answer" : "ensinar a fazer algo.",
-            "fonte": "Revista Puro Sabor. Bolos de Fubá. Ano 10. n. 42. São Paulo: Alto Astral, 2016. p.7."
-        },
+        
         {
             "id" : "LP_H08_02_007",                             
             "layout" : "m1",

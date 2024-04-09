@@ -85,4 +85,18 @@ export default{
     visibility: visible;
     opacity: 1;
 }
+
+@media (max-width:1550px){
+    .icon-mega{
+        width: 70px;
+        height: 70px;
+    }
+
+    .icon-mega .tooltipText{
+        font-size: 1rem;
+        width:7vw;
+        margin-left:-3.5vw;
+    }
+}
+
 </style>
