@@ -30,12 +30,14 @@ import Megaphone from './Megaphone.vue'
       name:'messageWelcome',
       components:{
         Megaphone
-        
       },
       methods: {
         proximaPagina() {
           this.$router.push('/testStart');
-        }
+        },
+        resetMegafone(){            //Utilizar esta função sempre que trocar de item.
+          this.megafoneDisable = false;
+        },
   }
       
   }

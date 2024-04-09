@@ -18,7 +18,6 @@ export default{
     name: 'Welcome',
     components: {
       MessageWelcome,
-      LogoImpacto
     },
     methods:{
       

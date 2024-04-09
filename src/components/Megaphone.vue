@@ -20,15 +20,34 @@ export default{
     components:{
 
     },
-    methods: {
-    playAudio(){
-
-
-        let audio = new Audio(audiowelcome);
-        console.log('teste');
-        audio.play();
-
+    data(){
+       return{
+            megafoneDisable : false,
+       }
     },
+
+    created(){
+    },
+
+    mounted(){
+        this.megafoneDisable = false;
+        this.playAudio();
+    },
+
+    methods: {
+        playAudio(){
+
+            if(this.megafoneDisable==false){
+                let audio = new Audio(audiowelcome);
+                audio.play();
+                this.megafoneDisable = true;
+                setTimeout(this.resetMegafone,13000);
+            }
+        
+        },
+        resetMegafone(){           
+            this.megafoneDisable = false;
+        },
 }
 }
 

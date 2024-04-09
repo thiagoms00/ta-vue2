@@ -345,6 +345,7 @@ export default {
             seq_prob_dom: [],
             seq_prob_ndom: [],
             jsonData: [],
+            megafoneDisable : false,
 
             
             dadosTeste : {                      /* Objeto que armazena as informações do teste. */
@@ -498,15 +499,20 @@ export default {
      },
 
      playAudio(audioNum){  
+        if(this.megafoneDisable==false){
+            let audio = new Audio(this.questionAudio1);
+            this.megafoneDisable=true;
+            audio.play();
+            setTimeout(this.resetMegafone, 4000);
+        }
 
-          if(audioNum==1){
-              let audio = new Audio(this.questionAudio1);
-              audio.play();
-          }
-          else if(audioNum==2){
-              let audio = new Audio(this.questionAudio2);
-              audio.play();
-          }
+
+
+       /*  if(audioNum==1){
+            let audio = new Audio(this.questionAudio1);
+            audio.play();
+        } */
+         
         
      },
 
@@ -1414,8 +1420,9 @@ export default {
     },
     
 
-    resetCss(){            //Utilizar esta função sempre que trocar de item.
-
+    resetMegafone(){            //Utilizar esta função sempre que trocar de item.
+      this.megafoneDisable = false;
+      console.log(this.megafoneDisable);
     },
 
 
