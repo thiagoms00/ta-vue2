@@ -437,7 +437,7 @@ export default {
     mounted(){                          //Chamado após os componentes carregarem.
         setTimeout(() => {              //Exibe o popup após 30 segundos sem clicar no continuar.
             this.displayPopup(1); 
-        }, 30000)
+        }, 45000)
         this.changeByID();
     },
 
@@ -454,10 +454,10 @@ export default {
      },
       
      checkAnswer(){                     //É chamado sempre que um usuario clicar no botão "Continuar"
-        this.alertPopup = false;
+      /*   this.alertPopup = false;
         setTimeout(() => {              //Exibe o popup após 30 segundos sem clicar no "Continuar".
             this.displayPopup(1); 
-        }, 30000) 
+        }, 30000)   */
         this.changeByID();
 
         const radioButtons = document.querySelectorAll('input[name="question-choice"]');  //seleciona todos os radio buttons.
@@ -1417,8 +1417,8 @@ export default {
         else if(aux==0){
             this.alertPopup = false;
             setTimeout(() => {
-                 this.displayPopup(1); 
-            }, 30000)
+                this.displayPopup(1); 
+            }, 45000)
         }
     },
 
