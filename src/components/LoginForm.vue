@@ -4,20 +4,20 @@
         d-flex align-center justify-center flex-column
         text-center mx-auto px-4
         rounded-lg" elevation="10" rounded-shaped color="grey-lighten-5" width="55vw" height="70vh" border="md">
-      <LogoPlanoA />
-      <v-container style="max-width: 32vw;">
+      <LogoPlanoA class="logo-planoA"/>
+      <v-container style="max-width: 32vw;" class="form-container">
         <v-container class="d-flex">
           <h1 class="text-login">Login</h1>
         </v-container>
 
-        <v-form v-model="valid" class="w-40" @submit.prevent="submitForm">
-          <v-container>
-            <v-text-field class="aluno-field" v-model="email" :rules="emailRules" label="Aluno" variant="outlined" bg-color="white"
+        <v-form v-model="valid" class="w-40 main-form" @submit.prevent="submitForm">
+          <v-container class="">
+            <v-text-field class="form-field aluno-field" v-model="email" :rules="emailRules" label="Aluno" variant="outlined" bg-color="white"
               color="#1E3892" prepend-inner-icon="mdi-account">
 
             </v-text-field>
 
-            <v-text-field v-model="senha" :rules="senhaRules" label="Senha" variant="outlined" bg-color="white"
+            <v-text-field class="form-field senha-field" v-model="senha" :rules="senhaRules" label="Senha" variant="outlined" bg-color="white"
               color="#1E3892" prepend-inner-icon="mdi-lock-outline">
 
             </v-text-field>
@@ -159,18 +159,48 @@ export default {
 
 @media(max-width: 1400px) {
 
-  .text-login{
-    font-size:2rem;
+  .logo-planoA{
+    width: 13vw;
   }
 
-  .aluno-field{
+  .text-login{
+    font-size:1.4rem !important;
+    margin-top: 0px !important;
+    
+  }
+
+  .form-container{  
+    margin-top: 0px !important;
+    align-items: flex-start !important;
+    padding-top: 0px !important;
+  }
+
+  .main-form{
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+
+ 
+  .form-field input{
+   font-size: 0.8rem !important;
+  }
+
+
+  .form-field label{
+    font-size: 0.6rem !important;
+  }
+
+  .form-field prepend-inner-icon{
+    width: 5  px;
     height: auto;
   }
 
   .btnTeste{
-    width: 40vw;
-    border: 1px solid red;
+    width: 25vw !important;
+    height: 6.3vh !important;
+    font-size: 0.8rem !important;
   }
+  
 
 
 }

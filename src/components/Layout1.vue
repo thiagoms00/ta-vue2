@@ -1,6 +1,7 @@
 <template>
 
     <div class="mainDiv">
+        <TimePopup class="time-popup" v-if="alertPopup" @click="displayPopup(0)"></TimePopup>
         <FlexBar :fonte="fonte"/>
         <div class="conteudo" v-if="layoutCheck=='m1'">
         <div class="pergunta">
@@ -258,6 +259,7 @@
 <script>
 
 import ContButton from './ContButton.vue';
+import TimePopup from './TimePopup.vue';
 import axios from 'axios';
 
 
@@ -282,9 +284,10 @@ import FlexBar from '@/components/FlexBar.vue';
 export default {
     name : 'Layout1',
     components : {
-        ContButton,
-        FlexBar,
-        
+        ContButton,       //Botão azul presente em todos itens.
+        FlexBar,          //Barra azul superior, contem o botão com a fonte.
+        TimePopup,        //Pop-up que aparece após certo tempo sem trocar de item.
+
     },
 
     data(){
@@ -346,6 +349,7 @@ export default {
             seq_prob_ndom: [],
             jsonData: [],
             megafoneDisable : false,
+            alertPopup : false,
 
             
             dadosTeste : {                      /* Objeto que armazena as informações do teste. */
@@ -430,8 +434,10 @@ export default {
 
     },
 
-    mounted(){              //Chamado após os componentes carregarem.
-
+    mounted(){                          //Chamado após os componentes carregarem.
+        setTimeout(() => {              //Exibe o popup após 30 segundos sem clicar no continuar.
+            this.displayPopup(1); 
+        }, 30000)
         this.changeByID();
     },
 
@@ -447,15 +453,19 @@ export default {
         aux.style.fontWeight = '';
      },
       
-     checkAnswer(){        //Vê se o aluno acertou a questão.
-
+     checkAnswer(){                     //É chamado sempre que um usuario clicar no botão "Continuar"
+        this.alertPopup = false;
+        setTimeout(() => {              //Exibe o popup após 30 segundos sem clicar no "Continuar".
+            this.displayPopup(1); 
+        }, 30000) 
+        this.changeByID();
 
         const radioButtons = document.querySelectorAll('input[name="question-choice"]');  //seleciona todos os radio buttons.
         for (const radioButton of radioButtons) {
-            if (radioButton.checked){                    //Vê qual radio button foi selecionado.
+            if (radioButton.checked){                                                     //Vê qual radio button foi selecionado.
                 let selectedButton = radioButton.value;
                 this.aplicaQuestao(radioButton.value-1);
-                switch(parseInt(selectedButton)){         //converte o "SelectedButton" para um inteiro.
+                switch(parseInt(selectedButton)){                                         //converte o "SelectedButton" para um inteiro.
                     case 1:
                         //console.log(this.questionAlt1)
                         if(this.questionAlt1 == this.questionAnswer){
@@ -1399,8 +1409,17 @@ export default {
         this.ordem = [ordem_0, ordem_1, ordem_2, ordem_3];
     },
 
-    enviaDados(){          //Envia dados do resultado do teste para o servidor.
+    displayPopup(aux){   
+        if(aux==1){
+            this.alertPopup = true;
+        }
 
+        else if(aux==0){
+            this.alertPopup = false;
+            setTimeout(() => {
+                 this.displayPopup(1); 
+            }, 30000)
+        }
     },
 
 
@@ -1436,6 +1455,7 @@ export default {
 .mainDiv{
     display: flex;
     flex-direction: column;
+    position: relative;
     width: 100%;
     height: 100%;
     align-items: center;
@@ -1837,6 +1857,13 @@ export default {
 
 .sub-title{
     font-family: Manrope-Light;
+}
+
+.time-popup{
+    position: absolute;
+    top: 33%;
+    left: 39%;
+    z-index: 2;
 }
 
 @media (max-width: 1550px) {

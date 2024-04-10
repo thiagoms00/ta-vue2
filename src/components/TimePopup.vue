@@ -11,7 +11,7 @@
                
             </div>
             <h2 class="sub-msg">Lembre-se de escolher uma alternativa e clicar em Continuar</h2>
-            <v-btn class ="flex-grow-1 mt-4 finish-btn" height="4.5vh" size="large" width="11vw" variant="flat" color="#1E3892"  elevation-15 @click="proximaPagina"> Fechar </v-btn>
+            <v-btn class ="flex-grow-1 mt-3 finish-btn" height="4.5vh" size="large" width="11vw" variant="flat" color="#1E3892"  elevation-15 v-responsive> Fechar </v-btn>
         </v-container>
 
 </v-sheet>
@@ -71,7 +71,7 @@ export default{
 .msg{
    color : #fff;
    font-weight: 600;
-   font-size :1.7rem;
+   font-size :1.6rem;
    margin-left: 0.2vw;
    margin-top: 0.3vh;
    -webkit-font-smoothing: antialiased;
@@ -80,13 +80,46 @@ export default{
 }
 
 .sub-msg{
-    font-size :1.4rem;
+    font-size :1.3rem;
     margin-top: 1.3vh;
     font-weight: 600;
     font-family: Manrope-Light;
     -webkit-font-smoothing: antialiased;
    -moz-osx-font-smoothing: grayscale;
     
+}
+
+@media (max-width: 1550px) {
+
+
+    .img1{
+        width: 2.2vw;
+        height: auto;
+        margin-left: 5.1vw;
+    }
+    
+    .msg{                                                       
+        color : #fff;
+        font-weight: 600;
+        font-size :1.1rem;
+        margin-left: 0.2vw;
+        margin-top: 0.3vh;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    .sub-msg{
+        font-size :0.9rem;
+        margin-top: 1.3vh;
+        font-weight: 600;
+        font-family: Manrope-Light;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    .finish-btn{
+        font-size: 0.75rem !important;
+    }
 }
 
 
