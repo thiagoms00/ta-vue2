@@ -3,7 +3,7 @@
     <div class="mainDiv">
         <TimePopup class="time-popup" v-if="alertPopup" @click="displayPopup(0)"></TimePopup>
         <FlexBar :fonte="fonte"/>
-        <div class="conteudo" v-if="layoutCheck=='m1'">
+        <div class="conteudo" v-if="layoutCheck=='m1'" :key="m1Key">
         <div class="pergunta">
             <div class="icon-mega" @click="playAudio(1)">
                     <span class="tooltipText">Escutar</span>
@@ -50,13 +50,13 @@
 
                 </form>
             
-            <ContButton class="button-m1" @click="checkAnswer"/>
+            <ContButton class="button-m1" id="buttonM1" @click="checkAnswer"/>
 
         </div>  
     </div>
 
     <!-- Layout 2(Imagem com largura grande) -->
-    <div class="conteudo conteudo-m2"  v-else-if="layoutCheck=='m2'">
+    <div class="conteudo conteudo-m2"  v-else-if="layoutCheck=='m2'" :key="m2Key">
     
 
         <div class="pergunta pergunta-m2">
@@ -109,7 +109,7 @@
     </div>
 
     <!-- Layout 3(Imagem com altura grande) -->
-    <div class="conteudo" v-else-if="layoutCheck=='m3'">
+    <div class="conteudo" v-else-if="layoutCheck=='m3'" :key="m3Key">
         <div class="pergunta pergunta-m3">
             <div class="icon-mega" @click="playAudio(1)">
                     <span class="tooltipText">Escutar</span>
@@ -161,7 +161,7 @@
     </div>
 
     <!-- Layout 4, questões com imagens na alternativas -->
-    <div class="conteudo conteudo-m4" v-else-if="layoutCheck=='m4'">
+    <div class="conteudo conteudo-m4" v-else-if="layoutCheck=='m4'" :key="m4Key">
 
         <div class="icon-questionImg">
             <div class="icon-mega" @click="playAudio(1)">
@@ -202,7 +202,7 @@
     </div>
 
     <!-- Layout de questõs pequenas (sem imagem/texto) -->
-    <div class="conteudo conteudo-m2" v-else="layoutCheck=='m5'">
+    <div class="conteudo conteudo-m2" v-else="layoutCheck=='m5'" :key="m5Key">
 
             <div class="pergunta pergunta-m4">
                 <div class="icon-mega" @click="playAudio(1)">
@@ -353,6 +353,11 @@ export default {
             alertTimeoutId : '',
             audioAux : '',
 
+            m1Key:0,                            //Chave do layout1.
+            m2Key:0,                            //Chave do layout2.
+            m3Key:0,                            //Chave do layout3.
+            m4Key:0,                            //Chave do layout4.
+            m5Key:0,                            //Chave do layout5.
             
             dadosTeste : {                      /* Objeto que armazena as informações do teste. */
                 tokenAluno: '',                 //Token referente ao aluno.
@@ -454,6 +459,20 @@ export default {
         aux.style.textAlign = '';
         aux.style.fontFamily = '';
         aux.style.fontWeight = '';
+
+        aux = document.getElementById("radioLabel1");
+        aux.style.letterSpacing = 'normal';
+
+        aux = document.getElementById("radioLabel2");
+        aux.style.letterSpacing = 'normal';
+
+        aux = document.getElementById("radioLabel3");
+        aux.style.letterSpacing = 'normal';
+
+        aux = document.getElementById("radioLabel4");
+        aux.style.letterSpacing = 'normal';
+
+
      },
       
      checkAnswer(){                     //É chamado sempre que um usuario clicar no botão "Continuar"
@@ -541,6 +560,11 @@ export default {
     
           switch(this.questionId){
 
+            case 'LP_H07_03_017':
+                aux = document.getElementById("buttonM1");
+                aux.style.marginTop = '17vh';
+            
+            break;
           
             
             case 'LP_H07_02_020':
@@ -1111,9 +1135,7 @@ export default {
 
     async aplicaQuestao(value){                              //Função chamada sempre que o usuario clicar no "continuar"
         console.clear();
-        if(this.jsonData.questoes[this.questionNumber].id == 'LP_H03_00_014'){
-            this.resetStyle();
-        }
+        
 
         // "Aplica" uma questão, verificando se o aluno acertou ou não.
         this.dadosTeste.qtdQuestoes++;
@@ -1175,11 +1197,11 @@ export default {
                     console.log("Fim do extrato 0: Reprovado no extrato 0"); 
                     this.dadosTeste.resultado = 0; 
                     console.log(this.dadosTeste);
-                    this.sendDataTest(this.dadosTeste);
                     
                     if(this.termina===false){                    //Flag utilizada para determinar o envio dos dados do teste
                         //Enviar dados pro backend
                         console.log("Fim do teste principal, iniciando coleta de dados.");
+                        this.sendDataTest(this.dadosTeste);
                         this.coletaDados = true;                //Inicio da coleta de dados
                         this.termina=true;
                         this.nestr = 1;
@@ -1222,11 +1244,11 @@ export default {
                     console.log("Fim do extrato 2: Reprovado no extrato 2");  
                     this.dadosTeste.resultado = 1; 
                     console.log(this.dadosTeste);
-                    this.sendDataTest(this.dadosTeste);
 
 
                     if(this.termina===false){
                         //Enviar dados pro backend
+                        this.sendDataTest(this.dadosTeste);
                         console.log("Fim do teste principal, iniciando coleta de dados.");
                         this.coletaDados = true;
                         this.termina=true;
@@ -1249,9 +1271,9 @@ export default {
                     console.log("Fim do extrato 3: Aprovado no extrato 3");
                     this.dadosTeste.resultado = 3; 
                     console.log(this.dadosTeste);
-                    this.sendDataTest(this.dadosTeste);
                     if(this.termina===false){
                         //Enviar dados pro backend
+                        this.sendDataTest(this.dadosTeste);
                         console.log("Fim do teste principal, iniciando coleta de dados.");
                         this.coletaDados = true;
                         this.termina=true;
@@ -1268,10 +1290,10 @@ export default {
                     console.log("Fim do extrato 3: Reprovado no extrato 3");
                     this.dadosTeste.resultado = 2; 
                     console.log(this.dadosTeste);
-                    this.sendDataTest(this.dadosTeste);
 
                     if(this.termina===false){
                         //Enviar dados pro backend
+                        this.sendDataTest(this.dadosTeste);
                         console.log("Fim do teste principal, iniciando coleta de dados.");
                         this.coletaDados = true;
                         this.termina=true;
@@ -1279,7 +1301,6 @@ export default {
                         this.resetaExtrato(this.nestr,0);       
                     }  
                     else{
-                        //Enviar dados ao backend
                         this.questionFlag = true;
                         this.$router.push('/congratulations');
                     }
@@ -1317,8 +1338,13 @@ export default {
     },
 
     async changeQuestion(){
-        //document.querySelectorAll('audio').forEach(el => el.pause());  //Para todos audios que estão sendo executados.
-        this.audioAux.pause();
+       /*  if(this.jsonData.questoes[this.questionNumber].id == 'LP_H03_00_014'){
+            console.log('questão encontrada');
+            this.resetStyle();
+            
+        } */
+        this.forceRerender();                                  //Rendereiza novamente o componente.
+        this.audioAux.pause();  
         this.megafoneDisable=false;                            //Garante que o megafone seja tocado quando a página é trocada.
         this.alertPopup = false;
         clearTimeout(this.alertTimeoutId);
@@ -1459,6 +1485,32 @@ export default {
       this.megafoneDisable = false;
       console.log(this.megafoneDisable);
     },
+
+    forceRerender() {
+    console.log('teste');
+      switch(this.layoutCheck){
+        case 'm1':
+            console.log("Componente 1 renderizado")
+            this.m1Key += 1;
+        break;
+        case 'm2':
+        console.log("Componente 2 renderizado")
+
+            this.m2Key += 1;
+        break;
+        case 'm3':
+        console.log("Componente 3 renderizado")
+
+            this.m3Key += 1;
+        break;
+        case 'm4':
+            this.m4Key += 1;
+        break;
+        case 'm5':
+            this.m5Key += 1;
+        break;
+      }
+    }
 
 
   },
