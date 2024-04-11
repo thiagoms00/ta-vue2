@@ -3,7 +3,7 @@
     <div class="mainDiv">
         <TimePopup class="time-popup" v-if="alertPopup" @click="displayPopup(0)"></TimePopup>
         <FlexBar :fonte="fonte"/>
-        <div class="conteudo" v-if="layoutCheck=='m1'" :key="m1Key">
+        <div class="conteudo" v-if="layoutCheck=='m1'">
         <div class="pergunta">
             <div class="icon-mega" @click="playAudio(1)">
                     <span class="tooltipText">Escutar</span>
@@ -56,7 +56,7 @@
     </div>
 
     <!-- Layout 2(Imagem com largura grande) -->
-    <div class="conteudo conteudo-m2"  v-else-if="layoutCheck=='m2'" :key="m2Key">
+    <div class="conteudo conteudo-m2"  v-else-if="layoutCheck=='m2'">
     
 
         <div class="pergunta pergunta-m2">
@@ -109,7 +109,7 @@
     </div>
 
     <!-- Layout 3(Imagem com altura grande) -->
-    <div class="conteudo" v-else-if="layoutCheck=='m3'" :key="m3Key">
+    <div class="conteudo" v-else-if="layoutCheck=='m3'" >
         <div class="pergunta pergunta-m3">
             <div class="icon-mega" @click="playAudio(1)">
                     <span class="tooltipText">Escutar</span>
@@ -161,7 +161,7 @@
     </div>
 
     <!-- Layout 4, questões com imagens na alternativas -->
-    <div class="conteudo conteudo-m4" v-else-if="layoutCheck=='m4'" :key="m4Key">
+    <div class="conteudo conteudo-m4" v-else-if="layoutCheck=='m4'" >
 
         <div class="icon-questionImg">
             <div class="icon-mega" @click="playAudio(1)">
@@ -202,7 +202,7 @@
     </div>
 
     <!-- Layout de questõs pequenas (sem imagem/texto) -->
-    <div class="conteudo conteudo-m2" v-else="layoutCheck=='m5'" :key="m5Key">
+    <div class="conteudo conteudo-m2" v-else="layoutCheck=='m5'" >
 
             <div class="pergunta pergunta-m4">
                 <div class="icon-mega" @click="playAudio(1)">
