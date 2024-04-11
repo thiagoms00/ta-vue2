@@ -1343,7 +1343,7 @@ export default {
             this.resetStyle();
             
         } */
-        this.forceRerender();                                  //Rendereiza novamente o componente.
+        //this.forceRerender();                                  //Rendereiza novamente o componente.
         this.audioAux.pause();  
         this.megafoneDisable=false;                            //Garante que o megafone seja tocado quando a página é trocada.
         this.alertPopup = false;
