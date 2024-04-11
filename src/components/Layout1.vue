@@ -1219,7 +1219,7 @@ export default {
                 }
             break;  
             case 1:                                     //EXTRATO 1
-                if (this.PSR > this.poutn) {            // aprovação no estrato 1
+                if (this.PSR > this.pouts) {            // aprovação no estrato 1
                     this.resultado = 1;
                     console.log("Fim do extrato 1: Avançando para o Extrato 2");
                     this.nestr = 2;
