@@ -190,11 +190,6 @@ export default {
     font-size: 0.6rem !important;
   }
 
-  .form-field prepend-inner-icon{
-    width: 5  px;
-    height: auto;
-  }
-
   .btnTeste{
     width: 25vw !important;
     height: 6.3vh !important;

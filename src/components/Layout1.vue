@@ -350,6 +350,8 @@ export default {
             jsonData: [],
             megafoneDisable : false,
             alertPopup : false,
+            alertTimeoutId : '',
+            audioAux : '',
 
             
             dadosTeste : {                      /* Objeto que armazena as informações do teste. */
@@ -435,7 +437,8 @@ export default {
     },
 
     mounted(){                          //Chamado após os componentes carregarem.
-        setTimeout(() => {              //Exibe o popup após 30 segundos sem clicar no continuar.
+        this.playAudio(1);
+        this.alertTimeoutId = setTimeout(() => {              //Exibe o popup após 30 segundos sem clicar no continuar.
             this.displayPopup(1); 
         }, 45000)
         this.changeByID();
@@ -454,10 +457,8 @@ export default {
      },
       
      checkAnswer(){                     //É chamado sempre que um usuario clicar no botão "Continuar"
-      /*   this.alertPopup = false;
-        setTimeout(() => {              //Exibe o popup após 30 segundos sem clicar no "Continuar".
-            this.displayPopup(1); 
-        }, 30000)   */
+        this.alertPopup = false;
+         
         this.changeByID();
 
         const radioButtons = document.querySelectorAll('input[name="question-choice"]');  //seleciona todos os radio buttons.
@@ -510,14 +511,13 @@ export default {
 
      playAudio(audioNum){  
         if(this.megafoneDisable==false){
-            let audio = new Audio(this.questionAudio1);
+            this.audioAux = new Audio(this.questionAudio1);
             this.megafoneDisable=true;
-            audio.play();
-            setTimeout(this.resetMegafone, 4000);
+            this.audioAux.play();
+            setTimeout(this.resetMegafone, 5500);           //Impede que o megafone seja tocado por 5,5 segundos.
         }
-
-
-
+       
+    
        /*  if(audioNum==1){
             let audio = new Audio(this.questionAudio1);
             audio.play();
@@ -525,6 +525,12 @@ export default {
          
         
      },
+
+     stopAudio(){
+        let audio = new Audio(this.questionAudio1);
+        audio.pause();
+      },
+
 
      
      changeByID(){                                          //Muda detalhes com base no ID do item
@@ -818,9 +824,9 @@ export default {
             break;
 
             case 'LP_H03_00_013':
-            aux = document.getElementById("imgM1");
-            aux.style.width = '50vw';
-            aux.style.marginTop = '20vh';
+            aux = document.getElementById("imgM3");
+            aux.style.width = '45vw';
+            aux.style.marginTop = '3vh';
             break;
 
             case 'LP_H2_01_005':
@@ -1311,7 +1317,16 @@ export default {
     },
 
     async changeQuestion(){
-       
+        //document.querySelectorAll('audio').forEach(el => el.pause());  //Para todos audios que estão sendo executados.
+        this.audioAux.pause();
+        this.megafoneDisable=false;                            //Garante que o megafone seja tocado quando a página é trocada.
+        this.alertPopup = false;
+        clearTimeout(this.alertTimeoutId);
+        this.alertTimeoutId = setTimeout(() => {              //Exibe o popup após 45 segundos sem clicar no "Continuar".
+            this.displayPopup(1); 
+        }, 45000)
+
+
         this.questionNumber = this.ordem[this.nestr][this.ind_questao];
         this.questionId = this.jsonData.questoes[this.questionNumber].id
         this.questionText = this.jsonData.questoes[this.questionNumber].text; 
@@ -1328,7 +1343,7 @@ export default {
         this.questionAlt4 = this.jsonData.questoes[this.questionNumber].alt4;
         this.questionAnswer = this.jsonData.questoes[this.questionNumber].answer;
         this.fonte = this.jsonData.questoes[this.questionNumber].fonte;
-        console.log(this.fonte);
+        this.playAudio(1);
 
         
 
@@ -1405,6 +1420,7 @@ export default {
 
         //ordem_0 = [0,1,2,3,4,5,6,7,8,9];                //Para testar sequencialmente, comentar depois.
        // ordem_1 = [0,1,2,3,4,5,6,7,8,9,10,11];           //Para testar sequencialmente, comentar depois.  
+       
          
         this.ordem = [ordem_0, ordem_1, ordem_2, ordem_3];
     },
@@ -1416,8 +1432,8 @@ export default {
 
         else if(aux==0){
             this.alertPopup = false;
-            setTimeout(() => {
-                this.displayPopup(1); 
+            this.alertTimeoutId = setTimeout(() => {
+                 this.displayPopup(1); 
             }, 45000)
         }
     },

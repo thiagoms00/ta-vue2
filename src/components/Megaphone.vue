@@ -31,20 +31,10 @@ export default{
 
     mounted(){
         this.megafoneDisable = false;
-        this.playAudio();
+        //this.playAudio();
     },
 
     methods: {
-        playAudio(){
-
-            if(this.megafoneDisable==false){
-                let audio = new Audio(audiowelcome);
-                audio.play();
-                this.megafoneDisable = true;
-                setTimeout(this.resetMegafone,13000);
-            }
-        
-        },
         resetMegafone(){           
             this.megafoneDisable = false;
         },
