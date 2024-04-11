@@ -581,24 +581,6 @@
             "fonte": "http://super.abril.com.br/ciencia/o-segredo-das-formigas."
         },
         {
-            "id" : "LP_H03_00_014",                             
-            "layout" : "m1",
-            "type" : "Lingua portuguesa",
-            "textTitle":"",
-            "qText":"H B T",
-            "img1":"",
-            "img2":"",
-            "text": "Marque a alternativa que apresenta essas letras.",
-            "audio1": "/src/assets/audios/extrato2/LP_H03_00_014_F1.mp3",
-            "audio2": "",
-            "alt1": "b      n      f",
-            "alt2": "b      h      d",
-            "alt3": "h      b      t",
-            "alt4": "h      r      d",
-            "answer" : "h      b      t",
-            "fonte": ""
-        },
-        {
             "id" : "LP_H10_01_003",                             
             "layout" : "m1",
             "type" : "Lingua portuguesa",
