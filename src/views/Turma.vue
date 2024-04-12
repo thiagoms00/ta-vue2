@@ -18,17 +18,28 @@
             <v-sheet rounded="lg">
               <v-list rounded="lg">
                 <v-list-item v-for="n in 5" :key="n" :title="`Turma ${n}`" link></v-list-item>
+              </v-list>
+            </v-sheet>
+
+            <v-sheet rounded="lg" class="mt-5">
+              <v-list rounded="lg">
+                <v-list-item variant="elevated"> Filtro </v-list-item>
+                <v-list-item> % de Acerto </v-list-item>
+                <v-list-item> Extrato </v-list-item>
+                <v-list-item> Status </v-list-item>
+                <v-list-item> Nº de Questões </v-list-item>
 
               </v-list>
             </v-sheet>
+
           </v-col>
 
           <v-col>
             <v-sheet min-height="70vh" rounded="lg">
 
               <v-table>
-                <thead>
-                  <tr class="">
+                <thead variant="flat">
+                  <tr class="header-row">
                     <th class="text-left">
                       Matrícula
                     </th>
@@ -44,7 +55,7 @@
                     <th class="text-left">
                       Nº de Questões Feitas
                     </th>
-                    
+
                     <th class="text-left">
                       Status de Atividade
                     </th>
@@ -53,15 +64,19 @@
 
                 <tbody>
 
-                  <tr v-for="item in listaTurma" :key="item.nome">
+                  <tr v-for="(item, index) in listaTurma" :key="item.nome"
+                    :class="{ 'even-row': index % 2 === 0, 'odd-row': index % 2 !== 0 }">
 
                     <td>{{ item.user['mat'] }}</td>
                     <td>{{ item.user['nome'] }}</td>
-                    <td>{{ item.extratoFinal }}</td>
-                    
-                    <td>{{ item.porcentagem_questoes }} % </td>
-                    <td>{{ item.numero_questoes_feitas }}</td>
-                    
+                    <td>{{ (item.status === 'Não Iniciado' || item.status === 'Iniciado') ? '-' : item.extratoFinal }}
+                    </td>
+
+                    <td>{{ (item.status === 'Não Iniciado' || item.status === 'Iniciado') ? '-' :
+          item.porcentagem_questoes + '%' }} </td>
+                    <td>{{ (item.status === 'Não Iniciado' || item.status === 'Iniciado') ? '-' :
+          item.numero_questoes_feitas }}</td>
+
                     <td>
                       <v-chip :color="getColor(item.status)" :prepend-icon="getIcon(item.status)">
                         {{ item.status }}
@@ -77,6 +92,55 @@
 
                 </tbody>
               </v-table>
+
+              <v-expansion-panels variant="accordion">
+                <v-expansion-panel v-for="(item) in listaTurma" :key="item.nome">
+
+
+                  <v-expansion-panel-title >
+                    <v-row class="dflex align-center">
+                      <v-col>
+                        {{ item.user['mat'] }}
+                      </v-col>
+                      <v-col>
+                        {{ item.user['nome'] }}
+                      </v-col>
+                      <v-col>
+                        {{ (item.status === 'Não Iniciado' || item.status === 'Iniciado') ? '-' : item.extratoFinal }}
+                      </v-col>
+                      <v-col>
+                        {{ (item.status === 'Não Iniciado' || item.status === 'Iniciado') ? '-' :
+                        item.porcentagem_questoes + '%' }}
+                      </v-col>
+                      <v-col>
+                        {{ (item.status === 'Não Iniciado' || item.status === 'Iniciado') ? '-' :
+                        item.numero_questoes_feitas }}
+                      </v-col>
+                      <v-col>
+                        <v-chip :color="getColor(item.status)" :prepend-icon="getIcon(item.status)">
+                          {{ item.status }}
+                        </v-chip>
+                      </v-col>
+                    </v-row>
+
+                  </v-expansion-panel-title>
+
+                  <v-expansion-panel-text>
+                    <v-row justify="space-around" no-gutters>
+                      <v-col cols="3">
+                        <v-text-field > OI </v-text-field>
+                      </v-col>
+
+                      <v-col cols="3">
+                        <v-text-field > OI </v-text-field>
+                      </v-col>
+                    </v-row>
+
+                  </v-expansion-panel-text>
+
+                </v-expansion-panel>
+              </v-expansion-panels>
+
 
             </v-sheet>
           </v-col>
@@ -104,7 +168,7 @@ export default {
 
     listaTurma: [],
     carregandoTurmas: true,
-    chipValue : ''
+    chipValue: ''
 
   }),
 
@@ -152,24 +216,51 @@ export default {
     getColor(chipValue) {
       // Lógica para determinar a cor com base no valor de chipValue
       if (chipValue === 'Não Iniciado') {
-          return ''; // Default
+        return ''; // Default
       } else if (chipValue === 'Iniciado') {
-          return 'orange'; // Verde
-      } else if(chipValue === 'Finalizado'){
-          return 'green'; // Vermelho (ou qualquer outra cor padrão)
+        return 'orange'; // Verde
+      } else if (chipValue === 'Finalizado') {
+        return 'green'; // Vermelho (ou qualquer outra cor padrão)
       }
     },
 
     getIcon(chipValue) {
-      
+
       if (chipValue === 'Não Iniciado') {
-          return 'mdi-cancel'; // Default
+        return 'mdi-cancel'; // Default
       } else if (chipValue === 'Iniciado') {
-          return 'mdi-minus-circle'; // Verde
-      } else if(chipValue === 'Finalizado'){
-          return 'mdi-checkbox-marked-circle'; // Vermelho (ou qualquer outra cor padrão)
+        return 'mdi-minus-circle'; // Verde
+      } else if (chipValue === 'Finalizado') {
+        return 'mdi-checkbox-marked-circle'; // Vermelho (ou qualquer outra cor padrão)
       }
+    }
+  },
+
+  getDefaultData(chipValue) {
+    if (chipValue === 'Não Iniciado') {
+      return 'mdi-cancel'; // Default
+    } else if (chipValue === 'Iniciado') {
+      return 'mdi-minus-circle'; // Verde
+    } else if (chipValue === 'Finalizado') {
+      return 'mdi-checkbox-marked-circle'; // Vermelho (ou qualquer outra cor padrão)
     }
   }
 }
 </script>
+
+<style>
+thead tr {
+  background-color: #ffffff;
+  /* Cor de fundo branca para a linha de títulos */
+}
+
+.even-row {
+  background-color: #CFE2F3;
+  /* Cor para as linhas pares */
+}
+
+.odd-row {
+  background-color: #F0F8FF;
+  /* Cor para as linhas ímpares */
+}
+</style>

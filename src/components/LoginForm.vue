@@ -100,7 +100,7 @@ export default {
 
       // Processamento do formulário
       const userData = {
-        aluno: this.email,
+        id: this.email,
         senha: this.senha
       };
 
