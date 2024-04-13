@@ -36,7 +36,7 @@
           </v-col>
 
           <v-col>
-            <v-sheet min-height="70vh" rounded="lg">
+            <v-sheet rounded="lg">
 
               <v-expansion-panels :readonly="true" rounded="lg">
                 <v-expansion-panel>
@@ -58,6 +58,9 @@
 
                 </v-expansion-panel>
               </v-expansion-panels>
+            </v-sheet>
+
+            <v-sheet rounded="lg" class="mt-6">
 
 
 
@@ -138,6 +141,7 @@ export default {
     listaTurma: [],
     carregandoTurmas: true,
     chipValue: ''
+    
 
   }),
 
