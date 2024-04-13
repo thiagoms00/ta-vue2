@@ -14,6 +14,7 @@
     <v-main class="bg-blue-grey-lighten-5">
       <v-container>
         <v-row>
+
           <v-col cols="2">
             <v-sheet rounded="lg">
               <v-list rounded="lg">
@@ -37,67 +38,35 @@
           <v-col>
             <v-sheet min-height="70vh" rounded="lg">
 
-              <v-table>
-                <thead variant="flat">
-                  <tr class="header-row">
-                    <th class="text-left">
-                      Matrícula
-                    </th>
-                    <th class="text-left">
-                      Nome
-                    </th>
-                    <th class="text-left">
-                      Extrato Final
-                    </th>
-                    <th class="text-left">
-                      Porcentagem de Acerto
-                    </th>
-                    <th class="text-left">
-                      Nº de Questões Feitas
-                    </th>
+              <v-expansion-panels :readonly="true" rounded="lg">
+                <v-expansion-panel>
+                  <v-expansion-panel-title style="height: 4vh;" disable-icon>
+                    <template v-slot:actions>
+                      <!-- Só pra retirar o ícone. -->
+                    </template>
 
-                    <th class="text-left">
-                      Status de Atividade
-                    </th>
-                  </tr>
-                </thead>
+                    <v-row class="dflex align-center">
+                      <v-col> Matrícula </v-col>
+                      <v-col> Nome </v-col>
+                      <v-col> Extrato </v-col>
+                      <v-col> Porcentagem </v-col>
+                      <v-col> Nº de Questões </v-col>
+                      <v-col> Status </v-col>
+                    </v-row>
 
-                <tbody>
+                  </v-expansion-panel-title>
 
-                  <tr v-for="(item, index) in listaTurma" :key="item.nome"
-                    :class="{ 'even-row': index % 2 === 0, 'odd-row': index % 2 !== 0 }">
-
-                    <td>{{ item.user['mat'] }}</td>
-                    <td>{{ item.user['nome'] }}</td>
-                    <td>{{ (item.status === 'Não Iniciado' || item.status === 'Iniciado') ? '-' : item.extratoFinal }}
-                    </td>
-
-                    <td>{{ (item.status === 'Não Iniciado' || item.status === 'Iniciado') ? '-' :
-          item.porcentagem_questoes + '%' }} </td>
-                    <td>{{ (item.status === 'Não Iniciado' || item.status === 'Iniciado') ? '-' :
-          item.numero_questoes_feitas }}</td>
-
-                    <td>
-                      <v-chip :color="getColor(item.status)" :prepend-icon="getIcon(item.status)">
-                        {{ item.status }}
-                      </v-chip>
-                    </td>
-
-                  </tr>
-
-                  <!-- <v-skeleton-loader type="list-item-two-line"></v-skeleton-loader> -->
+                </v-expansion-panel>
+              </v-expansion-panels>
 
 
 
-
-                </tbody>
-              </v-table>
-
-              <v-expansion-panels variant="accordion">
-                <v-expansion-panel v-for="(item) in listaTurma" :key="item.nome">
+              <v-expansion-panels variant="accordion" class="mt-4">
+                <v-expansion-panel v-for="(item) in listaTurma" :key="item.nome"
+                  :readonly="item.status !== 'Finalizado'">
 
 
-                  <v-expansion-panel-title >
+                  <v-expansion-panel-title style="height: 5vh;">
                     <v-row class="dflex align-center">
                       <v-col>
                         {{ item.user['mat'] }}
@@ -110,11 +79,11 @@
                       </v-col>
                       <v-col>
                         {{ (item.status === 'Não Iniciado' || item.status === 'Iniciado') ? '-' :
-                        item.porcentagem_questoes + '%' }}
+          item.porcentagem_questoes + '%' }}
                       </v-col>
                       <v-col>
                         {{ (item.status === 'Não Iniciado' || item.status === 'Iniciado') ? '-' :
-                        item.numero_questoes_feitas }}
+          item.numero_questoes_feitas }}
                       </v-col>
                       <v-col>
                         <v-chip :color="getColor(item.status)" :prepend-icon="getIcon(item.status)">
@@ -128,11 +97,11 @@
                   <v-expansion-panel-text>
                     <v-row justify="space-around" no-gutters>
                       <v-col cols="3">
-                        <v-text-field > OI </v-text-field>
+                        <v-text-field> OI </v-text-field>
                       </v-col>
 
                       <v-col cols="3">
-                        <v-text-field > OI </v-text-field>
+                        <v-text-field> OI </v-text-field>
                       </v-col>
                     </v-row>
 
