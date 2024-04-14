@@ -104,12 +104,12 @@
 
 
 
-              <v-expansion-panels variant="accordion" class="mt-4" >
+              <v-expansion-panels variant="accordion" class="mt-4">
                 <v-expansion-panel v-for="(item) in listaTurmaOrdenada" :key="item.nome"
-                  :readonly="item.status !== 'Finalizado'">
+                  :readonly="item.status !== 'Finalizado'" ref="panels">
 
 
-                  <v-expansion-panel-title style="height: 5vh;" class="list-animation">
+                  <v-expansion-panel-title style="height: 5vh;">
                     <v-row class="dflex align-center">
                       <v-col>
                         {{ item.user['mat'] }}
@@ -122,7 +122,7 @@
                       </v-col>
                       <v-col>
                         {{ (item.status === 'Não Iniciado' || item.status === 'Iniciado') ? '-' :
-          item.porcentagem_questoes + '%' }}
+          item.porcentagem_questoes.toFixed(2) + '%' }}
                       </v-col>
                       <v-col>
                         {{ (item.status === 'Não Iniciado' || item.status === 'Iniciado') ? '-' :
@@ -140,11 +140,11 @@
                   <v-expansion-panel-text>
                     <v-row justify="space-around" no-gutters>
                       <v-col cols="3">
-                        <v-text-field> OI </v-text-field>
+                        <Chart :chartData="chartData" />
                       </v-col>
 
                       <v-col cols="3">
-                        <v-text-field> OI </v-text-field>
+
                       </v-col>
                     </v-row>
 
@@ -172,16 +172,54 @@ const links = [
 
 <script>
 import axios from 'axios';
+import Chart from '@/components/Chart.vue'
 
 export default {
   name: 'Turma',
+  components: {
+    Chart
+  },
 
   data: () => ({
 
     listaTurma: [],
     carregandoTurmas: true,
     chipValue: '',
-    toggle: undefined
+    toggle: undefined,
+
+    chartData: {
+      labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho'],
+      datasets: [{
+        label: 'Vendas Mensais',
+        data: this.calculaHabilidades(),
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(50, 205, 50, 0.2)',
+          'rgba(255, 0, 255, 0.2)',
+          'rgba(0, 191, 255, 0.2)',
+          'rgba(255, 140, 0, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(50, 205, 50, 1)',
+          'rgba(255, 0, 255, 1)',
+          'rgba(0, 191, 255, 1)',
+          'rgba(255, 140, 0, 1)'
+        ],
+        borderWidth: 2
+      }]
+    }
+
 
 
   }),
@@ -261,6 +299,22 @@ export default {
 
     handleFilterValue() {
       console.log(this.toggle);
+    },
+
+    calculaHabilidades(){
+      const habilidades = {};
+
+      this.listaturma.listaQuest.forEach(questao => {
+      if (questao.acertou) {
+        const nivel = questao.id.split('_')[1]; // Obter o nível da habilidade (por exemplo, "H06")
+        const numeroNivel = parseInt(nivel.slice(1, 3)); // Extrair o número do nível (por exemplo, 6)
+
+        if (numeroNivel >= 0 && numeroNivel <= 11) {
+          const habilidade = `H${numeroNivel.toString().padStart(2, '0')}`; // Formatar habilidade (por exemplo, "H06" para "H06")
+          habilidades[habilidade] = (habilidades[habilidade] || 0) + 1;
+        }
+    }
+});
     }
 
   },
@@ -287,33 +341,9 @@ export default {
       // Adicione condições semelhantes para outros tipos de filtragem, se necessário
       return this.listaTurma;
     }
-  }
+  },
 
 }
 </script>
 
-<style>
-thead tr {
-  background-color: #ffffff;
-  /* Cor de fundo branca para a linha de títulos */
-}
-
-.even-row {
-  background-color: #CFE2F3;
-  /* Cor para as linhas pares */
-}
-
-.odd-row {
-  background-color: #F0F8FF;
-  /* Cor para as linhas ímpares */
-}
-
-.list-animation-enter-active, .list-animation-leave-active {
-  transition: transform 0.5s ease;
-}
-.list-animation-enter, .list-animation-leave-to {
-  transform: translateY(-20px);
-  opacity: 0;
-}
-
-</style>
+<style></style>

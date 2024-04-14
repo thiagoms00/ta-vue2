@@ -14,7 +14,7 @@
           <p class="font-weight-light">Você irá responder algumas questões de Língua Portuguesa.</p>
           <p>Indique, em cada questão, a alternativa que você considera correta.</p>
           <p>Para iniciar, clique no botão abaixo.</p>
-          <v-btn class ="flex-grow-1 mt-4" height="55" size="large" width="50%" variant="flat" color="#1E3892" elevation-15 @click="proximaPagina"> Começar </v-btn>
+          <v-btn class ="flex-grow-1 mt-4" height="55" size="large" width="50%" variant="flat" color="#1E3892" elevation-15 @click="proximaPagina" :loading="loading" > {{buttonText}} </v-btn>
 
         </v-container>
       </v-sheet>
@@ -37,6 +37,8 @@ import audiowelcome from '@/assets/audios/outros_audios/audio_bemvindo.mp3'
         return {
           audioAux: '',
           megafoneDisable : false,
+          loading: false,
+          buttonText: 'Continuar'
         }
       },  
 
@@ -48,6 +50,7 @@ import audiowelcome from '@/assets/audios/outros_audios/audio_bemvindo.mp3'
         proximaPagina() {
           this.audioAux.pause();
           this.$router.push('/testStart');
+          this.loading = true;
         },
         resetMegafone(){            //Utilizar esta função sempre que trocar de item.
           this.megafoneDisable = false;
