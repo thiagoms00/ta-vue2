@@ -16,21 +16,61 @@
         <v-row>
 
           <v-col cols="2">
-            <v-sheet rounded="lg">
-              <v-list rounded="lg">
-                <v-list-item v-for="n in 5" :key="n" :title="`Turma ${n}`" link></v-list-item>
-              </v-list>
+
+            <v-sheet class=" h-50" rounded="lg">
+
+              <div class="d-flex justify-space-evenly py-2">
+                <v-icon icon="mdi-school-outline"> </v-icon>
+                <p> Turmas </p>
+              </div>
+              <v-divider></v-divider>
+
+              <v-btn-toggle class="d-flex flex-column w-100 h-100" color="blue-lighten-4" rounded="0">
+
+                <v-btn class="pa-4">
+                  Turma 1
+                </v-btn>
+
+                <v-btn class="pa-4">
+                  Turma 2
+                </v-btn>
+
+              </v-btn-toggle>
+
             </v-sheet>
 
-            <v-sheet rounded="lg" class="mt-5">
-              <v-list rounded="lg">
-                <v-list-item variant="elevated"> Filtro </v-list-item>
-                <v-list-item> % de Acerto </v-list-item>
-                <v-list-item> Extrato </v-list-item>
-                <v-list-item> Status </v-list-item>
-                <v-list-item> Nº de Questões </v-list-item>
+            <v-sheet class="mt-4 h-75" rounded="lg">
 
-              </v-list>
+              <div class="d-flex justify-space-evenly py-2">
+                <v-icon icon="mdi-filter-variant"> </v-icon>
+                <p> Filtros </p>
+              </div>
+              <v-divider></v-divider>
+
+              <v-btn-toggle class="d-flex flex-column w-100 h-100" color="blue-lighten-4" rounded="0" v-model="toggle">
+
+                <v-btn class="pa-4" value="Extrato" @click="handleFilterValue()">
+                  Extrato
+                </v-btn>
+
+                <v-btn class="pa-4" value="Status" @click="handleFilterValue()">
+                  Status
+                </v-btn>
+
+                <v-btn class="pa-3" value="Porcentagem" @click="handleFilterValue()">
+                  Porcentagem de <br> questão
+                </v-btn>
+
+                <v-btn class="pa-4" value="N Questões" @click="handleFilterValue()">
+                  Nº de questões
+                </v-btn>
+
+                <v-btn class="pa-4" value="Nome" @click="handleFilterValue()">
+                  Nome
+                </v-btn>
+
+              </v-btn-toggle>
+
             </v-sheet>
 
           </v-col>
@@ -64,12 +104,12 @@
 
 
 
-              <v-expansion-panels variant="accordion" class="mt-4">
-                <v-expansion-panel v-for="(item) in listaTurma" :key="item.nome"
+              <v-expansion-panels variant="accordion" class="mt-4" >
+                <v-expansion-panel v-for="(item) in listaTurmaOrdenada" :key="item.nome"
                   :readonly="item.status !== 'Finalizado'">
 
 
-                  <v-expansion-panel-title style="height: 5vh;">
+                  <v-expansion-panel-title style="height: 5vh;" class="list-animation">
                     <v-row class="dflex align-center">
                       <v-col>
                         {{ item.user['mat'] }}
@@ -140,8 +180,9 @@ export default {
 
     listaTurma: [],
     carregandoTurmas: true,
-    chipValue: ''
-    
+    chipValue: '',
+    toggle: undefined
+
 
   }),
 
@@ -206,18 +247,48 @@ export default {
       } else if (chipValue === 'Finalizado') {
         return 'mdi-checkbox-marked-circle'; // Vermelho (ou qualquer outra cor padrão)
       }
-    }
-  },
+    },
 
-  getDefaultData(chipValue) {
-    if (chipValue === 'Não Iniciado') {
-      return 'mdi-cancel'; // Default
-    } else if (chipValue === 'Iniciado') {
-      return 'mdi-minus-circle'; // Verde
-    } else if (chipValue === 'Finalizado') {
-      return 'mdi-checkbox-marked-circle'; // Vermelho (ou qualquer outra cor padrão)
+    getDefaultData(chipValue) {
+      if (chipValue === 'Não Iniciado') {
+        return 'mdi-cancel'; // Default
+      } else if (chipValue === 'Iniciado') {
+        return 'mdi-minus-circle'; // Verde
+      } else if (chipValue === 'Finalizado') {
+        return 'mdi-checkbox-marked-circle'; // Vermelho (ou qualquer outra cor padrão)
+      }
+    },
+
+    handleFilterValue() {
+      console.log(this.toggle);
+    }
+
+  },
+  // FIM DO METHODSSSSSSS
+  computed: {
+    listaTurmaOrdenada() {
+      if (this.toggle === "Nome") {
+        return this.listaTurma.slice().sort((a, b) => (a.user['nome'] > b.user['nome']) ? 1 : -1);
+      }
+      else if (this.toggle === "Extrato") {
+        const extratoOrder = { '3': 0, '2': 1, '1': 2, '': 3 };
+        return this.listaTurma.slice().sort((a, b) => extratoOrder[a.extratoFinal] - extratoOrder[b.extratoFinal]);
+      }
+      else if (this.toggle === "Status") {
+        const statusOrder = { 'Finalizado': 0, 'Iniciado': 1, 'Não Iniciado': 2 };
+        return this.listaTurma.slice().sort((a, b) => statusOrder[a.status] - statusOrder[b.status]);
+      }
+      else if (this.toggle === "Porcentagem") {
+        return this.listaTurma.slice().sort((a, b) => b.porcentagem_questoes - a.porcentagem_questoes);
+      }
+      else if (this.toggle === "N Questões") {
+        return this.listaTurma.slice().sort((a, b) => b.numero_questoes_feitas - a.numero_questoes_feitas);
+      }
+      // Adicione condições semelhantes para outros tipos de filtragem, se necessário
+      return this.listaTurma;
     }
   }
+
 }
 </script>
 
@@ -236,4 +307,13 @@ thead tr {
   background-color: #F0F8FF;
   /* Cor para as linhas ímpares */
 }
+
+.list-animation-enter-active, .list-animation-leave-active {
+  transition: transform 0.5s ease;
+}
+.list-animation-enter, .list-animation-leave-to {
+  transform: translateY(-20px);
+  opacity: 0;
+}
+
 </style>
