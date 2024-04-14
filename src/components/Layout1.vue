@@ -353,6 +353,8 @@ export default {
             alertTimeoutId : '',
             audioAux : '',
 
+            extrato1Flag : false,               //Vai ser usado para determinar se o usuario já foi reprovado no extrato1.
+
             m1Key:0,                            //Chave do layout1.
             m2Key:0,                            //Chave do layout2.
             m3Key:0,                            //Chave do layout3.
@@ -1120,13 +1122,13 @@ export default {
             break;
         }
     
-        this.Questoes = Array(this.nq[nestr] - jquest).fill(0);// lista que armazenará os identificadores das questões apresentadas
+        this.Questoes = Array(this.nq[nestr] - jquest).fill(0);  // lista que armazenará os identificadores das questões apresentadas
         this.Respostas = Array(this.nq[nestr] - jquest).fill(0); // lista que armazenará as respostas do estudante às questões
-        //this.termina = false;                            // flag de término da bateria de questões referente ao estrato
-        this.ind_questao = jquest;                       // índice relativo da questão (aponta agora para primeira questão a ser utilizada)
-        this.resultado = 0;                              // vai conter: -1 -> reprovação; 0 -> indefinido; 1 -> aprovação
-        this.seq_prob_dom = new Array(this.nq[nestr]);        // vai conter as probabilidades ter marcado o item dado que domina conteúdo
-        this.seq_prob_ndom = new Array(this.nq[nestr]);       // vai conter as probabilidades ter marcado o item dado que não domina conteúdo
+        //this.termina = false;                                  // flag de término da bateria de questões referente ao extrato
+        this.ind_questao = jquest;                               // índice relativo da questão (aponta agora para primeira questão a ser utilizada)
+        this.resultado = 0;                                      // vai conter: -1 -> reprovação; 0 -> indefinido; 1 -> aprovação
+        this.seq_prob_dom = new Array(this.nq[nestr]);           // vai conter as probabilidades ter marcado o item dado que domina conteúdo
+        this.seq_prob_ndom = new Array(this.nq[nestr]);          // vai conter as probabilidades ter marcado o item dado que não domina conteúdo
         this.seq_prob_dom.fill(1);
         this.seq_prob_ndom.fill(1);
         this.jiter = 0;
@@ -1186,13 +1188,15 @@ export default {
 
         */
         switch(this.nestr){
+
+
             case 0:                                     //EXTRATO 0
-                if (this.PSR > this.pouts) {            // aprovação no estrato 0
+                if (this.PSR > this.pouts) {            // aprovação no extrato 0
                     this.resultado = 1;
                     console.log("Fim do extrato 0: Avançando para o Extrato 1");
                     this.nestr = 1;
                     this.resetaExtrato(this.nestr,0);
-                } else if (this.PSR < this.poutn) {     // reprovação no estrato 0
+                } else if (this.PSR < this.poutn) {     // reprovação no extrato 0
                     this.resultado = -1;
                     console.log("Fim do extrato 0: Reprovado no extrato 0"); 
                     this.dadosTeste.resultado = 0; 
@@ -1215,34 +1219,90 @@ export default {
                     
 
                 } else if (this.jiter >= this.nq[this.nestr] - this.jquest) { // termina indefinido
-                    console.log("Fim do extrato");
+                    console.log("Fim do extrato 0");
+
+                    if(this.termina==false){
+                        this.dadosTeste.resultado = -1; 
+                        this.sendDataTest(this.dadosTeste);
+                        console.log("Fim do teste principal, iniciando coleta de dados.");
+                        this.coletaDados = true;
+                        this.termina=true;
+                        this.nestr = 1;
+                        this.resetaExtrato(this.nestr,0);       
+                    }
+                    else{
+                        this.questionFlag = true;
+                        this.$router.push('/congratulations');
+                    }
+
                 }
             break;  
+
+
             case 1:                                     //EXTRATO 1
-                if (this.PSR > this.pouts) {            // aprovação no estrato 1
+                if (this.PSR > this.pouts) {            // aprovação no extrato 1
                     this.resultado = 1;
                     console.log("Fim do extrato 1: Avançando para o Extrato 2");
                     this.nestr = 2;
                     this.resetaExtrato(this.nestr,0);
-                } else if (this.PSR < this.poutn) {     // reprovação no estrato 1
+                } else if (this.PSR < this.poutn) {     // reprovação no extrato 1
                     this.resultado = -1;
                     this.nestr = 0;
-                    console.log("Fim do extrato 1: Retrocedendo ao extrato 0");  
-                    this.resetaExtrato(this.nestr,0);
+
+                    if(this.extrato1Flag === false){      //Aluno foi reprovado pela primeira vez no extrato 1
+                        console.log("Fim do extrato 1: Retrocedendo ao extrato 0");  
+                        this.extrato1Flag = true;
+                        this.resetaExtrato(this.nestr,0);
+                    }
+                    else if(this.extrato1Flag === true){ //Aluno foi reprovado pela segunda vez no extrato 1
+                        if(this.termina===false){
+                            //Enviar dados pro backend
+                            this.dadosTeste.resultado = 1; 
+                            this.sendDataTest(this.dadosTeste);
+                            console.log("Fim do teste principal, iniciando coleta de dados.");
+                            this.coletaDados = true;
+                            this.extrato1Flag = false;           
+                            this.termina=true;
+                            this.nestr = 1;
+                            this.resetaExtrato(this.nestr,0);       
+                        
+                        }
+                        else{
+                            this.questionFlag = true;
+                            this.$router.push('/congratulations');
+                        }
+                    }
+                  
                 } else if (this.jiter >= this.nq[this.nestr] - this.jquest) { // termina indefinido
-                    console.log("Fim do extrato");
+                    console.log("Fim do extrato 1");
+
+                    if(this.termina==false){
+                        this.dadosTeste.resultado = -1; 
+                        this.sendDataTest(this.dadosTeste);
+                        console.log("Fim do teste principal, iniciando coleta de dados.");
+                        this.coletaDados = true;
+                        this.termina=true;
+                        this.nestr = 1;
+                        this.resetaExtrato(this.nestr,0);       
+                    }
+                    else{
+                        this.questionFlag = true;
+                        this.$router.push('/congratulations');
+                    }
                 }
             break;
+
+
             case 2:                                     //EXTRATO 2
-                if (this.PSR > this.pouts) {            // aprovação no estrato 2
+                if (this.PSR > this.pouts) {            // aprovação no extrato 2
                     this.resultado = 1;
                     console.log("Fim do extrato 2: Avançando para o Extrato 3");
                     this.nestr = 3;
                     this.resetaExtrato(this.nestr,0);
-                } else if (this.PSR < this.poutn) {     // reprovação no estrato 2
+                } else if (this.PSR < this.poutn) {     // reprovação no extrato 2
                     this.resultado = -1;
                     console.log("Fim do extrato 2: Reprovado no extrato 2");  
-                    this.dadosTeste.resultado = 1; 
+                    this.dadosTeste.resultado = 2; 
                     console.log(this.dadosTeste);
 
 
@@ -1257,22 +1317,37 @@ export default {
                         
                     }
                     else{
-                        //Enviar dados ao backend
                         this.questionFlag = true;
                         this.$router.push('/congratulations');
                     }
                 } else if (this.jiter >= this.nq[this.nestr] - this.jquest) { // termina indefinido
-                    console.log("Fim do extrato");
+
+                    console.log("Fim do extrato 2");
+                    if(this.termina==false){
+                        this.dadosTeste.resultado = -1; 
+                        this.sendDataTest(this.dadosTeste);
+                        console.log("Fim do teste principal, iniciando coleta de dados.");
+                        this.coletaDados = true;
+                        this.termina=true;
+                        this.nestr = 1;
+                        this.resetaExtrato(this.nestr,0);       
+                    }
+                    else{
+                        this.questionFlag = true;
+                        this.$router.push('/congratulations');
+                    }
                 }
             break;
+
+
             case 3:                                     //EXTRATO 3
-                if (this.PSR > this.pouts) {            //Aprovação no estrato 3
+                if (this.PSR > this.pouts) {            //Aprovação no extrato 3
                     this.resultado = 1;
                     console.log("Fim do extrato 3: Aprovado no extrato 3");
-                    this.dadosTeste.resultado = 3; 
                     console.log(this.dadosTeste);
                     if(this.termina===false){
                         //Enviar dados pro backend
+                        this.dadosTeste.resultado = 4; 
                         this.sendDataTest(this.dadosTeste);
                         console.log("Fim do teste principal, iniciando coleta de dados.");
                         this.coletaDados = true;
@@ -1285,11 +1360,11 @@ export default {
                         this.questionFlag = true;
                         this.$router.push('/congratulations');
                     }
-                } else if (this.PSR < this.poutn) {     // reprovação no estrato 3
+                } else if (this.PSR < this.poutn) {     // reprovação no extrato 3
                     this.resultado = -1;
                     console.log("Fim do extrato 3: Reprovado no extrato 3");
-                    this.dadosTeste.resultado = 2; 
                     console.log(this.dadosTeste);
+                    this.dadosTeste.resultado = 3; 
 
                     if(this.termina===false){
                         //Enviar dados pro backend
@@ -1305,7 +1380,21 @@ export default {
                         this.$router.push('/congratulations');
                     }
                 } else if (this.jiter >= this.nq[this.nestr] - this.jquest) { // termina indefinido
-                    console.log("Fim do extrato");
+                    console.log("Fim do extrato 3");
+
+                    if(this.termina==false){
+                        this.dadosTeste.resultado = -1; 
+                        this.sendDataTest(this.dadosTeste);
+                        console.log("Fim do teste principal, iniciando coleta de dados.");
+                        this.coletaDados = true;
+                        this.termina=true;
+                        this.nestr = 1;
+                        this.resetaExtrato(this.nestr,0);       
+                    }
+                    else{
+                        this.questionFlag = true;
+                        this.$router.push('/congratulations');
+                    }
                     
                 }
             break;
@@ -1313,22 +1402,9 @@ export default {
             break;
         }
 
-
-        /*
-        if (this.PSR > this.pouts) {            // aprovação no estrato
-            this.resultado = 1;
-            console.log("Fim do extrato");
-        } else if (this.PSR < this.poutn) {     // reprovação no estrato
-            this.resultado = -1;
-            console.log("Fim do extrato");  
-        } else if (this.jiter >= this.nq[this.nestr] - this.jquest) { // termina indefinido
-            console.log("Fim do extrato");
-        }
-        */
-
         if(this.questionFlag==false){
-            await this.changeQuestion();//Altera questão exibida para o usuario.
-            this.changeByID();
+            await this.changeQuestion();        //Altera questão exibida para o usuario.
+            this.changeByID();                  
         }
         else{
 
@@ -1338,12 +1414,6 @@ export default {
     },
 
     async changeQuestion(){
-       /*  if(this.jsonData.questoes[this.questionNumber].id == 'LP_H03_00_014'){
-            console.log('questão encontrada');
-            this.resetStyle();
-            
-        } */
-        //this.forceRerender();                                  //Rendereiza novamente o componente.
         this.audioAux.pause();  
         this.megafoneDisable=false;                            //Garante que o megafone seja tocado quando a página é trocada.
         this.alertPopup = false;
@@ -1444,8 +1514,8 @@ export default {
         ordem_2 = this.shuffleArray(ordem_2);
         ordem_3 = this.shuffleArray(ordem_3);
 
-        //ordem_0 = [0,1,2,3,4,5,6,7,8,9];                //Para testar sequencialmente, comentar depois.
-       // ordem_1 = [0,1,2,3,4,5,6,7,8,9,10,11];           //Para testar sequencialmente, comentar depois.  
+        //ordem_0 = [0,1,2,3,4,5,6,7,8,9];                 //Para testar sequencialmente, comentar depois.
+        //ordem_1 = [0,1,2,3,4,5,6,7,8,9,10,11];           //Para testar sequencialmente, comentar depois.  
        
          
         this.ordem = [ordem_0, ordem_1, ordem_2, ordem_3];
@@ -1484,6 +1554,10 @@ export default {
     resetMegafone(){            //Utilizar esta função sempre que trocar de item.
       this.megafoneDisable = false;
       console.log(this.megafoneDisable);
+    },
+
+    terminaTeste(){
+
     },
 
     forceRerender() {
