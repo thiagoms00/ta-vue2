@@ -140,11 +140,11 @@
                   <v-expansion-panel-text>
                     <v-row justify="space-around" no-gutters>
                       <v-col cols="3">
-                        <Chart :chartData="chartData" />
+                        <v-btn @click="testaValores(item)"> TESTE </v-btn>
                       </v-col>
 
                       <v-col cols="3">
-
+                        <Chart :chartData="getChartData(item)" />
                       </v-col>
                     </v-row>
 
@@ -185,41 +185,7 @@ export default {
     listaTurma: [],
     carregandoTurmas: true,
     chipValue: '',
-    toggle: undefined,
-
-    chartData: {
-      labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho'],
-      datasets: [{
-        label: 'Vendas Mensais',
-        data: this.calculaHabilidades(),
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
-          'rgba(50, 205, 50, 0.2)',
-          'rgba(255, 0, 255, 0.2)',
-          'rgba(0, 191, 255, 0.2)',
-          'rgba(255, 140, 0, 0.2)'
-        ],
-        borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)',
-          'rgba(50, 205, 50, 1)',
-          'rgba(255, 0, 255, 1)',
-          'rgba(0, 191, 255, 1)',
-          'rgba(255, 140, 0, 1)'
-        ],
-        borderWidth: 2
-      }]
-    }
-
+    toggle: undefined
 
 
   }),
@@ -301,20 +267,92 @@ export default {
       console.log(this.toggle);
     },
 
-    calculaHabilidades(){
+    calculaHabilidades() {
       const habilidades = {};
 
       this.listaturma.listaQuest.forEach(questao => {
-      if (questao.acertou) {
-        const nivel = questao.id.split('_')[1]; // Obter o nível da habilidade (por exemplo, "H06")
-        const numeroNivel = parseInt(nivel.slice(1, 3)); // Extrair o número do nível (por exemplo, 6)
+        if (questao.acertou) {
+          const nivel = questao.id.split('_')[1]; // Obter o nível da habilidade (por exemplo, "H06")
+          const numeroNivel = parseInt(nivel.slice(1, 3)); // Extrair o número do nível (por exemplo, 6)
 
-        if (numeroNivel >= 0 && numeroNivel <= 11) {
-          const habilidade = `H${numeroNivel.toString().padStart(2, '0')}`; // Formatar habilidade (por exemplo, "H06" para "H06")
-          habilidades[habilidade] = (habilidades[habilidade] || 0) + 1;
+          if (numeroNivel >= 0 && numeroNivel <= 11) {
+            const habilidade = `H${numeroNivel.toString().padStart(2, '0')}`; // Formatar habilidade (por exemplo, "H06" para "H06")
+            habilidades[habilidade] = (habilidades[habilidade] || 0) + 1;
+          }
         }
-    }
-});
+      });
+    },
+
+    testaValores(item) {
+      // console.log(item);
+      this.verificaHabilidades(item.listaQuest, true)
+    },
+
+    verificaHabilidades(lista, teste_t) {
+      console.log(lista)
+      const listaHabilidades = Array(12).fill(0);
+
+      lista.forEach(questao => {
+        if (questao.acertou === teste_t) {
+          const habilidade = questao.id.split('_')[1]; // Obtém o número da habilidade após o "H"
+          console.log(habilidade);
+          const numeroHabilidade = parseInt(habilidade.slice(1)); // Extrai o número da habilidade
+          console.log(numeroHabilidade)
+          if (!isNaN(numeroHabilidade) && numeroHabilidade >= 1 && numeroHabilidade <= 12) {
+            listaHabilidades[numeroHabilidade - 1]++; // Incrementa a contagem da habilidade correspondente
+          }
+        }
+      });
+
+      console.log(listaHabilidades);
+
+    },
+
+    getChartData(item) {
+      const listaHabilidades = this.verificaHabilidades(item.listaQuest, true);
+      const labels = Array.from({ length: 12 }, (_, i) => `H${(i + 1).toString().padStart(2, '0')}`);
+
+      const chartData = {
+        labels: labels,
+        datasets: [{
+          label: 'Habilidades',
+          data: listaHabilidades,
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(50, 205, 50, 0.2)',
+            'rgba(255, 0, 255, 0.2)',
+            'rgba(0, 191, 255, 0.2)',
+            'rgba(255, 140, 0, 0.2)',
+            'rgba(75, 0, 130, 0.2)',
+            'rgba(255, 20, 147, 0.2)'
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)',
+            'rgba(50, 205, 50, 1)',
+            'rgba(255, 0, 255, 1)',
+            'rgba(0, 191, 255, 1)',
+            'rgba(255, 140, 0, 1)',
+            'rgba(75, 0, 130, 1)',
+            'rgba(255, 20, 147, 1)'
+          ],
+          borderWidth: 1
+        }]
+      };
+
+      return chartData;
+
+
+
     }
 
   },
@@ -340,8 +378,10 @@ export default {
       }
       // Adicione condições semelhantes para outros tipos de filtragem, se necessário
       return this.listaTurma;
-    }
+    },
   },
+
+
 
 }
 </script>
