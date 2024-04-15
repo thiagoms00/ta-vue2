@@ -303,6 +303,7 @@ export default {
           }
         }
       }
+      console.log(listaHabilidades)
       return listaHabilidades;
 
     },
@@ -356,12 +357,18 @@ export default {
 
     getChartDatas(lista) {  
       
-      const labels = Array.from({ length: 12 }, (_, i) => `H${(i).toString().padStart(2, '0')}`);
-      const chartData = {
+      
+
+      for (let i = 0; i < lista.length; i++) {
+        const objeto = lista[i];
+        const dadosHabilidades = this.verificaHabilidades(objeto, true);
+
+        const labels = Array.from({ length: 12 }, (_, i) => `H${(i).toString().padStart(2, '0')}`);
+        const novoChartData = {
         labels: labels,
         datasets: [{
           label: 'Habilidades',
-          data: [],
+          data: dadosHabilidades,
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
             'rgba(54, 162, 235, 0.2)',
@@ -392,20 +399,10 @@ export default {
           ],
           borderWidth: 1
         }]
-      };
+        };
 
-      for (let i = 0; i < lista.length; i++) {
-        const objeto = lista[i];
         
-
-        // Calcula os dados do gráfico para o objeto
-        const dadosHabilidades = this.verificaHabilidades(objeto, true);
-        chartData.datasets[0].data = dadosHabilidades;
-
-        console.log(chartData)
-
-        // Adiciona o atributo chartData a o objeto
-        objeto.chartData = chartData;
+        objeto.chartData = novoChartData;
       }
 
       // console.log(lista)
