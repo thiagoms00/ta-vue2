@@ -22,7 +22,7 @@
       renderChart() {
         const ctx = this.$refs.chart.getContext('2d');
         this.chart = new Chart(ctx, {
-          type: 'doughnut',
+          type: 'pie',
           data: this.chartData,
           options: {
             scales: {

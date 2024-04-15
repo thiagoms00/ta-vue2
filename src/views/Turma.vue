@@ -144,7 +144,7 @@
                       </v-col>
 
                       <v-col cols="3">
-                        <Chart :chartData="getChartData(item)" />
+                        <Chart :chartData="item.chartData" />
                       </v-col>
                     </v-row>
 
@@ -193,10 +193,11 @@ export default {
   created() {
     this.returnDadosTurma()
       .then((dados) => {
-        console.log(dados)
+        // console.log(dados)
 
         // Quando a promessa for resolvida, atribua os dados à listaTurma
         this.listaTurma = dados.turma;
+        this.listaTurma = this.getChartDatas(this.listaTurma);
       })
       .catch((error) => {
         // Em caso de erro, trate-o de acordo com a sua necessidade
@@ -288,29 +289,27 @@ export default {
       this.verificaHabilidades(item.listaQuest, true)
     },
 
-    verificaHabilidades(lista, teste_t) {
-      console.log(lista)
-      const listaHabilidades = Array(12).fill(0);
+    verificaHabilidades(objeto, teste_t) {
+      
+      const listaHabilidades = Array(11).fill(0);
 
-      lista.forEach(questao => {
-        if (questao.acertou === teste_t) {
-          const habilidade = questao.id.split('_')[1]; // Obtém o número da habilidade após o "H"
-          console.log(habilidade);
+      for (let i = 0; i < objeto.listaQuest.length; i++) {
+        const elemento = objeto.listaQuest[i];
+        if (elemento.acertou === teste_t) {
+          const habilidade = elemento.id.split('_')[1]; // Obtém o número da habilidade após o "H"
           const numeroHabilidade = parseInt(habilidade.slice(1)); // Extrai o número da habilidade
-          console.log(numeroHabilidade)
           if (!isNaN(numeroHabilidade) && numeroHabilidade >= 1 && numeroHabilidade <= 12) {
-            listaHabilidades[numeroHabilidade - 1]++; // Incrementa a contagem da habilidade correspondente
+            listaHabilidades[numeroHabilidade]++; // Incrementa a contagem da habilidade correspondente
           }
         }
-      });
-
-      console.log(listaHabilidades);
+      }
+      return listaHabilidades;
 
     },
 
     getChartData(item) {
       const listaHabilidades = this.verificaHabilidades(item.listaQuest, true);
-      const labels = Array.from({ length: 12 }, (_, i) => `H${(i + 1).toString().padStart(2, '0')}`);
+      const labels = Array.from({ length: 12 }, (_, i) => `H${(i).toString().padStart(2, '0')}`);
 
       const chartData = {
         labels: labels,
@@ -328,8 +327,8 @@ export default {
             'rgba(255, 0, 255, 0.2)',
             'rgba(0, 191, 255, 0.2)',
             'rgba(255, 140, 0, 0.2)',
-            'rgba(75, 0, 130, 0.2)',
-            'rgba(255, 20, 147, 0.2)'
+            'rgba(75, 0, 130, 0.2)'
+
           ],
           borderColor: [
             'rgba(255, 99, 132, 1)',
@@ -342,8 +341,8 @@ export default {
             'rgba(255, 0, 255, 1)',
             'rgba(0, 191, 255, 1)',
             'rgba(255, 140, 0, 1)',
-            'rgba(75, 0, 130, 1)',
-            'rgba(255, 20, 147, 1)'
+            'rgba(75, 0, 130, 1)'
+
           ],
           borderWidth: 1
         }]
@@ -352,6 +351,66 @@ export default {
       return chartData;
 
 
+
+    },
+
+    getChartDatas(lista) {  
+      
+      const labels = Array.from({ length: 12 }, (_, i) => `H${(i).toString().padStart(2, '0')}`);
+      const chartData = {
+        labels: labels,
+        datasets: [{
+          label: 'Habilidades',
+          data: [],
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(50, 205, 50, 0.2)',
+            'rgba(255, 0, 255, 0.2)',
+            'rgba(0, 191, 255, 0.2)',
+            'rgba(255, 140, 0, 0.2)',
+            'rgba(75, 0, 130, 0.2)'
+
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)',
+            'rgba(50, 205, 50, 1)',
+            'rgba(255, 0, 255, 1)',
+            'rgba(0, 191, 255, 1)',
+            'rgba(255, 140, 0, 1)',
+            'rgba(75, 0, 130, 1)'
+
+          ],
+          borderWidth: 1
+        }]
+      };
+
+      for (let i = 0; i < lista.length; i++) {
+        const objeto = lista[i];
+        
+
+        // Calcula os dados do gráfico para o objeto
+        const dadosHabilidades = this.verificaHabilidades(objeto, true);
+        chartData.datasets[0].data = dadosHabilidades;
+
+        console.log(chartData)
+
+        // Adiciona o atributo chartData a o objeto
+        objeto.chartData = chartData;
+      }
+
+      // console.log(lista)
+      
+      return lista;
 
     }
 
