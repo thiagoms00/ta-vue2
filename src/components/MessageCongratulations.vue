@@ -3,18 +3,15 @@
       <v-sheet class="
           d-flex align-center justify-center flex-column
           text-center mx-auto px-4
-          rounded-lg" elevation="10" rounded-shaped color="grey-lighten-5" width="50vw" height="60vh" border="md">
+          rounded-lg" elevation="10" rounded-shaped color="grey-lighten-5" width="60vw" height="60vh" border="md">
         
         <v-container class="d-flex flex-column align-center mainContainer">
 
-          <div class="icon-msg mr-2">
-            <v-img
-                max-height="73"
-                width="73"
-                src="../assets/imgs/happy2.svg"
-                contain
-            ></v-img> 
-            <h1 class="msg mt-3">Parabéns! Você concluiu a sua atividade.</h1>
+          <div class="d-flex align-center">
+            <v-img :aspect-ratio="1" src="../assets/imgs/prancheto_abertura.png"
+            width="180"></v-img>
+            <h1 class="msg mt-3">Você finalizou as questões!
+Parabéns e até a próxima!</h1>
           </div>
           
           <v-divider class="my-4 " width="70%"></v-divider>

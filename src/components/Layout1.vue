@@ -539,21 +539,13 @@ export default {
 
         },
 
-        playAudio(audioNum) {
+        playAudio() {
             if (this.megafoneDisable == false) {
                 this.audioAux = new Audio(this.questionAudio1);
                 this.megafoneDisable = true;
                 this.audioAux.play();
                 setTimeout(this.resetMegafone, 5500);           //Impede que o megafone seja tocado por 5,5 segundos.
             }
-
-
-            /*  if(audioNum==1){
-                 let audio = new Audio(this.questionAudio1);
-                 audio.play();
-             } */
-
-
         },
 
         stopAudio() {
