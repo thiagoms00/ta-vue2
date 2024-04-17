@@ -6,7 +6,7 @@
             <v-icon icon="mdi-alert-circle-outline"></v-icon>
             Vamos lá
           </v-card-title>
-          <v-card-text>
+          <v-card-text class="pop-msg">
             Em caso de dúvida, que tal ouvir a questão novamente?<br>
             Depois, escolha uma alternativa e clique em continuar.<br>
           </v-card-text>
@@ -51,3 +51,10 @@
   };
   </script>
   
+  <style>
+
+  .pop-msg{
+    font-weight: 600 !important;
+  }
+
+  </style>
