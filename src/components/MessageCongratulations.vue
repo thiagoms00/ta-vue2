@@ -9,7 +9,7 @@
 
           <div class="d-flex align-center">
             <v-img :aspect-ratio="1" src="../assets/imgs/prancheto_abertura.png"
-            width="180"></v-img>
+            width="180" class="img-mascote"></v-img>
             <h1 class="msg mt-3">Você finalizou as questões!
 Parabéns e até a próxima!</h1>
           </div>
@@ -101,6 +101,15 @@ import Megaphone from './Megaphone.vue'
 
     .icon-mega3{
       margin-top: 0;
+    }
+
+    .img-mascote{
+       width: 100px !important;
+    }
+
+    .finish-btn{
+      height: 6.5vh !important;
+      font-size: 13px !important;
     }
 } 
 
