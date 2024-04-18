@@ -1,10 +1,11 @@
 <template>
     <div class="text-center">
-      <v-dialog v-model="dialogOpen" width="auto" overlay="false">
-        <v-card max-width="500">
+      <v-dialog v-model="dialogOpen" width="auto" content-class="bottom-left-dialog" >
+        
+        <v-card max-width="500" class="ml-16">
           <v-card-title class="d-flex align-center" style="background-color: #1E3892; color: white;">
             <v-icon icon="mdi-alert-circle-outline"></v-icon>
-            Vamos lá
+               Vamos lá
           </v-card-title>
           <v-card-text class="pop-msg">
             Em caso de dúvida, que tal ouvir a questão novamente?<br>
@@ -14,6 +15,11 @@
             <v-btn class="ms-auto" text="Fechar" @click="fecharDialog"></v-btn>
           </template>
         </v-card>
+
+        <v-img :aspect-ratio="1" src="../assets/imgs/prancheto-popup.png"
+            width="200" class="img-mascote"></v-img>
+
+
       </v-dialog>
     </div>
   </template>
@@ -23,7 +29,8 @@
     data() {
       return {
         dialogOpen: false,
-        intervalId: null
+        intervalId: null,
+        position: 'bottom'
       };
     },
     mounted() {
@@ -56,5 +63,10 @@
   .pop-msg{
     font-weight: 600 !important;
   }
+
+  .bottom-left-dialog {
+    top: 0;
+    right: 0;
+}
 
   </style>

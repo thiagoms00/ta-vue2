@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import LogoImpacto from '@/components/LogoImpacto.vue'
+// import LogoImpacto from '@/components/LogoImpacto.vue'
 import MessageCongratulations from '@/components/MessageCongratulations.vue'
 
 export default {
