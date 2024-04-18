@@ -35,6 +35,14 @@
                   Turma 2
                 </v-btn>
 
+                <v-btn class="pa-4" value="t3" @click="selecionaTurma('LP3')" >
+                  Turma 3
+                </v-btn>
+
+                <v-btn class="pa-4" value="t4" @click="selecionaTurma('LP4')" >
+                  Turma 4
+                </v-btn>
+
               </v-btn-toggle>
 
             </v-sheet>

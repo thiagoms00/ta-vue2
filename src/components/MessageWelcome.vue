@@ -16,13 +16,11 @@
         <v-divider class="my-4 " width="70%"></v-divider>
         <Megaphone @click="playAudio()" />
 
-        <p class="welcome-text"> Você irá responder algumas questões de Língua Portuguesa.</p>
-        <p class="welcome-text"> No início de cada questão, você vai ouvir a orientação do que deve ser feito. Se quiser ouvir novamente,
-          clique no megafone.</p>
-        <p class="welcome-text"> Depois, indique, em cada questão, a alternativa que você considera correta.</p>
-        <p class="welcome-text"> Para continuar, basta clicar em Continuar.</p>
+        <p class="welcome-text"> Você vai responder algumas questões de Português.</p>
+        <p class="welcome-text"> Ouça a orientação do que deve ser feito no início de cada questão. Se quiser ouvir novamente, clique no megafone.</p>
+        <p class="welcome-text"> Depois, marque a  alternativa que considera correta.</p>
+        <p class="welcome-text"> Para seguir em frente, clique em continuar.</p>
         <p class="welcome-text"> Vamos lá! </p>
-        <p class="welcome-text"> Para iniciar, clique no botão abaixo </p>
         <v-btn class="flex-grow-1 mt-4 cont-button" height="55" size="large" width="50%" variant="flat" color="#1E3892" elevation-15
           @click="proximaPagina" :loading="loading"> {{ buttonText }} </v-btn>
 
