@@ -14,10 +14,12 @@
 
 
         <v-divider class="my-4 " width="70%"></v-divider>
-        <Megaphone @click="playAudio()" />
+        <v-btn @click="highlightComponent">Destacar Componente</v-btn>
+        <Megaphone :class="{ 'wobble-hor-bottom': isHighlighted }" @click="playAudio() " />
 
         <p class="welcome-text"> Você vai responder algumas questões de Português.</p>
-        <p class="welcome-text"> Ouça a orientação do que deve ser feito no início de cada questão. Se quiser ouvir novamente, clique no megafone.</p>
+        <p class="welcome-text"> Ouça a orientação do que deve ser feito no início de cada questão.</p>
+        <p class="welcome-text"> Se quiser ouvir novamente, clique no megafone.</p>
         <p class="welcome-text"> Depois, marque a  alternativa que considera correta.</p>
         <p class="welcome-text"> Para seguir em frente, clique em continuar.</p>
         <p class="welcome-text"> Vamos lá! </p>
@@ -49,7 +51,8 @@ export default {
       audioAux: '',
       megafoneDisable: false,
       loading: false,
-      buttonText: 'Continuar'
+      buttonText: 'Continuar',
+      isHighlighted: false
     }
   },
 
@@ -74,6 +77,10 @@ export default {
         setTimeout(this.resetMegafone, 13000);
       }
     },
+
+    highlightComponent() {
+      this.isHighlighted = !this.isHighlighted; // Alternar o destaque do componente
+    },
   }
 
 }
@@ -82,9 +89,6 @@ export default {
 
 <style>
 
-
-.img-mascote{
-}
 
 .main-msg{
   margin-right: 20px;
@@ -97,6 +101,70 @@ export default {
   font-weight: 600;
 
 }
+
+.wobble-hor-bottom {
+	-webkit-animation: wobble-hor-bottom 1s both;
+	animation: wobble-hor-bottom 1s both;
+}
+ @-webkit-keyframes wobble-hor-bottom {
+  0%,
+  100% {
+    -webkit-transform: translateX(0%);
+            transform: translateX(0%);
+    -webkit-transform-origin: 50% 50%;
+            transform-origin: 50% 50%;
+  }
+  15% {
+    -webkit-transform: translateX(-30px) rotate(-6deg);
+            transform: translateX(-30px) rotate(-6deg);
+  }
+  30% {
+    -webkit-transform: translateX(15px) rotate(6deg);
+            transform: translateX(15px) rotate(6deg);
+  }
+  45% {
+    -webkit-transform: translateX(-15px) rotate(-3.6deg);
+            transform: translateX(-15px) rotate(-3.6deg);
+  }
+  60% {
+    -webkit-transform: translateX(9px) rotate(2.4deg);
+            transform: translateX(9px) rotate(2.4deg);
+  }
+  75% {
+    -webkit-transform: translateX(-6px) rotate(-1.2deg);
+            transform: translateX(-6px) rotate(-1.2deg);
+  }
+}
+@keyframes wobble-hor-bottom {
+  0%,
+  100% {
+    -webkit-transform: translateX(0%);
+            transform: translateX(0%);
+    -webkit-transform-origin: 50% 50%;
+            transform-origin: 50% 50%;
+  }
+  15% {
+    -webkit-transform: translateX(-30px) rotate(-6deg);
+            transform: translateX(-30px) rotate(-6deg);
+  }
+  30% {
+    -webkit-transform: translateX(15px) rotate(6deg);
+            transform: translateX(15px) rotate(6deg);
+  }
+  45% {
+    -webkit-transform: translateX(-15px) rotate(-3.6deg);
+            transform: translateX(-15px) rotate(-3.6deg);
+  }
+  60% {
+    -webkit-transform: translateX(9px) rotate(2.4deg);
+            transform: translateX(9px) rotate(2.4deg);
+  }
+  75% {
+    -webkit-transform: translateX(-6px) rotate(-1.2deg);
+            transform: translateX(-6px) rotate(-1.2deg);
+  }
+}
+
 
 
 @media(max-width: 1550px) {
