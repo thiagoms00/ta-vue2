@@ -1,7 +1,7 @@
 <template>
 
     <div class="mainDiv">
-        <PopupTeste ref="PopupTeste" />
+        <PopupTeste ref="PopupTeste" :extratoCounter="nestr" />
         <!-- <TimePopup class="time-popup" v-if="alertPopup" @click="displayPopup(0)"></TimePopup> -->
         <FlexBar :fonte="fonte" />
         <div class="conteudo" v-if="layoutCheck == 'm1'">
@@ -264,7 +264,6 @@
 <script>
 
 import ContButton from './ContButton.vue';
-import TimePopup from './TimePopup.vue';
 import axios from 'axios';
 
 
@@ -292,8 +291,7 @@ export default {
     name: 'Layout1',
     components: {
         ContButton,       //Botão azul presente em todos itens.
-        FlexBar,          //Barra azul superior, contem o botão com a fonte.
-        TimePopup,        //Pop-up que aparece após certo tempo sem trocar de item.
+        FlexBar,          //Barra azul superior, contem o botão com a fonte. 
         PopupTeste
     },
 
@@ -486,7 +484,7 @@ export default {
         },
 
         checkAnswer() {                     //É chamado sempre que um usuario clicar no botão "Continuar"
-            this.alertPopup = false;
+            
             this.resetTimer();
 
             this.changeByID();
