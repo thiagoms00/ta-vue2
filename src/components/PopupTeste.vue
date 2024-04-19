@@ -8,7 +8,7 @@
           Vamos lá
         </v-card-title>
         <v-card-text class="pop-msg">
-          <p class="">
+          <p>
             Em caso de dúvida, que tal ouvir a questão novamente?<br>
             Depois, escolha uma alternativa e clique em continuar.<br>
           </p>
