@@ -572,17 +572,18 @@ export default {
                     aux = document.getElementById("imgM3");
                     aux.style.width = '43vw';
                     aux.style.marginLeft = '4vw';
-                    break;
+                break;
 
                 case 'LP_H10_01_003':
                     aux = document.getElementById("questionDiv");
                     aux.style.width = 'auto';
-                    break;
+                break;
                 case 'LP_H07_02_019':
+                case 'LP_H05_11_006':
                     aux = document.getElementById("imgM3");
                     aux.style.width = '35vw';
                     aux.style.marginLeft = '4vw';
-                    break;
+                break;
                 case 'LP_H07_03_013':
                     aux = document.getElementById("imgM3");
                     aux.style.width = '38vw';
@@ -1513,7 +1514,6 @@ export default {
 
             //ordem_0 = [0,1,2,3,4,5,6,7,8,9];                 //Para testar sequencialmente, comentar depois.
             //ordem_1 = [0,1,2,3,4,5,6,7,8,9,10,11];           //Para testar sequencialmente, comentar depois.  
-
 
             this.ordem = [ordem_0, ordem_1, ordem_2, ordem_3];
         },
