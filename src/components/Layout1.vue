@@ -345,7 +345,7 @@ export default {
             /* Dados do teste adaptativo que vão ser resetados sempre que um extrato novo for chamado */
             Questoes: [],
             Respostas: [],
-            termina: false,                     //Determina quando o teste principal acaba.
+            termina: false,                    //Determina quando o teste principal acaba.
             coletaDados: false,                //Determina quando a coleta de dados começa.
             questionFlag: false,               //Determina quando o sistema para de enviar questões.
             ind_questao: 0,
@@ -383,6 +383,7 @@ export default {
     },
 
     created() {  //Sempre é chamado quando a pagina é carregada
+
         this.jsonData = jsonDataQuestoes1;  //define o extrato 
         //Randomiza uma questão quando a pagina é criada.
         // Ele sorteia um número entre 0 e o número de objetos no JSON
@@ -391,7 +392,7 @@ export default {
         this.startTest();
         this.questionNumber = this.ordem[this.nestr][this.ind_questao];
 
-        this.questionId = this.jsonData.questoes[this.questionNumber].id
+        this.questionId = this.jsonData.questoes[this.questionNumber].id;
         this.questionText = this.jsonData.questoes[this.questionNumber].text;
         this.questionTextTitle = this.jsonData.questoes[this.questionNumber].textTitle;
         this.questionStatement = this.jsonData.questoes[this.questionNumber].qText;
@@ -926,7 +927,7 @@ export default {
             const nq1 = jsonData1.extrato.length
             const nq2 = jsonData2.extrato.length
             const nq3 = jsonData3.extrato.length
-            this.nq = [nq0, nq1, nq2, nq3];             //Array contendo os tamanhos relativos aos extratos.
+            this.nq = [nq0, nq1, nq2, nq3]; //Array contendo os tamanhos relativos aos extratos.
 
             let questao_id_0 = [];
             let questao_id_1 = [];
@@ -1101,10 +1102,7 @@ export default {
             this.poutn = 0.05;
             this.jquest = 0;
 
-
-
-
-            switch (nestr) {
+            switch (nestr){
                 case 0:
                     this.resetaOrdem();
                     this.jsonData = jsonDataQuestoes0;
@@ -1135,7 +1133,7 @@ export default {
 
         },
 
-        async aplicaQuestao(value) {                              //Função chamada sempre que o usuario clicar no "continuar"
+        async aplicaQuestao(value){                              //Função chamada sempre que o usuario clicar no "continuar"
             console.clear();
 
 

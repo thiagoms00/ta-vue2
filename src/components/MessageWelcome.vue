@@ -68,6 +68,7 @@ export default {
     resetMegafone() {            //Utilizar esta função sempre que trocar de item.
       this.megafoneDisable = false;
     },
+
     playAudio() {
       if (this.megafoneDisable == false) {
         this.audioAux = new Audio(audiowelcome);
@@ -80,6 +81,9 @@ export default {
           this.animaButton = !this.animaButton;
         }, 19500);
         setTimeout(this.resetMegafone, 13000);
+
+        this.animaMega = false;
+        this.animaButton = false;
       }
     },
   }
