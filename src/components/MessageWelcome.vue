@@ -21,8 +21,11 @@
         <p class="welcome-text"> Depois, marque a alternativa que considera correta.</p>
         <p class="welcome-text"> Para seguir em frente, clique em continuar.</p>
         <p class="welcome-text"> Vamos lá! </p>
-        <v-btn class="flex-grow-1 mt-4 cont-button" :class="{ 'shake-horizontal': animaButton }" height="55" size="large" width="50%" variant="flat" color="#1E3892"
-          elevation-15 @click="proximaPagina" :loading="loading"> {{ buttonText }} </v-btn>
+        <v-btn class="flex-grow-1 mt-4 cont-button" :class="{ 'shake-horizontal': animaButton }" height="55"
+          size="large" width="50%" variant="flat" color="#1E3892" elevation-15 @click="proximaPagina"
+          :loading="loading">
+          {{ buttonText }}
+        </v-btn>
 
       </v-container>
     </v-sheet>
@@ -35,6 +38,7 @@
 <script>
 import Megaphone from './Megaphone.vue'
 import audiowelcome from '@/assets/audios/outros_audios/audio_bemvindo.mp3'
+import axios from 'axios';
 
 
 export default {
@@ -64,6 +68,21 @@ export default {
       this.audioAux.pause();
       this.$router.push('/testStart');
       this.loading = true;
+      const data = {
+        token: localStorage.getItem('token')
+      };
+      console.log(data);
+
+      return new Promise((resolve, reject) => {
+        axios({ url: 'https://ta-back.onrender.com/startTest', data: data, method: 'POST' })
+          .then((response) => {
+            console.log(response)
+            resolve(response);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
     },
     resetMegafone() {            //Utilizar esta função sempre que trocar de item.
       this.megafoneDisable = false;
@@ -86,6 +105,10 @@ export default {
         this.animaButton = false;
       }
     },
+
+    sendDataStartTest() {
+
+    }
   }
 
 }
@@ -110,60 +133,71 @@ export default {
   animation: shake-horizontal 1s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
 }
 
- @-webkit-keyframes shake-horizontal {
+@-webkit-keyframes shake-horizontal {
+
   0%,
   100% {
     -webkit-transform: translateX(0);
-            transform: translateX(0);
+    transform: translateX(0);
   }
+
   10%,
   30%,
   50%,
   70% {
     -webkit-transform: translateX(-10px);
-            transform: translateX(-10px);
+    transform: translateX(-10px);
   }
+
   20%,
   40%,
   60% {
     -webkit-transform: translateX(10px);
-            transform: translateX(10px);
+    transform: translateX(10px);
   }
+
   80% {
     -webkit-transform: translateX(8px);
-            transform: translateX(8px);
+    transform: translateX(8px);
   }
+
   90% {
     -webkit-transform: translateX(-8px);
-            transform: translateX(-8px);
+    transform: translateX(-8px);
   }
 }
+
 @keyframes shake-horizontal {
+
   0%,
   100% {
     -webkit-transform: translateX(0);
-            transform: translateX(0);
+    transform: translateX(0);
   }
+
   10%,
   30%,
   50%,
   70% {
     -webkit-transform: translateX(-10px);
-            transform: translateX(-10px);
+    transform: translateX(-10px);
   }
+
   20%,
   40%,
   60% {
     -webkit-transform: translateX(10px);
-            transform: translateX(10px);
+    transform: translateX(10px);
   }
+
   80% {
     -webkit-transform: translateX(8px);
-            transform: translateX(8px);
+    transform: translateX(8px);
   }
+
   90% {
     -webkit-transform: translateX(-8px);
-            transform: translateX(-8px);
+    transform: translateX(-8px);
   }
 }
 

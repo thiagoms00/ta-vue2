@@ -2,7 +2,6 @@
 
     <div class="mainDiv">
         <PopupTeste ref="PopupTeste" :extratoCounter="nestr" />
-        <!-- <TimePopup class="time-popup" v-if="alertPopup" @click="displayPopup(0)"></TimePopup> -->
         <FlexBar :fonte="fonte" />
         <div class="conteudo" v-if="layoutCheck == 'm1'">
             <div class="pergunta">
@@ -452,9 +451,6 @@ export default {
 
     mounted() {                          //Chamado após os componentes carregarem.
         this.playAudio(1);
-        this.alertTimeoutId = setTimeout(() => {              //Exibe o popup após 30 segundos sem clicar no continuar.
-            this.displayPopup(1);
-        }, 5000)
         this.changeByID();
     },
 
@@ -1414,9 +1410,6 @@ export default {
             this.megafoneDisable = false;                            //Garante que o megafone seja tocado quando a página é trocada.
             this.alertPopup = false;
             clearTimeout(this.alertTimeoutId);
-            this.alertTimeoutId = setTimeout(() => {              //Exibe o popup após 45 segundos sem clicar no "Continuar".
-                this.displayPopup(1);
-            }, 45000)
 
 
             this.questionNumber = this.ordem[this.nestr][this.ind_questao];
@@ -1516,18 +1509,6 @@ export default {
             this.ordem = [ordem_0, ordem_1, ordem_2, ordem_3];
         },
 
-        displayPopup(aux) {
-            if (aux == 1) {
-                this.alertPopup = true;
-            }
-
-            else if (aux == 0) {
-                this.alertPopup = false;
-                this.alertTimeoutId = setTimeout(() => {
-                    this.displayPopup(1);
-                }, 45000)
-            }
-        },
 
 
         sendDataTest(dataTest) {
