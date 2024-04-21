@@ -362,11 +362,15 @@ export default {
             m5Key: 0,                            //Chave do layout5.
 
             dadosTeste: {                      /* Objeto que armazena as informações do teste. */
-                tokenAluno: '',                 //Token referente ao aluno.
+                tokenAluno: '',                //Token referente ao aluno.
                 qtdQuestoes: 0,                //Quantidade de questões no teste.
                 qtdAcertos: 0,                 //Quantidade de acertos no teste.
                 questoesRespondidas: [],       //Array com os itens que foram respondidos.
-                resultado: 0                   //Resultado final do teste(numero do extrato).
+                resultado: 0,                  //Resultado final do teste(numero do extrato).
+                ordemQuestoes: [],             //Ordem das questões enviadas ao aluno.
+                estratoAtual: 1,               
+                indiceAtual : 0,      
+                testeStart : false,  
             },
             dialog: false
 
@@ -379,14 +383,13 @@ export default {
 
     created() {  //Sempre é chamado quando a pagina é carregada
 
-        this.jsonData = jsonDataQuestoes1;  //define o extrato 
+        this.jsonData = jsonDataQuestoes1;  
         //Randomiza uma questão quando a pagina é criada.
         // Ele sorteia um número entre 0 e o número de objetos no JSON
         this.dadosTeste.tokenAluno = localStorage.getItem('token');
 
         this.startTest();
         this.questionNumber = this.ordem[this.nestr][this.ind_questao];
-
         this.questionId = this.jsonData.questoes[this.questionNumber].id;
         this.questionText = this.jsonData.questoes[this.questionNumber].text;
         this.questionTextTitle = this.jsonData.questoes[this.questionNumber].textTitle;
@@ -1060,6 +1063,8 @@ export default {
             }  
       */
             this.ordem = [ordem_0, ordem_1, ordem_2, ordem_3];
+            this.dadosTeste.ordemQuestoes = this.ordem;         //Para o cookie do aluno.
+
 
             this.resetaExtrato(this.nestr, this.jquest);
 
@@ -1152,21 +1157,22 @@ export default {
             // Atualiza probabilidades, dada a resposta:
             this.seq_prob_dom[this.jiter] = this.probabilidades_domina[this.nestr][iresp][iabs];  // armazena P(resposta|domina) para a atual resposta
             this.seq_prob_ndom[this.jiter] = this.probabilidades_naodom[this.nestr][iresp][iabs]; // armazena P(resposta|naodomina) para a atual resposta
-            if (this.probabilidades_domina[this.nestr][iresp][iabs] == 0.85) {                      //Verifica se o aluno acertou ou não a questão.
+            if (this.probabilidades_domina[this.nestr][iresp][iabs] == 0.85) {                    //Verifica se o aluno acertou ou não a questão.
                 this.dadosTeste.qtdAcertos++;
                 auxQuestao.acertou = true;
                 console.log("Alternativa correta");
             }
-            this.dadosTeste.questoesRespondidas.push(auxQuestao);                                        //Adiciona no array de questoes respondidas.
+            this.dadosTeste.questoesRespondidas.push(auxQuestao);                                 //Adiciona no array de questoes respondidas.
             //console.log(this.seq_prob_dom);
             //console.log(this.seq_prob_ndom);
 
             let prs = this.multiplica_array(this.seq_prob_dom);                      //probabiliade da sequência de respostas, dado que domine o conteudo
             let prn = this.multiplica_array(this.seq_prob_ndom);                     //probabiliade da sequência de respostas, dado que não domine o conteudo
 
-            this.PSR = prs * this.PS / (this.PS * prs + (1 - this.PS) * prn);                    //probabilidade de dominio do conteúdo, dada a sequência de respostas
+            this.PSR = prs * this.PS / (this.PS * prs + (1 - this.PS) * prn);        //probabilidade de dominio do conteúdo, dada a sequência de respostas
             console.log("probabilidade dominio conteudo = ", +this.PSR);
             this.jiter += 1
+            this.dadosTeste.indiceAtual = this.jiter;                               //Para o Cookie do aluno.
             // Tomada de decisão:
 
             /* 
@@ -1503,6 +1509,7 @@ export default {
             //ordem_1 = [0,1,2,3,4,5,6,7,8,9,10,11];           //Para testar sequencialmente, comentar depois.  
 
             this.ordem = [ordem_0, ordem_1, ordem_2, ordem_3];
+            this.dadosTeste.ordemQuestoes = this.ordem;        //Para o cookie do aluno.
         },
 
 
