@@ -12,13 +12,11 @@
 <script>
 
 import TimePopup from '@/components/TimePopup.vue'
-import AlgTeste from '@/components/AlgTeste.vue'
 
 export default{
     name : 'Test',
     components:{
-        TimePopup,
-        AlgTeste
+        TimePopup
     }   
 
 

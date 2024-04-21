@@ -17,6 +17,10 @@ export default {
     components:{
         //LogoImpacto,
         MessageCongratulations
+    },
+    
+    created(){
+        this.$store.dispatch('verificarToken', { router: this.$router });
     }
 }
 </script>

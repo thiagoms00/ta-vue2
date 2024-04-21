@@ -8,14 +8,13 @@
 <script>
 
 import Layout1 from '@/components/Layout1.vue';
-import FlexBar from '@/components/FlexBar.vue';
 
 
 export default {
     name: 'TestStart',
     components:{
         Layout1,
-        FlexBar
+        
         
     },
 
@@ -27,7 +26,7 @@ export default {
     },
 
     created (){
-        
+        this.$store.dispatch('verificarToken', { router: this.$router });
     },
 }
 </script>

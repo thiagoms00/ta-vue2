@@ -11,7 +11,8 @@
 <script>
 
 import MessageWelcome from '@/components/MessageWelcome.vue'
-import LogoImpacto from '@/components/LogoImpacto.vue'
+// import LogoImpacto from '@/components/LogoImpacto.vue'
+// import { mapActions } from 'vuex'
 
 export default{
 
@@ -20,7 +21,14 @@ export default{
       MessageWelcome,
     },
     methods:{
-      
+      // ...mapActions([
+      //   'verificarToken'
+      // ])
+    },
+    created(){
+      // this.verificarToken();
+      this.$store.dispatch('verificarToken', { router: this.$router });
+
     }
 }
 

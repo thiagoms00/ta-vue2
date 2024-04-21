@@ -265,10 +265,6 @@
 import ContButton from './ContButton.vue';
 import axios from 'axios';
 
-
-
-import { VWindow } from 'vuetify/lib/components/index.mjs';
-
 import jsonDataQuestoes0 from '../assets/questao/questoes_extrato0.json';
 import jsonDataQuestoes1 from '../assets/questao/questoes_extrato1.json';              //Primeiro a ser utilizado.
 import jsonDataQuestoes2 from '../assets/questao/questoes_extrato2.json';
@@ -553,7 +549,7 @@ export default {
         changeByID() {                                          //Muda detalhes com base no ID do item
 
 
-            let aux, aux2, aux3, aux4;
+            let aux, aux2;
 
 
             switch (this.questionId) {

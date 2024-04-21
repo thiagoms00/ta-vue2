@@ -46,7 +46,36 @@ export default createStore({
                     reject(error);
                   });
               });
-        }
+        },
+
+        verificarToken({ commit }, {router} ){
+
+          const data = {
+            token : localStorage.getItem('token')
+          };
+
+          return axios({ url: 'https://ta-back.onrender.com/verificaToken', data, method: 'POST' })
+          .then((response) => {
+            console.log(response.status)
+            if (response.status === 200) {
+              // Token é válido
+              commit('auth_success', response.data);
+            }
+            else {
+              // Token não é válido, você pode remover o token do localStorage e redirecionar para o login.
+              localStorage.removeItem('token');
+              this.$router.push('/login');
+            }
+          })
+          .catch((error) => {
+            // Tratar erros aqui
+            localStorage.removeItem('token');
+            router.push('/login');
+            console.error(error);
+          });
+
+        },
+
 
     }
 })
