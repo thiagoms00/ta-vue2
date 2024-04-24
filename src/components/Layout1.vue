@@ -371,6 +371,7 @@ export default {
                 estratoAtual: 1,               
                 indiceAtual : 0,      
                 testeStart : false,  
+                dadosPSR: 0.5,
             },
             dialog: false
 
@@ -390,11 +391,26 @@ export default {
         
         console.log(this.dadosTeste.testeStart);
 
-        if(this.dadosTeste.testeStart){                                                //Caso o usuario já tenha começado um teste.
+       
+      
+        this.startTest();
 
+      /*   if(this.dadosTeste.testeStart){                                                //Caso o usuario já tenha começado um teste.
+            this.ordem = this.dadosTeste.ordemQuestoes;                                //Ordem das questões.
+            
+            this.resetaExtrato(this.dadosTeste.extratoAtual, this.dadosTeste.indiceAtual);
+            this.PSR = this.dadosTeste.dadosPSR;  
+            this.ind_questao = this.dadosTeste.indiceAtual;
+        } */
+
+        if(this.dadosTeste.testeStart){
+            console.log("Teste em andamento");
+        }
+        else{
+            console.log("Nenhum Teste em andamento");
         }
 
-        this.startTest();
+
         this.questionNumber = this.ordem[this.nestr][this.ind_questao];
         this.questionId = this.jsonData.questoes[this.questionNumber].id;
         this.questionText = this.jsonData.questoes[this.questionNumber].text;
@@ -451,6 +467,8 @@ export default {
 
 
         }
+
+        this.testeStatus(1);             //Muda o status do teste.
 
     },
 
@@ -1076,6 +1094,7 @@ export default {
 
         },
 
+
         //Randomiza elementos em um vetor.
         shuffleArray(array) {
             for (let i = array.length - 1; i > 0; i--) {
@@ -1153,6 +1172,8 @@ export default {
             this.Questoes[this.jiter] = questao;
             let iresp = value;
             this.ind_questao += 1;
+            this.dadosTeste.indiceAtual = this.ind_questao;                               //Para o Cookie do aluno.
+
             this.Respostas[this.jiter] = iresp;
 
             //console.log(this.jsonData.questoes[this.questionNumber].id);
@@ -1177,8 +1198,8 @@ export default {
 
             this.PSR = prs * this.PS / (this.PS * prs + (1 - this.PS) * prn);        //probabilidade de dominio do conteúdo, dada a sequência de respostas
             console.log("probabilidade dominio conteudo = ", +this.PSR);
+            this.dadosTeste.dadosPSR = this.PSR;                                    //Usado caso o teste seja retomado.
             this.jiter += 1
-            this.dadosTeste.indiceAtual = this.jiter;                               //Para o Cookie do aluno.
             // Tomada de decisão:
 
             /* 
@@ -1198,6 +1219,7 @@ export default {
                         console.log("Fim do extrato 0: Avançando para o Extrato 1");
                         this.nestr = 1;
                         this.resetaExtrato(this.nestr, 0);
+                        this.dadosTeste.estratoAtual = this.nestr;  //Usado caso o teste seja retomado.
                     } else if (this.PSR < this.poutn) {     // reprovação no extrato 0
                         this.resultado = -1;
                         console.log("Fim do extrato 0: Reprovado no extrato 0");
@@ -1216,6 +1238,7 @@ export default {
                         else {                                      //Fim da coleta de dados
                             //Enviar dados ao backend
                             this.questionFlag = true;
+                            this.testeStatus(0);
                             this.$router.push('/congratulations');
                         }
 
@@ -1234,6 +1257,7 @@ export default {
                         }
                         else {
                             this.questionFlag = true;
+                            this.testeStatus(0);
                             this.$router.push('/congratulations');
                         }
 
@@ -1247,6 +1271,8 @@ export default {
                         console.log("Fim do extrato 1: Avançando para o Extrato 2");
                         this.nestr = 2;
                         this.resetaExtrato(this.nestr, 0);
+                        this.dadosTeste.estratoAtual = this.nestr;  //Usado caso o teste seja retomado.
+
                     } else if (this.PSR < this.poutn) {     // reprovação no extrato 1
                         this.resultado = -1;
                         this.nestr = 0;
@@ -1255,6 +1281,8 @@ export default {
                             console.log("Fim do extrato 1: Retrocedendo ao extrato 0");
                             this.extrato1Flag = true;
                             this.resetaExtrato(this.nestr, 0);
+                            this.dadosTeste.estratoAtual = this.nestr;  //Usado caso o teste seja retomado.
+
                         }
                         else if (this.extrato1Flag === true) { //Aluno foi reprovado pela segunda vez no extrato 1
                             if (this.termina === false) {
@@ -1271,6 +1299,7 @@ export default {
                             }
                             else {
                                 this.questionFlag = true;
+                                this.testeStatus(0);
                                 this.$router.push('/congratulations');
                             }
                         }
@@ -1289,6 +1318,7 @@ export default {
                         }
                         else {
                             this.questionFlag = true;
+                            this.testeStatus(0);
                             this.$router.push('/congratulations');
                         }
                     }
@@ -1301,6 +1331,8 @@ export default {
                         console.log("Fim do extrato 2: Avançando para o Extrato 3");
                         this.nestr = 3;
                         this.resetaExtrato(this.nestr, 0);
+                        this.dadosTeste.estratoAtual = this.nestr;  //Usado caso o teste seja retomado.
+
                     } else if (this.PSR < this.poutn) {     // reprovação no extrato 2
                         this.resultado = -1;
                         console.log("Fim do extrato 2: Reprovado no extrato 2");
@@ -1336,6 +1368,7 @@ export default {
                         }
                         else {
                             this.questionFlag = true;
+                            this.testeStatus(0);
                             this.$router.push('/congratulations');
                         }
                     }
@@ -1360,6 +1393,7 @@ export default {
                         else {
                             //Enviar dados ao backend
                             this.questionFlag = true;
+                            this.testeStatus(0);
                             this.$router.push('/congratulations');
                         }
                     } else if (this.PSR < this.poutn) {     // reprovação no extrato 3
@@ -1379,6 +1413,7 @@ export default {
                         }
                         else {
                             this.questionFlag = true;
+                            this.testeStatus(0);
                             this.$router.push('/congratulations');
                         }
                     } else if (this.jiter >= this.nq[this.nestr] - this.jquest) { // termina indefinido
@@ -1395,6 +1430,7 @@ export default {
                         }
                         else {
                             this.questionFlag = true;
+                            this.testeStatus(0);
                             this.$router.push('/congratulations');
                         }
 
@@ -1541,9 +1577,14 @@ export default {
             console.log(this.megafoneDisable);
         },
 
-        terminaTeste() {
-
-        },
+        testeStatus(status) {                             //Troca o status do teste.
+           if(status==0){
+                this.dadosTeste.testeStart = false;
+           }
+           if(status==1){
+                this.dadosTeste.testeStart = true;
+           }
+        },  
 
         forceRerender() {
             console.log('teste');
