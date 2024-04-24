@@ -387,8 +387,12 @@ export default {
         //Randomiza uma questão quando a pagina é criada.
         // Ele sorteia um número entre 0 e o número de objetos no JSON
         this.dadosTeste.tokenAluno = localStorage.getItem('token');
+        
         console.log(this.dadosTeste.testeStart);
-        console.log(this.dadosTeste.ordemQuestoes);
+
+        if(this.dadosTeste.testeStart){                                                //Caso o usuario já tenha começado um teste.
+
+        }
 
         this.startTest();
         this.questionNumber = this.ordem[this.nestr][this.ind_questao];
