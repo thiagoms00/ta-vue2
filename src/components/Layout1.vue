@@ -387,15 +387,34 @@ export default {
         this.jsonData = jsonDataQuestoes1;  
         //Randomiza uma questão quando a pagina é criada.
         // Ele sorteia um número entre 0 e o número de objetos no JSON
-        this.dadosTeste.tokenAluno = localStorage.getItem('token');
+
+        let cookieAux = this.getCookie('testeStart');  
+        if(cookieAux==0){
+            //Cookie não foi encontrado.
+        }
+        else{
+            this.dadosTeste = this.getCookie('testeStart');       
+        }
+        
+        this.dadosTeste.tokenAluno = localStorage.getItem('token');     
+
+        if(this.dadosTeste.testeStart){         //Teste ja foi inciado.
+            console.log("Teste em andamento");
+        }
+        else{
+            console.log("Iniciando um novo teste");
+            this.testeStatus(1);
+        }
+           
         
         console.log(this.dadosTeste.testeStart);
+
 
        
       
         this.startTest();
 
-      /*   if(this.dadosTeste.testeStart){                                                //Caso o usuario já tenha começado um teste.
+      /*   if(this.dadosTeste.testeStart){                                             //Caso o usuario já tenha começado um teste.
             this.ordem = this.dadosTeste.ordemQuestoes;                                //Ordem das questões.
             
             this.resetaExtrato(this.dadosTeste.extratoAtual, this.dadosTeste.indiceAtual);
@@ -403,12 +422,8 @@ export default {
             this.ind_questao = this.dadosTeste.indiceAtual;
         } */
 
-        if(this.dadosTeste.testeStart){
-            console.log("Teste em andamento");
-        }
-        else{
-            console.log("Nenhum Teste em andamento");
-        }
+       
+
 
 
         this.questionNumber = this.ordem[this.nestr][this.ind_questao];
@@ -468,7 +483,9 @@ export default {
 
         }
 
-        this.testeStatus(1);             //Muda o status do teste.
+       
+
+        
 
     },
 
@@ -1200,6 +1217,8 @@ export default {
             console.log("probabilidade dominio conteudo = ", +this.PSR);
             this.dadosTeste.dadosPSR = this.PSR;                                    //Usado caso o teste seja retomado.
             this.jiter += 1
+
+            this.setCookie('testeStart', this.dadosTeste, 1);
             // Tomada de decisão:
 
             /* 
@@ -1229,6 +1248,7 @@ export default {
                         if (this.termina === false) {                    //Flag utilizada para determinar o envio dos dados do teste
                             //Enviar dados pro backend
                             console.log("Fim do teste principal, iniciando coleta de dados.");
+                            this.extrato1Flag = false;
                             this.sendDataTest(this.dadosTeste);
                             this.coletaDados = true;                //Inicio da coleta de dados
                             this.termina = true;
@@ -1250,6 +1270,7 @@ export default {
                             this.dadosTeste.resultado = -1;
                             this.sendDataTest(this.dadosTeste);
                             console.log("Fim do teste principal, iniciando coleta de dados.");
+                            this.extrato1Flag = false;
                             this.coletaDados = true;
                             this.termina = true;
                             this.nestr = 1;
@@ -1311,6 +1332,7 @@ export default {
                             this.dadosTeste.resultado = -1;
                             this.sendDataTest(this.dadosTeste);
                             console.log("Fim do teste principal, iniciando coleta de dados.");
+                            this.extrato1Flag = false;
                             this.coletaDados = true;
                             this.termina = true;
                             this.nestr = 1;
@@ -1344,6 +1366,7 @@ export default {
                             //Enviar dados pro backend
                             this.sendDataTest(this.dadosTeste);
                             console.log("Fim do teste principal, iniciando coleta de dados.");
+                            this.extrato1Flag = false;
                             this.coletaDados = true;
                             this.termina = true;
                             this.nestr = 1;
@@ -1361,6 +1384,7 @@ export default {
                             this.dadosTeste.resultado = -1;
                             this.sendDataTest(this.dadosTeste);
                             console.log("Fim do teste principal, iniciando coleta de dados.");
+                            this.extrato1Flag = false;
                             this.coletaDados = true;
                             this.termina = true;
                             this.nestr = 1;
@@ -1385,6 +1409,7 @@ export default {
                             this.dadosTeste.resultado = 4;
                             this.sendDataTest(this.dadosTeste);
                             console.log("Fim do teste principal, iniciando coleta de dados.");
+                            this.extrato1Flag = false;
                             this.coletaDados = true;
                             this.termina = true;
                             this.nestr = 1;
@@ -1406,6 +1431,7 @@ export default {
                             //Enviar dados pro backend
                             this.sendDataTest(this.dadosTeste);
                             console.log("Fim do teste principal, iniciando coleta de dados.");
+                            this.extrato1Flag = false;
                             this.coletaDados = true;
                             this.termina = true;
                             this.nestr = 1;
@@ -1423,6 +1449,7 @@ export default {
                             this.dadosTeste.resultado = -1;
                             this.sendDataTest(this.dadosTeste);
                             console.log("Fim do teste principal, iniciando coleta de dados.");
+                            this.extrato1Flag = false;
                             this.coletaDados = true;
                             this.termina = true;
                             this.nestr = 1;
@@ -1574,43 +1601,47 @@ export default {
 
         resetMegafone() {            //Utilizar esta função sempre que trocar de item.
             this.megafoneDisable = false;
-            console.log(this.megafoneDisable);
         },
 
         testeStatus(status) {                             //Troca o status do teste.
            if(status==0){
-                this.dadosTeste.testeStart = false;
+                this.dadosTeste.testeStart = false;       //Finaliza teste.
+                //console.log("deletando o cookie");
+                this.deleteCookie('testeStart');
+                //this.setCookie('testeStart', this.dadosTeste, 1);
            }
            if(status==1){
-                this.dadosTeste.testeStart = true;
+                this.dadosTeste.testeStart = true;                  //Inicia teste.
+                this.setCookie('testeStart', this.dadosTeste, 1);    //Cria um objeto teste com uma duração de 1 dia.
+
            }
         },  
 
-        forceRerender() {
-            console.log('teste');
-            switch (this.layoutCheck) {
-                case 'm1':
-                    console.log("Componente 1 renderizado")
-                    this.m1Key += 1;
-                    break;
-                case 'm2':
-                    console.log("Componente 2 renderizado")
+        setCookie(nomeCookie, objeto, expiracaoDias) {                          
+            const data = JSON.stringify(objeto);
+            const dataExpiracao = new Date();
+            dataExpiracao.setDate(dataExpiracao.getDate() + expiracaoDias);
 
-                    this.m2Key += 1;
-                    break;
-                case 'm3':
-                    console.log("Componente 3 renderizado")
-
-                    this.m3Key += 1;
-                    break;
-                case 'm4':
-                    this.m4Key += 1;
-                    break;
-                case 'm5':
-                    this.m5Key += 1;
-                    break;
-            }
+            const cookieValue = `${nomeCookie}=${data}; expires=${dataExpiracao.toUTCString()}; path=/`;
+            document.cookie = cookieValue;
         },
+
+        getCookie(nomeCookie) {
+            const cookies = document.cookie.split(';');
+            for (let cookie of cookies) {
+                const [cookieName, cookieValue] = cookie.split('=');
+                if (cookieName.trim() === nomeCookie) {
+                    return JSON.parse(decodeURIComponent(cookieValue));
+                }
+            }
+            return 0; // Retorna esta string se o cookie não for encontrado
+        },
+
+        deleteCookie(name) {
+            document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        },
+
+        
 
         resetTimer() {
             
