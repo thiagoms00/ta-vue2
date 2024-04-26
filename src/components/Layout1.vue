@@ -377,6 +377,7 @@ export default {
                 seqProbDom : [],
                 seqProbNdom : [],
                 nq: [],
+                questao_id: []
             },
             dialog: false
 
@@ -392,12 +393,12 @@ export default {
         this.jsonData = jsonDataQuestoes1;  
       
 
-        let cookieAux = this.getCookie('testeStart');  
-        if(cookieAux==0){
+        let cookieAux = JSON.parse(localStorage.getItem('testeStart'));
+        if(cookieAux==null){
             //Cookie não foi encontrado.
         }
         else{
-            this.dadosTeste = this.getCookie('testeStart');       
+            this.dadosTeste = JSON.parse(localStorage.getItem('testeStart'));       
         }
         
         this.dadosTeste.tokenAluno = localStorage.getItem('token');     
@@ -996,6 +997,8 @@ export default {
 
 
             this.questao_id = [questao_id_0, questao_id_1, questao_id_2, questao_id_3]; //Array final com arrays dos identificadores.
+            this.dadosTeste.questao_id = this.questao_id;
+            
 
             /* Armazenando as probabilidades de escolher uma questão, essa parte ficou confusa no algoritmo em python. */
 
@@ -1126,13 +1129,15 @@ export default {
         resumeTest(){                                          
             this.ordem = this.dadosTeste.ordemQuestoes;
             this.nq = this.dadosTeste.nq;
-
+            this.questao_id = this.dadosTeste.questao_id;
             this.resetaExtrato(this.dadosTeste.estratoAtual,this.dadosTeste.indiceAtual);
             this.probabilidades_domina = this.dadosTeste.probabilidadeDom;
             this.probabilidades_naodom = this.dadosTeste.probabilidadeNdom;
             this.PSR = this.dadosTeste.dadosPSR;
             this.seq_prob_dom = this.dadosTeste.seqProbDom;
             this.seq_prob_ndom = this.dadosTeste.seqProbNdom;
+            this.jiter = this.indiceAtual;
+            
         },
 
 
@@ -1248,7 +1253,9 @@ export default {
             this.dadosTeste.dadosPSR = this.PSR;                                    //Usado caso o teste seja retomado.
             this.jiter += 1
 
-            this.setCookie('testeStart', this.dadosTeste, 1);
+            //this.setCookie('testeStart', this.dadosTeste, 1);
+            localStorage.setItem('testeStart', JSON.stringify(this.dadosTeste));
+
             // Tomada de decisão:
 
             /* 
@@ -1637,12 +1644,15 @@ export default {
            if(status==0){
                 this.dadosTeste.testeStart = false;       //Finaliza teste.
                 //console.log("deletando o cookie");
-                this.deleteCookie('testeStart');
+                // Assume you want to delete an item with key 'myItem'
+                localStorage.removeItem('testeStart');
+
                 //this.setCookie('testeStart', this.dadosTeste, 1);
            }
            if(status==1){
                 this.dadosTeste.testeStart = true;                  //Inicia teste.
-                this.setCookie('testeStart', this.dadosTeste, 1);    //Cria um objeto teste com uma duração de 1 dia.
+                //this.setCookie('testeStart', this.dadosTeste, 1);    //Cria um objeto teste com uma duração de 1 dia.
+                localStorage.setItem('testeStart', JSON.stringify(this.dadosTeste));
 
            }
         },  
