@@ -372,6 +372,11 @@ export default {
                 indiceAtual : 0,      
                 testeStart : false,  
                 dadosPSR: 0.5,
+                probabilidadeDom : [],
+                probabilidadeNdom: [],
+                seqProbDom : [],
+                seqProbNdom : [],
+                nq: [],
             },
             dialog: false
 
@@ -385,8 +390,7 @@ export default {
     created() {  //Sempre é chamado quando a pagina é carregada
 
         this.jsonData = jsonDataQuestoes1;  
-        //Randomiza uma questão quando a pagina é criada.
-        // Ele sorteia um número entre 0 e o número de objetos no JSON
+      
 
         let cookieAux = this.getCookie('testeStart');  
         if(cookieAux==0){
@@ -398,34 +402,32 @@ export default {
         
         this.dadosTeste.tokenAluno = localStorage.getItem('token');     
 
-        if(this.dadosTeste.testeStart){         //Teste ja foi inciado.
+
+        /* Verificando se existe um teste atual em andamento.
+           Caso não exista um teste em andamento, um teste novo é iniciado e a função "startTest é chamada".
+           Caso exista um teste, a função "resumeTest é chamada".
+        */
+
+        if(this.dadosTeste.testeStart){             //Flag usada para determinar se existe um teste em andamento.
             console.log("Teste em andamento");
+            console.log(this.dadosTeste);
+            this.resumeTest();
         }
         else{
             console.log("Iniciando um novo teste");
             this.testeStatus(1);
+            this.startTest();
         }
            
         
-        console.log(this.dadosTeste.testeStart);
+        //console.log(this.dadosTeste.testeStart);
 
+        //this.startTest();
 
-       
       
-        this.startTest();
-
-      /*   if(this.dadosTeste.testeStart){                                             //Caso o usuario já tenha começado um teste.
-            this.ordem = this.dadosTeste.ordemQuestoes;                                //Ordem das questões.
-            
-            this.resetaExtrato(this.dadosTeste.extratoAtual, this.dadosTeste.indiceAtual);
-            this.PSR = this.dadosTeste.dadosPSR;  
-            this.ind_questao = this.dadosTeste.indiceAtual;
-        } */
-
-       
 
 
-
+        /* Esta parte esta associada as informações visuais da pagina*/
         this.questionNumber = this.ordem[this.nestr][this.ind_questao];
         this.questionId = this.jsonData.questoes[this.questionNumber].id;
         this.questionText = this.jsonData.questoes[this.questionNumber].text;
@@ -450,6 +452,13 @@ export default {
             this.stMargin = '2vh';
         }
 
+        /* Define o layout do teste por enquanto 4 layouts foram criados.
+            m1: Para questões com um texto no enunciado
+            m2: Para questões com uma Imagem grande no enunciado
+            m3: Para questões com uma Imagem menor no enunciado
+            m4: Para questões com Imagens nas alternativas
+            m5: Para questões com sem enunciado(apenas audio e as alternativas)
+        */
         switch (this.jsonData.questoes[this.questionNumber].layout) {
             case 'm1':
                 this.layoutCheck = 'm1';
@@ -964,6 +973,7 @@ export default {
             const nq2 = jsonData2.extrato.length
             const nq3 = jsonData3.extrato.length
             this.nq = [nq0, nq1, nq2, nq3]; //Array contendo os tamanhos relativos aos extratos.
+            this.dadosTeste.nq = this.nq;
 
             let questao_id_0 = [];
             let questao_id_1 = [];
@@ -1067,6 +1077,8 @@ export default {
             this.probabilidades_domina = [probabilidades_domina_0, probabilidades_domina_1, probabilidades_domina_2, probabilidades_domina_3];
             this.probabilidades_naodom = [probabilidades_naodom_0, probabilidades_naodom_1, probabilidades_naodom_2, probabilidades_naodom_3];
 
+            this.dadosTeste.probabilidadeDom = this.probabilidades_domina;
+            this.dadosTeste.probabilidadeNdom = this.probabilidades_naodom;
 
             /* Randomizando a ordem das questões. */
             let ordem_0 = [];
@@ -1109,6 +1121,18 @@ export default {
 
             this.resetaExtrato(this.nestr, this.jquest);
 
+        },
+
+        resumeTest(){                                          
+            this.ordem = this.dadosTeste.ordemQuestoes;
+            this.nq = this.dadosTeste.nq;
+
+            this.resetaExtrato(this.dadosTeste.estratoAtual,this.dadosTeste.indiceAtual);
+            this.probabilidades_domina = this.dadosTeste.probabilidadeDom;
+            this.probabilidades_naodom = this.dadosTeste.probabilidadeNdom;
+            this.PSR = this.dadosTeste.dadosPSR;
+            this.seq_prob_dom = this.dadosTeste.seqProbDom;
+            this.seq_prob_ndom = this.dadosTeste.seqProbNdom;
         },
 
 
@@ -1159,6 +1183,10 @@ export default {
                     break;
             }
 
+            console.log(this.nq);
+            console.log(this.nestr);
+            console.log(this.jquest);
+
             this.Questoes = Array(this.nq[nestr] - jquest).fill(0);  // lista que armazenará os identificadores das questões apresentadas
             this.Respostas = Array(this.nq[nestr] - jquest).fill(0); // lista que armazenará as respostas do estudante às questões
             //this.termina = false;                                  // flag de término da bateria de questões referente ao extrato
@@ -1201,6 +1229,8 @@ export default {
             // Atualiza probabilidades, dada a resposta:
             this.seq_prob_dom[this.jiter] = this.probabilidades_domina[this.nestr][iresp][iabs];  // armazena P(resposta|domina) para a atual resposta
             this.seq_prob_ndom[this.jiter] = this.probabilidades_naodom[this.nestr][iresp][iabs]; // armazena P(resposta|naodomina) para a atual resposta
+            this.dadosTeste.seqProbDom =  this.seq_prob_dom;
+            this.dadosTeste.seqProbNdom = this.seq_prob_ndom;
             if (this.probabilidades_domina[this.nestr][iresp][iabs] == 0.85) {                    //Verifica se o aluno acertou ou não a questão.
                 this.dadosTeste.qtdAcertos++;
                 auxQuestao.acertou = true;
@@ -1617,7 +1647,13 @@ export default {
            }
         },  
 
-        setCookie(nomeCookie, objeto, expiracaoDias) {                          
+        setCookie(nomeCookie, objeto, expiracaoDias) {    
+
+
+          
+
+            console.log('Atualizando cookie...');      
+            console.log(objeto);               
             const data = JSON.stringify(objeto);
             const dataExpiracao = new Date();
             dataExpiracao.setDate(dataExpiracao.getDate() + expiracaoDias);
