@@ -368,7 +368,7 @@ export default {
                 questoesRespondidas: [],       //Array com os itens que foram respondidos.
                 resultado: 0,                  //Resultado final do teste(numero do extrato).
                 ordemQuestoes: [],             //Ordem das questões enviadas ao aluno.
-                estratoAtual: 1,               
+                extratoAtual: 1,               
                 indiceAtual : 0,      
                 testeStart : false,  
                 dadosPSR: 0.5,
@@ -377,7 +377,8 @@ export default {
                 seqProbDom : [],
                 seqProbNdom : [],
                 nq: [],
-                questao_id: []
+                questao_id: [],
+                jiter: []
             },
             dialog: false
 
@@ -429,6 +430,8 @@ export default {
 
 
         /* Esta parte esta associada as informações visuais da pagina*/
+        console.log('Numero do extrato: ' + this.nestr);
+        console.log('Indice da questão: ' + this.ind_questao)
         this.questionNumber = this.ordem[this.nestr][this.ind_questao];
         this.questionId = this.jsonData.questoes[this.questionNumber].id;
         this.questionText = this.jsonData.questoes[this.questionNumber].text;
@@ -1123,6 +1126,7 @@ export default {
 
 
             this.resetaExtrato(this.nestr, this.jquest);
+            localStorage.setItem('testeStart', JSON.stringify(this.dadosTeste));
 
         },
 
@@ -1130,13 +1134,46 @@ export default {
             this.ordem = this.dadosTeste.ordemQuestoes;
             this.nq = this.dadosTeste.nq;
             this.questao_id = this.dadosTeste.questao_id;
-            this.resetaExtrato(this.dadosTeste.estratoAtual,this.dadosTeste.indiceAtual);
+            //this.resetaExtrato(this.dadosTeste.extratoAtual,this.dadosTeste.indiceAtual);
+
             this.probabilidades_domina = this.dadosTeste.probabilidadeDom;
             this.probabilidades_naodom = this.dadosTeste.probabilidadeNdom;
-            this.PSR = this.dadosTeste.dadosPSR;
             this.seq_prob_dom = this.dadosTeste.seqProbDom;
             this.seq_prob_ndom = this.dadosTeste.seqProbNdom;
-            this.jiter = this.indiceAtual;
+
+            this.PSR = this.dadosTeste.dadosPSR;
+            this.PS = 0.5;
+            this.pouts = 0.95;
+            this.poutn = 0.05;
+
+            this.nestr = this.dadosTeste.extratoAtual;
+            this.ind_questao = this.dadosTeste.indiceAtual;
+
+
+            switch (this.dadosTeste.extratoAtual){
+                case 0:
+                    this.jsonData = jsonDataQuestoes0;
+                    break;
+                case 1:
+                    this.jsonData = jsonDataQuestoes1;
+                    break;
+                case 2:
+                    this.jsonData = jsonDataQuestoes2;
+                    break;
+                case 3:
+                    this.jsonData = jsonDataQuestoes3;
+                    break;
+            }
+
+         
+            //this.termina = false;                                  // flag de término da bateria de questões referente ao extrato
+            
+            //this.jquest = this.dadosTeste.indiceAtual;
+            this.resultado = 0;                                      // vai conter: -1 -> reprovação; 0 -> indefinido; 1 -> aprovação
+            this.jiter = this.dadosTeste.jiter;
+
+
+           
             
         },
 
@@ -1207,6 +1244,7 @@ export default {
 
         async aplicaQuestao(value){                              //Função chamada sempre que o usuario clicar no "continuar"
             console.clear();
+            console.log('Numero do extrato(localstorage)', +this.dadosTeste.extratoAtual);
 
 
             // "Aplica" uma questão, verificando se o aluno acertou ou não.
@@ -1251,8 +1289,8 @@ export default {
             this.PSR = prs * this.PS / (this.PS * prs + (1 - this.PS) * prn);        //probabilidade de dominio do conteúdo, dada a sequência de respostas
             console.log("probabilidade dominio conteudo = ", +this.PSR);
             this.dadosTeste.dadosPSR = this.PSR;                                    //Usado caso o teste seja retomado.
-            this.jiter += 1
-
+            this.jiter += 1;
+            this.dadosTeste.jiter = this.jiter;
             //this.setCookie('testeStart', this.dadosTeste, 1);
             localStorage.setItem('testeStart', JSON.stringify(this.dadosTeste));
 
@@ -1274,8 +1312,9 @@ export default {
                         this.resultado = 1;
                         console.log("Fim do extrato 0: Avançando para o Extrato 1");
                         this.nestr = 1;
+                        this.dadosTeste.extratoAtual = this.nestr;  //Usado caso o teste seja retomado.
+
                         this.resetaExtrato(this.nestr, 0);
-                        this.dadosTeste.estratoAtual = this.nestr;  //Usado caso o teste seja retomado.
                     } else if (this.PSR < this.poutn) {     // reprovação no extrato 0
                         this.resultado = -1;
                         console.log("Fim do extrato 0: Reprovado no extrato 0");
@@ -1290,6 +1329,8 @@ export default {
                             this.coletaDados = true;                //Inicio da coleta de dados
                             this.termina = true;
                             this.nestr = 1;
+                            this.dadosTeste.extratoAtual = this.nestr;
+
                             this.resetaExtrato(this.nestr, 0);       //Retomando ao extrato 1
                         }
                         else {                                      //Fim da coleta de dados
@@ -1311,6 +1352,8 @@ export default {
                             this.coletaDados = true;
                             this.termina = true;
                             this.nestr = 1;
+                            this.dadosTeste.extratoAtual = this.nestr;
+
                             this.resetaExtrato(this.nestr, 0);
                         }
                         else {
@@ -1328,8 +1371,9 @@ export default {
                         this.resultado = 1;
                         console.log("Fim do extrato 1: Avançando para o Extrato 2");
                         this.nestr = 2;
+                        this.dadosTeste.extratoAtual = this.nestr;
                         this.resetaExtrato(this.nestr, 0);
-                        this.dadosTeste.estratoAtual = this.nestr;  //Usado caso o teste seja retomado.
+                         //Usado caso o teste seja retomado.
 
                     } else if (this.PSR < this.poutn) {     // reprovação no extrato 1
                         this.resultado = -1;
@@ -1338,8 +1382,9 @@ export default {
                         if (this.extrato1Flag === false) {      //Aluno foi reprovado pela primeira vez no extrato 1
                             console.log("Fim do extrato 1: Retrocedendo ao extrato 0");
                             this.extrato1Flag = true;
+                            this.dadosTeste.extratoAtual = this.nestr;
                             this.resetaExtrato(this.nestr, 0);
-                            this.dadosTeste.estratoAtual = this.nestr;  //Usado caso o teste seja retomado.
+                              //Usado caso o teste seja retomado.
 
                         }
                         else if (this.extrato1Flag === true) { //Aluno foi reprovado pela segunda vez no extrato 1
@@ -1352,6 +1397,8 @@ export default {
                                 this.extrato1Flag = false;
                                 this.termina = true;
                                 this.nestr = 1;
+                                this.dadosTeste.extratoAtual = this.nestr;
+
                                 this.resetaExtrato(this.nestr, 0);
 
                             }
@@ -1373,6 +1420,8 @@ export default {
                             this.coletaDados = true;
                             this.termina = true;
                             this.nestr = 1;
+                            this.dadosTeste.extratoAtual = this.nestr;
+
                             this.resetaExtrato(this.nestr, 0);
                         }
                         else {
@@ -1389,8 +1438,8 @@ export default {
                         this.resultado = 1;
                         console.log("Fim do extrato 2: Avançando para o Extrato 3");
                         this.nestr = 3;
+                        this.dadosTeste.extratoAtual = this.nestr;
                         this.resetaExtrato(this.nestr, 0);
-                        this.dadosTeste.estratoAtual = this.nestr;  //Usado caso o teste seja retomado.
 
                     } else if (this.PSR < this.poutn) {     // reprovação no extrato 2
                         this.resultado = -1;
@@ -1407,6 +1456,7 @@ export default {
                             this.coletaDados = true;
                             this.termina = true;
                             this.nestr = 1;
+                            this.dadosTeste.extratoAtual = this.nestr;
                             this.resetaExtrato(this.nestr, 0);
 
                         }
@@ -1425,6 +1475,7 @@ export default {
                             this.coletaDados = true;
                             this.termina = true;
                             this.nestr = 1;
+                            this.dadosTeste.extratoAtual = this.nestr;
                             this.resetaExtrato(this.nestr, 0);
                         }
                         else {
@@ -1450,6 +1501,8 @@ export default {
                             this.coletaDados = true;
                             this.termina = true;
                             this.nestr = 1;
+                            this.dadosTeste.extratoAtual = this.nestr;
+
                             this.resetaExtrato(this.nestr, 0);
                         }
                         else {
@@ -1472,6 +1525,8 @@ export default {
                             this.coletaDados = true;
                             this.termina = true;
                             this.nestr = 1;
+                            this.dadosTeste.extratoAtual = this.nestr;
+
                             this.resetaExtrato(this.nestr, 0);
                         }
                         else {
@@ -1490,6 +1545,7 @@ export default {
                             this.coletaDados = true;
                             this.termina = true;
                             this.nestr = 1;
+                            this.dadosTeste.extratoAtual = this.nestr;
                             this.resetaExtrato(this.nestr, 0);
                         }
                         else {
