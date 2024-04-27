@@ -17,29 +17,31 @@
 
           <v-col cols="2">
 
-            <v-sheet class=" h-50" rounded="lg">
+            <v-sheet class=" pa-2" rounded="lg">
 
               <div class="d-flex justify-space-evenly py-2">
                 <v-icon icon="mdi-school-outline"> </v-icon>
                 <p> Turmas </p>
               </div>
+
               <v-divider></v-divider>
 
-              <v-btn-toggle class="d-flex flex-column w-100 h-100" color="blue-lighten-4" rounded="0" v-model="toggleTurma">
+              <v-btn-toggle class="d-flex flex-column w-100 h-100" color="blue-lighten-4" rounded="0"
+                v-model="toggleTurma">
 
-                <v-btn class="pa-4" value="t1" @click="selecionaTurma('LP1')" >
+                <v-btn class="pa-4" value="t1" @click="selecionaTurma('LP1')">
                   Turma 1
                 </v-btn>
 
-                <v-btn class="pa-4" value="t2" @click="selecionaTurma('LP2')" >
+                <v-btn class="pa-4" value="t2" @click="selecionaTurma('LP2')">
                   Turma 2
                 </v-btn>
 
-                <v-btn class="pa-4" value="t3" @click="selecionaTurma('LP3')" >
+                <v-btn class="pa-4" value="t3" @click="selecionaTurma('LP3')">
                   Turma 3
                 </v-btn>
 
-                <v-btn class="pa-4" value="t4" @click="selecionaTurma('LP4')" >
+                <v-btn class="pa-4" value="t4" @click="selecionaTurma('LP4')">
                   Turma 4
                 </v-btn>
 
@@ -47,15 +49,60 @@
 
             </v-sheet>
 
-            <v-sheet class="mt-4 h-75" rounded="lg">
 
-              <div class="d-flex justify-space-evenly py-2">
-                <v-icon icon="mdi-filter-variant"> </v-icon>
-                <p> Filtros </p>
-              </div>
-              <v-divider></v-divider>
 
-              <v-btn-toggle class="d-flex flex-column w-100 h-100" color="blue-lighten-4" rounded="0" v-model="toggle">
+            <div class="py-4">
+              <v-menu>
+
+                <template v-slot:activator="{ props }">
+                  <v-btn variant="elevated" prepend-icon="mdi-filter-variant" append-icon="mdi-chevron-down"
+                    color="white" v-bind="props" block="">
+                    Filtros
+                  </v-btn>
+                </template>
+                <v-list>
+                  <v-list-item v-for="(item, index) in items_filtro" :key="index" :value="item.title"
+                    @click="selecionarItem(item.title)">
+                    <v-list-item-title>{{ item.title }}</v-list-item-title>
+                  </v-list-item>
+                </v-list>
+
+              </v-menu>
+
+            </div>
+
+            <div class="py-4">
+              <v-expansion-panels>
+                <v-expansion-panel>
+                  <v-expansion-panel-title style="height: 4vh;" disable-icon>
+                    <template v-slot:actions>
+                      <!-- Só pra retirar o ícone. -->
+                    </template>
+
+
+                    <div class="d-flex justify-space-around align-center h-100 w-100">
+                      <v-icon icon="mdi-filter-variant" size="large"></v-icon>
+                      <p> FILTROS </p>
+                    </div>
+
+
+                  </v-expansion-panel-title>
+
+                  <v-expansion-panel-text>
+                    <v-list>
+                      <v-list-item v-for="(item, index) in items_filtro" :key="index" :value="item.title"
+                        @click="selecionarItem(item.title)">
+                        <v-list-item-title>{{ item.title }}</v-list-item-title>
+                      </v-list-item>
+                    </v-list>
+                  </v-expansion-panel-text>
+                </v-expansion-panel>
+              </v-expansion-panels>
+            </div>
+
+
+
+            <!-- <v-btn-toggle class="d-flex flex-column w-100 h-100" color="blue-lighten-4" rounded="0" v-model="toggle">
 
                 <v-btn class="pa-4" value="Extrato" @click="handleFilterValue()">
                   Extrato
@@ -77,9 +124,9 @@
                   Nome
                 </v-btn>
 
-              </v-btn-toggle>
+              </v-btn-toggle> -->
 
-            </v-sheet>
+
 
           </v-col>
 
@@ -152,7 +199,7 @@
                       </v-col>
 
                       <v-col cols="3">
-                        <Chart :chartData="item.chartData"/>
+                        <Chart :chartData="item.chartData" />
                       </v-col>
                     </v-row>
 
@@ -194,7 +241,14 @@ export default {
     carregandoTurmas: true,
     chipValue: '',
     toggle: undefined,
-    toggleTurma: undefined
+    toggleTurma: undefined,
+    items_filtro: [
+      { title: 'Extrato' },
+      { title: 'Status' },
+      { title: 'Porcentagem' },
+      { title: 'N Questões' },
+      { title: 'Nome' },
+    ]
 
 
   }),
@@ -301,8 +355,9 @@ export default {
       }
     },
 
-    handleFilterValue() {
-      console.log(this.toggle);
+    selecionarItem(index) {
+      this.toggle = index; // Atualiza a variável com o índice do item clicado
+      console.log(this.toggle)
     },
 
     testaValores(item) {
@@ -311,7 +366,7 @@ export default {
     },
 
     verificaHabilidades(objeto, teste_t) {
-      
+
       const listaHabilidades = Array(11).fill(0);
 
       for (let i = 0; i < objeto.listaQuest.length; i++) {
@@ -329,82 +384,82 @@ export default {
 
     },
 
-    getChartDatas(lista) {  
+    getChartDatas(lista) {
       console.log(lista);
 
       for (let i = 0; i < lista.length; i++) {
         const objeto = lista[i];
-        
+
         const dadosHabilidades = this.verificaHabilidades(objeto, true);
-        
+
 
         const labels = Array.from({ length: 12 }, (_, i) => `H${(i).toString().padStart(2, '0')}`);
         const novoChartData = {
-        labels: labels,
-        datasets: [{
-          label: 'Habilidades',
-          data: dadosHabilidades,
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)',
-            'rgba(50, 205, 50, 0.2)',
-            'rgba(255, 0, 255, 0.2)',
-            'rgba(0, 191, 255, 0.2)',
-            'rgba(255, 140, 0, 0.2)',
-            'rgba(75, 0, 130, 0.2)'
+          labels: labels,
+          datasets: [{
+            label: 'Habilidades',
+            data: dadosHabilidades,
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)',
+              'rgba(50, 205, 50, 0.2)',
+              'rgba(255, 0, 255, 0.2)',
+              'rgba(0, 191, 255, 0.2)',
+              'rgba(255, 140, 0, 0.2)',
+              'rgba(75, 0, 130, 0.2)'
 
-          ],
-          borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)',
-            'rgba(50, 205, 50, 1)',
-            'rgba(255, 0, 255, 1)',
-            'rgba(0, 191, 255, 1)',
-            'rgba(255, 140, 0, 1)',
-            'rgba(75, 0, 130, 1)'
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(50, 205, 50, 1)',
+              'rgba(255, 0, 255, 1)',
+              'rgba(0, 191, 255, 1)',
+              'rgba(255, 140, 0, 1)',
+              'rgba(75, 0, 130, 1)'
 
-          ],
-          borderWidth: 1
-        }]
+            ],
+            borderWidth: 1
+          }]
         };
 
-        
+
         objeto.chartData = novoChartData;
       }
 
       // console.log(lista)
-      
+
       return lista;
 
     },
 
-    selecionaTurma(turmaValue){
+    selecionaTurma(turmaValue) {
 
 
       this.returnDadosTurmaNumber(turmaValue)
-      .then((dados) => {
-        console.log(dados)
+        .then((dados) => {
+          console.log(dados)
 
-        // Quando a promessa for resolvida, atribua os dados à listaTurma
-        this.listaTurma = dados;
-        console.log(this.listaTurma)
-        this.listaTurma = this.getChartDatas(this.listaTurma);
-      })
-      .catch((error) => {
-        // Em caso de erro, trate-o de acordo com a sua necessidade
-        console.error("Erro ao buscar dados da turma:", error);
-      }).finally(() => {
-        // Define carregandoTurmas como false quando a promessa for resolvida ou rejeitada
-        this.carregandoTurmas = false;
-      });
+          // Quando a promessa for resolvida, atribua os dados à listaTurma
+          this.listaTurma = dados;
+          console.log(this.listaTurma)
+          this.listaTurma = this.getChartDatas(this.listaTurma);
+        })
+        .catch((error) => {
+          // Em caso de erro, trate-o de acordo com a sua necessidade
+          console.error("Erro ao buscar dados da turma:", error);
+        }).finally(() => {
+          // Define carregandoTurmas como false quando a promessa for resolvida ou rejeitada
+          this.carregandoTurmas = false;
+        });
     }
 
   },
