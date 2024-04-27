@@ -2,6 +2,7 @@
 
     <div class="mainDiv">
         <PopupTeste ref="PopupTeste" :extratoCounter="nestr" />
+        <PopupIntervalo ref="PopupIntervalo"/>
         <FlexBar :fonte="fonte" />
         <div class="conteudo" v-if="layoutCheck == 'm1'">
             <div class="pergunta">
@@ -63,7 +64,7 @@
 
             <div class="pergunta pergunta-m2">
                 <div class="icon-mega" @click="playAudio(1)">
-                    <span class="tooltipText">Escutar</span>
+                    <span class="tooltipText">Escutar</span> w
                 </div>
 
                 <!-- <img src="{{}}" alt="imagem da questao" class=""> -->
@@ -279,6 +280,7 @@ import jsonData3 from '../assets/extratos/extrato3.json';
 
 import FlexBar from '@/components/FlexBar.vue';
 import PopupTeste from './PopupTeste.vue'
+import PopupIntervalo from './PopupIntervalo.vue';
 
 
 
@@ -287,7 +289,8 @@ export default {
     components: {
         ContButton,       //Botão azul presente em todos itens.
         FlexBar,          //Barra azul superior, contem o botão com a fonte. 
-        PopupTeste
+        PopupTeste,
+        PopupIntervalo
     },
 
     data() {
@@ -1323,6 +1326,7 @@ export default {
 
                         if (this.termina === false) {                    //Flag utilizada para determinar o envio dos dados do teste
                             //Enviar dados pro backend
+                            this.$refs.PopupIntervalo.openDialog();
                             console.log("Fim do teste principal, iniciando coleta de dados.");
                             this.extrato1Flag = false;
                             this.sendDataTest(this.dadosTeste);
@@ -1345,6 +1349,7 @@ export default {
                         console.log("Fim do extrato 0");
 
                         if (this.termina == false) {
+                            this.$refs.PopupIntervalo.openDialog();
                             this.dadosTeste.resultado = -1;
                             this.sendDataTest(this.dadosTeste);
                             console.log("Fim do teste principal, iniciando coleta de dados.");
@@ -1390,6 +1395,7 @@ export default {
                         else if (this.extrato1Flag === true) { //Aluno foi reprovado pela segunda vez no extrato 1
                             if (this.termina === false) {
                                 //Enviar dados pro backend
+                                this.$refs.PopupIntervalo.openDialog();
                                 this.dadosTeste.resultado = 1;
                                 this.sendDataTest(this.dadosTeste);
                                 console.log("Fim do teste principal, iniciando coleta de dados.");
@@ -1413,6 +1419,7 @@ export default {
                         console.log("Fim do extrato 1");
 
                         if (this.termina == false) {
+                            this.$refs.PopupIntervalo.openDialog();
                             this.dadosTeste.resultado = -1;
                             this.sendDataTest(this.dadosTeste);
                             console.log("Fim do teste principal, iniciando coleta de dados.");
@@ -1449,6 +1456,7 @@ export default {
 
 
                         if (this.termina === false) {
+                            this.$refs.PopupIntervalo.openDialog();
                             //Enviar dados pro backend
                             this.sendDataTest(this.dadosTeste);
                             console.log("Fim do teste principal, iniciando coleta de dados.");
@@ -1468,6 +1476,7 @@ export default {
 
                         console.log("Fim do extrato 2");
                         if (this.termina == false) {
+                            this.$refs.PopupIntervalo.openDialog();
                             this.dadosTeste.resultado = -1;
                             this.sendDataTest(this.dadosTeste);
                             console.log("Fim do teste principal, iniciando coleta de dados.");
@@ -1493,6 +1502,7 @@ export default {
                         console.log("Fim do extrato 3: Aprovado no extrato 3");
                         console.log(this.dadosTeste);
                         if (this.termina === false) {
+                            this.$refs.PopupIntervalo.openDialog();
                             //Enviar dados pro backend
                             this.dadosTeste.resultado = 4;
                             this.sendDataTest(this.dadosTeste);
@@ -1518,6 +1528,7 @@ export default {
                         this.dadosTeste.resultado = 3;
 
                         if (this.termina === false) {
+                            this.$refs.PopupIntervalo.openDialog();
                             //Enviar dados pro backend
                             this.sendDataTest(this.dadosTeste);
                             console.log("Fim do teste principal, iniciando coleta de dados.");
@@ -1538,6 +1549,7 @@ export default {
                         console.log("Fim do extrato 3");
 
                         if (this.termina == false) {
+                            this.$refs.PopupIntervalo.openDialog();
                             this.dadosTeste.resultado = -1;
                             this.sendDataTest(this.dadosTeste);
                             console.log("Fim do teste principal, iniciando coleta de dados.");
