@@ -1,9 +1,9 @@
 <template>
     <div class="main-div">
         <v-container class="d-flex justify-end align-end absoluteClass h-100" fluid>
-            //<LogoImpacto />
+            <LogoImpacto />
         </v-container>
-        <MessageCongratulations/>
+        <MessageCongratulations />
 
     </div>
 </template>
@@ -14,12 +14,13 @@ import MessageCongratulations from '@/components/MessageCongratulations.vue'
 
 export default {
     name: 'Congratulations',
-    components:{
+    components: {
         //LogoImpacto,
-        MessageCongratulations
+        MessageCongratulations,
     },
-    
-    created(){
+
+
+    created() {
         this.$store.dispatch('verificarToken', { router: this.$router });
     }
 }

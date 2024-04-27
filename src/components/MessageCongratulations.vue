@@ -103,8 +103,6 @@ export default {
     width: 40vw;
   }
 
-  .mainContainer {}
-
   .finish-msg {
     font-size: 1.5rem;
   }
