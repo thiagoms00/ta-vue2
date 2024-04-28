@@ -49,35 +49,11 @@
 
             </v-sheet>
 
-
-
-            <div class="py-4">
-              <v-menu>
-
-                <template v-slot:activator="{ props }">
-                  <v-btn variant="elevated" prepend-icon="mdi-filter-variant" append-icon="mdi-chevron-down"
-                    color="white" v-bind="props" block="">
-                    Filtros
-                  </v-btn>
-                </template>
-                <v-list>
-                  <v-list-item v-for="(item, index) in items_filtro" :key="index" :value="item.title"
-                    @click="selecionarItem(item.title)">
-                    <v-list-item-title>{{ item.title }}</v-list-item-title>
-                  </v-list-item>
-                </v-list>
-
-              </v-menu>
-
-            </div>
-
             <div class="py-4">
               <v-expansion-panels>
                 <v-expansion-panel>
-                  <v-expansion-panel-title style="height: 4vh;" disable-icon>
-                    <template v-slot:actions>
-                      <!-- Só pra retirar o ícone. -->
-                    </template>
+                  <v-expansion-panel-title style="height: 1px;" rounded="lg" v-ripple>
+                    
 
 
                     <div class="d-flex justify-space-around align-center h-100 w-100">
@@ -88,9 +64,9 @@
 
                   </v-expansion-panel-title>
 
-                  <v-expansion-panel-text>
+                  <v-expansion-panel-text class="custom-panel-text">
                     <v-list>
-                      <v-list-item v-for="(item, index) in items_filtro" :key="index" :value="item.title"
+                      <v-list-item density="compact" class="d-flex justify-center" v-for="(item, index) in items_filtro" :key="index" :value="item.title"
                         @click="selecionarItem(item.title)">
                         <v-list-item-title>{{ item.title }}</v-list-item-title>
                       </v-list-item>
@@ -99,32 +75,6 @@
                 </v-expansion-panel>
               </v-expansion-panels>
             </div>
-
-
-
-            <!-- <v-btn-toggle class="d-flex flex-column w-100 h-100" color="blue-lighten-4" rounded="0" v-model="toggle">
-
-                <v-btn class="pa-4" value="Extrato" @click="handleFilterValue()">
-                  Extrato
-                </v-btn>
-
-                <v-btn class="pa-4" value="Status" @click="handleFilterValue()">
-                  Status
-                </v-btn>
-
-                <v-btn class="pa-3" value="Porcentagem" @click="handleFilterValue()">
-                  Porcentagem de <br> questão
-                </v-btn>
-
-                <v-btn class="pa-4" value="N Questões" @click="handleFilterValue()">
-                  Nº de questões
-                </v-btn>
-
-                <v-btn class="pa-4" value="Nome" @click="handleFilterValue()">
-                  Nome
-                </v-btn>
-
-              </v-btn-toggle> -->
 
 
 
@@ -155,7 +105,7 @@
               </v-expansion-panels>
             </v-sheet>
 
-            <v-sheet rounded="lg" class="mt-6">
+            <v-sheet rounded="lg" class="mt-2">
 
 
 
@@ -507,4 +457,15 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+
+.custom-panel-text {
+  padding: 0; /* Remove a margem interna */
+  margin: 0; /* Remove a margem externa */
+}
+
+.v-expansion-panel-text__wrapper {
+  padding: 0 !important; /* Defina o padding como 0 */
+}
+
+</style>
