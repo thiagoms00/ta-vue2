@@ -5,7 +5,7 @@
       <v-card width="40%" class="ml-16" max-width="500">
         <v-card-title class="d-flex align-center" style="background-color: #1E3892; color: white;">
           <v-icon icon="mdi-alert-circle-outline"></v-icon>
-          Vamos lá
+          <p class="ml-4"> Vamos lá</p>
         </v-card-title>
         <v-card-text class="pop-msg">
           <p>

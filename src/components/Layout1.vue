@@ -2,7 +2,7 @@
 
     <div class="mainDiv">
         <PopupTeste ref="PopupTeste" :extratoCounter="nestr" />
-        <PopupIntervalo ref="PopupIntervalo"/>
+        <PopupIntervalo ref="PopupIntervalo" @playAudio="playAudio(1)"/>
         <FlexBar :fonte="fonte" />
         <div class="conteudo" v-if="layoutCheck == 'm1'">
             <div class="pergunta">
