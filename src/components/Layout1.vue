@@ -1343,7 +1343,7 @@ export default {
 
                         if (this.termina === false) {                    //Flag utilizada para determinar o envio dos dados do teste
                             //Enviar dados pro backend
-                            this.$refs.PopupIntervalo.openDialog();
+                            this.popupIntervalo();
                             console.log("Fim do teste principal, iniciando coleta de dados.");
                             this.resetaOrdem();
                             this.dadosTeste.extrato1Flag=false;
@@ -1376,7 +1376,7 @@ export default {
                         console.log("Fim do extrato 0");
 
                         if (this.termina == false) {
-                            this.$refs.PopupIntervalo.openDialog();
+                            this.popupIntervalo();
                             this.dadosTeste.resultado = -1;
                             this.sendDataTest(this.dadosTeste);
                             console.log("Fim do teste principal, iniciando coleta de dados.");
@@ -1451,7 +1451,7 @@ export default {
                         else if (this.extrato1Flag === true) { //Aluno foi reprovado pela segunda vez no extrato 1
                             if (this.termina === false) {
                                 //Enviar dados pro backend
-                                this.$refs.PopupIntervalo.openDialog();
+                                this.popupIntervalo();
                                 this.dadosTeste.resultado = 1;
                                 this.sendDataTest(this.dadosTeste);
                                 console.log("Fim do teste principal, iniciando coleta de dados.");
@@ -1487,7 +1487,7 @@ export default {
                         console.log("Fim do extrato 1");
 
                         if (this.termina == false) {
-                            this.$refs.PopupIntervalo.openDialog();
+                            this.popupIntervalo();
                             this.dadosTeste.resultado = -1;
                             this.sendDataTest(this.dadosTeste);
                             console.log("Fim do teste principal, iniciando coleta de dados.");
@@ -1540,7 +1540,7 @@ export default {
 
 
                         if (this.termina === false) {
-                            this.$refs.PopupIntervalo.openDialog();
+                            this.popupIntervalo();
                             //Enviar dados pro backend
                             this.sendDataTest(this.dadosTeste);
                             console.log("Fim do teste principal, iniciando coleta de dados.");
@@ -1571,7 +1571,7 @@ export default {
 
                         console.log("Fim do extrato 2");
                         if (this.termina == false) {
-                            this.$refs.PopupIntervalo.openDialog();
+                            this.popupIntervalo();
                             this.dadosTeste.resultado = -1;
                             this.sendDataTest(this.dadosTeste);
                             console.log("Fim do teste principal, iniciando coleta de dados.");
@@ -1608,7 +1608,7 @@ export default {
                         console.log("Fim do extrato 3: Aprovado no extrato 3");
                         console.log(this.dadosTeste);
                         if (this.termina === false) {
-                            this.$refs.PopupIntervalo.openDialog();
+                            this.popupIntervalo();
                             //Enviar dados pro backend
                             this.dadosTeste.resultado = 4;
                             this.sendDataTest(this.dadosTeste);
@@ -1644,7 +1644,7 @@ export default {
                         this.dadosTeste.resultado = 3;
 
                         if (this.termina === false) {
-                            this.$refs.PopupIntervalo.openDialog();
+                            this.popupIntervalo();
                             //Enviar dados pro backend
                             this.sendDataTest(this.dadosTeste);
                             console.log("Fim do teste principal, iniciando coleta de dados.");
@@ -1674,7 +1674,7 @@ export default {
                         console.log("Fim do extrato 3");
 
                         if (this.termina == false) {
-                            this.$refs.PopupIntervalo.openDialog();
+                            this.popupIntervalo();
                             this.dadosTeste.resultado = -1;
                             this.sendDataTest(this.dadosTeste);
                             console.log("Fim do teste principal, iniciando coleta de dados.");
@@ -1896,6 +1896,11 @@ export default {
             
             // Emitir um evento para notificar o componente filho sobre o reset do temporizador
             this.$refs.PopupTeste.fecharDialog();
+        },
+
+        popupIntervalo(){
+            this.megafoneDisable = true;
+            this.$refs.PopupIntervalo.openDialog();
         }
 
 
