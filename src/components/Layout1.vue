@@ -355,7 +355,7 @@ export default {
             alertPopup: false,
             alertTimeoutId: '',
             audioAux: '',
-
+            firstQuestion: true,               //Flag que vai ser usada para determinar se o usuario respondeu pelo menos uma questão. 
             extrato1Flag: false,               //Vai ser usado para determinar se o usuario já foi reprovado no extrato1.
 
             m1Key: 0,                            //Chave do layout1.
@@ -381,7 +381,11 @@ export default {
                 seqProbNdom : [],
                 nq: [],
                 questao_id: [],
-                jiter: []
+                jiter: [],
+                extrato1Flag: false,
+                termina: false,
+                firstQuestion: true,
+
             },
             dialog: false
 
@@ -413,7 +417,7 @@ export default {
            Caso exista um teste, a função "resumeTest é chamada".
         */
 
-        if(this.dadosTeste.testeStart){             //Flag usada para determinar se existe um teste em andamento.
+        if(this.dadosTeste.testeStart && this.dadosTeste.firstQuestion==false){             //Flag usada para determinar se existe um teste em andamento.
             console.log("Teste em andamento");
             console.log(this.dadosTeste);
             this.resumeTest();
@@ -1143,6 +1147,10 @@ export default {
             this.seq_prob_dom = this.dadosTeste.seqProbDom;
             this.seq_prob_ndom = this.dadosTeste.seqProbNdom;
 
+            this.extrato1Flag = this.dadosTeste.extrato1Flag;
+            this.termina = this.dadosTeste.termina;
+            this.firstQuestion = this.dadosTeste.firstQuestion;
+
             this.PSR = this.dadosTeste.dadosPSR;
             this.PS = 0.5;
             this.pouts = 0.95;
@@ -1213,11 +1221,9 @@ export default {
 
             switch (nestr){
                 case 0:
-                    //this.resetaOrdem();
                     this.jsonData = jsonDataQuestoes0;
                     break;
                 case 1:
-                    //this.resetaOrdem();
                     this.jsonData = jsonDataQuestoes1;
                     break;
                 case 2:
@@ -1248,7 +1254,8 @@ export default {
         async aplicaQuestao(value){                              //Função chamada sempre que o usuario clicar no "continuar"
             console.clear();
 
-
+            this.firstQuestion = false;
+            this.dadosTeste.firstQuestion = false;
             // "Aplica" uma questão, verificando se o aluno acertou ou não.
             this.dadosTeste.qtdQuestoes++;
             let auxQuestao = {
@@ -1338,6 +1345,9 @@ export default {
                             //Enviar dados pro backend
                             this.$refs.PopupIntervalo.openDialog();
                             console.log("Fim do teste principal, iniciando coleta de dados.");
+                            this.resetaOrdem();
+                            this.dadosTeste.extrato1Flag=false;
+                            this.dadosTeste.termina=true;
                             this.extrato1Flag = false;
                             this.sendDataTest(this.dadosTeste);
                             this.coletaDados = true;                    //Inicio da coleta de dados
@@ -1370,6 +1380,12 @@ export default {
                             this.dadosTeste.resultado = -1;
                             this.sendDataTest(this.dadosTeste);
                             console.log("Fim do teste principal, iniciando coleta de dados.");
+                            this.resetaOrdem();
+
+                            this.dadosTeste.extrato1Flag=false;
+                            this.dadosTeste.termina=true;
+                            
+
                             this.extrato1Flag = false;
                             this.coletaDados = true;
                             this.termina = true;
@@ -1418,6 +1434,8 @@ export default {
                         if (this.extrato1Flag === false) {      //Aluno foi reprovado pela primeira vez no extrato 1
                             console.log("Fim do extrato 1: Retrocedendo ao extrato 0");
                             this.extrato1Flag = true;
+
+                            this.dadosTeste.extrato1Flag = true;
                             this.dadosTeste.extratoAtual = this.nestr;
                             this.dadosTeste.indiceAtual = 0;            //Usado caso o teste seja retomado.
                             this.dadosTeste.dadosPSR = 0.5;
@@ -1425,9 +1443,6 @@ export default {
                             this.dadosTeste.seqProbNdom.fill(1);
                             this.dadosTeste.jiter = 0;
 
-
-                            console.log('Numero do extrato: ' + this.dadosTeste.extratoAtual);
-                            console.log('Indice da questão: ' + this.dadosTeste.indiceAtual);
 
                             this.resetaExtrato(this.nestr, 0);
                               //Usado caso o teste seja retomado.
@@ -1440,6 +1455,10 @@ export default {
                                 this.dadosTeste.resultado = 1;
                                 this.sendDataTest(this.dadosTeste);
                                 console.log("Fim do teste principal, iniciando coleta de dados.");
+                                this.resetaOrdem();
+                                this.dadosTeste.extrato1Flag=false;
+                                this.dadosTeste.termina=true;
+
                                 this.coletaDados = true;
                                 this.extrato1Flag = false;
                                 this.termina = true;
@@ -1472,6 +1491,9 @@ export default {
                             this.dadosTeste.resultado = -1;
                             this.sendDataTest(this.dadosTeste);
                             console.log("Fim do teste principal, iniciando coleta de dados.");
+                            this.resetaOrdem();
+                            this.dadosTeste.extrato1Flag=false;
+                            this.dadosTeste.termina=true;
                             this.extrato1Flag = false;
                             this.coletaDados = true;
                             this.termina = true;
@@ -1522,6 +1544,9 @@ export default {
                             //Enviar dados pro backend
                             this.sendDataTest(this.dadosTeste);
                             console.log("Fim do teste principal, iniciando coleta de dados.");
+                            this.resetaOrdem();
+                            this.dadosTeste.extrato1Flag=false;
+                            this.dadosTeste.termina=true;
                             this.extrato1Flag = false;
                             this.coletaDados = true;
                             this.termina = true;
@@ -1550,6 +1575,9 @@ export default {
                             this.dadosTeste.resultado = -1;
                             this.sendDataTest(this.dadosTeste);
                             console.log("Fim do teste principal, iniciando coleta de dados.");
+                            this.resetaOrdem();
+                            this.dadosTeste.extrato1Flag=false;
+                            this.dadosTeste.termina=true;
                             this.extrato1Flag = false;
                             this.coletaDados = true;
                             this.termina = true;
@@ -1585,6 +1613,9 @@ export default {
                             this.dadosTeste.resultado = 4;
                             this.sendDataTest(this.dadosTeste);
                             console.log("Fim do teste principal, iniciando coleta de dados.");
+                            this.resetaOrdem();
+                            this.dadosTeste.extrato1Flag=false;
+                            this.dadosTeste.termina=true;
                             this.extrato1Flag = false;
                             this.coletaDados = true;
                             this.termina = true;
@@ -1617,6 +1648,9 @@ export default {
                             //Enviar dados pro backend
                             this.sendDataTest(this.dadosTeste);
                             console.log("Fim do teste principal, iniciando coleta de dados.");
+                            this.resetaOrdem();
+                            this.dadosTeste.extrato1Flag=false;
+                            this.dadosTeste.termina=true;
                             this.extrato1Flag = false;
                             this.coletaDados = true;
                             this.termina = true;
@@ -1644,6 +1678,9 @@ export default {
                             this.dadosTeste.resultado = -1;
                             this.sendDataTest(this.dadosTeste);
                             console.log("Fim do teste principal, iniciando coleta de dados.");
+                            this.resetaOrdem();
+                            this.dadosTeste.extrato1Flag=false;
+                            this.dadosTeste.termina=true;
                             this.extrato1Flag = false;
                             this.coletaDados = true;
                             this.termina = true;
