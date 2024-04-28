@@ -357,6 +357,7 @@ export default {
             audioAux: '',
             firstQuestion: true,               //Flag que vai ser usada para determinar se o usuario respondeu pelo menos uma questão. 
             extrato1Flag: false,               //Vai ser usado para determinar se o usuario já foi reprovado no extrato1.
+            changeTestAudio: false,
 
             m1Key: 0,                            //Chave do layout1.
             m2Key: 0,                            //Chave do layout2.
@@ -1345,6 +1346,7 @@ export default {
                             //Enviar dados pro backend
                             this.popupIntervalo();
                             console.log("Fim do teste principal, iniciando coleta de dados.");
+                            this.changeTestAudio = true;
                             this.resetaOrdem();
                             this.dadosTeste.extrato1Flag=false;
                             this.dadosTeste.termina=true;
@@ -1739,7 +1741,13 @@ export default {
             this.questionAlt4 = this.jsonData.questoes[this.questionNumber].alt4;
             this.questionAnswer = this.jsonData.questoes[this.questionNumber].answer;
             this.fonte = this.jsonData.questoes[this.questionNumber].fonte;
-            this.playAudio(1);
+            if(!this.changeTestAudio){
+                this.playAudio(1);
+            }
+            else{
+                this.changeTestAudio=false;
+            }
+            //this.playAudio(1);
 
 
 
