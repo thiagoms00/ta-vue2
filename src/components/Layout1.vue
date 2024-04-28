@@ -1382,6 +1382,7 @@ export default {
                             this.dadosTeste.resultado = -1;
                             this.sendDataTest(this.dadosTeste);
                             console.log("Fim do teste principal, iniciando coleta de dados.");
+                            this.changeTestAudio = true;
                             this.resetaOrdem();
 
                             this.dadosTeste.extrato1Flag=false;
@@ -1457,6 +1458,7 @@ export default {
                                 this.dadosTeste.resultado = 1;
                                 this.sendDataTest(this.dadosTeste);
                                 console.log("Fim do teste principal, iniciando coleta de dados.");
+                                this.changeTestAudio = true;
                                 this.resetaOrdem();
                                 this.dadosTeste.extrato1Flag=false;
                                 this.dadosTeste.termina=true;
@@ -1493,6 +1495,7 @@ export default {
                             this.dadosTeste.resultado = -1;
                             this.sendDataTest(this.dadosTeste);
                             console.log("Fim do teste principal, iniciando coleta de dados.");
+                            this.changeTestAudio = true;
                             this.resetaOrdem();
                             this.dadosTeste.extrato1Flag=false;
                             this.dadosTeste.termina=true;
@@ -1546,6 +1549,7 @@ export default {
                             //Enviar dados pro backend
                             this.sendDataTest(this.dadosTeste);
                             console.log("Fim do teste principal, iniciando coleta de dados.");
+                            this.changeTestAudio = true;
                             this.resetaOrdem();
                             this.dadosTeste.extrato1Flag=false;
                             this.dadosTeste.termina=true;
@@ -1577,6 +1581,7 @@ export default {
                             this.dadosTeste.resultado = -1;
                             this.sendDataTest(this.dadosTeste);
                             console.log("Fim do teste principal, iniciando coleta de dados.");
+                            this.changeTestAudio = true;
                             this.resetaOrdem();
                             this.dadosTeste.extrato1Flag=false;
                             this.dadosTeste.termina=true;
@@ -1615,6 +1620,7 @@ export default {
                             this.dadosTeste.resultado = 4;
                             this.sendDataTest(this.dadosTeste);
                             console.log("Fim do teste principal, iniciando coleta de dados.");
+                            this.changeTestAudio = true;
                             this.resetaOrdem();
                             this.dadosTeste.extrato1Flag=false;
                             this.dadosTeste.termina=true;
@@ -1650,6 +1656,7 @@ export default {
                             //Enviar dados pro backend
                             this.sendDataTest(this.dadosTeste);
                             console.log("Fim do teste principal, iniciando coleta de dados.");
+                            this.changeTestAudio = true;
                             this.resetaOrdem();
                             this.dadosTeste.extrato1Flag=false;
                             this.dadosTeste.termina=true;
@@ -1680,6 +1687,7 @@ export default {
                             this.dadosTeste.resultado = -1;
                             this.sendDataTest(this.dadosTeste);
                             console.log("Fim do teste principal, iniciando coleta de dados.");
+                            this.changeTestAudio = true;
                             this.resetaOrdem();
                             this.dadosTeste.extrato1Flag=false;
                             this.dadosTeste.termina=true;
@@ -1741,7 +1749,7 @@ export default {
             this.questionAlt4 = this.jsonData.questoes[this.questionNumber].alt4;
             this.questionAnswer = this.jsonData.questoes[this.questionNumber].answer;
             this.fonte = this.jsonData.questoes[this.questionNumber].fonte;
-            if(!this.changeTestAudio){
+            if(!this.changeTestAudio){                                                   //Não vai tocar o audio automaticamento quando mudar para a coleta de dados.
                 this.playAudio(1);
             }
             else{
