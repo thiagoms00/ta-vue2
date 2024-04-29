@@ -144,15 +144,23 @@
                     </v-row>
 
                   </v-expansion-panel-title>
+                  
 
                   <v-expansion-panel-text>
+                    <v-divider></v-divider>
                     <v-row justify="space-around" no-gutters>
-                      <v-col cols="3">
-                        <v-btn @click="testaValores(item)"> TESTE </v-btn>
+                      <v-col cols="4">
+                        <p class="text-h5" >
+                          Questões Corretas
+                        </p>
+                        <Chart :chartData="item.chartData" />
                       </v-col>
 
-                      <v-col cols="3">
-                        <Chart :chartData="item.chartData" />
+                      <v-col cols="4">
+                        <p class="text-h5" >
+                          Questões Incorretas
+                        </p>
+                        <Chart :chartData="item.chartDataErradas" />
                       </v-col>
                     </v-row>
 
@@ -339,12 +347,12 @@ export default {
     },
 
     getChartDatas(lista) {
-      console.log(lista);
 
       for (let i = 0; i < lista.length; i++) {
         const objeto = lista[i];
 
         const dadosHabilidades = this.verificaHabilidades(objeto, true);
+        const dadosHabilidadesErradas = this.verificaHabilidades(objeto, false);
 
 
         const labels = Array.from({ length: 12 }, (_, i) => `H${(i).toString().padStart(2, '0')}`);
@@ -385,8 +393,46 @@ export default {
           }]
         };
 
+        const novoChartDataErradas = {
+          labels: labels,
+          datasets: [{
+            label: 'Habilidades',
+            data: dadosHabilidadesErradas,
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)',
+              'rgba(50, 205, 50, 0.2)',
+              'rgba(255, 0, 255, 0.2)',
+              'rgba(0, 191, 255, 0.2)',
+              'rgba(255, 140, 0, 0.2)',
+              'rgba(75, 0, 130, 0.2)'
+
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(50, 205, 50, 1)',
+              'rgba(255, 0, 255, 1)',
+              'rgba(0, 191, 255, 1)',
+              'rgba(255, 140, 0, 1)',
+              'rgba(75, 0, 130, 1)'
+
+            ],
+            borderWidth: 1
+          }]
+        };
+
 
         objeto.chartData = novoChartData;
+        objeto.chartDataErradas = novoChartDataErradas;
       }
 
       // console.log(lista)
