@@ -149,18 +149,18 @@
                   <v-expansion-panel-text>
                     <v-divider></v-divider>
                     <v-row justify="space-around" no-gutters>
-                      <v-col cols="4">
-                        <p class="text-h5" >
+                      <v-col cols="4 pa-2 d-flex w-100 flex-column justify-center">
+                        <p class="text-h5 text-center mb-4" >
                           Questões Corretas
                         </p>
-                        <Chart :chartData="item.chartData" />
+                        <Chart :chartId="'correctChart'" :chartData="item.chartData" />
                       </v-col>
 
                       <v-col cols="4">
                         <p class="text-h5" >
                           Questões Incorretas
                         </p>
-                        <Chart :chartData="item.chartDataErradas" />
+                        <Chart :chartId="'incorrectChart'" :chartData="item.chartDataErradas" />
                       </v-col>
                     </v-row>
 

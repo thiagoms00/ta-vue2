@@ -1,6 +1,6 @@
 <template>
   <div>
-    <canvas ref="chart" width="400" height="400"></canvas>
+    <canvas ref="chart" width="350" height="350"></canvas>
   </div>
 </template>
 
@@ -13,6 +13,10 @@ export default {
     chartData: {
       type: Object,
       required: true
+    },
+    chartId: {
+      type: String,
+      required: true
     }
   },
   mounted() {
@@ -22,18 +26,25 @@ export default {
     renderChart() {
       const ctx = this.$refs.chart.getContext('2d');
       this.chart = new Chart(ctx, {
-        type: 'pie',
+        type: 'doughnut',
         data: this.chartData,
         options: {
           plugins: {
             legend: {
-              position: 'right', // Define a posição da legenda para a direita
-              align: 'start', // Alinha a legenda no início da área reservada para ela
+              title: {
+                display: true,
+                text: 'HABILIDADES',
+                
+              },
+              position: 'left', // Define a posição da legenda para a direita
+              align: 'center', // Alinha a legenda no início da área reservada para ela
               labels: {
-                padding: 20, // Adiciona um espaçamento entre os itens da legenda
-                boxWidth: 20 // Define a largura das caixas de cor na legenda
+                padding: 10, // Adiciona um espaçamento entre os itens da legenda
+                boxWidth: 20, // Define a largura das caixas de cor na legenda
               }
-            }
+            },
+            
+
           },
           scales: {
             x: {
@@ -42,6 +53,9 @@ export default {
             y: {
               display: false // Oculta a escala y
             }
+          },
+          layout:{
+            padding:10
           }
         }
       });
