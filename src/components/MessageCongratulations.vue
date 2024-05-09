@@ -15,11 +15,11 @@
 
         <v-divider class="my-4 " width="70%"></v-divider>
 
-        <Megaphone class="icon-mega3"/>
+        <Megaphone class="icon-mega3" @click="playAudio()"/>
 
         <p class="finish-msg ml-2 mt-4">Clique no botão abaixo para finalizar o teste!</p>
         <v-btn class="flex-grow-1 mt-4 finish-btn" height="50" size="large" width="50%" variant="flat" color="#1E3892"
-          elevation-15 @click="proximaPagina"> Finalizar </v-btn>
+          elevation-15 @click="proximaPagina()"> Finalizar </v-btn>
 
 
 
@@ -32,6 +32,7 @@
 
 <script>
 import Megaphone from './Megaphone.vue'
+import audio from '@/assets/audios/outros_audios/audio_congratulations.mp3'
 
 export default {
   name: 'messageCongratulations',
@@ -43,14 +44,21 @@ export default {
   data() {
 
     return {
-      highlighted: false
+      highlighted: false,
+      megafoneDisable: false,
+      audioAux: '',
     }
 
+  },
+  mounted(){
+    this.playAudio = this.playAudio.bind(this);
+    this.playAudio();
   },
 
 
   methods: {
     proximaPagina() {
+      localStorage.clear();
       this.$router.push('/login');
     },
 
@@ -59,7 +67,20 @@ export default {
       setTimeout(() => {
         this.highlighted = false;
       }, 2000); // Tempo em milissegundos antes de voltar ao normal
-    }
+    },
+
+    playAudio(){
+      if (this.megafoneDisable == false) {
+        this.audioAux = new Audio(audio);
+        this.audioAux.play();
+        this.megafoneDisable = true;
+        setTimeout(this.resetMegafone, 8000);
+      }
+    },
+
+    resetMegafone() {            //Utilizar esta função sempre que trocar de item.
+      this.megafoneDisable = false;
+    },
 
 
   }

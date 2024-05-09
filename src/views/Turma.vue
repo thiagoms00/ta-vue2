@@ -45,6 +45,10 @@
                   Turma 4
                 </v-btn>
 
+                <v-btn class="pa-4" value="t5" @click="selecionaTurma('PILOTO')">
+                  Turma - Piloto
+                </v-btn>
+
               </v-btn-toggle>
 
             </v-sheet>
