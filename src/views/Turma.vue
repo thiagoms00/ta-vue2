@@ -489,7 +489,7 @@ export default {
         return this.listaTurma.slice().sort((a, b) => extratoOrder[a.extratoFinal] - extratoOrder[b.extratoFinal]);
       }
       else if (this.toggle === "status") {
-        const statusOrder = { 'Finalizado': 0, 'Iniciado': 1, 'Não Iniciado': 2 };
+        const statusOrder = { 'Finalizado': 0, 'Iniciado': 1, 'Não Iniciado': 2, '': 3 };
         return this.listaTurma.slice().sort((a, b) => statusOrder[a.status] - statusOrder[b.status]);
       }
       else if (this.toggle === "porcentagem") {
