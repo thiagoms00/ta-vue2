@@ -485,7 +485,7 @@ export default {
         return this.listaTurma.slice().sort((a, b) => (a.user['nome'] > b.user['nome']) ? 1 : -1);
       }
       else if (this.toggle === "extrato") {
-        const extratoOrder = { '3': 0, '2': 1, '1': 2, '': 3 };
+        const extratoOrder = { '3': 0, '2': 1, '1': 2, '0': 3, '': 4 };
         return this.listaTurma.slice().sort((a, b) => extratoOrder[a.extratoFinal] - extratoOrder[b.extratoFinal]);
       }
       else if (this.toggle === "status") {
