@@ -18,7 +18,7 @@
             </v-text-field>
 
             <v-text-field class="form-field senha-field" v-model="senha" :rules="senhaRules" label="Senha"
-              variant="outlined" bg-color="white" color="#1E3892" prepend-inner-icon="mdi-lock-outline">
+              variant="outlined" bg-color="white" color="#1E3892" prepend-inner-icon="mdi-lock-outline" type="password">
 
             </v-text-field>
           </v-container>

@@ -134,7 +134,7 @@
                       </v-col>
                       <v-col>
                         {{ (item.status === 'Não Iniciado' || item.status === 'Iniciado') ? '-' :
-          item.porcentagem_questoes.toFixed(2) + '%' }}
+  item.porcentagem_questoes.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '%' }}
                       </v-col>
                       <v-col>
                         {{ (item.status === 'Não Iniciado' || item.status === 'Iniciado') ? '-' :
@@ -350,7 +350,7 @@ export default {
 
     },
 
-    getChartDatas(lista) {
+    getChartDatas(lista){
 
       for (let i = 0; i < lista.length; i++) {
         const objeto = lista[i];
