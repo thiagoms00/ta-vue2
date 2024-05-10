@@ -495,7 +495,7 @@ export default {
       else if (this.toggle === "porcentagem") {
         return this.listaTurma.slice().sort((a, b) => b.porcentagem_questoes - a.porcentagem_questoes);
       }
-      else if (this.toggle === "nquestões") {
+      else if (this.toggle === "nquestoes") {
         return this.listaTurma.slice().sort((a, b) => b.numero_questoes_feitas - a.numero_questoes_feitas);
       }
       // Adicione condições semelhantes para outros tipos de filtragem, se necessário
