@@ -482,7 +482,7 @@ export default {
   computed: {
     listaTurmaOrdenada() {
       if (this.toggle === "nome") {
-        return this.listaTurma.slice().sort((a, b) => (a.user['nome'] > b.user['nome']) ? 1 : -1);
+        return this.listaTurma.slice().sort((a, b) => a.user['nome'].localeCompare(b.user['nome']));
       }
       else if (this.toggle === "extrato") {
         const extratoOrder = { '3': 0, '2': 1, '1': 2, '0': 3, '': 4 };
