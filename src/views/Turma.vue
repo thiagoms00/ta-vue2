@@ -88,22 +88,22 @@
           </v-col>
 
           <v-col>
-            <v-sheet rounded="lg">
+            <v-sheet class="rounded-t-lg" >
 
-              <v-expansion-panels :readonly="true" rounded="lg">
-                <v-expansion-panel>
+              <v-expansion-panels>
+                <v-expansion-panel class="rounded-t-lg " bg-color="#1E3892" style="border-radius: 0px;">
                   <v-expansion-panel-title style="height: 4vh;" disable-icon>
                     <template v-slot:actions>
                       <!-- Só pra retirar o ícone. -->
                     </template>
 
-                    <v-row class="dflex align-center">
-                      <v-col> Matrícula </v-col>
-                      <v-col> Nome </v-col>
-                      <v-col> Extrato </v-col>
-                      <v-col> Porcentagem </v-col>
-                      <v-col> Nº de Questões </v-col>
-                      <v-col> Status </v-col>
+                    <v-row class="dflex align-center" >
+                      <v-col cols="3" class="d-flex justify-center"> <v-btn variant="text"> Nome </v-btn> </v-col>
+                      <v-col cols="1" class="d-flex justify-center"> <v-btn variant="text"> Extrato </v-btn> </v-col>
+                      <v-col cols="2" class="d-flex justify-center"> <v-btn variant="text"> % </v-btn> </v-col>
+                      <v-col cols="1" class="d-flex justify-center"> <v-btn variant="text"> Nº de Questões </v-btn> </v-col>
+                      <v-col cols="2" class="d-flex justify-center"> <v-btn variant="text"> Tempo </v-btn> </v-col>
+                      <v-col cols="3" class="d-flex justify-center"> <v-btn variant="text"> Status </v-btn> </v-col>
                     </v-row>
 
                   </v-expansion-panel-title>
@@ -112,35 +112,35 @@
               </v-expansion-panels>
             </v-sheet>
 
-            <v-sheet rounded="lg" class="mt-2" :class="{ 'fade-in': animacaoListaAtiva }">
+            <v-sheet rounded="lg" class="" :class="{ 'fade-in': animacaoListaAtiva }">
 
 
 
-              <v-expansion-panels variant="accordion" class="mt-4">
+              <v-expansion-panels variant="accordion" class="">
                 <v-expansion-panel v-for="(item) in listaTurmaOrdenada" :key="item.nome"
-                  :readonly="item.status !== 'Finalizado'" ref="panels">
+                  :readonly="item.status !== 'Finalizado'" ref="panels" class="rounded-b-lg" style="border-radius: 0px;">
 
 
                   <v-expansion-panel-title style="height: 5vh;">
-                    <v-row class="dflex align-center">
-                      <v-col>
-                        {{ item.user['mat'] }}
-                      </v-col>
-                      <v-col>
+                    <v-row class="d-flex align-center">
+                      <v-col cols="3" class="d-flex justify-center">
                         {{ item.user['nome'] }}
                       </v-col>
-                      <v-col>
+                      <v-col cols="1" class="d-flex justify-center">
                         {{ (item.status === 'Não Iniciado' || item.status === 'Iniciado') ? '-' : item.extratoFinal }}
                       </v-col>
-                      <v-col>
+                      <v-col cols="2" class="d-flex justify-center">
                         {{ (item.status === 'Não Iniciado' || item.status === 'Iniciado') ? '-' :
-  item.porcentagem_questoes.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '%' }}
+          item.porcentagem_questoes.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '%' }}
                       </v-col>
-                      <v-col>
+                      <v-col cols="1" class="d-flex justify-center">
                         {{ (item.status === 'Não Iniciado' || item.status === 'Iniciado') ? '-' :
           item.numero_questoes_feitas }}
                       </v-col>
-                      <v-col>
+                      <v-col cols="2" class="d-flex justify-center">
+                        XXX
+                      </v-col>
+                      <v-col cols="3" class="d-flex justify-center">
                         <v-chip :color="getColor(item.status)" :prepend-icon="getIcon(item.status)">
                           {{ item.status }}
                         </v-chip>
@@ -148,20 +148,20 @@
                     </v-row>
 
                   </v-expansion-panel-title>
-                  
+
 
                   <v-expansion-panel-text>
                     <v-divider></v-divider>
                     <v-row justify="space-around" no-gutters>
                       <v-col cols="4 pa-2 d-flex w-100 flex-column justify-center">
-                        <p class="text-h5 text-center mb-4" >
+                        <p class="text-h5 text-center mb-4">
                           Questões Corretas
                         </p>
                         <Chart :chartId="'correctChart'" :chartData="item.chartData" />
                       </v-col>
 
                       <v-col cols="4">
-                        <p class="text-h5" >
+                        <p class="text-h5">
                           Questões Incorretas
                         </p>
                         <Chart :chartId="'incorrectChart'" :chartData="item.chartDataErradas" />
@@ -214,7 +214,8 @@ export default {
       { title: 'N QUESTÕES', value: 'nquestoes' },
       { title: 'NOME', value: 'nome' },
     ],
-    animacaoListaAtiva: false
+    animacaoListaAtiva: false,
+    textFilter: undefined
 
 
   }),
@@ -350,7 +351,7 @@ export default {
 
     },
 
-    getChartDatas(lista){
+    getChartDatas(lista) {
 
       for (let i = 0; i < lista.length; i++) {
         const objeto = lista[i];
@@ -536,9 +537,10 @@ export default {
 }
 
 .fade-in {
-	-webkit-animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
-	animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+  -webkit-animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+  animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
 }
+
 /* ----------------------------------------------
  * Generated by Animista on 2024-4-28 15:43:0
  * Licensed under FreeBSD License.
@@ -551,22 +553,23 @@ export default {
  * animation fade-in
  * ----------------------------------------
  */
- @-webkit-keyframes fade-in {
+@-webkit-keyframes fade-in {
   0% {
     opacity: 0;
   }
+
   100% {
     opacity: 1;
   }
 }
+
 @keyframes fade-in {
   0% {
     opacity: 0;
   }
+
   100% {
     opacity: 1;
   }
 }
-
-
 </style>
