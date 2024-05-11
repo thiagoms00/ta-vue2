@@ -88,22 +88,36 @@
           </v-col>
 
           <v-col>
-            <v-sheet class="rounded-t-lg" >
+            <v-sheet class="rounded-t-lg">
 
-              <v-expansion-panels>
+              <v-expansion-panels :readonly="true">
                 <v-expansion-panel class="rounded-t-lg " bg-color="#1E3892" style="border-radius: 0px;">
                   <v-expansion-panel-title style="height: 4vh;" disable-icon>
                     <template v-slot:actions>
                       <!-- Só pra retirar o ícone. -->
                     </template>
 
-                    <v-row class="dflex align-center" >
-                      <v-col cols="3" class="d-flex justify-center"> <v-btn variant="text"> Nome </v-btn> </v-col>
-                      <v-col cols="1" class="d-flex justify-center"> <v-btn variant="text"> Extrato </v-btn> </v-col>
-                      <v-col cols="2" class="d-flex justify-center"> <v-btn variant="text"> % </v-btn> </v-col>
-                      <v-col cols="1" class="d-flex justify-center"> <v-btn variant="text"> Nº de Questões </v-btn> </v-col>
-                      <v-col cols="2" class="d-flex justify-center"> <v-btn variant="text"> Tempo </v-btn> </v-col>
-                      <v-col cols="3" class="d-flex justify-center"> <v-btn variant="text"> Status </v-btn> </v-col>
+                    <v-row class="dflex align-center">
+                      <v-col cols="3" class="d-flex justify-center">
+                        <v-btn block :append-icon="icon[0]" :ripple="false" variant="text"
+                          @click="toggleIcon(0)">Nome</v-btn>
+                      </v-col>
+                      <v-col cols="1" class="d-flex justify-center">
+                        <v-btn block :append-icon="icon[1]" :ripple="false" variant="text"
+                          @click="toggleIcon(1)">Extrato</v-btn>
+                      </v-col>
+                      <v-col cols="2" class="d-flex justify-center">
+                        <v-btn :append-icon="icon[2]" :ripple="false" variant="text" @click="toggleIcon(2)">% </v-btn>
+                      </v-col>
+                      <v-col cols="1" class="d-flex justify-center">
+                        <v-btn block :append-icon="icon[3]" :ripple="false" variant="text" @click="toggleIcon(3)">Nº de Questões</v-btn>
+                      </v-col>
+                      <v-col cols="2" class="d-flex justify-center">
+                        <v-btn block :append-icon="icon[4]" :ripple="false" variant="text" @click="toggleIcon(4)" >Tempo</v-btn>
+                      </v-col>
+                      <v-col cols="3" class="d-flex justify-center">
+                        <v-btn block :append-icon="icon[5]" :ripple="false" variant="text" @click="toggleIcon(5)">Status</v-btn>
+                      </v-col>
                     </v-row>
 
                   </v-expansion-panel-title>
@@ -118,7 +132,8 @@
 
               <v-expansion-panels variant="accordion" class="">
                 <v-expansion-panel v-for="(item) in listaTurmaOrdenada" :key="item.nome"
-                  :readonly="item.status !== 'Finalizado'" ref="panels" class="rounded-b-lg" style="border-radius: 0px;">
+                  :readonly="item.status !== 'Finalizado'" ref="panels" class="rounded-b-lg"
+                  style="border-radius: 0px;">
 
 
                   <v-expansion-panel-title style="height: 5vh;">
@@ -131,7 +146,11 @@
                       </v-col>
                       <v-col cols="2" class="d-flex justify-center">
                         {{ (item.status === 'Não Iniciado' || item.status === 'Iniciado') ? '-' :
-          item.porcentagem_questoes.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '%' }}
+          item.porcentagem_questoes.toLocaleString('pt-BR', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+          }) +
+          '%' }}
                       </v-col>
                       <v-col cols="1" class="d-flex justify-center">
                         {{ (item.status === 'Não Iniciado' || item.status === 'Iniciado') ? '-' :
@@ -215,7 +234,10 @@ export default {
       { title: 'NOME', value: 'nome' },
     ],
     animacaoListaAtiva: false,
-    textFilter: undefined
+    textFilter: undefined,
+    icon: ["", "", "", "", "", ""],
+    lastClicked: -1
+
 
 
   }),
@@ -241,6 +263,19 @@ export default {
 
   },
   methods: {
+
+    toggleIcon(index) {
+      // Reset all icons
+      this.icon = this.icon.map((icon, i) => (i === index ? (this.lastClicked === index ? "mdi-arrow-down-drop-circle-outline" : "mdi-arrow-up-drop-circle-outline") : ""));
+
+      // Update last clicked index
+      this.lastClicked = this.lastClicked === index ? -1 : index;
+    },
+
+    testeteste() {
+      console.log("teste teste")
+    },
+
     returnDadosTurma() {
       return new Promise((resolve, reject) => {
         const token = {
