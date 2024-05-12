@@ -17,66 +17,47 @@
 
           <v-col cols="2">
 
-            <v-sheet class=" pa-2" rounded="lg">
-
-              <div class="d-flex justify-space-evenly py-2">
-                <v-icon icon="mdi-school-outline"> </v-icon>
-                <p> Turmas </p>
-              </div>
-
-              <v-divider></v-divider>
-
-              <v-btn-toggle class="d-flex flex-column w-100 h-100" color="blue-lighten-4" rounded="0"
-                v-model="toggleTurma">
-
-                <v-btn class="pa-4" value="t1" @click="selecionaTurma('LP1')">
-                  Turma 1
-                </v-btn>
-
-                <v-btn class="pa-4" value="t2" @click="selecionaTurma('LP2')">
-                  Turma 2
-                </v-btn>
-
-                <v-btn class="pa-4" value="t3" @click="selecionaTurma('LP3')">
-                  Turma 3
-                </v-btn>
-
-                <v-btn class="pa-4" value="t4" @click="selecionaTurma('LP4')">
-                  Turma 4
-                </v-btn>
-
-                <v-btn class="pa-4" value="t5" @click="selecionaTurma('PILOTO')">
-                  Turma - Piloto
-                </v-btn>
-
-              </v-btn-toggle>
-
-            </v-sheet>
-
-            <div class="py-4">
+            <div>
               <v-expansion-panels>
-                <v-expansion-panel>
-                  <v-expansion-panel-title rounded="lg" v-ripple>
+                <v-expansion-panel bg-color="#1E3892" class="rounded-lg">
+                  <v-expansion-panel-title class="rounded-lg" v-ripple style="height: 4vh;">
 
 
 
                     <div class="d-flex justify-space-around align-center h-100 w-100">
-                      <v-icon icon="mdi-filter-variant" size="large"></v-icon>
-                      <p> FILTROS </p>
+                      <v-icon icon="mdi-school-outline"> </v-icon>
+                      <p> TURMAS </p>
                     </div>
 
 
 
                   </v-expansion-panel-title>
+
                   <v-divider></v-divider>
 
-                  <v-expansion-panel-text class="custom-panel-text">
+                  <v-expansion-panel-text class="rounded-lg">
                     <v-list class="pa-0">
-                      <v-list-item density="compact" class="d-flex justify-center text-subtitle-2"
-                        v-for="(item, index) in items_filtro" :key="index" :value="item.title"
-                        @click="selecionarItem(item.value)" color="primary">
-                        <v-list-item-title>{{ item.title }}</v-list-item-title>
+
+                      <v-list-item density="compact" class="d-flex justify-center text-subtitle-2" @click="selecionaTurma('LP1')">
+                        <v-list-item-title>TURMA 1</v-list-item-title>
                       </v-list-item>
+
+                      <v-list-item density="compact" class="d-flex justify-center text-subtitle-2" @click="selecionaTurma('LP2')">
+                        <v-list-item-title>TURMA 2</v-list-item-title>
+                      </v-list-item>
+
+                      <v-list-item density="compact" class="d-flex justify-center text-subtitle-2" @click="selecionaTurma('LP3')">
+                        <v-list-item-title>TURMA 3</v-list-item-title>
+                      </v-list-item>
+
+                      <v-list-item density="compact" class="d-flex justify-center text-subtitle-2" @click="selecionaTurma('LP4')">
+                        <v-list-item-title>TURMA 4</v-list-item-title>
+                      </v-list-item>
+
+                      <v-list-item density="compact" class="d-flex justify-center text-subtitle-2" @click="selecionaTurma('PILOTO')">
+                        <v-list-item-title>TURMA - PILOTO</v-list-item-title>
+                      </v-list-item>
+
                     </v-list>
                   </v-expansion-panel-text>
                 </v-expansion-panel>
@@ -133,9 +114,17 @@
               </v-expansion-panels>
             </v-sheet>
 
+            <!-- Mensagem de Seleção de Turma -->
+            <div>
+              <v-sheet v-if="mostrarDiv" class="d-flex justify-center align-center rounded-b-lg" height="250" color="grey-lighten-5" border="md">
+                <p class="text-overline" style="color: #CFD8DC; font-size: 3rem !important; text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);"> Selecione uma turma</p>
+                
+              </v-sheet>
+
+            </div>  
+            
+            <!-- Iteração com os Dados dos Alunos -->
             <v-sheet rounded="lg" class="" :class="{ 'fade-in': animacaoListaAtiva }">
-
-
 
               <v-expansion-panels variant="accordion" class="">
                 <v-expansion-panel v-for="(item) in listaTurma" :key="item.nome"
@@ -244,7 +233,8 @@ export default {
     textFilter: undefined,
     icon: ["", "", "", "", "", ""],
     lastClicked: -1,
-    sortOrder: true
+    sortOrder: true,
+    mostrarDiv :true
 
 
 
@@ -272,6 +262,10 @@ export default {
   },
   methods: {
 
+    esconderDiv() {
+      this.mostrarDiv = false;
+    },
+
     toggleIcon(index, value) {
       // Reset all icons
       this.icon = this.icon.map((icon, i) => (i === index ? (this.lastClicked === index ? "mdi-menu-down" : "mdi-menu-up") : ""));
@@ -281,6 +275,7 @@ export default {
       this.toggle = value;
       this.listaTurma = this.listaTurmaOrdenada(this.sortOrder);
       this.sortOrder = !this.sortOrder;
+      this.esconderDiv()
     },
 
     returnDadosTurma() {
@@ -362,11 +357,6 @@ export default {
       } else if (chipValue === 'Finalizado') {
         return 'mdi-checkbox-marked-circle'; // Vermelho (ou qualquer outra cor padrão)
       }
-    },
-
-    selecionarItem(index) {
-      this.toggle = index; // Atualiza a variável com o índice do item clicado
-      console.log(this.toggle)
     },
 
     verificaHabilidades(objeto, teste_t) {
@@ -500,7 +490,6 @@ export default {
         }).finally(() => {
           // Define carregandoTurmas como false quando a promessa for resolvida ou rejeitada
           this.carregandoTurmas = false;
-          console.log("Primeiro print")
           this.ativarAnimacaoLista();
         });
 
@@ -516,71 +505,52 @@ export default {
     },
 
     listaTurmaOrdenada(order) {
-      if (this.toggle === "nome" ) {
+      if (this.toggle === "nome") {
         this.listaTurma = this.listaTurma.slice().sort((a, b) => a.user['nome'].localeCompare(b.user['nome']));
       }
-      else if (this.toggle === "extrato" ) {
+      else if (this.toggle === "extrato") {
         const extratoOrder = { '3': 0, '2': 1, '1': 2, '0': 3, '': 4 };
         this.listaTurma = this.listaTurma.slice().sort((a, b) => extratoOrder[a.extratoFinal] - extratoOrder[b.extratoFinal]);
       }
-      else if (this.toggle === "status" ) {
+      else if (this.toggle === "status") {
         const statusOrder = { 'Finalizado': 0, 'Iniciado': 1, 'Não Iniciado': 2, '': 3 };
         this.listaTurma = this.listaTurma.slice().sort((a, b) => statusOrder[a.status] - statusOrder[b.status]);
       }
-      else if (this.toggle === "porcentagem" ) {
+      else if (this.toggle === "porcentagem") {
         this.listaTurma = this.listaTurma.slice().sort((a, b) => b.porcentagem_questoes - a.porcentagem_questoes);
       }
-      else if (this.toggle === "nquestoes" ) {
+      else if (this.toggle === "nquestoes") {
         this.listaTurma = this.listaTurma.slice().sort((a, b) => b.numero_questoes_feitas - a.numero_questoes_feitas);
 
       }
       // Adicione condições semelhantes para outros tipos de filtragem, se necessário
 
-      if(order){
+      if (order) {
         return this.listaTurma;
       }
-      else{
+      else {
         return this.listaTurma.reverse();
       }
 
-      
+
     },
 
   },
   // FIM DO METHODSSSSSSS
   computed: {
-    ordemTurma(){
+    ordemTurma() {
       console.log(this.sortOrder);
       if (this.sortOrder) {
-          this.sortOrder = !this.sortOrder;
+        this.sortOrder = !this.sortOrder;
 
-        } else {
-          this.sortOrder = !this.sortOrder;
-          this.listaTurma.reverse();
-        }
-
-      return this.listaTurma;
-    },
-
-    
-
-    filtrarTurma() {
-      if (this.toggleTurma === "t1") {
-        // return this.listaTurma.slice().sort((a, b) => (a.user['nome'] > b.user['nome']) ? 1 : -1);
-        console.log("T1")
+      } else {
+        this.sortOrder = !this.sortOrder;
+        this.listaTurma.reverse();
       }
-      else if (this.toggleTurma === "t2") {
-        // const extratoOrder = { '3': 0, '2': 1, '1': 2, '': 3 };
-        // return this.listaTurma.slice().sort((a, b) => extratoOrder[a.extratoFinal] - extratoOrder[b.extratoFinal]);
-        console.log("T1")
-      }
-      // Adicione condições semelhantes para outros tipos de filtragem, se necessário
+
       return this.listaTurma;
     },
   },
-
-
-
 }
 </script>
 
