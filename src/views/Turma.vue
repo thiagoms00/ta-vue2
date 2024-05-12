@@ -98,26 +98,33 @@
                     </template>
 
                     <v-row class="dflex align-center">
+
                       <v-col cols="3" class="d-flex justify-center">
                         <v-btn block :append-icon="icon[0]" :ripple="false" variant="text"
-                          @click="toggleIcon(0)">Nome</v-btn>
+                          @click="toggleIcon(0, 'nome')">Nome</v-btn>
                       </v-col>
                       <v-col cols="1" class="d-flex justify-center">
                         <v-btn block :append-icon="icon[1]" :ripple="false" variant="text"
-                          @click="toggleIcon(1)">Extrato</v-btn>
+                          @click="toggleIcon(1, 'extrato')">Extrato</v-btn>
                       </v-col>
                       <v-col cols="2" class="d-flex justify-center">
-                        <v-btn :append-icon="icon[2]" :ripple="false" variant="text" @click="toggleIcon(2)">% </v-btn>
+                        <v-btn :append-icon="icon[2]" :ripple="false" variant="text"
+                          @click="toggleIcon(2, 'porcentagem')">% </v-btn>
                       </v-col>
                       <v-col cols="1" class="d-flex justify-center">
-                        <v-btn block :append-icon="icon[3]" :ripple="false" variant="text" @click="toggleIcon(3)">Nº de Questões</v-btn>
+                        <v-btn block :append-icon="icon[3]" :ripple="false" variant="text"
+                          @click="toggleIcon(3, 'nquestoes')">Nº de
+                          Questões</v-btn>
                       </v-col>
                       <v-col cols="2" class="d-flex justify-center">
-                        <v-btn block :append-icon="icon[4]" :ripple="false" variant="text" @click="toggleIcon(4)" >Tempo</v-btn>
+                        <v-btn block :append-icon="icon[4]" :ripple="false" variant="text"
+                          @click="toggleIcon(4, 'tempo')">Tempo</v-btn>
                       </v-col>
                       <v-col cols="3" class="d-flex justify-center">
-                        <v-btn block :append-icon="icon[5]" :ripple="false" variant="text" @click="toggleIcon(5)">Status</v-btn>
+                        <v-btn block :append-icon="icon[5]" :ripple="false" variant="text"
+                          @click="toggleIcon(5, 'status')">Status</v-btn>
                       </v-col>
+
                     </v-row>
 
                   </v-expansion-panel-title>
@@ -131,7 +138,7 @@
 
 
               <v-expansion-panels variant="accordion" class="">
-                <v-expansion-panel v-for="(item) in listaTurmaOrdenada" :key="item.nome"
+                <v-expansion-panel v-for="(item) in listaTurma" :key="item.nome"
                   :readonly="item.status !== 'Finalizado'" ref="panels" class="rounded-b-lg"
                   style="border-radius: 0px;">
 
@@ -236,7 +243,8 @@ export default {
     animacaoListaAtiva: false,
     textFilter: undefined,
     icon: ["", "", "", "", "", ""],
-    lastClicked: -1
+    lastClicked: -1,
+    sortOrder: true
 
 
 
@@ -264,16 +272,15 @@ export default {
   },
   methods: {
 
-    toggleIcon(index) {
+    toggleIcon(index, value) {
       // Reset all icons
-      this.icon = this.icon.map((icon, i) => (i === index ? (this.lastClicked === index ? "mdi-arrow-down-drop-circle-outline" : "mdi-arrow-up-drop-circle-outline") : ""));
+      this.icon = this.icon.map((icon, i) => (i === index ? (this.lastClicked === index ? "mdi-menu-down" : "mdi-menu-up") : ""));
 
       // Update last clicked index
       this.lastClicked = this.lastClicked === index ? -1 : index;
-    },
-
-    testeteste() {
-      console.log("teste teste")
+      this.toggle = value;
+      this.listaTurma = this.listaTurmaOrdenada(this.sortOrder);
+      this.sortOrder = !this.sortOrder;
     },
 
     returnDadosTurma() {
@@ -360,11 +367,6 @@ export default {
     selecionarItem(index) {
       this.toggle = index; // Atualiza a variável com o índice do item clicado
       console.log(this.toggle)
-    },
-
-    testaValores(item) {
-      // console.log(item);
-      this.verificaHabilidades(item.listaQuest, true)
     },
 
     verificaHabilidades(objeto, teste_t) {
@@ -511,32 +513,56 @@ export default {
       setTimeout(() => {
         this.animacaoListaAtiva = false;
       }, 500); // Tempo correspondente à duração da animação em milissegundos
-    }
+    },
+
+    listaTurmaOrdenada(order) {
+      if (this.toggle === "nome" ) {
+        this.listaTurma = this.listaTurma.slice().sort((a, b) => a.user['nome'].localeCompare(b.user['nome']));
+      }
+      else if (this.toggle === "extrato" ) {
+        const extratoOrder = { '3': 0, '2': 1, '1': 2, '0': 3, '': 4 };
+        this.listaTurma = this.listaTurma.slice().sort((a, b) => extratoOrder[a.extratoFinal] - extratoOrder[b.extratoFinal]);
+      }
+      else if (this.toggle === "status" ) {
+        const statusOrder = { 'Finalizado': 0, 'Iniciado': 1, 'Não Iniciado': 2, '': 3 };
+        this.listaTurma = this.listaTurma.slice().sort((a, b) => statusOrder[a.status] - statusOrder[b.status]);
+      }
+      else if (this.toggle === "porcentagem" ) {
+        this.listaTurma = this.listaTurma.slice().sort((a, b) => b.porcentagem_questoes - a.porcentagem_questoes);
+      }
+      else if (this.toggle === "nquestoes" ) {
+        this.listaTurma = this.listaTurma.slice().sort((a, b) => b.numero_questoes_feitas - a.numero_questoes_feitas);
+
+      }
+      // Adicione condições semelhantes para outros tipos de filtragem, se necessário
+
+      if(order){
+        return this.listaTurma;
+      }
+      else{
+        return this.listaTurma.reverse();
+      }
+
+      
+    },
 
   },
   // FIM DO METHODSSSSSSS
   computed: {
-    listaTurmaOrdenada() {
-      if (this.toggle === "nome") {
-        return this.listaTurma.slice().sort((a, b) => a.user['nome'].localeCompare(b.user['nome']));
-      }
-      else if (this.toggle === "extrato") {
-        const extratoOrder = { '3': 0, '2': 1, '1': 2, '0': 3, '': 4 };
-        return this.listaTurma.slice().sort((a, b) => extratoOrder[a.extratoFinal] - extratoOrder[b.extratoFinal]);
-      }
-      else if (this.toggle === "status") {
-        const statusOrder = { 'Finalizado': 0, 'Iniciado': 1, 'Não Iniciado': 2, '': 3 };
-        return this.listaTurma.slice().sort((a, b) => statusOrder[a.status] - statusOrder[b.status]);
-      }
-      else if (this.toggle === "porcentagem") {
-        return this.listaTurma.slice().sort((a, b) => b.porcentagem_questoes - a.porcentagem_questoes);
-      }
-      else if (this.toggle === "nquestoes") {
-        return this.listaTurma.slice().sort((a, b) => b.numero_questoes_feitas - a.numero_questoes_feitas);
-      }
-      // Adicione condições semelhantes para outros tipos de filtragem, se necessário
+    ordemTurma(){
+      console.log(this.sortOrder);
+      if (this.sortOrder) {
+          this.sortOrder = !this.sortOrder;
+
+        } else {
+          this.sortOrder = !this.sortOrder;
+          this.listaTurma.reverse();
+        }
+
       return this.listaTurma;
     },
+
+    
 
     filtrarTurma() {
       if (this.toggleTurma === "t1") {
