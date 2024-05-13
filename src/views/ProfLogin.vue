@@ -1,6 +1,7 @@
 <template>
+
     <div class="main-div">
-      <v-container class="d-flex justify-end align-end absoluteClass h-100" fluid>
+      <v-container class="d-flex justify-end align-end absoluteClass w-100 h-100" fluid>
         <LogoImpacto />
       </v-container>
       <LoginFormProf/>
@@ -9,7 +10,6 @@
   </template>
   
   <script>
-  import LoginForm from '@/components/LoginForm.vue'
   import LogoImpacto from '@/components/LogoImpacto.vue'
   import LoginFormProf from '@/components/LoginFormProf.vue';
   import axios from 'axios';
@@ -17,13 +17,12 @@
   export default {
     name: 'Login',
     components: {
-      LoginForm,
       LoginFormProf,
       LogoImpacto
     },
   
     mounted() {
-      this.verificaLogin();
+      // this.verificaLogin();
     },
   
     methods: {
@@ -82,5 +81,7 @@
   
   .absoluteClass {
     position: absolute;
+    
+    width: 100%;
   }
   </style>

@@ -1,8 +1,9 @@
 <template>
     <v-img class="logo-imp"
-       
         src="../assets/imgs/Logo-Impacto-removebg.png"
         contain
+        :max-width="300"
+        aspect-ratio="16/9"
     ></v-img> 
 </template>
 
@@ -15,7 +16,7 @@
 <style>
 
 .logo-imp{
-    max-width: 25vw;
+    max-width: 10vw;
     height: auto;
 }
 
