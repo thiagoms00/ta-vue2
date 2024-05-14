@@ -40,7 +40,7 @@ export default {
     // Inicia o temporizador para abrir o diálogo a cada 1 minuto
     this.intervalId = setInterval(() => {
       this.dialogOpen = true;
-    }, 60000 + (this.extratoCounter * 30000)); // 1 minuto em milissegundos
+    }, 90000 + (this.extratoCounter * 30000)); // 1 minuto em milissegundos
   },
   methods: {
     fecharDialog() {
@@ -51,7 +51,7 @@ export default {
       // Reinicia o temporizador para abrir o diálogo novamente após 1 minuto
       this.intervalId = setInterval(() => {
         this.dialogOpen = true;
-      }, 60000 + (this.extratoCounter * 30000)); // 1 minuto em milissegundos
+      }, 90000 + (this.extratoCounter * 30000)); // 1 minuto em milissegundos
     },
 
     resetTimer() {

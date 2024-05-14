@@ -88,7 +88,7 @@ export default {
       this.error = '';
 
       const userData = {
-        id: this.email,
+        email: this.email,
         senha: this.senha
       };
 
