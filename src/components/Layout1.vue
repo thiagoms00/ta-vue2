@@ -387,8 +387,11 @@ export default {
                 termina: false,
                 firstQuestion: true,
 
+
             },
-            dialog: false
+            dialog: false,
+            horaInicio: undefined,
+            horaFim: undefined
 
         }
     },
@@ -399,6 +402,8 @@ export default {
 
     created() {  //Sempre é chamado quando a pagina é carregada
 
+        this.horaInicio = new Date();
+        console.log(this.horaInicio);
         this.jsonData = jsonDataQuestoes1;  
       
 
@@ -1845,7 +1850,9 @@ export default {
 
 
         sendDataTest(dataTest) {
-
+            dataTest.horaInicio = this.horaInicio
+            dataTest.horaFim = new Date();
+            console.log(dataTest)
 
             return new Promise((resolve, reject) => {
                 axios({ url: 'https://ta-back.onrender.com/dataTest', data: dataTest, method: 'POST' })

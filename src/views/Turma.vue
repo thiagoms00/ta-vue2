@@ -132,7 +132,7 @@
                   style="border-radius: 0px;">
 
 
-                  <v-expansion-panel-title style="height: 5vh;">
+                  <v-expansion-panel-title style="height: 5vh;" class="color-painel" >
                     <v-row class="d-flex align-center">
                       <v-col cols="3" class="d-flex justify-center">
                         {{ item.user['nome'] }}
@@ -162,11 +162,13 @@
                       </v-col>
                     </v-row>
 
-                  </v-expansion-panel-title>
+                  </v-expansion-panel-title >
 
 
                   <v-expansion-panel-text>
+
                     <v-divider></v-divider>
+                    
                     <v-row justify="space-around" no-gutters>
                       <v-col cols="4 pa-2 d-flex w-100 flex-column justify-center">
                         <p class="text-h5 text-center mb-4">
@@ -261,10 +263,6 @@ export default {
 
   },
   methods: {
-
-    esconderDiv() {
-      this.mostrarDiv = false;
-    },
 
     toggleIcon(index, value) {
       // Reset all icons
@@ -490,6 +488,7 @@ export default {
         }).finally(() => {
           // Define carregandoTurmas como false quando a promessa for resolvida ou rejeitada
           this.carregandoTurmas = false;
+          this.mostrarDiv = false;
           this.ativarAnimacaoLista();
         });
 
@@ -602,5 +601,9 @@ export default {
   100% {
     opacity: 1;
   }
+}
+
+.color-painel.v-expansion-panel-title--active{
+  background-color: #CFD8DC; /* Substitua "blue" pela cor desejada para o texto expandido */
 }
 </style>
