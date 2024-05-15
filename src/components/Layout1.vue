@@ -1345,29 +1345,32 @@ export default {
                         if (this.termina === false) {                    //Flag utilizada para determinar o envio dos dados do teste
                             //Enviar dados pro backend
                             this.popupIntervalo();
-                            console.log("Fim do teste principal, iniciando coleta de dados.");
+                            //console.log("Fim do teste principal, iniciando coleta de dados.");
                             this.changeTestAudio = true;
                             this.resetaOrdem();
                             this.dadosTeste.extrato1Flag=false;
                             this.dadosTeste.termina=true;
                             this.extrato1Flag = false;
                             this.sendDataTest(this.dadosTeste);
-                            this.coletaDados = true;                    //Inicio da coleta de dados
+
+
+                            /* A parte a seguir foi comentada, apenas o extrato 2 terá uma coleta de dados */
+
+                          /*this.coletaDados = true;                    //Inicio da coleta de dados
                             this.termina = true;
                             this.nestr = 1;
-
                             this.dadosTeste.extratoAtual = this.nestr;
                             this.dadosTeste.indiceAtual = 0;            //Usado caso o teste seja retomado.
                             this.dadosTeste.dadosPSR = 0.5;
                             this.dadosTeste.seqProbDom.fill(1);
                             this.dadosTeste.seqProbNdom.fill(1);
-                            this.dadosTeste.jiter = 0;
-
-                            
-                            this.resetaExtrato(this.nestr, 0);          //Retomando ao extrato 1
+                            this.dadosTeste.jiter = 0; */
+                            //this.resetaExtrato(this.nestr, 0);          //Retomando ao extrato 1
+                            this.questionFlag = true;
+                            this.testeStatus(0);
+                            this.$router.push('/congratulations');
                         }
                         else {                                          //Fim da coleta de dados
-                            //Enviar dados ao backend
                             this.questionFlag = true;
                             this.testeStatus(0);
                             this.$router.push('/congratulations');
@@ -1381,28 +1384,30 @@ export default {
                             this.popupIntervalo();
                             this.dadosTeste.resultado = -1;
                             this.sendDataTest(this.dadosTeste);
-                            console.log("Fim do teste principal, iniciando coleta de dados.");
+                            this.questionFlag = true;
+                            this.testeStatus(0);
+                            this.$router.push('/congratulations');
+
+                            /*console.log("Fim do teste principal, iniciando coleta de dados.");
                             this.changeTestAudio = true;
                             this.resetaOrdem();
-
                             this.dadosTeste.extrato1Flag=false;
                             this.dadosTeste.termina=true;
-                            
-
                             this.extrato1Flag = false;
                             this.coletaDados = true;
                             this.termina = true;
                             this.nestr = 1;
-
                             this.dadosTeste.extratoAtual = this.nestr;
                             this.dadosTeste.indiceAtual = 0;            //Usado caso o teste seja retomado.
                             this.dadosTeste.dadosPSR = 0.5;
                             this.dadosTeste.seqProbDom.fill(1);
                             this.dadosTeste.seqProbNdom.fill(1);
                             this.dadosTeste.jiter = 0;
+                            this.resetaExtrato(this.nestr, 0); */
+                            this.questionFlag = true;
+                            this.testeStatus(0);
+                            this.$router.push('/congratulations');
 
-
-                            this.resetaExtrato(this.nestr, 0);
                         }
                         else {
                             this.questionFlag = true;
@@ -1437,7 +1442,6 @@ export default {
                         if (this.extrato1Flag === false) {      //Aluno foi reprovado pela primeira vez no extrato 1
                             console.log("Fim do extrato 1: Retrocedendo ao extrato 0");
                             this.extrato1Flag = true;
-
                             this.dadosTeste.extrato1Flag = true;
                             this.dadosTeste.extratoAtual = this.nestr;
                             this.dadosTeste.indiceAtual = 0;            //Usado caso o teste seja retomado.
@@ -1445,8 +1449,6 @@ export default {
                             this.dadosTeste.seqProbDom.fill(1);
                             this.dadosTeste.seqProbNdom.fill(1);
                             this.dadosTeste.jiter = 0;
-
-
                             this.resetaExtrato(this.nestr, 0);
                               //Usado caso o teste seja retomado.
 
@@ -1457,28 +1459,26 @@ export default {
                                 this.popupIntervalo();
                                 this.dadosTeste.resultado = 1;
                                 this.sendDataTest(this.dadosTeste);
-                                console.log("Fim do teste principal, iniciando coleta de dados.");
+                              /*console.log("Fim do teste principal, iniciando coleta de dados.");
                                 this.changeTestAudio = true;
                                 this.resetaOrdem();
                                 this.dadosTeste.extrato1Flag=false;
                                 this.dadosTeste.termina=true;
-
                                 this.coletaDados = true;
                                 this.extrato1Flag = false;
                                 this.termina = true;
                                 this.nestr = 1;
-
                                 this.dadosTeste.extratoAtual = this.nestr;
                                 this.dadosTeste.indiceAtual = 0;            //Usado caso o teste seja retomado.
                                 this.dadosTeste.dadosPSR = 0.5;
                                 this.dadosTeste.seqProbDom.fill(1);
                                 this.dadosTeste.seqProbNdom.fill(1);
                                 this.dadosTeste.jiter = 0;
-
-                               
-
                                 this.resetaExtrato(this.nestr, 0);
-
+ */
+                                this.questionFlag = true;
+                                this.testeStatus(0);
+                                this.$router.push('/congratulations');
                             }
                             else {
                                 this.questionFlag = true;
@@ -1494,7 +1494,7 @@ export default {
                             this.popupIntervalo();
                             this.dadosTeste.resultado = -1;
                             this.sendDataTest(this.dadosTeste);
-                            console.log("Fim do teste principal, iniciando coleta de dados.");
+                       /*      console.log("Fim do teste principal, iniciando coleta de dados.");
                             this.changeTestAudio = true;
                             this.resetaOrdem();
                             this.dadosTeste.extrato1Flag=false;
@@ -1508,8 +1508,10 @@ export default {
                             this.dadosTeste.dadosPSR = 0.5;
                             this.dadosTeste.seqProbDom.fill(1);
                             this.dadosTeste.seqProbNdom.fill(1);
-                            this.dadosTeste.jiter = 0;
-
+                            this.dadosTeste.jiter = 0; */
+                            this.questionFlag = true;
+                            this.testeStatus(0);
+                            this.$router.push('/congratulations');
 
                             this.resetaExtrato(this.nestr, 0);
                         }
@@ -1670,9 +1672,11 @@ export default {
                             this.dadosTeste.seqProbDom.fill(1);
                             this.dadosTeste.seqProbNdom.fill(1);
                             this.dadosTeste.jiter = 0;
-
-
                             this.resetaExtrato(this.nestr, 0);
+
+                            this.questionFlag = true;
+                            this.testeStatus(0);
+                            this.$router.push('/congratulations');
                         }
                         else {
                             this.questionFlag = true;
@@ -1686,7 +1690,7 @@ export default {
                             this.popupIntervalo();
                             this.dadosTeste.resultado = -1;
                             this.sendDataTest(this.dadosTeste);
-                            console.log("Fim do teste principal, iniciando coleta de dados.");
+                          /*   console.log("Fim do teste principal, iniciando coleta de dados.");
                             this.changeTestAudio = true;
                             this.resetaOrdem();
                             this.dadosTeste.extrato1Flag=false;
@@ -1701,9 +1705,10 @@ export default {
                             this.dadosTeste.seqProbDom.fill(1);
                             this.dadosTeste.seqProbNdom.fill(1);
                             this.dadosTeste.jiter = 0;
-
-
-                            this.resetaExtrato(this.nestr, 0);
+                            this.resetaExtrato(this.nestr, 0); */
+                            this.questionFlag = true;
+                            this.testeStatus(0);
+                            this.$router.push('/congratulations');
                         }
                         else {
                             this.questionFlag = true;
