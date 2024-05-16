@@ -267,16 +267,17 @@ import ContButton from './ContButton.vue';
 import axios from 'axios';
 
 import jsonDataQuestoes0 from '../assets/questao/questoes_extrato0.json';
-import jsonDataQuestoes1 from '../assets/questao/questoes_extrato1.json';              //Primeiro a ser utilizado.
+import jsonDataQuestoes1 from '../assets/questao/questoes_extrato1.json';              //Primeiro estrato a ser utilizado.
 import jsonDataQuestoes2 from '../assets/questao/questoes_extrato2.json';
 import jsonDataQuestoes3 from '../assets/questao/questoes_extrato3.json';
+import jsonDataQuestoes2Nt from '../assets/questao/extrato2_nt';
 
 //Dados das "planilhas"
 import jsonData0 from '../assets/extratos/extrato0.json';
 import jsonData1 from '../assets/extratos/extrato1.json';
 import jsonData2 from '../assets/extratos/extrato2.json';
 import jsonData3 from '../assets/extratos/extrato3.json';
-
+import jsonData2Nt from '../assets/extratos/extrato2nt.json'
 
 import FlexBar from '@/components/FlexBar.vue';
 import PopupTeste from './PopupTeste.vue'
@@ -345,6 +346,7 @@ export default {
             Respostas: [],
             termina: false,                    //Determina quando o teste principal acaba.
             coletaDados: false,                //Determina quando a coleta de dados começa.
+            coletaDadosInd: 0,
             questionFlag: false,               //Determina quando o sistema para de enviar questões.
             ind_questao: 0,
             resultado: 0,
@@ -545,45 +547,33 @@ export default {
 
         },
 
-        checkAnswer() {                     //É chamado sempre que um usuario clicar no botão "Continuar"
+        async checkAnswer() {                     //É chamado sempre que um usuario clicar no botão "Continuar"
             
             this.resetTimer();
-
             this.changeByID();
 
             const radioButtons = document.querySelectorAll('input[name="question-choice"]');  //seleciona todos os radio buttons.
             for (const radioButton of radioButtons) {
                 if (radioButton.checked) {                                                     //Vê qual radio button foi selecionado.
                     let selectedButton = radioButton.value;
-                    this.aplicaQuestao(radioButton.value - 1);
-                    switch (parseInt(selectedButton)) {                                         //converte o "SelectedButton" para um inteiro.
-                        case 1:
-                            //console.log(this.questionAlt1)
-                            if (this.questionAlt1 == this.questionAnswer) {
-                                // console.log('Você acertou a questão!');
-                            }
-                            break;
-                        case 2:
-                            //console.log(this.questionAlt2)
-                            if (this.questionAlt2 == this.questionAnswer) {
-                                // console.log('Você acertou a questão!');
-                            }
-                            break;
-                        case 3:
-                            // console.log(this.questionAlt3);
-                            if (this.questionAlt3 == this.questionAnswer) {
-                                // console.log('Você acertou a questão!');
-                            }
-
-                            break;
-                        case 4:
-                            //console.log(this.questionAlt4)
-                            if (this.questionAlt4 == this.questionAnswer) {
-                                //console.log('Você acertou a questão!');
-                            }
-                            break;
+                    if(!this.coletaDados){
+                        this.aplicaQuestao(radioButton.value - 1);
                     }
-
+                    else{
+                        console.log(parseInt(selectedButton));
+                        this.coletaDadosInd++;
+                        if(this.coletaDadosInd>=this.jsonData.questoes.length){
+                            this.questionFlag = true;
+                            this.testeStatus(0);
+                            this.$router.push('/congratulations');
+                        }
+                        else{
+                            await this.changeQuestion();        //Altera questão exibida para o usuario.
+                            this.changeByID();
+                        }
+                       
+                        
+                    }
                 }
 
 
@@ -984,10 +974,12 @@ export default {
         startTest() {
             /* Iniciando o Algoritmo, armazenando o tamanho total de cada array que contem os dados dos extratos.*/
 
-            const nq0 = jsonData0.extrato.length
-            const nq1 = jsonData1.extrato.length
-            const nq2 = jsonData2.extrato.length
-            const nq3 = jsonData3.extrato.length
+            const nq0 = jsonData0.extrato.length;
+            const nq1 = jsonData1.extrato.length;
+            const nq2 = jsonData2.extrato.length;
+            const nq3 = jsonData3.extrato.length;
+
+           
             this.nq = [nq0, nq1, nq2, nq3]; //Array contendo os tamanhos relativos aos extratos.
             this.dadosTeste.nq = this.nq;
 
@@ -995,6 +987,7 @@ export default {
             let questao_id_1 = [];
             let questao_id_2 = [];
             let questao_id_3 = [];
+
 
             /* Armazenando os identificadores de cada extrato. */
             for (let i = 0; i < jsonData0.extrato.length; i++) {
@@ -1009,6 +1002,7 @@ export default {
             for (let i = 0; i < jsonData3.extrato.length; i++) {
                 questao_id_3[i] = jsonData3.extrato[i].id;
             }
+          
 
 
             this.questao_id = [questao_id_0, questao_id_1, questao_id_2, questao_id_3]; //Array final com arrays dos identificadores.
@@ -1018,31 +1012,30 @@ export default {
             /* Armazenando as probabilidades de escolher uma questão, essa parte ficou confusa no algoritmo em python. */
 
             /* Cria um Array contendo arrays com as probabilidades de escolher uma alternativa, dado que domine a questão. */
-            let probabilidades_domina_0 = [[], [], [], [], []];
-            let probabilidades_domina_1 = [[], [], [], [], []];
-            let probabilidades_domina_2 = [[], [], [], [], []];
-            let probabilidades_domina_3 = [[], [], [], [], []];
+            let probabilidades_domina_0 = [[], [], [], []];
+            let probabilidades_domina_1 = [[], [], [], []];
+            let probabilidades_domina_2 = [[], [], [], []];
+            let probabilidades_domina_3 = [[], [], [], []];
+
 
             /* Cria um Array contendo arrays com as probabilidades de escolher uma alternativa, dado que não domine a questão. */
-            let probabilidades_naodom_0 = [[], [], [], [], []];
-            let probabilidades_naodom_1 = [[], [], [], [], []];
-            let probabilidades_naodom_2 = [[], [], [], [], []];
-            let probabilidades_naodom_3 = [[], [], [], [], []];
+            let probabilidades_naodom_0 = [[], [], [], []];
+            let probabilidades_naodom_1 = [[], [], [], []];
+            let probabilidades_naodom_2 = [[], [], [], []];
+            let probabilidades_naodom_3 = [[], [], [], []];
 
 
-            //Extrato 0
+     
             for (let i = 0; i < jsonData0.extrato.length; i++) {
                 probabilidades_domina_0[0].push(jsonData0.extrato[i].ad);
                 probabilidades_domina_0[1].push(jsonData0.extrato[i].bd);
                 probabilidades_domina_0[2].push(jsonData0.extrato[i].cd);
                 probabilidades_domina_0[3].push(jsonData0.extrato[i].dd);
-                probabilidades_domina_0[4].push(jsonData0.extrato[i].ed);
 
                 probabilidades_naodom_0[0].push(jsonData0.extrato[i].as);
                 probabilidades_naodom_0[1].push(jsonData0.extrato[i].bs);
                 probabilidades_naodom_0[2].push(jsonData0.extrato[i].cs);
                 probabilidades_naodom_0[3].push(jsonData0.extrato[i].ds);
-                probabilidades_naodom_0[4].push(jsonData0.extrato[i].es);
 
             }
 
@@ -1066,13 +1059,11 @@ export default {
                 probabilidades_domina_2[1].push(jsonData2.extrato[i].bd);
                 probabilidades_domina_2[2].push(jsonData2.extrato[i].cd);
                 probabilidades_domina_2[3].push(jsonData2.extrato[i].dd);
-                probabilidades_domina_2[4].push(jsonData2.extrato[i].ed);
 
                 probabilidades_naodom_2[0].push(jsonData2.extrato[i].as);
                 probabilidades_naodom_2[1].push(jsonData2.extrato[i].bs);
                 probabilidades_naodom_2[2].push(jsonData2.extrato[i].cs);
                 probabilidades_naodom_2[3].push(jsonData2.extrato[i].ds);
-                probabilidades_naodom_2[4].push(jsonData2.extrato[i].es);
 
             }
 
@@ -1082,18 +1073,21 @@ export default {
                 probabilidades_domina_3[1].push(jsonData3.extrato[i].bd);
                 probabilidades_domina_3[2].push(jsonData3.extrato[i].cd);
                 probabilidades_domina_3[3].push(jsonData3.extrato[i].dd);
-                probabilidades_domina_3[4].push(jsonData3.extrato[i].ed);
 
                 probabilidades_naodom_3[0].push(jsonData3.extrato[i].as);
                 probabilidades_naodom_3[1].push(jsonData3.extrato[i].bs);
                 probabilidades_naodom_3[2].push(jsonData3.extrato[i].cs);
                 probabilidades_naodom_3[3].push(jsonData3.extrato[i].ds);
-                probabilidades_naodom_3[4].push(jsonData3.extrato[i].es);
             }
 
+        
 
-            this.probabilidades_domina = [probabilidades_domina_0, probabilidades_domina_1, probabilidades_domina_2, probabilidades_domina_3];
-            this.probabilidades_naodom = [probabilidades_naodom_0, probabilidades_naodom_1, probabilidades_naodom_2, probabilidades_naodom_3];
+            this.probabilidades_domina = [probabilidades_domina_0, probabilidades_domina_1, probabilidades_domina_2, probabilidades_domina_3
+                
+            ];
+            this.probabilidades_naodom = [probabilidades_naodom_0, probabilidades_naodom_1, probabilidades_naodom_2, probabilidades_naodom_3
+               
+            ];
 
             this.dadosTeste.probabilidadeDom = this.probabilidades_domina;
             this.dadosTeste.probabilidadeNdom = this.probabilidades_naodom;
@@ -1103,6 +1097,8 @@ export default {
             let ordem_1 = [];
             let ordem_2 = [];
             let ordem_3 = [];
+
+
 
             for (let i = 0; i < jsonData0.extrato.length; i++) {
                 ordem_0[i] = [i];
@@ -1116,6 +1112,7 @@ export default {
             for (let i = 0; i < jsonData3.extrato.length; i++) {
                 ordem_3[i] = [i];
             }
+
 
             ordem_0 = this.shuffleArray(ordem_0);
             ordem_1 = this.shuffleArray(ordem_1);
@@ -1171,16 +1168,17 @@ export default {
             switch (this.dadosTeste.extratoAtual){
                 case 0:
                     this.jsonData = jsonDataQuestoes0;
-                    break;
+                break;
                 case 1:
                     this.jsonData = jsonDataQuestoes1;
-                    break;
+                break;
                 case 2:
                     this.jsonData = jsonDataQuestoes2;
-                    break;
+                break;
                 case 3:
                     this.jsonData = jsonDataQuestoes3;
-                    break;
+                break;
+            
             }
 
          
@@ -1190,11 +1188,7 @@ export default {
             this.resultado = 0;                                      // vai conter: -1 -> reprovação; 0 -> indefinido; 1 -> aprovação
             this.jiter = this.dadosTeste.jiter;
 
-
-           
-            
         },
-
 
         //Randomiza elementos em um vetor.
         shuffleArray(array) {
@@ -1228,20 +1222,18 @@ export default {
             switch (nestr){
                 case 0:
                     this.jsonData = jsonDataQuestoes0;
-                    break;
+                break;
                 case 1:
                     this.jsonData = jsonDataQuestoes1;
-                    break;
+                break;
                 case 2:
                     this.jsonData = jsonDataQuestoes2;
-                    break;
+                break;
                 case 3:
                     this.jsonData = jsonDataQuestoes3;
-
-                    break;
+                break;
             }
-            console.log('Extrato(objeto local) : ' + this.dadosTeste.extratoAtual);
-            console.log('Indice(objeto local) : ' + this.dadosTeste.indiceAtual);
+        
 
 
             this.Questoes = Array(this.nq[nestr] - jquest).fill(0);  // lista que armazenará os identificadores das questões apresentadas
@@ -1499,7 +1491,7 @@ export default {
                             this.popupIntervalo();
                             this.dadosTeste.resultado = -1;
                             this.sendDataTest(this.dadosTeste);
-                       /*      console.log("Fim do teste principal, iniciando coleta de dados.");
+                       /*   console.log("Fim do teste principal, iniciando coleta de dados.");
                             this.changeTestAudio = true;
                             this.resetaOrdem();
                             this.dadosTeste.extrato1Flag=false;
@@ -1555,7 +1547,7 @@ export default {
                             this.popupIntervalo();
                             //Enviar dados pro backend
                             this.sendDataTest(this.dadosTeste);
-                            console.log("Fim do teste principal, iniciando coleta de dados.");
+                          /*   console.log("Fim do teste principal, iniciando coleta de dados.");
                             this.changeTestAudio = true;
                             this.resetaOrdem();
                             this.dadosTeste.extrato1Flag=false;
@@ -1563,7 +1555,7 @@ export default {
                             this.extrato1Flag = false;
                             this.coletaDados = true;
                             this.termina = true;
-                            this.nestr = 1;
+                            this.nestr = 2;
 
                             this.dadosTeste.extratoAtual = this.nestr;
                             this.dadosTeste.indiceAtual = 0;            //Usado caso o teste seja retomado.
@@ -1571,13 +1563,14 @@ export default {
                             this.dadosTeste.seqProbDom.fill(1);
                             this.dadosTeste.seqProbNdom.fill(1);
                             this.dadosTeste.jiter = 0;
-
-
-                            this.resetaExtrato(this.nestr, 0);
+                            this.resetaExtrato(this.nestr, 0); */
+                            this.coletaDados = true;
+                            this.startDataTest(2);
 
                         }
                         else {
                             this.questionFlag = true;
+                            this.testeStatus(0);
                             this.$router.push('/congratulations');
                         }
                     } else if (this.jiter >= this.nq[this.nestr] - this.jquest) { // termina indefinido
@@ -1587,7 +1580,7 @@ export default {
                             this.popupIntervalo();
                             this.dadosTeste.resultado = -1;
                             this.sendDataTest(this.dadosTeste);
-                            console.log("Fim do teste principal, iniciando coleta de dados.");
+                           /*  console.log("Fim do teste principal, iniciando coleta de dados.");
                             this.changeTestAudio = true;
                             this.resetaOrdem();
                             this.dadosTeste.extrato1Flag=false;
@@ -1603,9 +1596,10 @@ export default {
                             this.dadosTeste.seqProbDom.fill(1);
                             this.dadosTeste.seqProbNdom.fill(1);
                             this.dadosTeste.jiter = 0;
-
-
-                            this.resetaExtrato(this.nestr, 0);
+                            this.resetaExtrato(this.nestr, 0); */
+                            this.questionFlag = true;
+                            this.testeStatus(0);
+                            this.$router.push('/congratulations');
                         }
                         else {
                             this.questionFlag = true;
@@ -1662,7 +1656,7 @@ export default {
                             this.popupIntervalo();
                             //Enviar dados pro backend
                             this.sendDataTest(this.dadosTeste);
-                            console.log("Fim do teste principal, iniciando coleta de dados.");
+                           /*  console.log("Fim do teste principal, iniciando coleta de dados.");
                             this.changeTestAudio = true;
                             this.resetaOrdem();
                             this.dadosTeste.extrato1Flag=false;
@@ -1670,7 +1664,7 @@ export default {
                             this.extrato1Flag = false;
                             this.coletaDados = true;
                             this.termina = true;
-                            this.nestr = 1;
+                            this.nestr = 4;
                             this.dadosTeste.extratoAtual = this.nestr;
                             this.dadosTeste.indiceAtual = 0;            //Usado caso o teste seja retomado.
                             this.dadosTeste.dadosPSR = 0.5;
@@ -1678,7 +1672,7 @@ export default {
                             this.dadosTeste.seqProbNdom.fill(1);
                             this.dadosTeste.jiter = 0;
                             this.resetaExtrato(this.nestr, 0);
-
+ */
                             this.questionFlag = true;
                             this.testeStatus(0);
                             this.$router.push('/congratulations');
@@ -1742,8 +1736,12 @@ export default {
             this.alertPopup = false;
             clearTimeout(this.alertTimeoutId);
 
-
-            this.questionNumber = this.ordem[this.nestr][this.ind_questao];
+            if(!this.coletaDados){
+                this.questionNumber = this.ordem[this.nestr][this.ind_questao];
+            }
+            else{
+                this.questionNumber = this.coletaDadosInd;
+            }
             this.questionId = this.jsonData.questoes[this.questionNumber].id
             this.questionText = this.jsonData.questoes[this.questionNumber].text;
             this.questionTextTitle = this.jsonData.questoes[this.questionNumber].textTitle;
@@ -1834,6 +1832,7 @@ export default {
             for (let i = 0; i < jsonData3.extrato.length; i++) {
                 ordem_3[i] = [i];
             }
+           
 
             ordem_0 = this.shuffleArray(ordem_0);
             ordem_1 = this.shuffleArray(ordem_1);
@@ -1888,10 +1887,24 @@ export default {
            }
         },  
 
+        startDataTest(nestrTest){
+            
+            switch(nestrTest){
+                case 0:
+                break;
+                case 2:
+                    let questoesTeste = jsonData2Nt.questoes;   
+                    //this.shuffleArray(questoesTeste)
+                    this.jsonData = jsonDataQuestoes2Nt;
+                    
+
+                break; 
+            }
+
+            
+        },
+
         setCookie(nomeCookie, objeto, expiracaoDias) {    
-
-
-          
 
             console.log('Atualizando cookie...');      
             console.log(objeto);               
@@ -1921,7 +1934,6 @@ export default {
         
 
         resetTimer() {
-            
             // Emitir um evento para notificar o componente filho sobre o reset do temporizador
             this.$refs.PopupTeste.fecharDialog();
         },
@@ -1930,6 +1942,8 @@ export default {
             this.megafoneDisable = true;
             this.$refs.PopupIntervalo.openDialog();
         }
+
+
 
 
     },

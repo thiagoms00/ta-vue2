@@ -1,7 +1,9 @@
-this.Questoes = Array(this.nq[nestr] - jquest).fill(0);// lista que armazenará os identificadores das questões apresentadas
-this.Respostas = Array(this.nq[nestr] - jquest).fill(0); // lista que armazenará as respostas do estudante às questões
-this.termina = false;                            // flag de término da bateria de questões referente ao estrato
-this.ind_questao = jquest;                       // índice relativo da questão (aponta agora para primeira questão a ser utilizada)
-this.resultado = 0;                              // vai conter: -1 -> reprovação; 0 -> indefinido; 1 -> aprovação
-this.seq_prob_dom = new Array(this.nq[nestr]);        // vai conter as probabilidades ter marcado o item dado que domina conteúdo
-this.seq_prob_ndom = new Array(this.nq[nestr]);       // vai conter as probabilidades ter marcado o item dado que não domina conteúdo
+probabilidades_domina_2Nt[0].push(jsonData2Nt.extrato[i].ad);
+probabilidades_domina_2Nt[1].push(jsonData2Nt.extrato[i].bd);
+probabilidades_domina_2Nt[2].push(jsonData2Nt.extrato[i].cd);
+probabilidades_domina_2Nt[3].push(jsonData2Nt.extrato[i].dd);
+
+probabilidades_naodom_2Nt[0].push(jsonData2Nt.extrato[i].as);
+probabilidades_naodom_2Nt[1].push(jsonData2Nt.extrato[i].bs);
+probabilidades_naodom_2Nt[2].push(jsonData2Nt.extrato[i].cs);
+probabilidades_naodom_2Nt[3].push(jsonData2Nt.extrato[i].ds);

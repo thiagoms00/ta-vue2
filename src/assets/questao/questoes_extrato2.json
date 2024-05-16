@@ -799,43 +799,8 @@
             "alt4": "1180 Km.",
             "answer" : "693 Km.",
             "fonte": "Caderno Santa Catarina – Passaporte Turístico. Editora Letras Brasileiras, 2011. p.7."
-        },
-        {
-            "id" : "LP_H05_11_003",                             
-            "layout" : "m5",
-            "type" : "Lingua portuguesa",
-            "textTitle":"",
-            "qText":"",
-            "img1":"url(/src/assets/imgs/extrato2/LP_H05_11_003.png)",
-            "img2":"",
-            "text": "",
-            "audio1": "/src/assets/audios/extrato2/LP_H05_11_003.mp3",
-            "audio2": "",
-            "alt1": "PASSADINHO",
-            "alt2": "PASSARINHO",
-            "alt3": "PASSINHO",
-            "alt4": "PASSARINHANDO",
-            "answer" : "PASSARINHO",
-            "fonte": ""
-        },
-        {
-            "id" : "LP_H05_12_001",                             
-            "layout" : "m5",
-            "type" : "Lingua portuguesa",
-            "textTitle":"",
-            "qText":"",
-            "img1":"url(/src/assets/imgs/extrato2/LP_H05_12_001.png)",
-            "img2":"",
-            "text": "",
-            "audio1": "/src/assets/audios/extrato2/LP_H05_12_001.mp3",
-            "audio2": "",
-            "alt1": "PLACA",
-            "alt2": "PLANTA",
-            "alt3": "PLANA",
-            "alt4": "PLANETA",
-            "answer" : "PLANTA",
-            "fonte": ""
         }
+       
 
      
 
