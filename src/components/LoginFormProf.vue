@@ -98,7 +98,11 @@ export default {
         method: 'POST'
       })
         .then((response) => {
+          console.log('Response completo:', response);
+          console.log('Dados da resposta-TOKEN --- :', response.data.token);
+
           const tokenProf = response.data.tokenProf;
+
           localStorage.setItem('tokenProf', tokenProf);
           axios.defaults.headers.common['Authorization'] = tokenProf;
 

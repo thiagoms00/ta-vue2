@@ -76,6 +76,34 @@ export default createStore({
 
         },
 
+        verificarTokenProfs({ commit }, {router} ){
+
+          const data = {
+            tokenProf : localStorage.getItem('tokenProf')
+          };
+
+          return axios({ url: 'https://ta-back.onrender.com/verificaTokenProfs', data, method: 'POST' })
+          .then((response) => {
+            console.log(response.status)
+            if (response.status === 200) {
+              // Token é válido
+              commit('auth_success', response.data);
+            }
+            else {
+              // Token não é válido, você pode remover o token do localStorage e redirecionar para o login.
+              localStorage.removeItem('tokenProf');
+              this.$router.push('/profslogin');
+            }
+          })
+          .catch((error) => {
+            // Tratar erros aqui
+            localStorage.removeItem('tokenProf');
+            router.push('/profslogin');
+            console.error(error);
+          });
+
+        },
+
 
     }
 })

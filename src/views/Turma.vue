@@ -244,7 +244,7 @@ export default {
 
   created() {
 
-    // this.$store.dispatch('verificarToken', { router: this.$router });
+  this.$store.dispatch('verificarTokenProfs', { router: this.$router });
 
     // this.returnDadosTurma().then((dados) => {
     //     // console.log(dados)
