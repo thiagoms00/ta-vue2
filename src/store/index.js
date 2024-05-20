@@ -32,10 +32,14 @@ export default createStore({
             
             return new Promise((resolve, reject) => {
                 commit('auth_request');
-                axios({ url: 'https://ta-back.onrender.com/login', data: user, method: 'POST' })
+                axios({ url: 'https://ta-back.onrender.com/alunos/login', data: user, method: 'POST' })
                   .then((response) => {
                     const token = response.data.token;
+                    const id = response.data.id;
+
                     localStorage.setItem('token', token);
+                    localStorage.setItem('id', id)
+
                     axios.defaults.headers.common['Authorization'] = token;
                     commit('auth_success', token);
                     resolve(response);
@@ -54,7 +58,7 @@ export default createStore({
             token : localStorage.getItem('token')
           };
 
-          return axios({ url: 'https://ta-back.onrender.com/verificaToken', data, method: 'POST' })
+          return axios({ url: 'https://ta-back.onrender.com/alunos/verificaToken', data, method: 'POST' })
           .then((response) => {
             console.log(response.status)
             if (response.status === 200) {
@@ -79,10 +83,10 @@ export default createStore({
         verificarTokenProfs({ commit }, {router} ){
 
           const data = {
-            tokenProf : localStorage.getItem('tokenProf')
+            token : localStorage.getItem('tokenProf')
           };
 
-          return axios({ url: 'https://ta-back.onrender.com/verificaTokenProfs', data, method: 'POST' })
+          return axios({ url: 'https://ta-back.onrender.com/professores/verificaToken', data, method: 'POST' })
           .then((response) => {
             console.log(response.status)
             if (response.status === 200) {
@@ -92,13 +96,13 @@ export default createStore({
             else {
               // Token não é válido, você pode remover o token do localStorage e redirecionar para o login.
               localStorage.removeItem('tokenProf');
-              this.$router.push('/profslogin');
+              this.$router.push('/proflogin');
             }
           })
           .catch((error) => {
             // Tratar erros aqui
             localStorage.removeItem('tokenProf');
-            router.push('/profslogin');
+            router.push('/proflogin');
             console.error(error);
           });
 

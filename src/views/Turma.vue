@@ -236,7 +236,9 @@ export default {
     icon: ["", "", "", "", "", ""],
     lastClicked: -1,
     sortOrder: true,
-    mostrarDiv :true
+    mostrarDiv :true,
+
+    llistaTurma:[]
 
 
 
@@ -263,6 +265,20 @@ export default {
 
   },
   methods: {
+
+    // getIdTurmas(){
+
+    //   const token = {
+    //     token: this.localStorage.getItem("tokenProf")
+    //   }
+
+    //   const response = axios.post('https://ta-back.onrender.com/returnTurmas', token);
+
+
+
+
+    //   const turma : [];
+    // },
 
     toggleIcon(index, value) {
       // Reset all icons

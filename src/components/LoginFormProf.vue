@@ -93,14 +93,12 @@ export default {
       };
 
       axios({
-        url: 'https://ta-back.onrender.com/loginProf',
+        url: 'https://ta-back.onrender.com/professores/login',
         data: userData,
         method: 'POST'
       })
         .then((response) => {
-          console.log('Response completo:', response);
-          console.log('Dados da resposta-TOKEN --- :', response.data.token);
-
+          
           const tokenProf = response.data.tokenProf;
 
           localStorage.setItem('tokenProf', tokenProf);

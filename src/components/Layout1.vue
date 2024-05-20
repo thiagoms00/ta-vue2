@@ -1849,12 +1849,13 @@ export default {
 
 
         sendDataTest(dataTest) {
-            dataTest.horaInicio = this.horaInicio
+            
             dataTest.horaFim = new Date();
-            console.log(dataTest)
+            dataTest.id = localStorage.getItem('id')
+            dataTest.idTeste = localStorage.getItem('idTeste')
 
             return new Promise((resolve, reject) => {
-                axios({ url: 'https://ta-back.onrender.com/dataTest', data: dataTest, method: 'POST' })
+                axios({ url: 'https://ta-back.onrender.com/alunos/dataTest', data: dataTest, method: 'POST' })
                     .then((response) => {
                         console.log(response)
                         resolve(response);

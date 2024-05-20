@@ -35,7 +35,7 @@
           const data = {
             token: dataToken
           };
-          axios({ url: 'https://ta-back.onrender.com/verificaTokenProfs', data, method: 'POST' })
+          axios({ url: 'https://ta-back.onrender.com/professores/verificaTokenProfs', data, method: 'POST' })
             .then((response) => {
               console.log(response.status)
               if (response.status === 200) {

@@ -69,13 +69,23 @@ export default {
       this.$router.push('/testStart');
       this.loading = true;
       const data = {
-        token: localStorage.getItem('token')
+        token: localStorage.getItem('token'),
+        id: localStorage.getItem('id'),
+        horaInicio : new Date(),
+        disciplina : "Lingua Portuguesa"
       };
       console.log(data);
 
       return new Promise((resolve, reject) => {
-        axios({ url: 'https://ta-back.onrender.com/startTest', data: data, method: 'POST' })
+        axios({ url: 'https://ta-back.onrender.com/alunos/startTest', data: data, method: 'POST' })
           .then((response) => {
+            
+            const dataIdTeste = response.data.idTeste
+            if(localStorage.getItem('idTeste') === null || localStorage.getItem('idTeste') === ''){
+              localStorage.setItem('idTeste', dataIdTeste);
+            }
+            
+
             console.log(response)
             resolve(response);
           })
