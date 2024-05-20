@@ -2,7 +2,6 @@
 
 <v-container class="fill-height">
      
-    <TimePopup/>
 
 </v-container>
     
@@ -16,7 +15,6 @@ import TimePopup from '@/components/TimePopup.vue'
 export default{
     name : 'Test',
     components:{
-        TimePopup
     }   
 
 
