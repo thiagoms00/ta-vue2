@@ -40,7 +40,8 @@
 
                       <v-list-item v-for="(item, index) in listaNomeTurma" :key="index" density="compact"
                         class="d-flex justify-center text-subtitle-2" @click="selecionaTurma(item.id)">
-                        <v-list-item-title>{{ item.nome }}</v-list-item-title>
+                        <v-list-item-title v-if="!animateCarregandoTurmas" >{{ item.nome }}</v-list-item-title>
+                        <v-progress-circular v-if="animateCarregandoTurmas" indeterminate size="24" />
                       </v-list-item>
 
                     </v-list>
@@ -226,7 +227,8 @@ export default {
     lastClicked: -1,
     sortOrder: true,
     mostrarDiv: true,
-    listaNomeTurma: []
+    listaNomeTurma: [],
+    animateCarregandoTurmas: false,
 
 
 
@@ -418,7 +420,7 @@ export default {
 
     selecionaTurma(turmaValue) {
 
-      console.log(turmaValue)
+      this.animateCarregandoTurmas = true;
       const data = {
         token: localStorage.getItem('tokenProf'),
         idTurma: turmaValue,
@@ -442,6 +444,7 @@ export default {
           this.mostrarDiv = false;
           this.ativarAnimacaoLista();
           console.log(this.listaTurma)
+          this.animateCarregandoTurmas = false;
         });
       
 
