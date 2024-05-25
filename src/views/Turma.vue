@@ -38,24 +38,9 @@
                   <v-expansion-panel-text class="rounded-lg">
                     <v-list class="pa-0">
 
-                      <v-list-item density="compact" class="d-flex justify-center text-subtitle-2" @click="selecionaTurma('LP1')">
-                        <v-list-item-title>TURMA 1</v-list-item-title>
-                      </v-list-item>
-
-                      <v-list-item density="compact" class="d-flex justify-center text-subtitle-2" @click="selecionaTurma('LP2')">
-                        <v-list-item-title>TURMA 2</v-list-item-title>
-                      </v-list-item>
-
-                      <v-list-item density="compact" class="d-flex justify-center text-subtitle-2" @click="selecionaTurma('LP3')">
-                        <v-list-item-title>TURMA 3</v-list-item-title>
-                      </v-list-item>
-
-                      <v-list-item density="compact" class="d-flex justify-center text-subtitle-2" @click="selecionaTurma('LP4')">
-                        <v-list-item-title>TURMA 4</v-list-item-title>
-                      </v-list-item>
-
-                      <v-list-item density="compact" class="d-flex justify-center text-subtitle-2" @click="selecionaTurma('PILOTO')">
-                        <v-list-item-title>TURMA - PILOTO</v-list-item-title>
+                      <v-list-item v-for="(item, index) in listaNomeTurma" :key="index" density="compact"
+                        class="d-flex justify-center text-subtitle-2" @click="selecionaTurma(item.id)">
+                        <v-list-item-title>{{ item.nome }}</v-list-item-title>
                       </v-list-item>
 
                     </v-list>
@@ -116,13 +101,17 @@
 
             <!-- Mensagem de Seleção de Turma -->
             <div>
-              <v-sheet v-if="mostrarDiv" class="d-flex justify-center align-center rounded-b-lg" height="250" color="grey-lighten-5" border="md">
-                <p class="text-overline" style="color: #CFD8DC; font-size: 3rem !important; text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);"> Selecione uma turma</p>
-                
+              <v-sheet v-if="mostrarDiv" class="d-flex justify-center align-center rounded-b-lg" height="250"
+                color="grey-lighten-5" border="md">
+                <p class="text-overline"
+                  style="color: #CFD8DC; font-size: 3rem !important; text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);">
+                  Selecione uma
+                  turma</p>
+
               </v-sheet>
 
-            </div>  
-            
+            </div>
+
             <!-- Iteração com os Dados dos Alunos -->
             <v-sheet rounded="lg" class="" :class="{ 'fade-in': animacaoListaAtiva }">
 
@@ -132,7 +121,7 @@
                   style="border-radius: 0px;">
 
 
-                  <v-expansion-panel-title style="height: 5vh;" class="color-painel" >
+                  <v-expansion-panel-title style="height: 5vh;" class="color-painel">
                     <v-row class="d-flex align-center">
                       <v-col cols="3" class="d-flex justify-center">
                         {{ item.user['nome'] }}
@@ -162,13 +151,13 @@
                       </v-col>
                     </v-row>
 
-                  </v-expansion-panel-title >
+                  </v-expansion-panel-title>
 
 
                   <v-expansion-panel-text>
 
                     <v-divider></v-divider>
-                    
+
                     <v-row justify="space-around" no-gutters>
                       <v-col cols="4 pa-2 d-flex w-100 flex-column justify-center">
                         <p class="text-h5 text-center mb-4">
@@ -236,9 +225,8 @@ export default {
     icon: ["", "", "", "", "", ""],
     lastClicked: -1,
     sortOrder: true,
-    mostrarDiv :true,
-
-    llistaTurma:[]
+    mostrarDiv: true,
+    listaNomeTurma: []
 
 
 
@@ -246,39 +234,11 @@ export default {
 
   created() {
 
-  this.$store.dispatch('verificarTokenProfs', { router: this.$router });
-
-    // this.returnDadosTurma().then((dados) => {
-    //     // console.log(dados)
-
-    //     // Quando a promessa for resolvida, atribua os dados à listaTurma
-    //     this.listaTurma = dados.turma;
-    //     this.listaTurma = this.getChartDatas(this.listaTurma);
-    //   })
-    //   .catch((error) => {
-    //     // Em caso de erro, trate-o de acordo com a sua necessidade
-    //     console.error("Erro ao buscar dados da turma:", error);
-    //   }).finally(() => {
-    //     // Define carregandoTurmas como false quando a promessa for resolvida ou rejeitada
-    //     this.carregandoTurmas = false;
-    //   });
+    this.$store.dispatch('verificarTokenProfs', { router: this.$router });
+    this.listaNomeTurma = this.returnTurmas();
 
   },
   methods: {
-
-    // getIdTurmas(){
-
-    //   const token = {
-    //     token: this.localStorage.getItem("tokenProf")
-    //   }
-
-    //   const response = axios.post('https://ta-back.onrender.com/returnTurmas', token);
-
-
-
-
-    //   const turma : [];
-    // },
 
     toggleIcon(index, value) {
       // Reset all icons
@@ -292,53 +252,22 @@ export default {
       this.esconderDiv()
     },
 
-    returnDadosTurma() {
-      return new Promise((resolve, reject) => {
-        const token = {
-          token: "abcde"
-        };
+    returnTurmas() {
 
-        axios({ url: 'https://ta-back.onrender.com/dadosTurma', data: token, method: 'POST' })
-          .then((response) => {
-            // Verifica se a resposta foi bem sucedida
-            if (response && response.data) {
-              // Resolva a promessa com os dados da resposta
-              resolve(response.data);
-            } else {
-              // Se a resposta estiver vazia ou não for bem sucedida, rejeite a promessa com uma mensagem de erro
-              reject("Erro: resposta vazia ou não bem sucedida");
-            }
-          })
-          .catch((error) => {
-            // Em caso de erro na solicitação, rejeite a promessa com o erro
-            reject(error);
-          });
-      });
-    },
+      const data = {
+        tokenProf: localStorage.getItem('tokenProf')
+      };
 
-    returnDadosTurmaNumber(turmaValue) {
-      return new Promise((resolve, reject) => {
-        const token = {
-          token: "abcde",
-          turma: turmaValue
-        };
+      axios({ url: 'https://ta-back.onrender.com/professores/returnTurmas', data, method: 'POST' })
+        .then((response) => {
+          this.listaNomeTurma = response.data.listaTurmas
+        })
+        .catch((error) => {
+          // Tratar erros aqui
+          console.error(error);
+        });
 
-        axios({ url: 'https://ta-back.onrender.com/dadosTurma', data: token, method: 'POST' })
-          .then((response) => {
-            // Verifica se a resposta foi bem sucedida
-            if (response && response.data) {
-              // Resolva a promessa com os dados da resposta
-              resolve(response.data);
-            } else {
-              // Se a resposta estiver vazia ou não for bem sucedida, rejeite a promessa com uma mensagem de erro
-              reject("Erro: resposta vazia ou não bem sucedida");
-            }
-          })
-          .catch((error) => {
-            // Em caso de erro na solicitação, rejeite a promessa com o erro
-            reject(error);
-          });
-      });
+
     },
 
     getColor(chipValue) {
@@ -489,24 +418,32 @@ export default {
 
     selecionaTurma(turmaValue) {
 
-      this.returnDadosTurmaNumber(turmaValue)
-        .then((dados) => {
-          console.log(dados)
+      console.log(turmaValue)
+      const data = {
+        token: localStorage.getItem('tokenProf'),
+        idTurma: turmaValue,
+        idProfessor: localStorage.getItem('idProf')
+      };
 
-          // Quando a promessa for resolvida, atribua os dados à listaTurma
-          this.listaTurma = dados;
-          console.log(this.listaTurma)
-          this.listaTurma = this.getChartDatas(this.listaTurma);
+      console.log(data)
+
+      axios({ url: 'https://ta-back.onrender.com/professores/dadosTurma', data, method: 'POST' })
+        .then((response) => {
+          this.listaTurma = response.data.turma
+          
+
         })
         .catch((error) => {
-          // Em caso de erro, trate-o de acordo com a sua necessidade
-          console.error("Erro ao buscar dados da turma:", error);
+          // Tratar erros aqui
+          console.error(error);
         }).finally(() => {
           // Define carregandoTurmas como false quando a promessa for resolvida ou rejeitada
           this.carregandoTurmas = false;
           this.mostrarDiv = false;
           this.ativarAnimacaoLista();
+          console.log(this.listaTurma)
         });
+      
 
     },
 
@@ -619,7 +556,8 @@ export default {
   }
 }
 
-.color-painel.v-expansion-panel-title--active{
-  background-color: #CFD8DC; /* Substitua "blue" pela cor desejada para o texto expandido */
+.color-painel.v-expansion-panel-title--active {
+  background-color: #CFD8DC;
+  /* Substitua "blue" pela cor desejada para o texto expandido */
 }
 </style>
