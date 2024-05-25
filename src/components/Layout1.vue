@@ -2,7 +2,7 @@
 
     <div class="mainDiv">
         <PopupTeste ref="PopupTeste" :extratoCounter="nestr" />
-        <PopupIntervalo ref="PopupIntervalo" @playAudio="playAudio(1)"/>
+        <PopupIntervalo ref="PopupIntervalo" @playAudio="playAudio(1)" @stopAudio="stopAudio()"/>
         <FlexBar :fonte="fonte" />
         <div class="conteudo" v-if="layoutCheck == 'm1'">
             <div class="pergunta">
@@ -599,8 +599,11 @@ export default {
         },
 
         stopAudio() {
-            let audio = new Audio(this.questionAudio1);
-            audio.pause();
+            console.log("PAUSANDO AUDIO")
+            if (this.audioAux) {
+                this.audioAux.pause();
+                this.audioAux.currentTime = 0;  // Opcional: Reinicia o áudio para o início.
+            }
         },
 
 
@@ -1942,6 +1945,7 @@ export default {
         popupIntervalo(){
             this.megafoneDisable = true;
             this.$refs.PopupIntervalo.openDialog();
+            this.stopAudio();
         }
 
 

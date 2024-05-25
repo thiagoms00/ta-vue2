@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import audio from '@/assets/audios/outros_audios/audio_popupIntervalo.mp3'
 export default {
     name: 'PopupIntervalo',
     data() {
@@ -32,14 +33,24 @@ export default {
             dialogOpen: false,
         };
     },
+    mounted(){
+        
+    },
     methods: {
         openDialog() {
             this.dialogOpen = true;
+            this.$emit('stopAudio');
+            this.audioAux = new Audio(audio);
+            this.audioAux.play();
         },
         closeDialog() {
             this.dialogOpen = false;
             this.$emit('playAudio');
-        }
+        },
+        stopAudio(){
+            this.$emit('stopAudio');
+        },
+        
     },
 };
 </script>

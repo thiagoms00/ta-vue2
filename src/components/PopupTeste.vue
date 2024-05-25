@@ -26,8 +26,10 @@
 </template>
 
 <script>
+import audio from '@/assets/audios/outros_audios/audio_popupTeste.mp3'
+
 export default {
-  data() {
+  data(){
     return {
       dialogOpen: false,
       intervalId: null,
@@ -40,8 +42,11 @@ export default {
     // Inicia o temporizador para abrir o diálogo a cada 1 minuto
     this.intervalId = setInterval(() => {
       this.dialogOpen = true;
+      this.audioAux = new Audio(audio);
+      this.audioAux.play();
     }, 90000 + (this.extratoCounter * 30000)); // 1 minuto em milissegundos
   },
+
   methods: {
     fecharDialog() {
       
@@ -55,7 +60,6 @@ export default {
     },
 
     resetTimer() {
-      console.log("Tá resetando")
       clearInterval(this.intervalId);
     }
   }
