@@ -70,27 +70,23 @@
                         <v-btn block :append-icon="icon[0]" :ripple="false" variant="text"
                           @click="toggleIcon(0, 'nome')">Nome</v-btn>
                       </v-col>
-                      <v-col cols="1" class="d-flex justify-center">
+                      <v-col cols="2" class="d-flex justify-center">
                         <v-btn block :append-icon="icon[1]" :ripple="false" variant="text"
-                          @click="toggleIcon(1, 'extrato')">Extrato</v-btn>
+                          @click="toggleIcon(1, 'percentTotal')">% Acertos</v-btn>
                       </v-col>
                       <v-col cols="2" class="d-flex justify-center">
                         <v-btn :append-icon="icon[2]" :ripple="false" variant="text"
-                          @click="toggleIcon(2, 'porcentagem')">% </v-btn>
+                          @click="toggleIcon(2, 'questaoTotal')">QUESTõES totais</v-btn>
                       </v-col>
-                      <v-col cols="1" class="d-flex justify-center">
+                      <v-col cols="3" class="d-flex justify-center">
                         <v-btn block :append-icon="icon[3]" :ripple="false" variant="text"
-                          @click="toggleIcon(3, 'nquestoes')">Nº de
-                          Questões</v-btn>
+                          @click="toggleIcon(3, 'tempoMedio')">Tempo Médio</v-btn>
                       </v-col>
                       <v-col cols="2" class="d-flex justify-center">
                         <v-btn block :append-icon="icon[4]" :ripple="false" variant="text"
-                          @click="toggleIcon(4, 'tempo')">Tempo</v-btn>
+                          @click="toggleIcon(4, 'nTeste')">N de testes</v-btn>
                       </v-col>
-                      <v-col cols="3" class="d-flex justify-center">
-                        <v-btn block :append-icon="icon[5]" :ripple="false" variant="text"
-                          @click="toggleIcon(5, 'status')">Status</v-btn>
-                      </v-col>
+                      
 
                     </v-row>
 
@@ -124,32 +120,32 @@
 
                   <v-expansion-panel-title style="height: 5vh;" class="color-painel">
                     <v-row class="d-flex align-center">
+
                       <v-col cols="3" class="d-flex justify-center">
                         {{ item.user['nome'] }}
                       </v-col>
-                      <v-col cols="1" class="d-flex justify-center">
-                        {{ (item.status === 'Não Iniciado' || item.status === 'Iniciado') ? '-' : item.extratoFinal }}
-                      </v-col>
+
                       <v-col cols="2" class="d-flex justify-center">
-                        {{ (item.status === 'Não Iniciado' || item.status === 'Iniciado') ? '-' :
-          item.porcentagem_questoes.toLocaleString('pt-BR', {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2
-          }) +
-          '%' }}
+                        {{ item.percentTotal.toFixed(2).replace('.', ',') }} %
                       </v-col>
-                      <v-col cols="1" class="d-flex justify-center">
-                        {{ (item.status === 'Não Iniciado' || item.status === 'Iniciado') ? '-' :
-          item.numero_questoes_feitas }}
-                      </v-col>
+
                       <v-col cols="2" class="d-flex justify-center">
-                        XXX
+                        {{ item.questoesTotais }}
                       </v-col>
+
                       <v-col cols="3" class="d-flex justify-center">
+                        {{ item.tempoMedio }}
+                      </v-col>
+
+                      <v-col cols="2" class="d-flex justify-center">
+                        {{ item.nTestes }}
+                      </v-col>
+
+                      <!-- <v-col cols="3" class="d-flex justify-center">
                         <v-chip :color="getColor(item.status)" :prepend-icon="getIcon(item.status)">
                           {{ item.status }}
                         </v-chip>
-                      </v-col>
+                      </v-col> -->
                     </v-row>
 
                   </v-expansion-panel-title>
@@ -214,13 +210,6 @@ export default {
     chipValue: '',
     toggle: undefined,
     toggleTurma: undefined,
-    items_filtro: [
-      { title: 'EXTRATO', value: 'extrato' },
-      { title: 'STATUS', value: 'status' },
-      { title: 'PORCENTAGEM', value: 'porcentagem' },
-      { title: 'N QUESTÕES', value: 'nquestoes' },
-      { title: 'NOME', value: 'nome' },
-    ],
     animacaoListaAtiva: false,
     textFilter: undefined,
     icon: ["", "", "", "", "", ""],
@@ -251,7 +240,6 @@ export default {
       this.toggle = value;
       this.listaTurma = this.listaTurmaOrdenada(this.sortOrder);
       this.sortOrder = !this.sortOrder;
-      this.esconderDiv()
     },
 
     returnTurmas() {
@@ -451,7 +439,6 @@ export default {
     },
 
     ativarAnimacaoLista() {
-      console.log("Animação de lista");
       this.animacaoListaAtiva = true;
       // Após um certo tempo, desativar a animação
       setTimeout(() => {
@@ -463,18 +450,16 @@ export default {
       if (this.toggle === "nome") {
         this.listaTurma = this.listaTurma.slice().sort((a, b) => a.user['nome'].localeCompare(b.user['nome']));
       }
-      else if (this.toggle === "extrato") {
-        const extratoOrder = { '3': 0, '2': 1, '1': 2, '0': 3, '': 4 };
-        this.listaTurma = this.listaTurma.slice().sort((a, b) => extratoOrder[a.extratoFinal] - extratoOrder[b.extratoFinal]);
+      else if (this.toggle === "questaoTotal") {
+        this.listaTurma = this.listaTurma.slice().sort((a, b) => a.questoesTotais - b.questoesTotais);
       }
-      else if (this.toggle === "status") {
-        const statusOrder = { 'Finalizado': 0, 'Iniciado': 1, 'Não Iniciado': 2, '': 3 };
-        this.listaTurma = this.listaTurma.slice().sort((a, b) => statusOrder[a.status] - statusOrder[b.status]);
+      else if (this.toggle === "tempoMedio") {
+        this.listaTurma = this.listaTurma.slice().sort((a, b) => a.tempoMedio - b.tempoMedio);
       }
-      else if (this.toggle === "porcentagem") {
-        this.listaTurma = this.listaTurma.slice().sort((a, b) => b.porcentagem_questoes - a.porcentagem_questoes);
+      else if (this.toggle === "percentTotal") {
+        this.listaTurma = this.listaTurma.slice().sort((a, b) => (a.percentTotal || 0) - (b.percentTotal || 0));
       }
-      else if (this.toggle === "nquestoes") {
+      else if (this.toggle === "nTeste") {
         this.listaTurma = this.listaTurma.slice().sort((a, b) => b.numero_questoes_feitas - a.numero_questoes_feitas);
 
       }
