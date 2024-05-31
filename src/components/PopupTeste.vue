@@ -114,6 +114,12 @@ export default {
     font-size: 0.9rem !important
   }
 
+  .main-dialog{
+    width: 100% !important;
+    height: auto;
+  }
+
+
 }
 
 @media(max-width: 1024px) {
@@ -132,6 +138,12 @@ export default {
   font-weight: bold !important;
   font-size: 1.15rem !important;
 }
+
+.main-dialog{
+  width: 100vw !important;
+  height: auto;
+}
+
 
 .pop-msg{
   font-weight: bold !important;
