@@ -1,6 +1,6 @@
 <template>
   <v-container class="fill-height">
-    <v-sheet class="
+    <v-sheet class="main-sheet
           d-flex align-center justify-center flex-column
           text-center mx-auto px-4
           rounded-lg" elevation="10" rounded-shaped color="grey-lighten-5" width="70vw" height="70vh" border="md">
@@ -307,6 +307,36 @@ export default {
     height: 7vh !important;
     font-size: 14px !important;
   }
+
+  
+
+
+}
+
+/* Tablet: Modo com a altura maior */
+
+@media(max-width: 768px) {
+
+ .main-sheet{
+  width: 82vw !important;
+ }
+
+.welcome-text {
+  font-size: 1.0rem;
+}
+
+.img-mascote {
+  width: 100px !important;
+
+}
+
+.cont-button {
+  margin-top: 6vh !important;
+  height: 6.2vh !important;
+  width: 40vw !important;
+  font-size: 1.1rem !important;
+}
+
 
 
 

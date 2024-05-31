@@ -26,27 +26,27 @@
                 <form action="" class="question-form" id="questionForm">
 
                     <div class="alternative" @click="clickAlternative(1)">
-                        <input type="radio" id="alt1" name="question-choice" value="1" class="option">
-                        <label for="alt1" class="radio-text" id="radioLabel1">{{ questionAlt1 }}</label><br>
+                        <input type="radio" id="alt1" name="question-choice" value="1" class="option option-m1">
+                        <label for="alt1" class="radio-text radio-textM1" id="radioLabel1">{{ questionAlt1 }}</label><br>
                     </div>
 
                     <div class="alternative" @click="clickAlternative(2)">
 
-                        <input type="radio" id="alt2" name="question-choice" value="2" class="option">
-                        <label for="alt2" class="radio-text" id="radioLabel2">{{ questionAlt2 }}</label><br>
+                        <input type="radio" id="alt2" name="question-choice" value="2" class="option option-m1">
+                        <label for="alt2" class="radio-text radio-textM1" id="radioLabel2">{{ questionAlt2 }}</label><br>
 
                     </div>
 
                     <div class="alternative" @click="clickAlternative(3)">
-                        <input type="radio" id="alt3" name="question-choice" value="3" class="option">
-                        <label for="alt3" class="radio-text" id="radioLabel3">{{ questionAlt3 }}</label>
+                        <input type="radio" id="alt3" name="question-choice" value="3" class="option option-m1">
+                        <label for="alt3" class="radio-text radio-textM1" id="radioLabel3">{{ questionAlt3 }}</label>
                     </div>
 
                     <!-- <br> -->
 
                     <div class="alternative" @click="clickAlternative(4)">
-                        <input type="radio" id="alt4" name="question-choice" value="4" class="option">
-                        <label for="alt4" class="radio-text" id="radioLabel4">{{ questionAlt4 }}</label>
+                        <input type="radio" id="alt4" name="question-choice" value="4" class="option option-m1">
+                        <label for="alt4" class="radio-text radio-textM1" id="radioLabel4">{{ questionAlt4 }}</label>
                     </div>
 
                     <br>
@@ -64,7 +64,7 @@
 
             <div class="pergunta pergunta-m2">
                 <div class="icon-mega" @click="playAudio(1)">
-                    <span class="tooltipText">Escutar</span> w
+                    <span class="tooltipText">Escutar</span>
                 </div>
 
                 <!-- <img src="{{}}" alt="imagem da questao" class=""> -->
@@ -73,30 +73,29 @@
 
             <div class="resposta">
 
-
                 <h2 class="question-text questionText-m2">{{ questionText }}</h2>
                 <form action="" class="question-form form-m2">
 
-                    <div class="alternative" @click="clickAlternative(1)">
+                    <div class="alternative alternative-m2" @click="clickAlternative(1)">
                         <input type="radio" id="alt1" name="question-choice" value="1" class="option option-m2">
                         <label for="alt1" class="radio-text radioM2" id="radioLabel1">{{ questionAlt1 }}</label><br>
                     </div>
 
-                    <div class="alternative" @click="clickAlternative(2)">
+                    <div class="alternative alternative-m2" @click="clickAlternative(2)">
 
                         <input type="radio" id="alt2" name="question-choice" value="2" class="option option-m2">
                         <label for="alt2" class="radio-text radioM2" id="radioLabel2">{{ questionAlt2 }}</label><br>
 
                     </div>
 
-                    <div class="alternative" @click="clickAlternative(3)">
+                    <div class="alternative alternative-m2" @click="clickAlternative(3)">
                         <input type="radio" id="alt3" name="question-choice" value="3" class="option option-m2">
                         <label for="alt3" class="radio-text radioM2" id="radioLabel3">{{ questionAlt3 }}</label>
                     </div>
 
                     <!-- <br> -->
 
-                    <div class="alternative" @click="clickAlternative(4)">
+                    <div class="alternative alternative-m2" @click="clickAlternative(4)">
                         <input type="radio" id="alt4" name="question-choice" value="4" class="option option-m2">
                         <label for="alt4" class="radio-text radioM2" id="radioLabel4">{{ questionAlt4 }}</label>
                     </div>
@@ -133,26 +132,26 @@
                 <form action="" class="question-form" id="questionForm">
 
                     <div class="alternative" @click="clickAlternative(1)">
-                        <input type="radio" id="alt1" name="question-choice" value="1" class="option">
+                        <input type="radio" id="alt1" name="question-choice" value="1" class="option option-m3">
                         <label for="alt1" class="radio-text" id="radioLabel1">{{ questionAlt1 }}</label><br>
                     </div>
 
                     <div class="alternative" @click="clickAlternative(2)">
 
-                        <input type="radio" id="alt2" name="question-choice" value="2" class="option">
+                        <input type="radio" id="alt2" name="question-choice" value="2" class="option option-m3">
                         <label for="alt2" class="radio-text" id="radioLabel2">{{ questionAlt2 }}</label><br>
 
                     </div>
 
                     <div class="alternative" @click="clickAlternative(3)">
-                        <input type="radio" id="alt3" name="question-choice" value="3" class="option">
+                        <input type="radio" id="alt3" name="question-choice" value="3" class="option option-m3">
                         <label for="alt3" class="radio-text" id="radioLabel3">{{ questionAlt3 }}</label>
                     </div>
 
                     <!-- <br> -->
 
                     <div class="alternative" @click="clickAlternative(4)">
-                        <input type="radio" id="alt4" name="question-choice" value="4" class="option">
+                        <input type="radio" id="alt4" name="question-choice" value="4" class="option option-m3">
                         <label for="alt4" class="radio-text" id="radioLabel4">{{ questionAlt4 }}</label>
                     </div>
 
@@ -217,27 +216,27 @@
                 <form action="" class="question-form form-alt form-m5">
 
                     <div class="alternative" @click="clickAlternative(1)">
-                        <input type="radio" id="alt1" name="question-choice" value="1" class="option">
-                        <label for="alt1" class="radio-text" id="radioLabel1">{{ questionAlt1 }}</label><br>
+                        <input type="radio" id="alt1" name="question-choice" value="1" class="option option-m5">
+                        <label for="alt1" class="radio-text radio-textM5" id="radioLabel1">{{ questionAlt1 }}</label><br>
                     </div>
 
                     <div class="alternative" @click="clickAlternative(2)">
 
-                        <input type="radio" id="alt2" name="question-choice" value="2" class="option">
-                        <label for="alt2" class="radio-text" id="radioLabel2">{{ questionAlt2 }}</label><br>
+                        <input type="radio" id="alt2" name="question-choice" value="2" class="option option-m5">
+                        <label for="alt2" class="radio-text radio-textM5" id="radioLabel2">{{ questionAlt2 }}</label><br>
 
                     </div>
 
                     <div class="alternative" @click="clickAlternative(3)">
-                        <input type="radio" id="alt3" name="question-choice" value="3" class="option">
-                        <label for="alt3" class="radio-text" id="radioLabel3">{{ questionAlt3 }}</label>
+                        <input type="radio" id="alt3" name="question-choice" value="3" class="option option-m5">
+                        <label for="alt3" class="radio-text radio-textM5" id="radioLabel3">{{ questionAlt3 }}</label>
                     </div>
 
                     <!-- <br> -->
 
                     <div class="alternative" @click="clickAlternative(4)">
-                        <input type="radio" id="alt4" name="question-choice" value="4" class="option">
-                        <label for="alt4" class="radio-text" id="radioLabel4">{{ questionAlt4 }}</label>
+                        <input type="radio" id="alt4" name="question-choice" value="4" class="option option-m5">
+                        <label for="alt4" class="radio-text radio-textM5" id="radioLabel4">{{ questionAlt4 }}</label>
                     </div>
 
                     <br>
@@ -2491,4 +2490,293 @@ export default {
 
 
 }
+
+
+/* Tablet(Modo com a largura maior) */
+
+@media (max-width: 1024px) {
+    .icon-mega {
+        width: 70px;
+        height: 70px;
+    }
+
+    .icon-mega .tooltipText {
+        font-size: 1rem;
+        width: 7vw;
+        margin-left: -3.5vw;
+    }
+
+    .radio-text {
+        font-size: 1.2rem;
+    }
+
+
+    .question-form {
+        margin-top: 3vh;
+    }
+
+    /* Layout 1 */
+
+    .text-title {
+        font-size: 1.2rem;
+    }
+
+    .question-statement {
+        font-size: 1.2rem;
+    }
+
+    .question-text {
+        font-size: 1.06rem;
+
+    }
+
+    .radio-text {
+        font-size: 1.05rem;
+    }
+
+    .option-m1{
+        width: 1.7vw;
+    }
+
+    .button-m1 {
+        width: 23vw;
+        height: 6.2vh;
+        font-size: 1.1rem;
+        margin-top: 18vh;
+    }
+
+    /* Layout 2 */
+
+    .form-m2 {
+        margin-left: 16.8vw;
+        height: 25vh;
+        margin-top: 0;
+    }
+
+
+    .button-m2 {
+        width: 24vw;
+        height: 6.2vh;
+        font-size: 1.1rem;
+        margin-left: 60vw;
+    }
+
+
+    .questionText-m2 {
+        font-size: 1.1rem;
+    }
+
+    .radioM2 {
+        font-size: 0.9rem;
+    }
+
+    .option-m2 {
+        width: 17px;
+    }
+
+    /* Layout 3 */
+
+    .button-m3 {
+        font-size: 1.1rem;
+        width: 23vw;
+        height:6vh;
+        margin-top: 17vh;
+    }
+
+    .img-m3 {
+        align-self: center;
+        width: 40vw;
+        height: auto;
+        margin-bottom: 10vh;
+    }
+
+    .option-m3{
+        width: 1.7vw;
+    }
+
+    .question-text {
+        font-size: 1.06rem;
+
+    }
+
+    .radio-text {
+        font-size: 1.05rem;
+    }
+
+
+
+    /* Layout 4 */
+
+    .button-m4 {
+        margin-top: 29vh;
+        height: 6.4vh;
+        width: 26vw;
+        font-size: 1.2rem;
+    }
+
+
+
+    /* Layout 5 */
+
+    .button-m5 {
+        margin-top: 3vh;
+        width: 23vw;
+        height: 6vh;
+        font-size: 1.1rem;
+    }
+
+    .form-m5 {
+        margin-top: 15vh;
+    }
+
+
+}
+
+/* Tablet(Modo com a altura maior) */
+
+@media (max-width: 768px) {
+    .icon-mega {
+        width: 80px;
+        height: 80px;
+    }
+
+    .icon-mega .tooltipText {
+        font-size: 1rem;
+        width: 7vw;
+        margin-left: -3.5vw;
+    }
+
+    .radio-text {
+        font-size: 1.2rem;
+    }
+
+
+    .question-form {
+        margin-top: 3vh;
+    }
+
+    /* Layout 1 */
+
+    .text-title {
+        font-size: 1.2rem;
+    }
+
+    .question-statement {
+        font-size: 1.2rem;
+    }
+
+    .question-text {
+        font-size: 1.06rem;
+
+    }
+
+
+    .option-m1{
+        width: 2.5vw;
+    }
+
+    .button-m1 {    
+        width: 33vw;
+        height: 5.5vh;
+        font-size: 1.3rem;
+        margin-top: 18vh;
+    }
+
+    /* Layout 2 */
+
+    .form-m2 {
+        margin-left: 16.8vw;
+        height: 25vh;
+        margin-top: 0;
+    }
+
+    .alternative-m2{
+        width: 65vw;
+    }
+
+    .button-m2 {
+        width: 35vw;
+        height: 6vh;
+        font-size: 1.3rem;
+        margin-left: 60vw;
+    }
+
+    .questionText-m2 {
+        font-size: 1.2rem;
+    }
+
+    .radioM2 {
+        font-size: 0.9rem;
+    }
+
+    .option-m2 {
+        width: 2.8vw;
+    }
+
+    /* Layout 3 */
+
+    .button-m3 {
+        width: 33vw;
+        height: 5.5vh;
+        font-size: 1.3rem;
+        margin-top: 18vh;
+    }
+
+    .img-m3 {
+        width: 40vw;
+        height: auto;
+        margin-bottom: 10vh;
+    }
+
+    .option-m3{
+        width: 2.7vw;
+    }
+
+    .question-text {
+        font-size: 1.06rem;
+
+    }
+
+    .radio-text {
+        font-size: 1.05rem;
+    }
+
+
+
+    /* Layout 4 */
+
+    .button-m4 {
+        margin-top: 29vh;
+        height: 6.4vh;
+        width: 26vw;
+        font-size: 1.2rem;
+    }
+
+
+
+    /* Layout 5 */
+
+    .option-m5{
+        width: 2.6vw;
+    }
+
+    .radio-textM5{
+        font-size: 1.35rem;
+    }
+
+    .button-m5 {
+        margin-top: 3vh;
+        width: 37vw;
+        height: 6.5vh;
+        font-size: 1.5rem;
+    }
+
+    .form-m5 {
+        margin-top: 15vh;
+        margin-left: 8vw;
+    }
+
+
+}
+
 </style>

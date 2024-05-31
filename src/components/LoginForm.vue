@@ -1,6 +1,6 @@
 <template>
-  <v-container class="fill-height teste">
-    <v-sheet class="
+  <v-container class="fill-height teste main-container">
+    <v-sheet class="main-sheet
         d-flex align-center justify-center flex-column
         text-center mx-auto px-4
         rounded-lg" elevation="10" rounded-shaped color="grey-lighten-5" width="55vw" height="70vh" border="md">
@@ -196,7 +196,59 @@ export default {
     font-size: 0.8rem !important;
   }
 
+}
 
+
+/* Tablet: Modo com altura maior */
+
+@media(max-width: 768px) {
+
+.logo-planoA {
+  width: 32vw;
+}
+
+.text-login {
+  font-size: 1.7rem !important;
+  margin-top: 0px !important;
 
 }
+
+.main-sheet{
+  width: 75vw !important;
+}
+
+.form-container {
+  margin-top: 0px !important;
+  align-items: flex-start !important;
+  padding-top: 0px !important;
+  max-width: 60vw !important;
+}
+
+.main-form {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+
+.form-field input {
+  font-size: 1.0rem !important;
+}
+
+
+.form-field label {
+  font-size: 1.0rem !important;
+}
+
+.btnTeste {
+  width: 40vw !important;
+  height: 5.3vh !important;
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+}
+
+}
+
+
+
+
 </style>
