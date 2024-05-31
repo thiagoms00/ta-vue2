@@ -1,9 +1,8 @@
-<template>
+<template class="">
   <div class="text-center teste">
-    <v-dialog v-model="dialogOpen" content-class="bottom-left-dialog main-dialog">
-
+    <v-dialog v-model="dialogOpen" content-class="bottom-left-dialog main-dialog" @click="fecharDialog">
       <v-card width="40%" class="ml-16 main-card" max-width="500">
-        <v-card-title class="d-flex align-center" style="background-color: #1E3892; color: white;">
+        <v-card-title class="d-flex align-center" style="background-color: #1E3892; color: white;" @click="auxDialog">
           <v-icon icon="mdi-alert-circle-outline"></v-icon>
           <p class="ml-4 main-title"> Vamos lá</p>
         </v-card-title>
@@ -17,9 +16,7 @@
           <v-btn class="ms-auto action-text" text="Fechar" @click="fecharDialog"></v-btn>
         </template>
       </v-card>
-
       <v-img :aspect-ratio="1" src="../assets/imgs/prancheto-popup.png" width="200" class="img-mascote"></v-img>
-
 
     </v-dialog>
   </div>
@@ -61,7 +58,9 @@ export default {
 
     resetTimer() {
       clearInterval(this.intervalId);
-    }
+    },
+
+
   }
 
 };
@@ -75,6 +74,23 @@ export default {
 .bottom-left-dialog {
   bottom: 0;
   left: 0;
+}
+
+.main-text{
+  font-weight: 600;
+}
+
+.main-dialog{
+  width: 47vw !important;
+  height: auto;
+}
+
+.main-card{
+  width: 100% !important;
+}
+
+.teste{
+  position: relative;
 }
 
 @media(max-width: 768px) {
@@ -101,6 +117,7 @@ export default {
 }
 
 @media(max-width: 1024px) {
+
 
 .main-card{
   width: 50% !important;
