@@ -198,6 +198,63 @@ export default {
 
 }
 
+/* Tablet: Modo com altura menur */
+
+
+@media(max-width: 1024px) {
+
+.logo-planoA {
+  width: 20vw;
+}
+
+.text-login {
+  font-size: 1.4rem !important;
+  margin-top: 0px !important;
+
+}
+
+.form-container {
+  margin-top: 0px !important;
+  align-items: flex-start !important;
+  padding-top: 0px !important;
+}
+
+.main-form {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+.main-sheet{
+  width: 70vw !important;
+}
+.form-container {
+  margin-top: 0px !important;
+  align-items: flex-start !important;
+  padding-top: 0px !important;
+  max-width: 45vw !important;
+}
+
+.text-login{
+  font-size: 1.7rem !important;
+
+}
+.form-field input {
+  font-size: 0.9rem !important;
+}
+
+
+.form-field label {
+  font-size: 0.9rem !important;
+}
+
+.btnTeste {
+  width: 26vw !important;
+  height: 6vh !important;
+  font-size: 0.9rem !important;
+}
+
+}
+
 
 /* Tablet: Modo com altura maior */
 
