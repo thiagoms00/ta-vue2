@@ -28,7 +28,7 @@
   
                       <div class="d-flex justify-space-around align-center h-100 w-100">
                         <v-icon icon="mdi-school-outline"> </v-icon>
-                        <p> EXTRATOS </p>
+                        <p> ESTRATOS </p>
                       </div>
                     </v-expansion-panel-title>
   
@@ -47,16 +47,11 @@
                     </v-expansion-panel-text>
                   </v-expansion-panel>
 
-                  
-
-                  
-                  
+            
                 </v-expansion-panels>
 
                 
-                
-
-
+              
               </div>
   
   
@@ -84,7 +79,7 @@
                             @click="toggleIcon(1, 'percentTotal')">Habilidade</v-btn>
                         </v-col>
                         <v-col cols="3" class="d-flex justify-center">
-                          <v-btn :append-icon="icon[2]" :ripple="false" variant="text"
+                          <v-btn block :append-icon="icon[2]" :ripple="false" variant="text"
                             @click="toggleIcon(2, 'questaoTotal')">% Acertos</v-btn>
                         </v-col>
                         <v-col cols="3" class="d-flex justify-center">
@@ -195,7 +190,8 @@
   const links = [
     'TURMAS',
     'ITENS',
-    'VOLTAR',
+    'NOVOS ITENS',
+    'SAIR',
   ]
   </script>
   
