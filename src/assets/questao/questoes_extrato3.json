@@ -17,7 +17,10 @@
             "alt3": "ensinar um número.",
             "alt4": "vender um animal.",
             "answer" : "dar uma informação.",
-            "fonte" :"DUARTE, M. A Arca dos Bichos. São Paulo: Companhia das Letrinhas. 1999. p. 39."
+            "fonte" :"DUARTE, M. A Arca dos Bichos. São Paulo: Companhia das Letrinhas. 1999. p. 39.",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H07_03_014",                             
@@ -35,7 +38,10 @@
             "alt3": "É feito com centeio.",
             "alt4": "É um pão fermentado.",
             "answer" : "É um pão fermentado.",
-            "fonte" :"Fonte: Almoço e jantar- Receitas Básicas. Caderno de Cozinha. São Paulo: Abril Cultural, S.d. In: Almanaque do Aluá, nº2, p.35. SAPÉ: Rio de Janeiro, 2006."
+            "fonte" :"Fonte: Almoço e jantar- Receitas Básicas. Caderno de Cozinha. São Paulo: Abril Cultural, S.d. In: Almanaque do Aluá, nº2, p.35. SAPÉ: Rio de Janeiro, 2006.",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H07_03_014",                             
@@ -53,7 +59,10 @@
             "alt3": "Na Praça Onze.",
             "alt4": "No bar do Sinhô Donga.",
             "answer" : "Na casa de dona Hilária de Almeida.",
-            "fonte" :"http://www.canalkids.com.br/arte/musica/samba.htm."
+            "fonte" :"http://www.canalkids.com.br/arte/musica/samba.htm.",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H08_03_002",                             
@@ -71,7 +80,10 @@
             "alt3": "Uma missão na lua.",
             "alt4": "Uma sonda espacial na lua.",
             "answer" : "A existência de água na lua.",
-            "fonte" :"Jornal do Brasil, 6 de março de 1988, p. 41. Texto adaptado."
+            "fonte" :"Jornal do Brasil, 6 de março de 1988, p. 41. Texto adaptado.",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H10_03_003",                             
@@ -89,7 +101,10 @@
             "alt3": "outono e primavera.",
             "alt4": "outono e verão.",
             "answer" : "inverno e verão.",
-            "fonte" :"QUEIRÓS, B. C. Indez. Belo Horizonte: Miguilim, 1989. p. 9."
+            "fonte" :"QUEIRÓS, B. C. Indez. Belo Horizonte: Miguilim, 1989. p. 9.",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H09_02_010",                             
@@ -107,7 +122,10 @@
             "alt3": "incentivar o combate ao trabalho infantojuvenil.",
             "alt4": "orientar sobre fases do desenvolvimento de crianças e jovens.",
             "answer" : "incentivar o combate ao trabalho infantojuvenil.",
-            "fonte" :""
+            "fonte" :"",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
        
         {
@@ -126,7 +144,10 @@
             "alt3": "Ganhou o torneio três vezes.",
             "alt4": "Nunca ganhou o torneio.",
             "answer" : "Ganhou o torneio três vezes.",
-            "fonte" :" https://pt.wikipedia.org/wiki/Campeonato_Europeu_de_Futebol#Maiores_goleadores."
+            "fonte" :" https://pt.wikipedia.org/wiki/Campeonato_Europeu_de_Futebol#Maiores_goleadores.",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H10_02_002",                             
@@ -144,7 +165,10 @@
             "alt3": "Porque a vidente não adivinhou quem era.",
             "alt4": "Porque ficou com medo da vidente.",
             "answer" : "Porque a vidente não adivinhou quem era.",
-            "fonte" :""
+            "fonte" :"",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H07_03_016",                             
@@ -162,7 +186,10 @@
             "alt3": "CVE.",
             "alt4": "SAMU.",
             "answer" : "CVE.",
-            "fonte" :"http://www.brasil.gov.br/saude."
+            "fonte" :"http://www.brasil.gov.br/saude.",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H08_03_009",                             
@@ -180,7 +207,10 @@
             "alt3": "o uso da ferradura como amuleto.",
             "alt4": "o surgimento da ferradura.",
             "answer" : "o uso da ferradura como amuleto.",
-            "fonte" :"DUARTE, M. A arca dos bichos. São Paulo: Companhia das Letrinhas, 1999. p. 41."
+            "fonte" :"DUARTE, M. A arca dos bichos. São Paulo: Companhia das Letrinhas, 1999. p. 41.",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H07_03_015",                             
@@ -198,7 +228,10 @@
             "alt3": "Devido a uma doença.",
             "alt4": "Mudou-se para Paris.",
             "answer" : "Devido a uma doença.",
-            "fonte" :""
+            "fonte" :"",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H08_02_004",                             
@@ -217,7 +250,10 @@
             "alt3": "O fogo que arde e queima.",
             "alt4": "O descontentamento do poeta",
             "answer" : "As contradições do amor.",
-            "fonte" :"Fonte: www.releituras.com/luisdecamoes_soneto.(Fragmento)"
+            "fonte" :"Fonte: www.releituras.com/luisdecamoes_soneto.(Fragmento)",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H08_02_011",                             
@@ -235,7 +271,10 @@
             "alt3": "formação da pipoca.",
             "alt4": "formação de vapor.",
             "answer" : "formação da pipoca.",
-            "fonte" :"Guia Sítio & Cia. 100 Plantas e Flores. reed. São Paulo: Casa Dois Editora, 2013. p. 85. (Adaptado)."
+            "fonte" :"Guia Sítio & Cia. 100 Plantas e Flores. reed. São Paulo: Casa Dois Editora, 2013. p. 85. (Adaptado).",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H09_01_005",                             
@@ -253,7 +292,10 @@
             "alt3": "fazer um convite.",
             "alt4": "ensinar um conteúdo.",
             "answer" : "divertir os leitores.",
-            "fonte" :"http://www.piadasnet.com/piada1931curtas.htm."
+            "fonte" :"http://www.piadasnet.com/piada1931curtas.htm.",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H07_01_019",                             
@@ -271,7 +313,10 @@
             "alt3": "31,5 mg.",
             "alt4": "31,8 mg.",
             "answer" : "31,5 mg.",
-            "fonte" :""
+            "fonte" :"",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H09_02_001",                             
@@ -289,7 +334,10 @@
             "alt3": "localizar um produto.",
             "alt4": "vender um produto.",
             "answer" : "ensinar a usar um produto.",
-            "fonte" :""
+            "fonte" :"",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H09_03_002",                             
@@ -307,7 +355,10 @@
             "alt3": "Mostrar como evitar acidentes no trabalho.",
             "alt4": "Orientar sobre como agir em casos de queimaduras.",
             "answer" : "Orientar sobre como agir em casos de queimaduras.",
-            "fonte" :"http://sbqueimaduras.org.br/queimaduras-conceito-e-causas/primeiros-socorros-e-cuidados/."
+            "fonte" :"http://sbqueimaduras.org.br/queimaduras-conceito-e-causas/primeiros-socorros-e-cuidados/.",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H08_03_005",                             
@@ -325,7 +376,10 @@
             "alt3": "O benefício do iogurte para o coração.",
             "alt4": "O excesso de gordura dos iogurtes.",
             "answer" : "O benefício do iogurte para o coração.",
-            "fonte" :"Saúde é Vital. Nº 403, maio de 2016. p.46."
+            "fonte" :"Saúde é Vital. Nº 403, maio de 2016. p.46.",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H10_01_008",                             
@@ -343,7 +397,10 @@
             "alt3": "livres.",
             "alt4": "vivos.",
             "answer" : "livres.",
-            "fonte" :"Fonte: ROSA, Guimarães. Almanaque do Aluá, nº1, p.55. SAPÉ: Rio de Janeiro, 1998"
+            "fonte" :"Fonte: ROSA, Guimarães. Almanaque do Aluá, nº1, p.55. SAPÉ: Rio de Janeiro, 1998",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H06_00_004",                             
@@ -361,7 +418,10 @@
             "alt3": "Seleção para gerente.",
             "alt4": "Vagas para padeiro.",
             "answer" : "Vagas para padeiro.",
-            "fonte" :""
+            "fonte" :"",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H07_02_017",                             
@@ -379,7 +439,10 @@
             "alt3": "3,1 metros",
             "alt4": "5,5 metros",
             "answer" : "5,5 metros",
-            "fonte" :"http://www.vocesabia.net/ciencia/curiosidades-sobre-alguns-animais."
+            "fonte" :"http://www.vocesabia.net/ciencia/curiosidades-sobre-alguns-animais.",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H07_01_003",                             
@@ -397,7 +460,10 @@
             "alt3": "estimulam doenças.",
             "alt4": "previnem doenças.",
             "answer" : "previnem doenças.",
-            "fonte" :"Guia Sítio & Cia. Horta & Pomar. reed. São Paulo: Casadois Editora, 2011. p.38"
+            "fonte" :"Guia Sítio & Cia. Horta & Pomar. reed. São Paulo: Casadois Editora, 2011. p.38",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H09_01_003",                             
@@ -415,7 +481,10 @@
             "alt3": "ensinar a tirar fotos durante a viagem.",
             "alt4": "informar sobre cuidados com a saúde.",
             "answer" : "informar sobre cuidados com a saúde.",
-            "fonte" :""
+            "fonte" :"",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H07_02_013",                             
@@ -433,7 +502,10 @@
             "alt3": "regar plantas.",
             "alt4": "varrer o chão.",
             "answer" : "regar plantas.",
-            "fonte" :"http://todamaterna.com.br/wp-content/ uploads/2015/01/TABELA_tarefas-domesticas-para-criancas-01-01.jpg. Acesso em: Setembro/2016."
+            "fonte" :"http://todamaterna.com.br/wp-content/ uploads/2015/01/TABELA_tarefas-domesticas-para-criancas-01-01.jpg. Acesso em: Setembro/2016.",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H08_02_002",                             
@@ -451,7 +523,10 @@
             "alt3": "Permissão para a entrada dos agentes de saúde nas casas.",
             "alt4": "Serviços particulares para eliminar os mosquitos da dengue.",
             "answer" : "Permissão para a entrada dos agentes de saúde nas casas.",
-            "fonte" :"http://kdfrases.com/frase/106532."
+            "fonte" :"http://kdfrases.com/frase/106532.",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H09_02_003",                             
@@ -469,7 +544,10 @@
             "alt3": "incentivar a doação de agasalho.",
             "alt4": "prevenir doenças do coração.",
             "answer" : "incentivar a doação de agasalho.",
-            "fonte" :"http://casaziraldodecultura.blogspot.com.br/2014/04/participe-aqueca-seu-coracao-doe-um.html."
+            "fonte" :"http://casaziraldodecultura.blogspot.com.br/2014/04/participe-aqueca-seu-coracao-doe-um.html.",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
     
         {
@@ -489,6 +567,9 @@
             "alt4": "url(/src/assets/imgs/extrato3/LP_H01_00_010_M/4.png)",
             "answer" : "3",
             "fonte" :"",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0,
             "alt1Img": "url(/src/assets/imgs/extrato3/LP_H01_00_010_M/1.png)",
             "alt2Img": "url(/src/assets/imgs/extrato3/LP_H01_00_010_M/2.png)",  
             "alt3Img": "url(/src/assets/imgs/extrato3/LP_H01_00_010_M/3.png)",

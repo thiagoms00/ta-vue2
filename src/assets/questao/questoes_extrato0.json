@@ -16,7 +16,14 @@
             "alt3": "CAMELO",
             "alt4": "CAVALO",
             "answer" : "CAVALO",
-            "fonte": ""
+            "fonte": "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0
+            
+            
+            
+                
 
         },
         {
@@ -35,7 +42,12 @@
             "alt3": "5",
             "alt4": "8",
             "answer" : "3",
-            "fonte": ""
+            "fonte": "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0
+            
+            
 
         },
         {
@@ -54,7 +66,12 @@
             "alt3": "CONTRA",
             "alt4": "COBRA",
             "answer" : "COBRA",
-            "fonte": ""
+            "fonte": "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0
+            
+            
 
         },
         {
@@ -77,7 +94,12 @@
             "alt2Img": "url(/src/assets/imgs/extrato0/q4-2.jpg)",
             "alt3Img": "url(/src/assets/imgs/extrato0/q4-3.jpg)",
             "alt4Img": "url(/src/assets/imgs/extrato0/q4-4.jpg)",
-            "fonte": ""
+            "fonte": "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0
+            
+            
 
         },
         {
@@ -96,7 +118,12 @@
             "alt3": "N",
             "alt4": "V",
             "answer" : "V",
-            "fonte": ""
+            "fonte": "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0
+            
+            
 
         },
         {
@@ -115,7 +142,12 @@
             "alt3": "MARISA",
             "alt4": "NATALINO",
             "answer" : "MARISA",
-            "fonte": ""
+            "fonte": "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0
+            
+            
 
         },
         {
@@ -134,7 +166,12 @@
             "alt3": "CARTEIRA",
             "alt4": "CAVEIRA",
             "answer" : "CADEIRA",
-            "fonte": ""
+            "fonte": "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0
+            
+            
 
         },
         {
@@ -153,7 +190,11 @@
             "alt3": "5",
             "alt4": "6",
             "answer" : "3",
-            "fonte":"http://www.avoa.com.br/public/site/images/onibus-circular.png."
+            "fonte":"http://www.avoa.com.br/public/site/images/onibus-circular.png.",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0
+            
 
         },
        
@@ -173,7 +214,12 @@
             "alt3": "Doutor Lucas",
             "alt4": "Doutor Paulo",
             "answer" : "Doutor Lucas",
-            "fonte": ""
+            "fonte": "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0
+            
+            
 
         },
         {
@@ -192,7 +238,11 @@
             "alt3": "Um escritório.",
             "alt4": "Um telefone.",
             "answer" : "A venda de uma casa.",
-            "fonte" : "www.olx.com.br.(Fragmento adaptado)"
+            "fonte" : "www.olx.com.br.(Fragmento adaptado)",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0
+            
         },
         {
             "id" : "LP_H01_11_001",                             
@@ -210,7 +260,11 @@
             "alt3": "Q",
             "alt4": "S",
             "answer" : "C",
-            "fonte" : ""
+            "fonte" : "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0
+            
         },
         {
             "id" : "LP_H01_11_002",                             
@@ -228,7 +282,11 @@
             "alt3": "P",
             "alt4": "V",
             "answer" : "M",
-            "fonte" : ""
+            "fonte" : "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0
+            
         },
         {
             "id" : "LP_H01_11_003",                             
@@ -246,7 +304,11 @@
             "alt3": "W",
             "alt4": "V",
             "answer" : "N",
-            "fonte" : ""
+            "fonte" : "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0
+            
         },
         {
             "id" : "LP_H01_11_004",                             
@@ -264,7 +326,11 @@
             "alt3": "J",
             "alt4": "H",
             "answer" : "G",
-            "fonte" : ""
+            "fonte" : "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0
+            
         },
         {
             "id" : "LP_H01_12_00_01",                             
@@ -282,7 +348,11 @@
             "alt3": "A",
             "alt4": "U",
             "answer" : "A",
-            "fonte" : ""
+            "fonte" : "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0
+            
         },
         {
             "id" : "LP_H01_12_00_02",                             
@@ -300,7 +370,11 @@
             "alt3": "D",
             "alt4": "Q",
             "answer" : "K",
-            "fonte" : ""
+            "fonte" : "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0
+            
         },
         {
             "id" : "LP_H01_12_00_03",                             
@@ -318,7 +392,11 @@
             "alt3": "W",
             "alt4": "V",
             "answer" : "W",
-            "fonte" : ""
+            "fonte" : "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0
+            
         },
         {
             "id" : "LP_H01_12_00_04",                             
@@ -336,7 +414,11 @@
             "alt3": "W",
             "alt4": "V",
             "answer" : "V",
-            "fonte" : ""
+            "fonte" : "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0
+            
         },
         {
             "id" : "LP_H01_12_00_05",                             
@@ -354,7 +436,11 @@
             "alt3": "T",
             "alt4": "V",
             "answer" : "D",
-            "fonte" : ""
+            "fonte" : "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0
+            
         }
 
 

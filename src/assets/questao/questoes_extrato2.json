@@ -16,7 +16,10 @@
             "alt3": "4",
             "alt4": "6",
             "answer" : "3",
-            "fonte": ""
+            "fonte": "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
 
 
         },
@@ -36,7 +39,10 @@
             "alt3": "R$17,00",
             "alt4": "R$18,00",
             "answer" : "R$18,00",
-            "fonte": ""
+            "fonte": "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H07_01_010",                             
@@ -54,7 +60,10 @@
             "alt3": "interromper o entrevistador e dar opiniões.",
             "alt4": "organizar previamente suas ideias.",
             "answer" : "organizar previamente suas ideias.",
-            "fonte": "http://www.mestredomarketing.com/como-conseguir-um-bom-emprego/ (Texto adaptado)"
+            "fonte": "http://www.mestredomarketing.com/como-conseguir-um-bom-emprego/ (Texto adaptado)",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H07_01_009",                             
@@ -72,7 +81,10 @@
             "alt3": "idosos.",
             "alt4": "mulheres.",
             "answer" : "mulheres.",
-            "fonte": "http://enxaquecanao.com.br/o-que-e-enxaqueca/"
+            "fonte": "http://enxaquecanao.com.br/o-que-e-enxaqueca/",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H06_00_008",                             
@@ -90,7 +102,10 @@
             "alt3": "Empréstimo financeiro.",
             "alt4": "Reforma de imóveis.",
             "answer" : "Compra da casa própria.",
-            "fonte": ""
+            "fonte": "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H08_03_003",                             
@@ -108,7 +123,10 @@
             "alt3": "o desempenho de um atleta Jamaicano.",
             "alt4": "os recordes mundiais de velocidade.",
             "answer" : "o desempenho de um atleta.",
-            "fonte": "http://www.sitedecuriosidades.com/curiosidade/a-maior-velocidade-atingida-pelo-homem."
+            "fonte": "http://www.sitedecuriosidades.com/curiosidade/a-maior-velocidade-atingida-pelo-homem.",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H07_03_009",                             
@@ -126,7 +144,10 @@
             "alt3": "tênis.",
             "alt4": "vôlei.",
             "answer" : "futebol.",
-            "fonte": "PIMENTEL, L. O gandula que comeu a bola: histórias e historinhas de futebol. Belo Horizonte: Dimensão. 2014. p.7"
+            "fonte": "PIMENTEL, L. O gandula que comeu a bola: histórias e historinhas de futebol. Belo Horizonte: Dimensão. 2014. p.7",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H07_02_020",                             
@@ -144,7 +165,10 @@
             "alt3": "Croácia X Canadá.",
             "alt4": "México X Brasil.",
             "answer" : "México X Brasil.",
-            "fonte": "http://s2.glbimg.com/I9l9FLjldU36MLjicsqCrlJK_bY=/0x0:689x314/690x314/s.glbimg.com/es/ge/f/original/2015/10/08/tabela11_1.png"
+            "fonte": "http://s2.glbimg.com/I9l9FLjldU36MLjicsqCrlJK_bY=/0x0:689x314/690x314/s.glbimg.com/es/ge/f/original/2015/10/08/tabela11_1.png",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H07_03_015",                             
@@ -162,7 +186,10 @@
             "alt3": "Pão de milho.",
             "alt4": "Pão preto.",
             "answer" : "Pão preto.",
-            "fonte": "Almoço e jantar- Receitas Básicas. Caderno de Cozinha. São Paulo: Abril Cultural, S.d. In: Almanaque do Aluá, nº2, p.35. SAPÉ: Rio de Janeiro, 2006."
+            "fonte": "Almoço e jantar- Receitas Básicas. Caderno de Cozinha. São Paulo: Abril Cultural, S.d. In: Almanaque do Aluá, nº2, p.35. SAPÉ: Rio de Janeiro, 2006.",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H10_03_002",                             
@@ -180,7 +207,10 @@
             "alt3": "a investigação criminal.",
             "alt4": "a pele humana.",
             "answer" : "a impressão digital.",
-            "fonte": "VÓVIO, C. L. (coord.). Viver, aprender: educação de jovens e adultos (Livro 1). São Paulo: Ação Educativa; Brasília: MEC, 1998, p.34. (Texto adaptado)"
+            "fonte": "VÓVIO, C. L. (coord.). Viver, aprender: educação de jovens e adultos (Livro 1). São Paulo: Ação Educativa; Brasília: MEC, 1998, p.34. (Texto adaptado)",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H01_00_006",                             
@@ -198,7 +228,10 @@
             "alt3": "S",
             "alt4": "G",
             "answer" : "C",
-            "fonte": ""
+            "fonte": "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H07_03_003",                             
@@ -216,7 +249,10 @@
             "alt3": "leguminosa.",
             "alt4": "oleaginoso.",
             "answer" : "leguminosa.",
-            "fonte": "COSTA, L. C. Viva Melhor! Com a medicina natural. Itaquaquecetuba: Editora Missionária. 1996. p.63"
+            "fonte": "COSTA, L. C. Viva Melhor! Com a medicina natural. Itaquaquecetuba: Editora Missionária. 1996. p.63",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H07_02_022",                             
@@ -234,7 +270,10 @@
             "alt3": "52061-540",
             "alt4": "81 3073-6385",
             "answer" : "2187",
-            "fonte": "http://www.fundaj.gov.br/"
+            "fonte": "http://www.fundaj.gov.br/",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H06_00_002",                             
@@ -252,7 +291,10 @@
             "alt3": "Lavar.",
             "alt4": "Usar.",
             "answer" : "Guardar.",
-            "fonte": ""
+            "fonte": "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H01_00_013",                             
@@ -270,7 +312,10 @@
             "alt3": "B E T",
             "alt4": "P U D",
             "answer" : "B A D",
-            "fonte": ""
+            "fonte": "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H07_02_002",                             
@@ -288,7 +333,10 @@
             "alt3": "cano.",
             "alt4": "solo.",    
             "answer" : "óleo.",
-            "fonte": "http://super.abril.com.br /blogs/ideias-verdes/ 8-itens-que-podem-ser-reciclados-e-voce-nem-imaginava."
+            "fonte": "http://super.abril.com.br /blogs/ideias-verdes/ 8-itens-que-podem-ser-reciclados-e-voce-nem-imaginava.",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H07_03_005",                             
@@ -306,7 +354,10 @@
             "alt3": "o Antônio.",
             "alt4": "o pai.",
             "answer" : "o Antônio.",
-            "fonte": "PRADO, Adélia. Carmela vai à escola. Rio de Janeiro: Galera Record, 2012. p.28."
+            "fonte": "PRADO, Adélia. Carmela vai à escola. Rio de Janeiro: Galera Record, 2012. p.28.",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H07_02_011",                             
@@ -324,7 +375,10 @@
             "alt3": "ganhar os parabéns da comadre da mãe.",
             "alt4": "tirar fotos com os quatro irmãos.",
             "answer" : "ganhar os parabéns da comadre da mãe.",
-            "fonte": "PRADO, Adélia. Carmela vai à escola. Rio de Janeiro: Galera Record, 2012. p.31."
+            "fonte": "PRADO, Adélia. Carmela vai à escola. Rio de Janeiro: Galera Record, 2012. p.31.",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H09_02_009",                             
@@ -342,7 +396,10 @@
             "alt3": "ensinar um jogo.",
             "alt4": "vender produtos.",
             "answer" : "dar um aviso.",
-            "fonte": "http://www.drdcom.com.br/#!cipa/c3y6"
+            "fonte": "http://www.drdcom.com.br/#!cipa/c3y6",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H07_03_013",                             
@@ -360,7 +417,10 @@
             "alt3": "febre baixa e de início imediato.",
             "alt4": "manchas vermelhas nas primeiras 24h.",
             "answer" : "dores intensas nas articulações.",
-            "fonte": "https://www.jatai.go.gov.br/voce-conhece-os-sintomas-da-dengue-zika-e-chikungunya-entenda-as-diferencas/"
+            "fonte": "https://www.jatai.go.gov.br/voce-conhece-os-sintomas-da-dengue-zika-e-chikungunya-entenda-as-diferencas/",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H08_02_003",                             
@@ -378,7 +438,10 @@
             "alt3": "sintomas da tuberculose.",
             "alt4": "tratamento da tuberculose.",
             "answer" : "tratamento da tuberculose.",
-            "fonte": "http://portalsaude.saude.gov.br"
+            "fonte": "http://portalsaude.saude.gov.br",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H07_02_014",                             
@@ -396,7 +459,10 @@
             "alt3": "Erva Doce.",
             "alt4": "Hortelã.",
             "answer" : "Erva Doce.",
-            "fonte": "http://4.bp.blogspot.com/-lbIg2SepCUY/Vq-MjyG4z8I/AAAAAAAAAP0/kjzhw0WOFIY/s1600/cha1.png"
+            "fonte": "http://4.bp.blogspot.com/-lbIg2SepCUY/Vq-MjyG4z8I/AAAAAAAAAP0/kjzhw0WOFIY/s1600/cha1.png",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H01_00_009",                             
@@ -414,7 +480,10 @@
             "alt3": "I",
             "alt4": "T",
             "answer" : "I",
-            "fonte": ""
+            "fonte": "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H08_01_012",                             
@@ -432,7 +501,10 @@
             "alt3": "física.",
             "alt4": "indomável.",
             "answer" : "de vontade.",
-            "fonte": "http://kdfrases.com/frase/106532"
+            "fonte": "http://kdfrases.com/frase/106532",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H07_03_017",                             
@@ -450,7 +522,10 @@
             "alt3": "transmitiram 55 tipos de doenças, entre elas a leptospirose.",
             "alt4": "viviam apenas em algumas regiões isoladas da Nova Zelândia.",
             "answer" : "foram responsáveis pela propagação da Peste Negra.",
-            "fonte": "http://guiadoscuriosos.com.br/categorias/2005/1/10-curiosidades-sobre-ratos.html."
+            "fonte": "http://guiadoscuriosos.com.br/categorias/2005/1/10-curiosidades-sobre-ratos.html.",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         
         {
@@ -469,7 +544,10 @@
             "alt3": "uma cidade diferente.",
             "alt4": "uma região de fronteira.",
             "answer" : "a beleza de um lugar.",
-            "fonte": "Revista da Unimed Federação Minas. Ano 5, 21ª Edição, Abril/Maio/Junho de 2016, p.25.(Fragmento adaptado)"
+            "fonte": "Revista da Unimed Federação Minas. Ano 5, 21ª Edição, Abril/Maio/Junho de 2016, p.25.(Fragmento adaptado)",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
        
         {
@@ -488,7 +566,10 @@
             "alt3": "As variedades de pratos.",
             "alt4": "Os tipos de temperos.",
             "answer" : "Os usos da salsinha.",
-            "fonte": "Almanaque do Aluá, nº1, p.20. SAPÉ: Rio de Janeiro, 1998."
+            "fonte": "Almanaque do Aluá, nº1, p.20. SAPÉ: Rio de Janeiro, 1998.",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H07_02_003",                             
@@ -506,7 +587,10 @@
             "alt3": "ocorreu uma queda de barreira.",
             "alt4": "havia uma obra da prefeitura.",
             "answer" : "ocorreu uma queda de barreira.",
-            "fonte": "http://www.tribunapr.com.br/>13/10/2016."
+            "fonte": "http://www.tribunapr.com.br/>13/10/2016.",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H07_03_007",                             
@@ -524,7 +608,10 @@
             "alt3": "Brasil.",
             "alt4": "Sibéria.",
             "answer" : "Ásia.",
-            "fonte": "http://www.infoescola.com/plantas/plantas-carnivoras/."
+            "fonte": "http://www.infoescola.com/plantas/plantas-carnivoras/.",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H07_02_019",                             
@@ -542,7 +629,10 @@
             "alt3": "formiga e barata.",
             "alt4": "mosquito e rato.",
             "answer" : "formiga e barata.",
-            "fonte": ""
+            "fonte": "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H01_00_002",                             
@@ -560,7 +650,10 @@
             "alt3": "D      C      Q",
             "alt4": "G      B      C",
             "answer" : "C      D      G",
-            "fonte": ""
+            "fonte": "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H07_03_008",                             
@@ -578,7 +671,10 @@
             "alt3": "Subir em pauzinhos de uma canoa.",
             "alt4": "Subir em folhas e flutuar na água.",
             "answer" : "Juntar em grupo e formar um bote.",
-            "fonte": "http://super.abril.com.br/ciencia/o-segredo-das-formigas."
+            "fonte": "http://super.abril.com.br/ciencia/o-segredo-das-formigas.",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H10_01_003",                             
@@ -596,7 +692,10 @@
             "alt3": "persistência.",
             "alt4": "violência.",
             "answer" : "persistência.",
-            "fonte": ""
+            "fonte": "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H02_01_013",                             
@@ -614,7 +713,10 @@
             "alt3": "3",
             "alt4": "4",
             "answer" : "2",
-            "fonte": ""
+            "fonte": "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H09_01_007",                             
@@ -632,7 +734,10 @@
             "alt3": "informar como se chega a uma loja.",
             "alt4": "localizar os produtos que estão à venda.",
             "answer" : "divulgar um estabelecimento comercial.",
-            "fonte": ""
+            "fonte": "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H07_02_022",                             
@@ -650,7 +755,10 @@
             "alt3": "52061-540",
             "alt4": "81 3073-6363",
             "answer" : "2187",
-            "fonte": "http://www.fundaj.gov.br"
+            "fonte": "http://www.fundaj.gov.br",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H07_03_010",                             
@@ -668,7 +776,10 @@
             "alt3": "1910",
             "alt4": "1932",
             "answer" : "1932",
-            "fonte": "Um mundo de Ciência (CP, EBAP, UFMG), 2004, p.11."
+            "fonte": "Um mundo de Ciência (CP, EBAP, UFMG), 2004, p.11.",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H07_02_001",                             
@@ -686,7 +797,10 @@
             "alt3": "iniciou a carreira no Diário de Minas.",
             "alt4": "lançou poemas inéditos em sua carreira.",
             "answer" : "ganhou um prêmio em um concurso.",
-            "fonte": "http://www.releituras.com/drummond_bio.asp"
+            "fonte": "http://www.releituras.com/drummond_bio.asp",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H08_03_013",                             
@@ -704,7 +818,10 @@
             "alt3": "O extenso litoral brasileiro.",
             "alt4": "Fontes de águas termais.",
             "answer" : "Diferentes cidades do país.",
-            "fonte": ""
+            "fonte": "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H07_01_018",                             
@@ -722,7 +839,10 @@
             "alt3": "Mussarela",
             "alt4": "Prato",
             "answer" : "Prato",
-            "fonte": "http://www.energienutricao.com.br/tag/dieta/"
+            "fonte": "http://www.energienutricao.com.br/tag/dieta/",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H03_00_004",                             
@@ -744,7 +864,10 @@
             "alt2Img": "url(/src/assets/imgs/extrato2/LP_H03_00_004_F2.png)",
             "alt3Img": "url(/src/assets/imgs/extrato2/LP_H03_00_004_F3.png)",
             "alt4Img": "url(/src/assets/imgs/extrato2/LP_H03_00_004_F4.png)",
-            "fonte": ""
+            "fonte": "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H09_03_003",                             
@@ -762,7 +885,10 @@
             "alt3": "explicar a importância da melancia.",
             "alt4": "mostrar como escolher melancia.",
             "answer" : "ensinar a fazer suco de melancia.",
-            "fonte": "http://www.diabetes.org.br/receitas-diabetes/receitas-lanches/560-refresco-de-melancia."
+            "fonte": "http://www.diabetes.org.br/receitas-diabetes/receitas-lanches/560-refresco-de-melancia.",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H10_02_009",                             
@@ -780,7 +906,10 @@
             "alt3": "tenso.",
             "alt4": "triste.",
             "answer" : "tenso.",
-            "fonte": "PIMENTEL, L.O gandula que comeu a bola: histórias e historinhas de futebol. Belo Horizonte: Dimensão, 2014. p. 29"
+            "fonte": "PIMENTEL, L.O gandula que comeu a bola: histórias e historinhas de futebol. Belo Horizonte: Dimensão, 2014. p. 29",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H08_03_010",                             
@@ -798,7 +927,10 @@
             "alt3": "693 Km.",
             "alt4": "1180 Km.",
             "answer" : "693 Km.",
-            "fonte": "Caderno Santa Catarina – Passaporte Turístico. Editora Letras Brasileiras, 2011. p.7."
+            "fonte": "Caderno Santa Catarina – Passaporte Turístico. Editora Letras Brasileiras, 2011. p.7.",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         }
        
 

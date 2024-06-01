@@ -16,7 +16,10 @@
             "alt3": "5",
             "alt4": "9",
             "answer" : "4",
-            "fonte": ""
+            "fonte": "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H05_00_006",                             
@@ -34,7 +37,10 @@
             "alt3": "TRATOR",
             "alt4": "TREMOR",
             "answer" : "TRATOR",
-            "fonte": ""
+            "fonte": "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H04_02_013",                             
@@ -56,7 +62,10 @@
             "alt2Img": "url(/src/assets/imgs/extrato1/LP_H2_02_013_M/2.png)",
             "alt3Img": "url(/src/assets/imgs/extrato1/LP_H2_02_013_M/3.png)",
             "alt4Img": "url(/src/assets/imgs/extrato1/LP_H2_02_013_M/4.png)",
-            "fonte": ""
+            "fonte": "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H01_00_001",                             
@@ -74,7 +83,10 @@
             "alt3": "K",
             "alt4": "X",
             "answer" : "H",
-            "fonte": ""
+            "fonte": "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H06_03_002",                             
@@ -92,7 +104,10 @@
             "alt3": "Jovens indígenas.",
             "alt4": "Adultos indígenas",
             "answer" : "Jovens indígenas.",
-            "fonte" :"Almanaque do Aluá, nº1, p.53. SAPÉ: Rio de Janeiro, 1998. (Texto adaptado)"
+            "fonte" :"Almanaque do Aluá, nº1, p.53. SAPÉ: Rio de Janeiro, 1998. (Texto adaptado)",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H02_01_011",                             
@@ -110,7 +125,10 @@
             "alt3": "5",
             "alt4": "11",
             "answer" : "5",
-            "fonte": ""
+            "fonte": "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H07_01_015",                             
@@ -128,7 +146,10 @@
             "alt3": "1950",
             "alt4": "1990",
             "answer" : "1950",
-            "fonte": ""
+            "fonte": "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H07_02_018",                             
@@ -146,7 +167,10 @@
             "alt3": "Futebol.",
             "alt4": "Vôlei.",
             "answer" : "Vôlei.",
-            "fonte": ""
+            "fonte": "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
        
         {
@@ -165,7 +189,10 @@
             "alt3": "p",
             "alt4": "t",
             "answer" : "d",
-            "fonte": ""
+            "fonte": "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H07_02_004",                             
@@ -183,7 +210,10 @@
             "alt3": "Ir trabalhar sem estar usando o uniforme da empresa.",
             "alt4": "Pedir informações da empresa para a gerência.",
             "answer" : "Entrar na empresa sem o capacete de segurança.",
-            "fonte": ""
+            "fonte": "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H09_02_002",                             
@@ -201,7 +231,10 @@
             "alt3": "incentivar o lazer.",
             "alt4": "impedir o trânsito.",
             "answer" : "alertar as pessoas.",
-            "fonte": "https://drogasportalprofessor.wordpress.com/conteudos-multimidia/."
+            "fonte": "https://drogasportalprofessor.wordpress.com/conteudos-multimidia/.",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H02_01_012",                             
@@ -219,7 +252,10 @@
             "alt3": "4",
             "alt4": "5",
             "answer" : "3",
-            "fonte": ""
+            "fonte": "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H05_11_001",                             
@@ -237,7 +273,10 @@
             "alt3": "SAPO",
             "alt4": "SAFO",
             "answer" : "SAPO",
-            "fonte": ""
+            "fonte": "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H02_11_001",                             
@@ -255,7 +294,10 @@
             "alt3": "3",
             "alt4": "4",
             "answer" : "2",
-            "fonte": ""
+            "fonte": "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H02_11_002",                             
@@ -273,7 +315,10 @@
             "alt3": "3",
             "alt4": "4",
             "answer" : "1",
-            "fonte": ""
+            "fonte": "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H05_11_010",                             
@@ -291,7 +336,10 @@
             "alt3": "FORO",
             "alt4": "FOTO",
             "answer" : "FOGO",
-            "fonte": ""
+            "fonte": "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H05_11_002",                             
@@ -309,7 +357,10 @@
             "alt3": "ESCAMA",
             "alt4": "ESCADA",
             "answer" : "ESCADA",
-            "fonte": ""
+            "fonte": "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H05_11_004",                             
@@ -327,7 +378,10 @@
             "alt3": "CAMINHÃO",
             "alt4": "CANHÃO",
             "answer" : "CAMINHÃO",
-            "fonte": ""
+            "fonte": "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H05_11_005",                             
@@ -345,7 +399,10 @@
             "alt3": "MOFANDO",
             "alt4": "MORANGO",
             "answer" : "MORANGO",
-            "fonte": ""
+            "fonte": "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H05_11_006",                             
@@ -363,7 +420,10 @@
             "alt3": "LESÃO",
             "alt4": "LEÃO",
             "answer" : "LEÃO",
-            "fonte": ""
+            "fonte": "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H05_11_007",                             
@@ -381,7 +441,10 @@
             "alt3": "BANANA",
             "alt4": "BANHEIRA",
             "answer" : "BANANA",
-            "fonte": ""
+            "fonte": "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H05_11_008",                             
@@ -399,7 +462,10 @@
             "alt3": "SELADOR",
             "alt4": "SERVIDOR",
             "answer" : "SECADOR",
-            "fonte": ""
+            "fonte": "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         },
         {
             "id" : "LP_H05_11_009",                             
@@ -417,7 +483,10 @@
             "alt3": "ESCOVA",
             "alt4": "ESCOA",
             "answer" : "ESCOVA",
-            "fonte": ""
+            "fonte": "",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0 
         }
 
 

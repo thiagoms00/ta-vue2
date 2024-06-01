@@ -1945,7 +1945,12 @@ export default {
             this.megafoneDisable = true;
             this.$refs.PopupIntervalo.openDialog();
             this.stopAudio();
-        }
+        },
+
+        /* Retorna os itens(questões) do banco de dados */
+        getItens(){
+
+        },
 
 
 
