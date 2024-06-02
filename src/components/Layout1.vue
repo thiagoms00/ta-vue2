@@ -1262,6 +1262,7 @@ export default {
                 id: '',
                 acertou: false
             }
+            
             //this.dadosTeste.questoesRespondidas.push(this.jsonData.questoes[this.questionNumber].id);
             auxQuestao.id = this.jsonData.questoes[this.questionNumber].id;
             let iabs = this.ordem[this.nestr][this.ind_questao];
@@ -1288,7 +1289,9 @@ export default {
                 auxQuestao.acertou = true;
                 console.log("Alternativa correta");
             }
-            this.dadosTeste.questoesRespondidas.push(auxQuestao);                                 //Adiciona no array de questoes respondidas.
+            auxQuestao['timestamp'] = new Date().toISOString();
+            this.dadosTeste.questoesRespondidas.push(auxQuestao);    
+            //Adiciona no array de questoes respondidas.
             //console.log(this.seq_prob_dom);
             //console.log(this.seq_prob_ndom);
 
