@@ -1332,8 +1332,6 @@ export default {
                         this.dadosTeste.seqProbNdom.fill(1);
                         this.dadosTeste.jiter = 0;
                     
-                        
-                        
                         console.log(this.dados)
 
                         this.resetaExtrato(this.nestr, 0);
@@ -1355,27 +1353,12 @@ export default {
                             this.extrato1Flag = false;
                             this.sendDataTest(this.dadosTeste);
 
-
-                            /* A parte a seguir foi comentada, apenas o extrato 2 terá uma coleta de dados */
-
-                          /*this.coletaDados = true;                    //Inicio da coleta de dados
-                            this.termina = true;
-                            this.nestr = 1;
-                            this.dadosTeste.extratoAtual = this.nestr;
-                            this.dadosTeste.indiceAtual = 0;            //Usado caso o teste seja retomado.
-                            this.dadosTeste.dadosPSR = 0.5;
-                            this.dadosTeste.seqProbDom.fill(1);
-                            this.dadosTeste.seqProbNdom.fill(1);
-                            this.dadosTeste.jiter = 0; */
-                            //this.resetaExtrato(this.nestr, 0);          //Retomando ao extrato 1
                             this.questionFlag = true;
                             this.testeStatus(0);
                             this.$router.push('/congratulations');
                         }
                         else {                                          //Fim da coleta de dados
-                            this.questionFlag = true;
-                            this.testeStatus(0);
-                            this.$router.push('/congratulations');
+                           
                         }
 
 
@@ -1390,31 +1373,9 @@ export default {
                             this.testeStatus(0);
                             this.$router.push('/congratulations');
 
-                            /*console.log("Fim do teste principal, iniciando coleta de dados.");
-                            this.changeTestAudio = true;
-                            this.resetaOrdem();
-                            this.dadosTeste.extrato1Flag=false;
-                            this.dadosTeste.termina=true;
-                            this.extrato1Flag = false;
-                            this.coletaDados = true;
-                            this.termina = true;
-                            this.nestr = 1;
-                            this.dadosTeste.extratoAtual = this.nestr;
-                            this.dadosTeste.indiceAtual = 0;            //Usado caso o teste seja retomado.
-                            this.dadosTeste.dadosPSR = 0.5;
-                            this.dadosTeste.seqProbDom.fill(1);
-                            this.dadosTeste.seqProbNdom.fill(1);
-                            this.dadosTeste.jiter = 0;
-                            this.resetaExtrato(this.nestr, 0); */
-                            this.questionFlag = true;
-                            this.testeStatus(0);
-                            this.$router.push('/congratulations');
-
                         }
                         else {
-                            this.questionFlag = true;
-                            this.testeStatus(0);
-                            this.$router.push('/congratulations');
+                          
                         }
 
                     }
@@ -1461,31 +1422,12 @@ export default {
                                 this.popupIntervalo();
                                 this.dadosTeste.resultado = 1;
                                 this.sendDataTest(this.dadosTeste);
-                              /*console.log("Fim do teste principal, iniciando coleta de dados.");
-                                this.changeTestAudio = true;
-                                this.resetaOrdem();
-                                this.dadosTeste.extrato1Flag=false;
-                                this.dadosTeste.termina=true;
-                                this.coletaDados = true;
-                                this.extrato1Flag = false;
-                                this.termina = true;
-                                this.nestr = 1;
-                                this.dadosTeste.extratoAtual = this.nestr;
-                                this.dadosTeste.indiceAtual = 0;            //Usado caso o teste seja retomado.
-                                this.dadosTeste.dadosPSR = 0.5;
-                                this.dadosTeste.seqProbDom.fill(1);
-                                this.dadosTeste.seqProbNdom.fill(1);
-                                this.dadosTeste.jiter = 0;
-                                this.resetaExtrato(this.nestr, 0);
- */
                                 this.questionFlag = true;
                                 this.testeStatus(0);
                                 this.$router.push('/congratulations');
                             }
                             else {
-                                this.questionFlag = true;
-                                this.testeStatus(0);
-                                this.$router.push('/congratulations');
+                               
                             }
                         }
 
@@ -1496,32 +1438,15 @@ export default {
                             this.popupIntervalo();
                             this.dadosTeste.resultado = -1;
                             this.sendDataTest(this.dadosTeste);
-                       /*   console.log("Fim do teste principal, iniciando coleta de dados.");
-                            this.changeTestAudio = true;
-                            this.resetaOrdem();
-                            this.dadosTeste.extrato1Flag=false;
-                            this.dadosTeste.termina=true;
-                            this.extrato1Flag = false;
-                            this.coletaDados = true;
-                            this.termina = true;
-                            this.nestr = 1;
-                            this.dadosTeste.extratoAtual = this.nestr;
-                            this.dadosTeste.indiceAtual = 0;            //Usado caso o teste seja retomado.
-                            this.dadosTeste.dadosPSR = 0.5;
-                            this.dadosTeste.seqProbDom.fill(1);
-                            this.dadosTeste.seqProbNdom.fill(1);
-                            this.dadosTeste.jiter = 0; */
                             this.questionFlag = true;
                             this.testeStatus(0);
                             this.$router.push('/congratulations');
-
                             this.resetaExtrato(this.nestr, 0);
                         }
-                        else {
-                            this.questionFlag = true;
-                            this.testeStatus(0);
-                            this.$router.push('/congratulations');
+                        else{
+
                         }
+                       
                     }
                     break;
 
@@ -1537,8 +1462,6 @@ export default {
                         this.dadosTeste.seqProbDom.fill(1);
                         this.dadosTeste.seqProbNdom.fill(1);
                         this.dadosTeste.jiter = 0;
-
-
                         this.resetaExtrato(this.nestr, 0);
 
                     } else if (this.PSR < this.poutn) {     // reprovação no extrato 2
@@ -1552,23 +1475,6 @@ export default {
                             this.popupIntervalo();
                             //Enviar dados pro backend
                             this.sendDataTest(this.dadosTeste);
-                          /*   console.log("Fim do teste principal, iniciando coleta de dados.");
-                            this.changeTestAudio = true;
-                            this.resetaOrdem();
-                            this.dadosTeste.extrato1Flag=false;
-                            this.dadosTeste.termina=true;
-                            this.extrato1Flag = false;
-                            this.coletaDados = true;
-                            this.termina = true;
-                            this.nestr = 2;
-
-                            this.dadosTeste.extratoAtual = this.nestr;
-                            this.dadosTeste.indiceAtual = 0;            //Usado caso o teste seja retomado.
-                            this.dadosTeste.dadosPSR = 0.5;
-                            this.dadosTeste.seqProbDom.fill(1);
-                            this.dadosTeste.seqProbNdom.fill(1);
-                            this.dadosTeste.jiter = 0;
-                            this.resetaExtrato(this.nestr, 0); */
                             this.coletaDados = true;
                             this.startDataTest(2);
 
@@ -1578,6 +1484,7 @@ export default {
                             this.testeStatus(0);
                             this.$router.push('/congratulations');
                         }
+
                     } else if (this.jiter >= this.nq[this.nestr] - this.jquest) { // termina indefinido
 
                         console.log("Fim do extrato 2");
@@ -1585,31 +1492,12 @@ export default {
                             this.popupIntervalo();
                             this.dadosTeste.resultado = -1;
                             this.sendDataTest(this.dadosTeste);
-                           /*  console.log("Fim do teste principal, iniciando coleta de dados.");
-                            this.changeTestAudio = true;
-                            this.resetaOrdem();
-                            this.dadosTeste.extrato1Flag=false;
-                            this.dadosTeste.termina=true;
-                            this.extrato1Flag = false;
-                            this.coletaDados = true;
-                            this.termina = true;
-                            this.nestr = 1;
-
-                            this.dadosTeste.extratoAtual = this.nestr;
-                            this.dadosTeste.indiceAtual = 0;            //Usado caso o teste seja retomado.
-                            this.dadosTeste.dadosPSR = 0.5;
-                            this.dadosTeste.seqProbDom.fill(1);
-                            this.dadosTeste.seqProbNdom.fill(1);
-                            this.dadosTeste.jiter = 0;
-                            this.resetaExtrato(this.nestr, 0); */
                             this.questionFlag = true;
                             this.testeStatus(0);
                             this.$router.push('/congratulations');
                         }
                         else {
-                            this.questionFlag = true;
-                            this.testeStatus(0);
-                            this.$router.push('/congratulations');
+                           
                         }
                     }
                     break;
@@ -1625,31 +1513,13 @@ export default {
                             //Enviar dados pro backend
                             this.dadosTeste.resultado = 4;
                             this.sendDataTest(this.dadosTeste);
-                            console.log("Fim do teste principal, iniciando coleta de dados.");
-                            this.changeTestAudio = true;
-                            this.resetaOrdem();
-                            this.dadosTeste.extrato1Flag=false;
-                            this.dadosTeste.termina=true;
-                            this.extrato1Flag = false;
-                            this.coletaDados = true;
-                            this.termina = true;
-                            this.nestr = 1;
-
-                            this.dadosTeste.extratoAtual = this.nestr;
-                            this.dadosTeste.indiceAtual = 0;            //Usado caso o teste seja retomado.
-                            this.dadosTeste.dadosPSR = 0.5;
-                            this.dadosTeste.seqProbDom.fill(1);
-                            this.dadosTeste.seqProbNdom.fill(1);
-                            this.dadosTeste.jiter = 0;
-
-
-                            this.resetaExtrato(this.nestr, 0);
-                        }
-                        else {
-                            //Enviar dados ao backend
                             this.questionFlag = true;
                             this.testeStatus(0);
                             this.$router.push('/congratulations');
+                            
+                        }
+                        else {
+                           
                         }
                     } else if (this.PSR < this.poutn) {     // reprovação no extrato 3
                         this.resultado = -1;
@@ -1661,31 +1531,12 @@ export default {
                             this.popupIntervalo();
                             //Enviar dados pro backend
                             this.sendDataTest(this.dadosTeste);
-                           /*  console.log("Fim do teste principal, iniciando coleta de dados.");
-                            this.changeTestAudio = true;
-                            this.resetaOrdem();
-                            this.dadosTeste.extrato1Flag=false;
-                            this.dadosTeste.termina=true;
-                            this.extrato1Flag = false;
-                            this.coletaDados = true;
-                            this.termina = true;
-                            this.nestr = 4;
-                            this.dadosTeste.extratoAtual = this.nestr;
-                            this.dadosTeste.indiceAtual = 0;            //Usado caso o teste seja retomado.
-                            this.dadosTeste.dadosPSR = 0.5;
-                            this.dadosTeste.seqProbDom.fill(1);
-                            this.dadosTeste.seqProbNdom.fill(1);
-                            this.dadosTeste.jiter = 0;
-                            this.resetaExtrato(this.nestr, 0);
- */
                             this.questionFlag = true;
                             this.testeStatus(0);
                             this.$router.push('/congratulations');
                         }
                         else {
-                            this.questionFlag = true;
-                            this.testeStatus(0);
-                            this.$router.push('/congratulations');
+                           
                         }
                     } else if (this.jiter >= this.nq[this.nestr] - this.jquest) { // termina indefinido
                         console.log("Fim do extrato 3");
@@ -1694,30 +1545,12 @@ export default {
                             this.popupIntervalo();
                             this.dadosTeste.resultado = -1;
                             this.sendDataTest(this.dadosTeste);
-                          /*   console.log("Fim do teste principal, iniciando coleta de dados.");
-                            this.changeTestAudio = true;
-                            this.resetaOrdem();
-                            this.dadosTeste.extrato1Flag=false;
-                            this.dadosTeste.termina=true;
-                            this.extrato1Flag = false;
-                            this.coletaDados = true;
-                            this.termina = true;
-                            this.nestr = 1;
-                            this.dadosTeste.extratoAtual = this.nestr;
-                            this.dadosTeste.indiceAtual = 0;            //Usado caso o teste seja retomado.
-                            this.dadosTeste.dadosPSR = 0.5;
-                            this.dadosTeste.seqProbDom.fill(1);
-                            this.dadosTeste.seqProbNdom.fill(1);
-                            this.dadosTeste.jiter = 0;
-                            this.resetaExtrato(this.nestr, 0); */
                             this.questionFlag = true;
                             this.testeStatus(0);
                             this.$router.push('/congratulations');
                         }
                         else {
-                            this.questionFlag = true;
-                            this.testeStatus(0);
-                            this.$router.push('/congratulations');
+                            
                         }
 
                     }
@@ -1937,8 +1770,7 @@ export default {
             document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
         },
 
-        
-
+    
         resetTimer() {
             // Emitir um evento para notificar o componente filho sobre o reset do temporizador
             this.$refs.PopupTeste.fecharDialog();
@@ -1954,8 +1786,6 @@ export default {
         getItens(){
 
         },
-
-
 
 
     },
