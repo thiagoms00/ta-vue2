@@ -387,9 +387,20 @@ export default {
                 extrato1Flag: false,
                 termina: false,
                 firstQuestion: true,
-
-
             },
+
+            dadosColeta : {             //Objeto com os dados da parte 2 do teste.
+                numQ : 0,
+                numQCor: 0,
+                numQErr: 0,
+                tempoTotal:0,
+                qtdHab: 0,
+                hab : [],
+                itensResp : []
+            },
+            qTestProb : [],             //Array com as probabilidades das questões da coleta de dados.
+            indProb: 0,                //Indice usado para percorrer o array de probabilidades.
+
             dialog: false,
             horaInicio: undefined,
             horaFim: undefined
@@ -559,14 +570,19 @@ export default {
                         this.aplicaQuestao(radioButton.value - 1);
                     }
                     else{
-                        console.log(parseInt(selectedButton));
+                        let alt = (parseInt(selectedButton));
+                        console.log(alt);
                         this.coletaDadosInd++;
-                        if(this.coletaDadosInd>=this.jsonData.questoes.length){
+
+
+                        if(this.coletaDadosInd>=this.jsonData.questoes.length){     //termina a coleta de dados.
                             this.questionFlag = true;
+
                             this.testeStatus(0);
                             this.$router.push('/congratulations');
                         }
                         else{
+                            this.AtualizaDadosTeste(alt);
                             await this.changeQuestion();        //Altera questão exibida para o usuario.
                             this.changeByID();
                         }
@@ -574,8 +590,6 @@ export default {
                         
                     }
                 }
-
-
 
             }
 
@@ -1464,7 +1478,7 @@ export default {
                         this.dadosTeste.jiter = 0;
                         this.resetaExtrato(this.nestr, 0);
 
-                    } else if (this.PSR < this.poutn) {     // reprovação no extrato 2
+                    } else if (this.PSR < this.poutn) {     // reprovação no extrato 2.
                         this.resultado = -1;
                         console.log("Fim do extrato 2: Reprovado no extrato 2");
                         this.dadosTeste.resultado = 2;
@@ -1473,19 +1487,19 @@ export default {
 
                         if (this.termina === false) {
                             this.popupIntervalo();
-                            //Enviar dados pro backend
                             this.sendDataTest(this.dadosTeste);
                             this.coletaDados = true;
-                            this.startDataTest(2);
+
+                            this.startDataTest(2);          //inicia a coleta de dados.
 
                         }
-                        else {
+                        else {                              //Coleta de dados finalizada.
                             this.questionFlag = true;
                             this.testeStatus(0);
                             this.$router.push('/congratulations');
                         }
 
-                    } else if (this.jiter >= this.nq[this.nestr] - this.jquest) { // termina indefinido
+                    } else if (this.jiter >= this.nq[this.nestr] - this.jquest) { // termina indefinido.
 
                         console.log("Fim do extrato 2");
                         if (this.termina == false) {
@@ -1726,15 +1740,16 @@ export default {
            }
         },  
 
-        startDataTest(nestrTest){
+        /* Função que inicia a "coleta de dados" */
+        startDataTest(nestrTest){       
             
             switch(nestrTest){
                 case 0:
                 break;
                 case 2:
-                    let questoesTeste = jsonData2Nt.questoes;   
-                    //this.shuffleArray(questoesTeste)
-                    this.jsonData = jsonDataQuestoes2Nt;
+                    this.qTestProb = jsonData2Nt.extrato;  //Array com probabilidades.
+                    //this.shuffleArray(questoesTeste)  
+                    this.jsonData = jsonDataQuestoes2Nt;    //Parte visual.
                     
                 //teste
                 break; 
@@ -1785,6 +1800,70 @@ export default {
         /* Retorna os itens(questões) do banco de dados */
         getItens(){
 
+        },
+
+        //Função que reseta o objeto "dadosTeste" para sua versão inicial, usado no início da coleta de dados.
+        AtualizaDadosTeste(alt){    
+            //console.log(this.qTestProb);
+            let doNothing;
+
+            let auxString = this.jsonData.questoes[this.indProb].id;
+            let parts = auxString.split('_');
+            let result = parts[1];
+
+
+            let itemResp = {
+                id: auxString,
+                acertou : false,
+                hab : result,
+            }
+            
+
+            this.dadosColeta.numQ++;
+
+
+             switch(alt){        //verificando se a questão está correta.
+                case 1:
+                this.qTestProb[this.indProb].ad === 0.85 ? this.dadosColeta.numQCor++: this.dadosColeta.numQErr++;
+                this.qTestProb[this.indProb].ad === 0.85 ? itemResp.acertou=true: itemResp.acertou=false;
+                this.qTestProb[this.indProb].ad === 0.85 ? this.dadosColeta.qtdHab++: this.dadosColeta.qtdHab=this.dadosColeta.qtdHab;
+                this.qTestProb[this.indProb].ad === 0.85 ? this.dadosColeta.hab.push(result): doNothing=0;
+                break;
+                case 2:
+                this.qTestProb[this.indProb].bd === 0.85 ? this.dadosColeta.numQCor++ : this.dadosColeta.numQErr++;
+                this.qTestProb[this.indProb].bd === 0.85 ? itemResp.acertou=true: itemResp.acertou=false;
+                this.qTestProb[this.indProb].bd === 0.85 ? this.dadosColeta.qtdHab++: this.dadosColeta.qtdHab=this.dadosColeta.qtdHab;
+                this.qTestProb[this.indProb].bd === 0.85 ? this.dadosColeta.hab.push(result): doNothing=0;
+
+                break;
+                case 3:
+                this.qTestProb[this.indProb].cd === 0.85 ? this.dadosColeta.numQCor++ : this.dadosColeta.numQErr++;
+                this.qTestProb[this.indProb].cd === 0.85 ? itemResp.acertou=true: itemResp.acertou=false;
+                this.qTestProb[this.indProb].cd === 0.85 ? this.dadosColeta.qtdHab++: this.dadosColeta.qtdHab=this.dadosColeta.qtdHab;
+                this.qTestProb[this.indProb].cd === 0.85 ? this.dadosColeta.hab.push(result): doNothing=0;
+
+
+                break;
+                case 4:
+                this.qTestProb[this.indProb].dd === 0.85 ? this.dadosColeta.numQCor++ : this.dadosColeta.numQErr++;
+                this.qTestProb[this.indProb].dd === 0.85 ? itemResp.acertou=true: itemResp.acertou=false;
+                this.qTestProb[this.indProb].dd === 0.85 ? this.dadosColeta.qtdHab++: this.dadosColeta.qtdHab=this.dadosColeta.qtdHab;
+                this.qTestProb[this.indProb].dd === 0.85 ? this.dadosColeta.hab.push(result): doNothing=0;
+
+
+                break;
+            } 
+
+
+            
+
+
+            this.dadosColeta.itensResp.push(itemResp);
+            console.log(this.dadosColeta);
+            
+
+            
+            this.indProb++;
         },
 
 
@@ -2389,6 +2468,10 @@ export default {
         margin-left: 16.8vw;
         height: 25vh;
         margin-top: 0;
+    }
+
+    .alternative-m2{
+        width: 45vw;
     }
 
 
