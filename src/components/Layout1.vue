@@ -1440,9 +1440,6 @@ export default {
                                 this.testeStatus(0);
                                 this.$router.push('/congratulations');
                             }
-                            else {
-                               
-                            }
                         }
 
                     } else if (this.jiter >= this.nq[this.nestr] - this.jquest) { // termina indefinido
