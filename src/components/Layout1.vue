@@ -403,19 +403,18 @@ export default {
 
             dialog: false,
             horaInicio: undefined,
-            horaFim: undefined
+            horaFim: undefined,
+            tempoInicioQuestao: undefined,
+            tempoFimQuestao: undefined,
 
         }
-    },
-
-    computed() {
-
     },
 
     created() {  //Sempre é chamado quando a pagina é carregada
 
         this.horaInicio = new Date();
-        console.log(this.horaInicio);
+        this.tempoInicioQuestao = new Date();
+        
         this.jsonData = jsonDataQuestoes1;  
       
 
@@ -490,13 +489,9 @@ export default {
         switch (this.jsonData.questoes[this.questionNumber].layout) {
             case 'm1':
                 this.layoutCheck = 'm1';
-                /*  if(this.questionId=='LP_H03_00_014_F'){
-                     this.changeByID('LP_H03_00_014_F');
-                 } */
                 break;
             case 'm2':
                 this.layoutCheck = 'm2';
-                //document.getElementById("layout1").style.height = "92vh";  //Muda o tamanho da main-div
                 break;
             case 'm3':
                 this.layoutCheck = 'm3';
@@ -1272,8 +1267,10 @@ export default {
             this.dadosTeste.firstQuestion = false;
             // "Aplica" uma questão, verificando se o aluno acertou ou não.
             this.dadosTeste.qtdQuestoes++;
+            
             let auxQuestao = {
                 id: '',
+                tempoQuestao : 0,
                 acertou: false
             }
             
@@ -1303,8 +1300,15 @@ export default {
                 auxQuestao.acertou = true;
                 console.log("Alternativa correta");
             }
-            auxQuestao['timestamp'] = new Date().toISOString();
+
+            this.tempoFimQuestao = new Date();
+
+            
+
+            auxQuestao.tempoQuestao = ((this.tempoFimQuestao - this.tempoInicioQuestao) / 1000)
+
             this.dadosTeste.questoesRespondidas.push(auxQuestao);    
+
             //Adiciona no array de questoes respondidas.
             //console.log(this.seq_prob_dom);
             //console.log(this.seq_prob_ndom);
@@ -1388,9 +1392,6 @@ export default {
                             this.$router.push('/congratulations');
 
                         }
-                        else {
-                          
-                        }
 
                     }
                     break;
@@ -1454,9 +1455,6 @@ export default {
                             this.$router.push('/congratulations');
                             this.resetaExtrato(this.nestr, 0);
                         }
-                        else{
-
-                        }
                        
                     }
                     break;
@@ -1507,9 +1505,6 @@ export default {
                             this.testeStatus(0);
                             this.$router.push('/congratulations');
                         }
-                        else {
-                           
-                        }
                     }
                     break;
 
@@ -1529,9 +1524,6 @@ export default {
                             this.$router.push('/congratulations');
                             
                         }
-                        else {
-                           
-                        }
                     } else if (this.PSR < this.poutn) {     // reprovação no extrato 3
                         this.resultado = -1;
                         console.log("Fim do extrato 3: Reprovado no extrato 3");
@@ -1546,9 +1538,6 @@ export default {
                             this.testeStatus(0);
                             this.$router.push('/congratulations');
                         }
-                        else {
-                           
-                        }
                     } else if (this.jiter >= this.nq[this.nestr] - this.jquest) { // termina indefinido
                         console.log("Fim do extrato 3");
 
@@ -1560,10 +1549,6 @@ export default {
                             this.testeStatus(0);
                             this.$router.push('/congratulations');
                         }
-                        else {
-                            
-                        }
-
                     }
                     break;
                 default:
@@ -1571,7 +1556,7 @@ export default {
             }
 
             if (this.questionFlag == false) {
-                await this.changeQuestion();        //Altera questão exibida para o usuario.
+                await this.changeQuestion();//Altera questão exibida para o usuario.
                 this.changeByID();
             }
 
@@ -1612,7 +1597,9 @@ export default {
             else{
                 this.changeTestAudio=false;
             }
-            //this.playAudio(1);
+
+            this.tempoInicioQuestao = new Date();
+            
 
 
 
@@ -1695,8 +1682,6 @@ export default {
             this.dadosTeste.ordemQuestoes = this.ordem;        //Para o cookie do aluno.
         },
 
-
-
         sendDataTest(dataTest) {
             
             dataTest.horaFim = new Date();
@@ -1714,7 +1699,6 @@ export default {
                     });
             });
         },
-
 
         resetMegafone() {            //Utilizar esta função sempre que trocar de item.
             this.megafoneDisable = false;
