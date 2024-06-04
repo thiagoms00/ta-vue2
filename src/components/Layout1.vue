@@ -389,17 +389,18 @@ export default {
                 firstQuestion: true,
             },
 
-            dadosColeta : {             //Objeto com os dados da parte 2 do teste.
-                numQ : 0,
+            dadosTeste2 : {             //Objeto com os dados da parte 2 do teste.
+                numQ : 0,           
                 numQCor: 0,
                 numQErr: 0,
-                tempoTotal:0,
                 qtdHab: 0,
                 hab : [],
-                itensResp : []
+                itensResp : [],
+                tempoTeste2 : null,
             },
-            qTestProb : [],             //Array com as probabilidades das questões da coleta de dados.
+            qTestProb : [],            //Array com as probabilidades das questões da coleta de dados.
             indProb: 0,                //Indice usado para percorrer o array de probabilidades.
+            tempoItem : null,
 
             dialog: false,
             horaInicio: undefined,
@@ -571,18 +572,20 @@ export default {
                     }
                     else{
                         let alt = (parseInt(selectedButton));
-                        console.log(alt);
                         this.coletaDadosInd++;
-
+                        this.AtualizaDadosTeste(alt);
 
                         if(this.coletaDadosInd>=this.jsonData.questoes.length){     //termina a coleta de dados.
+                            let auxDate = new Date();
+                            this.dadosTeste2.tempoTeste2 = (auxDate - this.dadosTeste2.tempoTeste2)/1000;    //Obtem tempo total do teste
+                            
                             this.questionFlag = true;
-
                             this.testeStatus(0);
-                            this.$router.push('/congratulations');
+                            console.log(this.dadosTeste2);
+
+                            //this.$router.push('/congratulations');
                         }
                         else{
-                            this.AtualizaDadosTeste(alt);
                             await this.changeQuestion();        //Altera questão exibida para o usuario.
                             this.changeByID();
                         }
@@ -1491,6 +1494,7 @@ export default {
                             this.coletaDados = true;
 
                             this.startDataTest(2);          //inicia a coleta de dados.
+                            this.dadosTeste2.tempoTeste2 = new Date();
 
                         }
                         else {                              //Coleta de dados finalizada.
@@ -1742,7 +1746,8 @@ export default {
 
         /* Função que inicia a "coleta de dados" */
         startDataTest(nestrTest){       
-            
+            this.tempoItem = new Date();
+
             switch(nestrTest){
                 case 0:
                 break;
@@ -1785,7 +1790,6 @@ export default {
             document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
         },
 
-    
         resetTimer() {
             // Emitir um evento para notificar o componente filho sobre o reset do temporizador
             this.$refs.PopupTeste.fecharDialog();
@@ -1797,73 +1801,70 @@ export default {
             this.stopAudio();
         },
 
-        /* Retorna os itens(questões) do banco de dados */
-        getItens(){
-
-        },
-
+    
         //Função que reseta o objeto "dadosTeste" para sua versão inicial, usado no início da coleta de dados.
         AtualizaDadosTeste(alt){    
-            //console.log(this.qTestProb);
             let doNothing;
+
+            let tempoAux = new Date();
+            this.tempoItem = (tempoAux - this.tempoItem)/1000;
+
 
             let auxString = this.jsonData.questoes[this.indProb].id;
             let parts = auxString.split('_');
             let result = parts[1];
 
 
-            let itemResp = {
-                id: auxString,
-                acertou : false,
-                hab : result,
+
+            let itemResp = {                            //Dados específicos do item.
+                id: auxString,                          
+                acertou : false,                        
+                hab : result,                          
+                tempo: this.tempoItem,
             }
             
+            this.dadosTeste2.numQ++;   
 
-            this.dadosColeta.numQ++;
+            switch(alt){        //verificando se a questão está correta.
 
+                /* 
+                    Dados atualizados:
+                    Numero de questões corretas ou incorretas.
+                    Se o aluno acertou ou não o item.
+                    Quantidade de habilidades presentes no teste(?).
+                    Habilidades presentes no teste(?).
+                */
 
-             switch(alt){        //verificando se a questão está correta.
                 case 1:
-                this.qTestProb[this.indProb].ad === 0.85 ? this.dadosColeta.numQCor++: this.dadosColeta.numQErr++;
+                this.qTestProb[this.indProb].ad === 0.85 ? this.dadosTeste2.numQCor++: this.dadosTeste2.numQErr++;
                 this.qTestProb[this.indProb].ad === 0.85 ? itemResp.acertou=true: itemResp.acertou=false;
-                this.qTestProb[this.indProb].ad === 0.85 ? this.dadosColeta.qtdHab++: this.dadosColeta.qtdHab=this.dadosColeta.qtdHab;
-                this.qTestProb[this.indProb].ad === 0.85 ? this.dadosColeta.hab.push(result): doNothing=0;
+                this.qTestProb[this.indProb].ad === 0.85 ? this.dadosTeste2.qtdHab++: this.dadosTeste2.qtdHab=this.dadosTeste2.qtdHab;
+                //this.qTestProb[this.indProb].ad === 0.85 ? this.dadosTeste2.hab.push(result): doNothing=0;
                 break;
                 case 2:
-                this.qTestProb[this.indProb].bd === 0.85 ? this.dadosColeta.numQCor++ : this.dadosColeta.numQErr++;
+                this.qTestProb[this.indProb].bd === 0.85 ? this.dadosTeste2.numQCor++ : this.dadosTeste2.numQErr++;
                 this.qTestProb[this.indProb].bd === 0.85 ? itemResp.acertou=true: itemResp.acertou=false;
-                this.qTestProb[this.indProb].bd === 0.85 ? this.dadosColeta.qtdHab++: this.dadosColeta.qtdHab=this.dadosColeta.qtdHab;
-                this.qTestProb[this.indProb].bd === 0.85 ? this.dadosColeta.hab.push(result): doNothing=0;
-
+                this.qTestProb[this.indProb].bd === 0.85 ? this.dadosTeste2.qtdHab++: this.dadosTeste2.qtdHab=this.dadosTeste2.qtdHab;
+                //this.qTestProb[this.indProb].bd === 0.85 ? this.dadosTeste2.hab.push(result): doNothing=0;
                 break;
                 case 3:
-                this.qTestProb[this.indProb].cd === 0.85 ? this.dadosColeta.numQCor++ : this.dadosColeta.numQErr++;
+                this.qTestProb[this.indProb].cd === 0.85 ? this.dadosTeste2.numQCor++ : this.dadosTeste2.numQErr++;
                 this.qTestProb[this.indProb].cd === 0.85 ? itemResp.acertou=true: itemResp.acertou=false;
-                this.qTestProb[this.indProb].cd === 0.85 ? this.dadosColeta.qtdHab++: this.dadosColeta.qtdHab=this.dadosColeta.qtdHab;
-                this.qTestProb[this.indProb].cd === 0.85 ? this.dadosColeta.hab.push(result): doNothing=0;
-
-
+                this.qTestProb[this.indProb].cd === 0.85 ? this.dadosTeste2.qtdHab++: this.dadosTeste2.qtdHab=this.dadosTeste2.qtdHab;
+                //this.qTestProb[this.indProb].cd === 0.85 ? this.dadosTeste2.hab.push(result): doNothing=0;
                 break;
                 case 4:
-                this.qTestProb[this.indProb].dd === 0.85 ? this.dadosColeta.numQCor++ : this.dadosColeta.numQErr++;
+                this.qTestProb[this.indProb].dd === 0.85 ? this.dadosTeste2.numQCor++ : this.dadosTeste2.numQErr++;
                 this.qTestProb[this.indProb].dd === 0.85 ? itemResp.acertou=true: itemResp.acertou=false;
-                this.qTestProb[this.indProb].dd === 0.85 ? this.dadosColeta.qtdHab++: this.dadosColeta.qtdHab=this.dadosColeta.qtdHab;
-                this.qTestProb[this.indProb].dd === 0.85 ? this.dadosColeta.hab.push(result): doNothing=0;
-
-
+                this.qTestProb[this.indProb].dd === 0.85 ? this.dadosTeste2.qtdHab++: this.dadosTeste2.qtdHab=this.dadosTeste2.qtdHab;
+                //this.qTestProb[this.indProb].dd === 0.85 ? this.dadosTeste2.hab.push(result): doNothing=0;
                 break;
             } 
 
 
-            
-
-
-            this.dadosColeta.itensResp.push(itemResp);
-            console.log(this.dadosColeta);
-            
-
-            
-            this.indProb++;
+            this.dadosTeste2.itensResp.push(itemResp);  //Adiciona o objeto com os dados do item na lista do teste2.
+            this.indProb++;                             //Incrementa o indice do vetor de probabilidades.
+            this.tempoItem = new Date();                //Inicia a contagem de tempo do próximo item.
         },
 
 
