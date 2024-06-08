@@ -578,7 +578,7 @@ export default {
                             this.testeStatus(0);
                             console.log(this.dadosTeste2);
 
-                            //this.$router.push('/congratulations');
+                            this.$router.push('/congratulations');
                         }
                         else{
                             await this.changeQuestion();        //Altera questão exibida para o usuario.
@@ -1114,6 +1114,7 @@ export default {
 
 
 
+
             for (let i = 0; i < jsonData0.extrato.length; i++) {
                 ordem_0[i] = [i];
             }
@@ -1128,10 +1129,12 @@ export default {
             }
 
 
-            ordem_0 = this.shuffleArray(ordem_0);
-            ordem_1 = this.shuffleArray(ordem_1);
-            ordem_2 = this.shuffleArray(ordem_2);
-            ordem_3 = this.shuffleArray(ordem_3);
+            ordem_0 = this.randomizaOrdem(0);
+            ordem_1 = this.randomizaOrdem(1);
+            ordem_2 = this.randomizaOrdem(2);
+            ordem_3 = this.randomizaOrdem(3);
+
+
 
             //ordem_0 = [0,1,2,3,4,5,6,7,8,9,10];                //Para testar sequencialmente, comentar depois.
             // ordem_1 = [0,1,2,3,4,5,6,7,8,9,10,11,12];           //Para testar sequencialmente, comentar depois.  
@@ -1212,7 +1215,79 @@ export default {
                 array[i] = array[j];
                 array[j] = temp;
             }
+        
+
+
             return array;
+        },
+
+        /* Randomiza a ordem das questões levando em conta a quantidade de habilidades presentes no estrato */
+        randomizaOrdem(estrato){   
+            
+            let questoes,nova_ordem,auxQuestoes;
+            switch(estrato){
+                case 0:
+                    auxQuestoes = jsonDataQuestoes0;
+                    questoes = auxQuestoes.questoes;
+                break;
+                case 1:
+                    auxQuestoes = jsonDataQuestoes1;
+                    questoes = auxQuestoes.questoes;
+                break;
+                case 2:
+                    auxQuestoes = jsonDataQuestoes2;
+                    questoes = auxQuestoes.questoes;
+                break;
+                case 3:
+                    auxQuestoes = jsonDataQuestoes3;
+                    questoes = auxQuestoes.questoes;
+                break;
+                default:
+                    auxQuestoes = jsonDataQuestoes1;
+                    questoes = auxQuestoes.questoes;
+                break;
+            }
+            nova_ordem = this.semiRandomize(questoes);
+            return nova_ordem;
+
+        },
+
+        semiRandomize(array) { //Randomiza parcialmente, leva em conta as habilidades de cada item.
+
+            // Armazene os índices originais dos objetos
+            const indexedArray = array.map((item, index) => ({ ...item, originalIndex: index }));
+
+            // Randomize a ordem dos objetos
+            const shuffledArray = indexedArray.sort(() => Math.random() - 0.5);
+
+            // Agrupe os objetos por habilidade
+            const groupedBySkill = {};
+            shuffledArray.forEach(item => {
+                const skill = item.id.match(/H(\d{2})/)[1];
+                if (!groupedBySkill[skill]) {
+                    groupedBySkill[skill] = [];
+                }
+                groupedBySkill[skill].push(item);
+            });
+
+            // Obtenha todas as habilidades únicas presentes
+            const skills = Object.keys(groupedBySkill);
+
+            // Combine os objetos de forma que todas habilidades apareçam antes de qualquer repetição
+            const resultArray = [];
+            let index = 0;
+            while (resultArray.length < array.length) {
+                skills.forEach(skill => {
+                    if (groupedBySkill[skill][index]) {
+                        resultArray.push(groupedBySkill[skill][index]);
+                    }
+                });
+                index++;
+            }
+
+            // Crie um array novo com os índices dos novos itens randomizados
+            const resultIndices = resultArray.map(item => item.originalIndex);
+            return resultIndices;
         },
 
         multiplica_array(arr) {
@@ -1353,7 +1428,6 @@ export default {
                         this.dadosTeste.seqProbNdom.fill(1);
                         this.dadosTeste.jiter = 0;
                     
-                        console.log(this.dados)
 
                         this.resetaExtrato(this.nestr, 0);
 
@@ -1674,10 +1748,10 @@ export default {
             }
            
 
-            ordem_0 = this.shuffleArray(ordem_0);
-            ordem_1 = this.shuffleArray(ordem_1);
-            ordem_2 = this.shuffleArray(ordem_2);
-            ordem_3 = this.shuffleArray(ordem_3);
+            ordem_0 = this.randomizaOrdem(0);
+            ordem_1 = this.randomizaOrdem(1);
+            ordem_2 = this.randomizaOrdem(2);
+            ordem_3 = this.randomizaOrdem(3);
 
             //ordem_0 = [0,1,2,3,4,5,6,7,8,9];                 //Para testar sequencialmente, comentar depois.
             //ordem_1 = [0,1,2,3,4,5,6,7,8,9,10,11];           //Para testar sequencialmente, comentar depois.  
