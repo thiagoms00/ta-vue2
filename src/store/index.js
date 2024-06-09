@@ -36,9 +36,11 @@ export default createStore({
                   .then((response) => {
                     const token = response.data.token;
                     const id = response.data.id;
+                    const anoAtual = response.data.anoAtual;
 
                     localStorage.setItem('token', token);
                     localStorage.setItem('id', id)
+                    localStorage.setItem('anoAtual', anoAtual);
 
                     axios.defaults.headers.common['Authorization'] = token;
                     commit('auth_success', token);
