@@ -576,7 +576,10 @@ export default {
                             
                             this.questionFlag = true;
                             this.testeStatus(0);
+
+                            
                             console.log(this.dadosTeste2);
+                            this.sendDataTest2(this.dadosTeste2)
 
                             this.$router.push('/congratulations');
                         }
@@ -1762,7 +1765,6 @@ export default {
 
         sendDataTest(dataTest) {
             
-            dataTest.horaFim = new Date();
             dataTest.id = localStorage.getItem('id')
             dataTest.idTeste = localStorage.getItem('idTeste')
 
@@ -1777,6 +1779,25 @@ export default {
                     });
             });
         },
+
+        sendDataTest2(dataTest) {
+            
+            dataTest.id = localStorage.getItem('id')
+            dataTest.idTeste = localStorage.getItem('idTeste')
+
+            return new Promise((resolve, reject) => {
+                axios({ url: 'https://ta-back.onrender.com/alunos/dataTest2', data: dataTest, method: 'POST' })
+                    .then((response) => {
+                        console.log(response)
+                        resolve(response);
+                    })
+                    .catch((error) => {
+                        reject(error);
+                    });
+            });
+        },
+
+
 
         resetMegafone() {            //Utilizar esta função sempre que trocar de item.
             this.megafoneDisable = false;
@@ -1856,7 +1877,6 @@ export default {
             this.stopAudio();
         },
 
-    
         //Função que reseta o objeto "dadosTeste" para sua versão inicial, usado no início da coleta de dados.
         AtualizaDadosTeste(alt){    
             let doNothing;

@@ -85,8 +85,6 @@ export default {
               localStorage.setItem('idTeste', dataIdTeste);
             }
             
-
-            console.log(response)
             resolve(response);
           })
           .catch((error) => {
