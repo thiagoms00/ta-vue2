@@ -265,13 +265,14 @@
 import ContButton from './ContButton.vue';
 import axios from 'axios';
 
+//Informações sobre os itens.
 import jsonDataQuestoes0 from '../assets/questao/questoes_extrato0.json';
 import jsonDataQuestoes1 from '../assets/questao/questoes_extrato1.json';              //Primeiro estrato a ser utilizado.
 import jsonDataQuestoes2 from '../assets/questao/questoes_extrato2.json';
 import jsonDataQuestoes3 from '../assets/questao/questoes_extrato3.json';
 import jsonDataQuestoes2Nt from '../assets/questao/extrato2_nt';
 
-//Dados das "planilhas"
+//Dados das "planilhas."
 import jsonData0 from '../assets/extratos/extrato0.json';
 import jsonData1 from '../assets/extratos/extrato1.json';
 import jsonData2 from '../assets/extratos/extrato2.json';
@@ -324,6 +325,9 @@ export default {
 
             stMargin: '',
             audioVis: '',
+
+            anoAluno: 1,         //Ano do aluno que está realizando o teste.
+            qtdResp : 0,
 
             /* Dados do Teste adaptativo */
             questao_id: '',
@@ -415,9 +419,9 @@ export default {
 
         this.horaInicio = new Date();
         this.tempoInicioQuestao = new Date();
+        this.anoAluno = localStorage.getItem('anoAtual');
         
-        this.jsonData = jsonDataQuestoes1;  
-      
+        
 
         let cookieAux = JSON.parse(localStorage.getItem('testeStart'));
         if(cookieAux==null){
@@ -446,15 +450,9 @@ export default {
             this.startTest();
         }
            
-        
-        //console.log(this.dadosTeste.testeStart);
+    
 
-        //this.startTest();
-
-      
-
-
-        /* Esta parte esta associada as informações visuais da pagina*/
+        /* Propriedades do item à ser respondido. */
       
         this.questionNumber = this.ordem[this.nestr][this.ind_questao];
         this.questionId = this.jsonData.questoes[this.questionNumber].id;
@@ -1310,19 +1308,45 @@ export default {
             this.pouts = 0.95;
             this.poutn = 0.05;
             this.jquest = 0;
+            this.qtdResp = 0;
+            console.log(this.anoAluno);
+            /* 
+                Define as questões que o aluno vai responder com base no ano escolar e no numero de estrato(solicitado):
+                nestr = 0 : Estrato anterior ao inicial (n-1).
+                nestr = 1 : Estrato inicial (n).
+                nestr = 2 : Estrato inicial (n+1).
+                nestr = 3 : Estrato inicial (n+2).
 
+            */
             switch (nestr){
                 case 0:
-                    this.jsonData = jsonDataQuestoes0;
+                    if(this.anoAluno == 1 || this.anoAluno == 2 || this.anoAluno == 3){
+                        this.jsonData = jsonDataQuestoes0;
+                    }
+                    else if(this.anoAluno == 4 || this.anoAluno == 5){
+                        this.jsonData = jsonDataQuestoes1;
+                    }
                 break;
                 case 1:
-                    this.jsonData = jsonDataQuestoes1;
+                    if(this.anoAluno == 1 || this.anoAluno == 2 || this.anoAluno == 3){
+                        this.jsonData = jsonDataQuestoes1;
+                    }
+                    else if(this.anoAluno == 4 || this.anoAluno == 5){
+                        this.jsonData = jsonDataQuestoes2;
+                    }
                 break;
                 case 2:
-                    this.jsonData = jsonDataQuestoes2;
+                    if(this.anoAluno == 1 || this.anoAluno == 2 || this.anoAluno == 3){
+                        this.jsonData = jsonDataQuestoes2;
+                    }
+                    else if(this.anoAluno == 4 || this.anoAluno == 5){
+                        this.jsonData = jsonDataQuestoes3;
+                    }
                 break;
                 case 3:
-                    this.jsonData = jsonDataQuestoes3;
+                    if(this.anoAluno == 1 || this.anoAluno == 2 || this.anoAluno == 3){
+                        this.jsonData = jsonDataQuestoes3;
+                    }
                 break;
             }
         
@@ -1344,6 +1368,7 @@ export default {
         async aplicaQuestao(value){                              //Função chamada sempre que o usuario clicar no "continuar"
             console.clear();
 
+            this.qtdResp++;
             this.firstQuestion = false;
             this.dadosTeste.firstQuestion = false;
             // "Aplica" uma questão, verificando se o aluno acertou ou não.
@@ -1415,11 +1440,11 @@ export default {
                 Extrato 3: Reprovado ou aprovado no extrato 3.
     
             */
+            console.log(this.qtdResp);
             switch (this.nestr) {
 
-
                 case 0:                                     //EXTRATO 0
-                    if (this.PSR > this.pouts) {            // aprovação no extrato 0
+                    if (this.PSR > this.pouts && this.qtdResp >= 10) {            // aprovação no extrato 0
                         this.resultado = 1;
                         console.log("Fim do extrato 0: Avançando para o Extrato 1");
                         this.nestr = 1;
@@ -1434,7 +1459,7 @@ export default {
 
                         this.resetaExtrato(this.nestr, 0);
 
-                    } else if (this.PSR < this.poutn) {     // reprovação no extrato 0
+                    } else if (this.PSR < this.poutn && this.qtdResp >= 10) {     // reprovação no extrato 0
                         this.resultado = -1;
                         console.log("Fim do extrato 0: Reprovado no extrato 0");
                         this.dadosTeste.resultado = 0;
@@ -1478,7 +1503,7 @@ export default {
 
 
                 case 1:                                     //EXTRATO 1
-                    if (this.PSR > this.pouts) {            // aprovação no extrato 1
+                    if (this.PSR > this.pouts && this.qtdResp >= 10) {            // aprovação no extrato 1
                         this.resultado = 1;
                         console.log("Fim do extrato 1: Avançando para o Extrato 2");
                         this.nestr = 2;
@@ -1493,7 +1518,7 @@ export default {
                         this.resetaExtrato(this.nestr, 0);
                          //Usado caso o teste seja retomado.
 
-                    } else if (this.PSR < this.poutn) {     // reprovação no extrato 1
+                    } else if (this.PSR < this.poutn && this.qtdResp >= 10) {     // reprovação no extrato 1
                         this.resultado = -1;
                         this.nestr = 0;
 
@@ -1541,7 +1566,7 @@ export default {
 
 
                 case 2:                                     //EXTRATO 2
-                    if (this.PSR > this.pouts) {            // aprovação no extrato 2
+                    if (this.PSR > this.pouts && this.qtdResp >= 10) {            // aprovação no extrato 2
                         this.resultado = 1;
                         console.log("Fim do extrato 2: Avançando para o Extrato 3");
                         this.nestr = 3;
@@ -1553,7 +1578,7 @@ export default {
                         this.dadosTeste.jiter = 0;
                         this.resetaExtrato(this.nestr, 0);
 
-                    } else if (this.PSR < this.poutn) {     // reprovação no extrato 2.
+                    } else if (this.PSR < this.poutn && this.qtdResp >= 10) {     // reprovação no extrato 2.
                         this.resultado = -1;
                         console.log("Fim do extrato 2: Reprovado no extrato 2");
                         this.dadosTeste.resultado = 2;
@@ -1591,7 +1616,7 @@ export default {
 
 
                 case 3:                                     //EXTRATO 3
-                    if (this.PSR > this.pouts) {            //Aprovação no extrato 3
+                    if (this.PSR > this.pouts && this.qtdResp >= 10) {            //Aprovação no extrato 3
                         this.resultado = 1;
                         console.log("Fim do extrato 3: Aprovado no extrato 3");
                         console.log(this.dadosTeste);
@@ -1605,7 +1630,7 @@ export default {
                             this.$router.push('/congratulations');
                             
                         }
-                    } else if (this.PSR < this.poutn) {     // reprovação no extrato 3
+                    } else if (this.PSR < this.poutn && this.qtdResp >= 10) {     // reprovação no extrato 3
                         this.resultado = -1;
                         console.log("Fim do extrato 3: Reprovado no extrato 3");
                         console.log(this.dadosTeste);
