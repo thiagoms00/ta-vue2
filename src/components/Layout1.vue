@@ -394,6 +394,7 @@ export default {
             },
 
             dadosTeste2 : {             //Objeto com os dados da parte 2 do teste.
+                tokenAluno : '',
                 numQ : 0,           
                 numQCor: 0,
                 numQErr: 0,
@@ -571,8 +572,8 @@ export default {
                         if(this.coletaDadosInd>=this.jsonData.questoes.length){     //termina a coleta de dados.
                             let auxDate = new Date();
                             this.dadosTeste2.tempoTeste2 = (auxDate - this.dadosTeste2.tempoTeste2)/1000;    //Obtem tempo total do teste
-                            
                             this.questionFlag = true;
+                            this.dadosTeste2.tokenAluno = localStorage.getItem('token');
                             this.testeStatus(0);
 
                             
@@ -1156,7 +1157,7 @@ export default {
             localStorage.setItem('testeStart', JSON.stringify(this.dadosTeste));
 
         },
-
+        
         resumeTest(){                                          
             this.ordem = this.dadosTeste.ordemQuestoes;
             this.nq = this.dadosTeste.nq;
@@ -1182,6 +1183,8 @@ export default {
 
             console.log('Numero do extrato: ' + this.nestr);
             console.log('Indice da questão: ' + this.ind_questao)
+
+            //Editar esta parte com base no ano do aluno????
 
             switch (this.dadosTeste.extratoAtual){
                 case 0:
@@ -1440,6 +1443,7 @@ export default {
                 Extrato 3: Reprovado ou aprovado no extrato 3.
     
             */
+           
             console.log(this.qtdResp);
             switch (this.nestr) {
 
