@@ -406,6 +406,7 @@ export default {
             qTestProb : [],            //Array com as probabilidades das questões da coleta de dados.
             indProb: 0,                //Indice usado para percorrer o array de probabilidades.
             tempoItem : null,
+            tempoItem2 : null,
 
             dialog: false,
             horaInicio: undefined,
@@ -420,6 +421,7 @@ export default {
 
         this.horaInicio = new Date();
         this.tempoInicioQuestao = new Date();
+        this.tempoItem = new Date();
         this.anoAluno = localStorage.getItem('anoAtual');
         
         
@@ -1371,6 +1373,8 @@ export default {
         async aplicaQuestao(value){                              //Função chamada sempre que o usuario clicar no "continuar"
             console.clear();
 
+         
+
             this.qtdResp++;
             this.firstQuestion = false;
             this.dadosTeste.firstQuestion = false;
@@ -1379,8 +1383,10 @@ export default {
             
             let auxQuestao = {
                 id: '',
+                estrato : this.nestr,
                 tempoQuestao : 0,
-                acertou: false
+                acertou: false,
+            
             }
             
             //this.dadosTeste.questoesRespondidas.push(this.jsonData.questoes[this.questionNumber].id);
@@ -1851,7 +1857,7 @@ export default {
 
         /* Função que inicia a "coleta de dados" */
         startDataTest(nestrTest){       
-            this.tempoItem = new Date();
+            this.tempoItem2 = new Date();
 
             switch(nestrTest){
                 case 0:
@@ -1911,7 +1917,7 @@ export default {
             let doNothing;
 
             let tempoAux = new Date();
-            this.tempoItem = (tempoAux - this.tempoItem)/1000;
+            this.tempoItem2 = (tempoAux - this.tempoItem2)/1000;
 
 
             let auxString = this.jsonData.questoes[this.indProb].id;
@@ -1924,7 +1930,7 @@ export default {
                 id: auxString,                          
                 acertou : false,                        
                 hab : result,                          
-                tempo: this.tempoItem,
+                tempo: this.tempoItem2,
             }
             
             this.dadosTeste2.numQ++;   
@@ -1968,7 +1974,7 @@ export default {
 
             this.dadosTeste2.itensResp.push(itemResp);  //Adiciona o objeto com os dados do item na lista do teste2.
             this.indProb++;                             //Incrementa o indice do vetor de probabilidades.
-            this.tempoItem = new Date();                //Inicia a contagem de tempo do próximo item.
+            this.tempoItem2 = new Date();                //Inicia a contagem de tempo do próximo item.
         },
 
 
