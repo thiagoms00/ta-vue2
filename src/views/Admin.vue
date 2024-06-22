@@ -74,15 +74,15 @@
                           <v-btn block :append-icon="icon[0]" :ripple="false" variant="text"
                             @click="toggleIcon(0, 'nome')">Código</v-btn>
                         </v-col>
-                        <v-col cols="3" class="d-flex justify-center">
+                        <v-col cols="2" class="d-flex justify-center">
                           <v-btn block :append-icon="icon[1]" :ripple="false" variant="text"
                             @click="toggleIcon(1, 'percentTotal')">Habilidade</v-btn>
                         </v-col>
-                        <v-col cols="3" class="d-flex justify-center">
+                        <v-col cols="2" class="d-flex justify-center">
                           <v-btn block :append-icon="icon[2]" :ripple="false" variant="text"
                             @click="toggleIcon(2, 'questaoTotal')">% Acertos</v-btn>
                         </v-col>
-                        <v-col cols="3" class="d-flex justify-center">
+                        <v-col cols="2" class="d-flex justify-center">
                           <v-btn block :append-icon="icon[3]" :ripple="false" variant="text"
                             @click="toggleIcon(3, 'tempoMedio')">Tempo total</v-btn>
                         </v-col>
@@ -114,33 +114,30 @@
               <v-sheet rounded="lg" class="" :class="{ 'fade-in': animacaoListaAtiva }">
   
                 <v-expansion-panels variant="accordion" class="">
-                  <v-expansion-panel v-for="(item) in listaTurma" :key="item.nome"
+                  <v-expansion-panel v-for="(item) in listaItens" :key="item.id"
                     :readonly="item.status !== 'Finalizado'" ref="panels" class="rounded-b-lg"
                     style="border-radius: 0px;">
-  
   
                     <v-expansion-panel-title style="height: 5vh;" class="color-painel">
                       <v-row class="d-flex align-center">
   
                         <v-col cols="3" class="d-flex justify-center">
-                          {{ item.user['nome'] }}
+                          {{ item.id }}
                         </v-col>
   
                         <v-col cols="2" class="d-flex justify-center">
-                          {{ item.percentTotal.toFixed(2).replace('.', ',') }} %
+                          {{ item.nestr}} 
                         </v-col>
   
                         <v-col cols="2" class="d-flex justify-center">
-                          {{ item.questoesTotais }}
-                        </v-col>
-  
-                        <v-col cols="3" class="d-flex justify-center">
-                          {{ item.tempoMedio }}
+                          {{ item.tentativas}}
                         </v-col>
   
                         <v-col cols="2" class="d-flex justify-center">
-                          {{ item.nTestes }}
+                          {{ item.tempo }}
                         </v-col>
+  
+                      
   
                         <!-- <v-col cols="3" class="d-flex justify-center">
                           <v-chip :color="getColor(item.status)" :prepend-icon="getIcon(item.status)">
@@ -208,6 +205,7 @@
     data: () => ({
   
       listaTurma: [],
+      listaItens: [],
       carregandoTurmas: true,
       chipValue: '',
       toggle: undefined,
@@ -228,7 +226,8 @@
     created() {
   
     /*   this.$store.dispatch('verificarTokenProfs', { router: this.$router }); */
-      this.listaNomeTurma = this.returnTurmas();
+      //this.listaNomeTurma = this.returnTurmas();
+      this.listaItens = this.returnItens();
   
     },
     methods: {
@@ -260,6 +259,19 @@
           });
   
   
+      },
+
+      returnItens(){
+      
+        axios({ url: 'https://ta-back.onrender.com/professores/dadosItens' , method: 'POST' })
+          .then((response) => {
+            this.listaItens = response.data.itens
+            console.log(this.listaItens);
+          })
+          .catch((error) => {
+            // Tratar erros aqui
+            console.error(error);
+          });
       },
   
       getColor(chipValue) {
