@@ -8,6 +8,10 @@
 
         <v-spacer></v-spacer>
 
+        <v-btn dark @click="logout" prepend-icon="mdi-logout-variant">
+          SAIR
+        </v-btn>
+
       </v-container>
     </v-app-bar>
 
@@ -230,6 +234,11 @@ export default {
 
   },
   methods: {
+
+    logout() {
+      localStorage.clear();
+      this.$router.push('/proflogin');
+    },
 
     toggleIcon(index, value) {
       // Reset all icons
