@@ -84,7 +84,7 @@
                         </v-col>
                         <v-col cols="2" class="d-flex justify-center">
                           <v-btn block :append-icon="icon[3]" :ripple="false" variant="text"
-                            @click="toggleIcon(3, 'tempoMedio')">Tempo total</v-btn>
+                            @click="toggleIcon(3, 'tempoMedio')">Tempo(segundos)</v-btn>
                         </v-col>
                        
                         
@@ -99,14 +99,14 @@
   
               <!-- Mensagem de Seleção de Turma -->
               <div>
-                <v-sheet v-if="mostrarDiv" class="d-flex justify-center align-center rounded-b-lg" height="250"
+                <!-- <v-sheet v-if="mostrarDiv" class="d-flex justify-center align-center rounded-b-lg" height="250"
                   color="grey-lighten-5" border="md">
                   <p class="text-overline placeholder-text"
                     style="color: #cfd8dcb1; font-size: 3rem !important; text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);">
                     Selecione um
                     estrato</p>
   
-                </v-sheet>
+                </v-sheet> -->
   
               </div>
   
@@ -130,7 +130,7 @@
                         </v-col>
   
                         <v-col cols="2" class="d-flex justify-center">
-                          {{ item.tentativas}}
+                          {{ item.acertos}} %
                         </v-col>
   
                         <v-col cols="2" class="d-flex justify-center">
