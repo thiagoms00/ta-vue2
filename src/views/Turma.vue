@@ -26,14 +26,10 @@
                 <v-expansion-panel bg-color="#1E3892" class="rounded-lg">
                   <v-expansion-panel-title class="rounded-lg" v-ripple style="height: 4vh;">
 
-
-
                     <div class="d-flex justify-space-around align-center h-100 w-100">
                       <v-icon icon="mdi-school-outline"> </v-icon>
                       <p> TURMAS </p>
                     </div>
-
-
 
                   </v-expansion-panel-title>
 
@@ -167,32 +163,85 @@
                         <v-tabs v-model="tab" bg-color="orange">
 
                           <v-tab value="dados">
-                            <v-icon icon="mdi-phone"></v-icon>
+                            <v-icon icon="mdi-account"></v-icon>
                             Dados
                           </v-tab>
 
                           <v-tab value="testes">
-                            <v-icon icon="mdi-heart"></v-icon>
+                            <v-icon icon="mdi-animation"></v-icon>
                             Testes
                           </v-tab>
 
                         </v-tabs>
 
-                        <v-tabs-window v-model="tab">
+                        <v-window v-model="tab">
 
-                          <v-tabs-window-item value="dados">
+                          <v-window-item value="dados">
                             <v-card>
-                              <v-card-text>{{ item.user['nome'] }}</v-card-text>
+                              {{ item.user['nome'] }}
                             </v-card>
-                          </v-tabs-window-item>
 
-                          <v-tabs-window-item value="testes">
+                          </v-window-item>
+
+                          <v-window-item value="testes">
+
                             <v-card>
-                              <v-card-text>{{ item.listaDeTestes }}</v-card-text>
-                            </v-card>
-                          </v-tabs-window-item>
 
-                        </v-tabs-window>
+                              <v-table density="compact">
+
+                                <thead>
+                                  <tr>
+                                    <th class="text-left">
+                                      Disciplina
+                                    </th>
+                                    <th class="text-left">
+                                      Extrato Final
+                                    </th>
+                                    <th class="text-left">
+                                      Quest. Feitas
+                                    </th>
+                                    <th class="text-left">
+                                      % de Acerto
+                                    </th>
+                                    <th class="text-left">
+                                      N. de Hab.
+                                    </th>
+                                    <th class="text-left">
+                                      Tempo do Teste
+                                    </th>
+                                    <th class="text-left">
+                                      Status
+                                    </th>
+                                  </tr>
+                                </thead>
+
+                                <tbody>
+                                  <tr v-for="teste in item.listaDeTestes" :key="teste._id">
+                                    <td>{{ teste.disciplina }}</td>
+                                    <td>{{ teste.extratoFinal }}</td>
+                                    <td>{{ teste.numero_questoes_feitas }}</td>
+                                    <td>{{ (teste.porcentagem_questoes || 0).toFixed(2).replace('.', ',') }}</td>
+                                    <td>{{ teste.nDeHabilidades }}</td>
+                                    <td>{{ (teste.tempoDoTeste || 0).toFixed(2).replace('.', ',') }} s </td>
+                                    <td>
+                                      <v-chip size="small" :color="getColor(teste.status)">
+                                        <v-icon :icon="getIcon(teste.status)" start></v-icon>
+                                        {{ teste.status }}
+                                      </v-chip>
+                                    </td>
+                                  </tr>
+                                </tbody>
+
+                              </v-table>
+
+                            </v-card>
+
+
+                          </v-window-item>
+
+                        </v-window>
+
+
 
                       </v-card>
 
@@ -435,8 +484,6 @@ export default {
         objeto.chartDataErradas = novoChartDataErradas;
       }
 
-      // console.log(lista)
-
       return lista;
 
     },
@@ -580,7 +627,7 @@ export default {
 }
 
 .color-painel.v-expansion-panel-title--active {
-  background-color: #CFD8DC;
-  /* Substitua "blue" pela cor desejada para o texto expandido */
+  background-color: #bedb19;
 }
+
 </style>
