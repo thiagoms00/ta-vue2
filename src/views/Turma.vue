@@ -44,7 +44,7 @@
 
                       <v-list-item v-for="(item, index) in listaNomeTurma" :key="index" density="compact"
                         class="d-flex justify-center text-subtitle-2" @click="selecionaTurma(item.id)">
-                        <v-list-item-title v-if="!animateCarregandoTurmas" >{{ item.nome }}</v-list-item-title>
+                        <v-list-item-title v-if="!animateCarregandoTurmas">{{ item.nome }}</v-list-item-title>
                         <v-progress-circular v-if="animateCarregandoTurmas" indeterminate size="24" />
                       </v-list-item>
 
@@ -76,21 +76,25 @@
                       </v-col>
                       <v-col cols="2" class="d-flex justify-center">
                         <v-btn block :append-icon="icon[1]" :ripple="false" variant="text"
-                          @click="toggleIcon(1, 'percentTotal')">% Acertos</v-btn>
+                          @click="toggleIcon(1, 'percentTotal')">%
+                          Acertos</v-btn>
                       </v-col>
                       <v-col cols="2" class="d-flex justify-center">
                         <v-btn :append-icon="icon[2]" :ripple="false" variant="text"
-                          @click="toggleIcon(2, 'questaoTotal')">QUESTõES totais</v-btn>
+                          @click="toggleIcon(2, 'questaoTotal')">QUESTõES
+                          totais</v-btn>
                       </v-col>
                       <v-col cols="3" class="d-flex justify-center">
                         <v-btn block :append-icon="icon[3]" :ripple="false" variant="text"
-                          @click="toggleIcon(3, 'tempoMedio')">Tempo Médio</v-btn>
+                          @click="toggleIcon(3, 'tempoMedio')">Tempo
+                          Médio</v-btn>
                       </v-col>
                       <v-col cols="2" class="d-flex justify-center">
                         <v-btn block :append-icon="icon[4]" :ripple="false" variant="text"
-                          @click="toggleIcon(4, 'nTeste')">N de testes</v-btn>
+                          @click="toggleIcon(4, 'nTeste')">N de
+                          testes</v-btn>
                       </v-col>
-                      
+
 
                     </v-row>
 
@@ -117,9 +121,8 @@
             <v-sheet rounded="lg" class="" :class="{ 'fade-in': animacaoListaAtiva }">
 
               <v-expansion-panels variant="accordion">
-                <v-expansion-panel v-for="(item) in listaTurma" :key="item.nome"
-                  :readonly="item.nTestes === 0" ref="panels" class="rounded-b-lg"
-                  style="border-radius: 0px;">
+                <v-expansion-panel v-for="(item) in listaTurma" :key="item.nome" :readonly="item.nTestes === 0"
+                  ref="panels" class="rounded-b-lg" style="border-radius: 0px;">
 
 
                   <v-expansion-panel-title style="height: 5vh;" class="color-painel">
@@ -157,15 +160,45 @@
 
                   <v-expansion-panel-text>
 
-                    <!-- Dados especificos de um aluno -->
-                    <v-expansion-panels variant="inset">
-                      <v-expansion-panel v-for="(teste) in item.listaDeTestes" :key="teste.disciplina">
-                        <v-expansion-panel-title>
-                            {{ teste.disciplina }}
-                        </v-expansion-panel-title>
-                      </v-expansion-panel>
-                
-                    </v-expansion-panels>
+                    <v-container>
+
+                      <v-card>
+
+                        <v-tabs v-model="tab" bg-color="orange">
+
+                          <v-tab value="dados">
+                            <v-icon icon="mdi-phone"></v-icon>
+                            Dados
+                          </v-tab>
+
+                          <v-tab value="testes">
+                            <v-icon icon="mdi-heart"></v-icon>
+                            Testes
+                          </v-tab>
+
+                        </v-tabs>
+
+                        <v-tabs-window v-model="tab">
+
+                          <v-tabs-window-item value="dados">
+                            <v-card>
+                              <v-card-text>{{ item.user['nome'] }}</v-card-text>
+                            </v-card>
+                          </v-tabs-window-item>
+
+                          <v-tabs-window-item value="testes">
+                            <v-card>
+                              <v-card-text>{{ item.listaDeTestes }}</v-card-text>
+                            </v-card>
+                          </v-tabs-window-item>
+
+                        </v-tabs-window>
+
+                      </v-card>
+
+
+                    </v-container>
+
 
                   </v-expansion-panel-text>
 
@@ -214,6 +247,7 @@ export default {
     mostrarDiv: true,
     listaNomeTurma: [],
     animateCarregandoTurmas: false,
+    tab: 'dados',
 
 
 
@@ -421,7 +455,7 @@ export default {
       axios({ url: 'https://ta-back.onrender.com/professores/dadosTurma', data, method: 'POST' })
         .then((response) => {
           this.listaTurma = response.data.turma
-          
+
 
         })
         .catch((error) => {
@@ -435,7 +469,7 @@ export default {
           console.log(this.listaTurma)
           this.animateCarregandoTurmas = false;
         });
-      
+
 
     },
 
