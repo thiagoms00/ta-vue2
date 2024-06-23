@@ -5,7 +5,10 @@
           <v-avatar class="me-4 " color="blue-lighten-4" size="32"></v-avatar>
   
           <v-btn v-for="link in links" :key="link" :text="link" variant="text"></v-btn>
-  
+          <v-btn @click="mudaDados('itens')">Itens</v-btn>
+          <v-btn @click="mudaDados('habilidades')">Habilidades</v-btn>
+          <v-btn>Sair</v-btn>
+
           <v-spacer></v-spacer>
   
         </v-container>
@@ -24,26 +27,33 @@
                    
                     
                   <v-expansion-panel bg-color="#1E3892" class="rounded-lg">
-                    <v-expansion-panel-title class="rounded-lg" v-ripple style="height: 4vh;">
-  
+                    <v-expansion-panel-title class="rounded-lg" v-ripple style="height: 4vh;" v-if="dadosExibidos=='itens'">
                       <div class="d-flex justify-space-around align-center h-100 w-100">
                         <v-icon icon="mdi-school-outline"> </v-icon>
                         <p> ESTRATOS </p>
                       </div>
                     </v-expansion-panel-title>
+
+                    <v-expansion-panel-title class="rounded-lg" v-ripple style="height: 4vh;" v-else-if="dadosExibidos=='habilidades'">
+                      <div class="d-flex justify-space-around align-center h-100 w-100">
+                        <v-icon icon="mdi-school-outline"> </v-icon>
+                        <p> HABILIDADES </p>
+                      </div>
+                    </v-expansion-panel-title>
+                    
   
                     <v-divider></v-divider>
   
                     <v-expansion-panel-text class="rounded-lg">
-                      <v-list class="pa-0">
-  
+
+                      <v-list class="pa-0" v-if="dadosExibidos=='itens'">
                         <v-list-item v-for="(item, index) in nomeEstratos" :key="index" density="compact"
                           class="d-flex justify-center text-subtitle-2" @click="mudaEstrato(item.num)">
                           <v-list-item-title v-if="!animateCarregandoTurmas" >{{ item.nome }}</v-list-item-title>
                           <v-progress-circular v-if="animateCarregandoTurmas" indeterminate size="24" />
                         </v-list-item>
-  
                       </v-list>
+
                     </v-expansion-panel-text>
                   </v-expansion-panel>
 
@@ -76,7 +86,7 @@
                         </v-col>
                         <v-col cols="2" class="d-flex justify-center">
                           <v-btn block :append-icon="icon[1]" :ripple="false" variant="text"
-                            @click="toggleIcon(1, 'percentTotal')">Habilidade</v-btn>
+                            @click="toggleIcon(1, 'percentTotal')">{{ nome_coluna2 }}</v-btn>
                         </v-col>
                         <v-col cols="2" class="d-flex justify-center">
                           <v-btn block :append-icon="icon[2]" :ripple="false" variant="text"
@@ -110,11 +120,11 @@
   
               </div>
   
-              <!-- Iteração com os Dados dos Alunos -->
+              <!-- Iteração com os Dados dos Itens -->
               <v-sheet rounded="lg" class="" :class="{ 'fade-in': animacaoListaAtiva }">
-  
+
                 <v-expansion-panels variant="accordion" class="">
-                  <v-expansion-panel v-for="(item) in listaItens" :key="item.id"
+                  <v-expansion-panel v-for="(item) in listaItens" :key="item.id" v-if="dadosExibidos=='itens'"
                     :readonly="item.status !== 'Finalizado'" ref="panels" class="rounded-b-lg"
                     style="border-radius: 0px;">
   
@@ -126,7 +136,7 @@
                         </v-col>
   
                         <v-col cols="2" class="d-flex justify-center">
-                          {{ item.nestr}} 
+                          {{ item.habilidade}} 
                         </v-col>
   
                         <v-col cols="2" class="d-flex justify-center">
@@ -136,46 +146,52 @@
                         <v-col cols="2" class="d-flex justify-center">
                           {{ item.tempo }}
                         </v-col>
-  
-                      
-  
-                        <!-- <v-col cols="3" class="d-flex justify-center">
-                          <v-chip :color="getColor(item.status)" :prepend-icon="getIcon(item.status)">
-                            {{ item.status }}
-                          </v-chip>
-                        </v-col> -->
                       </v-row>
   
                     </v-expansion-panel-title>
+
+                  </v-expansion-panel>
+                </v-expansion-panels> 
+
+                <v-expansion-panels variant="accordion" class="">
+                  <v-expansion-panel v-for="(item) in listaHabilidades" :key="item.id" v-if="dadosExibidos=='habilidades'"
+                    :readonly="item.status !== 'Finalizado'" ref="panels" class="rounded-b-lg"
+                    style="border-radius: 0px;">
   
+                    <v-expansion-panel-title style="height: 5vh;" class="color-painel">
+                      <v-row class="d-flex align-center">
   
-                    <v-expansion-panel-text>
-  
-                      <v-divider></v-divider>
-  
-                      <v-row justify="space-around" no-gutters>
-                        <v-col cols="4 pa-2 d-flex w-100 flex-column justify-center">
-                          <p class="text-h5 text-center mb-4">
-                            Questões Corretas
-                          </p>
-                          <Chart :chartId="'correctChart'" :chartData="item.chartData" />
+                        <v-col cols="3" class="d-flex justify-center">
+                          {{ item.id }}
                         </v-col>
   
-                        <v-col cols="4">
-                          <p class="text-h5">
-                            Questões Incorretas
-                          </p>
-                          <Chart :chartId="'incorrectChart'" :chartData="item.chartDataErradas" />
+                        <v-col cols="2" class="d-flex justify-center">
+                          {{ item.habilidade}} 
+                        </v-col>
+  
+                        <v-col cols="2" class="d-flex justify-center">
+                          {{ item.acertos}} %
+                        </v-col>
+  
+                        <v-col cols="2" class="d-flex justify-center">
+                          {{ item.tempo }}
                         </v-col>
                       </v-row>
   
-                    </v-expansion-panel-text>
-  
+                    </v-expansion-panel-title>
+
                   </v-expansion-panel>
-                </v-expansion-panels>
-  
+                </v-expansion-panels> 
+
+                
   
               </v-sheet>
+
+              
+              
+             
+
+
             </v-col>
           </v-row>
         </v-container>
@@ -186,9 +202,12 @@
   <script setup>
   const links = [
     'TURMAS',
-    'ITENS',
     'NOVOS ITENS',
-    'SAIR',
+   
+  ]
+
+  const buttons = [
+
   ]
   </script>
   
@@ -203,16 +222,25 @@
     },
   
     data: () => ({
+
+      dadosExibidos : 'itens',
   
       listaTurma: [],
       listaItens: [], //Itens sendo exibidos, começando pelo estrato 1.
+      listaHabilidades : [],
 
       listaItens0 : [],
       listaItens1 : [],
       listaItens2 : [],
       listaItens3 : [],
-
+      
       nomeEstratos : [],
+
+      nome_coluna1: '',
+      nome_coluna2: 'Habilidades',
+      nome_coluna3: '',
+      nome_coluna4: '',
+      
 
       carregandoTurmas: true,
       chipValue: '',
@@ -235,6 +263,7 @@
   
     /*   this.$store.dispatch('verificarTokenProfs', { router: this.$router }); */
       //this.listaNomeTurma = this.returnTurmas();
+      this.dadosExibidos = 'itens'
       this.listaItens = this.returnItens();
 
       /* Separando itens com base no estrato */
@@ -280,7 +309,7 @@
             this.listaItens1 = response.data.itens.listaItens1
             this.listaItens2 = response.data.itens.listaItens2
             this.listaItens3 = response.data.itens.listaItens3
-            
+            console.log(this.listaItens )
             this.nomeEstratos[0] = {
               "nome" : "Estrato 0",
               "num" : 0,
@@ -298,11 +327,8 @@
               "num" : 3,
             }
 
-            
-
-
-
           })
+          
           .catch((error) => {
             // Tratar erros aqui
             console.error(error);
@@ -323,6 +349,33 @@
         else if(nestr==3){
           this.listaItens = this.listaItens3;
         }
+      },
+
+      returnHabilidades(){
+        axios({ url: 'https://ta-back.onrender.com/professores/dadosHabilidades' , method: 'POST' })
+          .then((response) => {
+            this.listaHabilidades = response.data.habilidades;
+            console.log(this.listaHabilidades)
+          })
+
+          .catch((error) => {
+            // Tratar erros aqui
+            console.error(error);
+          });
+      },
+
+      mudaDados(dados){
+        this.returnHabilidades();
+        if(dados=='habilidades'){
+          this.dadosExibidos = 'habilidades';
+          this.nome_coluna2 = 'Descrição';
+        }
+        else if(dados=='itens'){
+          this.dadosExibidos = 'itens';
+          this.nome_coluna2 = 'Habilidades';
+
+        }
+      
       },
   
       getColor(chipValue) {
