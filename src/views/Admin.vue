@@ -37,8 +37,8 @@
                     <v-expansion-panel-text class="rounded-lg">
                       <v-list class="pa-0">
   
-                        <v-list-item v-for="(item, index) in listaNomeTurma" :key="index" density="compact"
-                          class="d-flex justify-center text-subtitle-2" @click="selecionaTurma(item.id)">
+                        <v-list-item v-for="(item, index) in nomeEstratos" :key="index" density="compact"
+                          class="d-flex justify-center text-subtitle-2" @click="mudaEstrato(item.num)">
                           <v-list-item-title v-if="!animateCarregandoTurmas" >{{ item.nome }}</v-list-item-title>
                           <v-progress-circular v-if="animateCarregandoTurmas" indeterminate size="24" />
                         </v-list-item>
@@ -205,7 +205,15 @@
     data: () => ({
   
       listaTurma: [],
-      listaItens: [],
+      listaItens: [], //Itens sendo exibidos, começando pelo estrato 1.
+
+      listaItens0 : [],
+      listaItens1 : [],
+      listaItens2 : [],
+      listaItens3 : [],
+
+      nomeEstratos : [],
+
       carregandoTurmas: true,
       chipValue: '',
       toggle: undefined,
@@ -228,6 +236,8 @@
     /*   this.$store.dispatch('verificarTokenProfs', { router: this.$router }); */
       //this.listaNomeTurma = this.returnTurmas();
       this.listaItens = this.returnItens();
+
+      /* Separando itens com base no estrato */
   
     },
     methods: {
@@ -263,15 +273,56 @@
 
       returnItens(){
       
-        axios({ url: 'https://ta-back.onrender.com/professores/dadosItens' , method: 'POST' })
+        axios({ url: 'http://localhost:5000/professores/dadosItens' , method: 'POST' })
           .then((response) => {
-            this.listaItens = response.data.itens
-            console.log(this.listaItens);
+            this.listaItens = response.data.itens.listaItens1
+            this.listaItens0 = response.data.itens.listaItens0
+            this.listaItens1 = response.data.itens.listaItens1
+            this.listaItens2 = response.data.itens.listaItens2
+            this.listaItens3 = response.data.itens.listaItens3
+            
+            this.nomeEstratos[0] = {
+              "nome" : "Estrato 0",
+              "num" : 0,
+            }
+            this.nomeEstratos[1] = {
+              "nome" : "Estrato 1",
+              "num" : 1,
+            }
+            this.nomeEstratos[2] = {
+              "nome" : "Estrato 2",
+              "num" : 2,
+            }
+            this.nomeEstratos[3] = {
+              "nome" : "Estrato 3",
+              "num" : 3,
+            }
+
+            
+
+
+
           })
           .catch((error) => {
             // Tratar erros aqui
             console.error(error);
           });
+      },
+
+      mudaEstrato(nestr){  
+        //Muda o estrato exibido.                  
+        if(nestr==0){
+          this.listaItens = this.listaItens0;
+        }
+        else if(nestr==1){
+          this.listaItens = this.listaItens1;
+        }
+        else if(nestr==2){
+          this.listaItens = this.listaItens2;
+        }
+        else if(nestr==3){
+          this.listaItens = this.listaItens3;
+        }
       },
   
       getColor(chipValue) {
