@@ -273,7 +273,7 @@
 
       returnItens(){
       
-        axios({ url: 'http://localhost:5000/professores/dadosItens' , method: 'POST' })
+        axios({ url: 'https://ta-back.onrender.com/professores/dadosItens' , method: 'POST' })
           .then((response) => {
             this.listaItens = response.data.itens.listaItens1
             this.listaItens0 = response.data.itens.listaItens0
