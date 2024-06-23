@@ -202,7 +202,6 @@
   <script setup>
   const links = [
     'TURMAS',
-    'NOVOS ITENS',
    
   ]
 
