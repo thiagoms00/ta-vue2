@@ -116,9 +116,9 @@
             <!-- Iteração com os Dados dos Alunos -->
             <v-sheet rounded="lg" class="" :class="{ 'fade-in': animacaoListaAtiva }">
 
-              <v-expansion-panels variant="accordion" class="">
+              <v-expansion-panels variant="accordion">
                 <v-expansion-panel v-for="(item) in listaTurma" :key="item.nome"
-                  :readonly="item.status !== 'Finalizado'" ref="panels" class="rounded-b-lg"
+                  :readonly="item.nTestes === 0" ref="panels" class="rounded-b-lg"
                   style="border-radius: 0px;">
 
 
@@ -138,7 +138,7 @@
                       </v-col>
 
                       <v-col cols="3" class="d-flex justify-center">
-                        {{ item.tempoMedio }}
+                        {{ item.tempoMedio.toFixed(2).replace('.', ',') }} s
                       </v-col>
 
                       <v-col cols="2" class="d-flex justify-center">
@@ -157,23 +157,15 @@
 
                   <v-expansion-panel-text>
 
-                    <v-divider></v-divider>
-
-                    <v-row justify="space-around" no-gutters>
-                      <v-col cols="4 pa-2 d-flex w-100 flex-column justify-center">
-                        <p class="text-h5 text-center mb-4">
-                          Questões Corretas
-                        </p>
-                        <Chart :chartId="'correctChart'" :chartData="item.chartData" />
-                      </v-col>
-
-                      <v-col cols="4">
-                        <p class="text-h5">
-                          Questões Incorretas
-                        </p>
-                        <Chart :chartId="'incorrectChart'" :chartData="item.chartDataErradas" />
-                      </v-col>
-                    </v-row>
+                    <!-- Dados especificos de um aluno -->
+                    <v-expansion-panels variant="inset">
+                      <v-expansion-panel v-for="(teste) in item.listaDeTestes" :key="teste.disciplina">
+                        <v-expansion-panel-title>
+                            {{ teste.disciplina }}
+                        </v-expansion-panel-title>
+                      </v-expansion-panel>
+                
+                    </v-expansion-panels>
 
                   </v-expansion-panel-text>
 
