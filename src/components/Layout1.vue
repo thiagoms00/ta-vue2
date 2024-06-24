@@ -363,6 +363,7 @@ export default {
             firstQuestion: true,               //Flag que vai ser usada para determinar se o usuario respondeu pelo menos uma questão. 
             extrato1Flag: false,               //Vai ser usado para determinar se o usuario já foi reprovado no extrato1.
             changeTestAudio: false,
+            indiceEs1 : 0,                        //Índice do Estrato n (inicial).
 
             m1Key: 0,                            //Chave do layout1.
             m2Key: 0,                            //Chave do layout2.
@@ -392,6 +393,7 @@ export default {
                 termina: false,
                 firstQuestion: true,
                 qtdResp : 0,
+                indiceEs1:0,
             },
 
             dadosTeste2 : {             //Objeto com os dados da parte 2 do teste.
@@ -1161,7 +1163,7 @@ export default {
 
         },
         
-        resumeTest(){                                          
+        resumeTest(){                                       //Função que resume os dados do teste, caso ele tenha sido interrompido.                                      
             this.ordem = this.dadosTeste.ordemQuestoes;
             this.nq = this.dadosTeste.nq;
             this.questao_id = this.dadosTeste.questao_id;
@@ -1176,6 +1178,7 @@ export default {
             this.termina = this.dadosTeste.termina;
             this.firstQuestion = this.dadosTeste.firstQuestion;
             this.qtdResp = this.dadosTeste.qtdResp;
+            this.indiceEs1 = this.dadosTeste.indiceEs1;
             
             this.PSR = this.dadosTeste.dadosPSR;
             this.PS = 0.5;
@@ -1188,7 +1191,6 @@ export default {
             console.log('Numero do extrato: ' + this.nestr);
             console.log('Indice da questão: ' + this.ind_questao)
 
-            //Editar esta parte com base no ano do aluno????
 
             switch (this.dadosTeste.extratoAtual){
                 case 0:
@@ -1314,7 +1316,7 @@ export default {
             this.PS = 0.5;
             this.pouts = 0.95;
             this.poutn = 0.05;
-            this.jquest = 0;
+            //this.jquest = 0;
             this.qtdResp = 0;
             console.log(this.anoAluno);
             /* 
@@ -1418,16 +1420,12 @@ export default {
             }
 
             this.tempoFimQuestao = new Date();
-
-            
-
-            auxQuestao.tempoQuestao = ((this.tempoFimQuestao - this.tempoInicioQuestao) / 1000)
+            auxQuestao.tempoQuestao = ((this.tempoFimQuestao - this.tempoInicioQuestao) / 1000);
 
             this.dadosTeste.questoesRespondidas.push(auxQuestao);    
 
             //Adiciona no array de questoes respondidas.
-            //console.log(this.seq_prob_dom);
-            //console.log(this.seq_prob_ndom);
+    
 
             let prs = this.multiplica_array(this.seq_prob_dom);                      //probabiliade da sequência de respostas, dado que domine o conteudo
             let prn = this.multiplica_array(this.seq_prob_ndom);                     //probabiliade da sequência de respostas, dado que não domine o conteudo
@@ -1468,7 +1466,7 @@ export default {
                         this.dadosTeste.jiter = 0;
                     
 
-                        this.resetaExtrato(this.nestr, 0);
+                        this.resetaExtrato(this.nestr, this.indiceEs1);
 
                     } else if (this.PSR < this.poutn && this.qtdResp >= 10) {     // reprovação no estrato 0
                         this.resultado = -1;
@@ -1479,7 +1477,6 @@ export default {
                         if (this.termina === false) {                    //Flag utilizada para determinar o envio dos dados do teste
                             //Enviar dados pro backend
                             this.popupIntervalo();
-                            //console.log("Fim do teste principal, iniciando coleta de dados.");
                             this.changeTestAudio = true;
                             this.resetaOrdem();
                             this.dadosTeste.extrato1Flag=false;
@@ -1513,13 +1510,13 @@ export default {
                     break;
 
 
-                case 1:                                     //ESTRATO 1
+                case 1:                                 //ESTRATO 1
                     if (this.PSR > this.pouts && this.qtdResp >= 10) {            // aprovação no estrato 1
                         this.resultado = 1;
                         console.log("Fim do estrato 1: Avançando para o Estrato 2");
                         this.nestr = 2;
                         this.dadosTeste.extratoAtual = this.nestr;
-                        this.dadosTeste.indiceAtual = 0;            //Usado caso o teste seja retomado.
+                        this.dadosTeste.indiceAtual = 0;                          //Usado caso o teste seja retomado.
                         this.dadosTeste.dadosPSR = 0.5;
                         this.dadosTeste.seqProbDom.fill(1);
                         this.dadosTeste.seqProbNdom.fill(1);
@@ -1538,7 +1535,11 @@ export default {
                             this.extrato1Flag = true;
                             this.dadosTeste.extrato1Flag = true;
                             this.dadosTeste.extratoAtual = this.nestr;
-                            this.dadosTeste.indiceAtual = 0;            //Usado caso o teste seja retomado.
+
+                            this.indiceEs1 = this.ind_questao;            //Armazena o índice atual do estrato1.
+                            this.dadosTeste.indiceEs1 = this.indiceEs1;   //Usado caso o teste seja retomado.
+
+                            this.dadosTeste.indiceAtual = 0;              //Usado caso o teste seja retomado.
                             this.dadosTeste.dadosPSR = 0.5;
                             this.dadosTeste.seqProbDom.fill(1);
                             this.dadosTeste.seqProbNdom.fill(1);
@@ -1677,8 +1678,6 @@ export default {
                 this.changeByID();
             }
 
-
-
         },
 
         async changeQuestion() {
@@ -1792,14 +1791,11 @@ export default {
             ordem_2 = this.randomizaOrdem(2);
             ordem_3 = this.randomizaOrdem(3);
 
-            //ordem_0 = [0,1,2,3,4,5,6,7,8,9];                 //Para testar sequencialmente, comentar depois.
-            //ordem_1 = [0,1,2,3,4,5,6,7,8,9,10,11];           //Para testar sequencialmente, comentar depois.  
-
             this.ordem = [ordem_0, ordem_1, ordem_2, ordem_3];
             this.dadosTeste.ordemQuestoes = this.ordem;        //Para o cookie do aluno.
         },
 
-        sendDataTest(dataTest) {
+        sendDataTest(dataTest) {   //Faz o envio de dados do teste principal.
             
             dataTest.id = localStorage.getItem('id')
             dataTest.idTeste = localStorage.getItem('idTeste')
@@ -1816,7 +1812,7 @@ export default {
             });
         },
 
-        sendDataTest2(dataTest) {
+        sendDataTest2(dataTest) {  //Faz o envio de dados do teste secundario.
             
             dataTest.id = localStorage.getItem('id')
             dataTest.idTeste = localStorage.getItem('idTeste')
