@@ -154,7 +154,7 @@
                   </v-expansion-panel-title>
 
 
-                  <v-expansion-panel-text>
+                  <v-expansion-panel-text class="border-bottom-orange">
 
                     <v-container>
 
@@ -627,7 +627,12 @@ export default {
 }
 
 .color-painel.v-expansion-panel-title--active {
-  background-color: #bedb19;
+  border-top: 2px solid orange;
+  box-shadow: inset 0 0 -5 -5 10px rgba(0, 0, 0, 0.5); /* Sombra interna */
+}
+
+.border-bottom-orange {
+  border-bottom: 2px solid orange; /* Ajuste a espessura e a cor conforme necessário */
 }
 
 </style>
