@@ -987,7 +987,7 @@ export default {
            'nq' : Vetor que vai conter o Numero de questões presente nos extratos.
            'questao_id': Matriz que vai conter o ID de cada questão.
            'probabilidades_dom e naodom' : Matriz com as probabilidades escolher ou não uma alternativa, com base no domínio do conteudo.
-           'ordem': Matriz com a ordem de questões, separadas por extrato,a questão na posição [0] do extrato 1, é a primeira questão apresentada.
+           'ordem': Matriz com a ordem de questões, separadas por extrato,a questão na posição [0] do estrato 1, é a primeira questão apresentada.
         */
 
         startTest() {
@@ -1071,7 +1071,7 @@ export default {
                 probabilidades_naodom_1[3].push(jsonData1.extrato[i].ds);
 
             }
-            //Extrato 2
+            //Estrato 2
 
             for (let i = 0; i < jsonData2.extrato.length; i++) {
                 probabilidades_domina_2[0].push(jsonData2.extrato[i].ad);
@@ -1375,8 +1375,6 @@ export default {
         async aplicaQuestao(value){                              //Função chamada sempre que o usuario clicar no "continuar"
             console.clear();
 
-         
-
             this.qtdResp++;
             this.dadosTeste.qtdResp = this.qtdResp;
             this.firstQuestion = false;
@@ -1446,20 +1444,20 @@ export default {
 
             /* 
                 Com base no extrato atual, define o proximo extrato a ser utilizado:
-                Extrato 0: Reprovado no extrato 0 ou avança para o extrato 1.
-                Extrato 1: Reprovado no extrato 1 e retrocede para o 0 ou avança para o extrato 2.
-                Extrato 2: Reprovado no extrato 2 ou avança para o extrato 3.
-                Extrato 3: Reprovado ou aprovado no extrato 3.
+                Estrato n-1: Reprovado no estrato n-1 ou avança para o estrato n.
+                Estrato n: Reprovado no estrato n e retrocede para o n-1 ou avança para o estrato n+1.
+                Estrato n+1: Reprovado no estrato n+1 ou avança para o estrato n+2.
+                Estrato n+2: Reprovado ou aprovado no extrato n+2.
     
             */
            
             console.log(this.qtdResp);
             switch (this.nestr) {
 
-                case 0:                                     //EXTRATO 0
-                    if (this.PSR > this.pouts && this.qtdResp >= 10) {            // aprovação no extrato 0
+                case 0:                                     //ESTRATO 0
+                    if (this.PSR > this.pouts && this.qtdResp >= 10) {            // aprovação no estrato 0
                         this.resultado = 1;
-                        console.log("Fim do extrato 0: Avançando para o Extrato 1");
+                        console.log("Fim do estrato 0: Avançando para o Extrato 1");
                         this.nestr = 1;
 
                         this.dadosTeste.extratoAtual = this.nestr;  //Usado caso o teste seja retomado.
@@ -1472,9 +1470,9 @@ export default {
 
                         this.resetaExtrato(this.nestr, 0);
 
-                    } else if (this.PSR < this.poutn && this.qtdResp >= 10) {     // reprovação no extrato 0
+                    } else if (this.PSR < this.poutn && this.qtdResp >= 10) {     // reprovação no estrato 0
                         this.resultado = -1;
-                        console.log("Fim do extrato 0: Reprovado no extrato 0");
+                        console.log("Fim do estrato 0: Reprovado no estrato 0");
                         this.dadosTeste.resultado = 0;
                         console.log(this.dadosTeste);
 
@@ -1499,7 +1497,7 @@ export default {
 
 
                     } else if (this.jiter >= this.nq[this.nestr] - this.jquest) { // termina indefinido
-                        console.log("Fim do extrato 0");
+                        console.log("Fim do estrato 0");
 
                         if (this.termina == false) {
                             this.popupIntervalo();
@@ -1515,10 +1513,10 @@ export default {
                     break;
 
 
-                case 1:                                     //EXTRATO 1
-                    if (this.PSR > this.pouts && this.qtdResp >= 10) {            // aprovação no extrato 1
+                case 1:                                     //ESTRATO 1
+                    if (this.PSR > this.pouts && this.qtdResp >= 10) {            // aprovação no estrato 1
                         this.resultado = 1;
-                        console.log("Fim do extrato 1: Avançando para o Extrato 2");
+                        console.log("Fim do estrato 1: Avançando para o Estrato 2");
                         this.nestr = 2;
                         this.dadosTeste.extratoAtual = this.nestr;
                         this.dadosTeste.indiceAtual = 0;            //Usado caso o teste seja retomado.
@@ -1531,12 +1529,12 @@ export default {
                         this.resetaExtrato(this.nestr, 0);
                          //Usado caso o teste seja retomado.
 
-                    } else if (this.PSR < this.poutn && this.qtdResp >= 10) {     // reprovação no extrato 1
+                    } else if (this.PSR < this.poutn && this.qtdResp >= 10) {     // reprovação no estrato 1
                         this.resultado = -1;
                         this.nestr = 0;
 
-                        if (this.extrato1Flag === false) {      //Aluno foi reprovado pela primeira vez no extrato 1
-                            console.log("Fim do extrato 1: Retrocedendo ao extrato 0");
+                        if (this.extrato1Flag === false) {      //Aluno foi reprovado pela primeira vez no estrato 1
+                            console.log("Fim do estrato 1: Retrocedendo ao estrato 0");
                             this.extrato1Flag = true;
                             this.dadosTeste.extrato1Flag = true;
                             this.dadosTeste.extratoAtual = this.nestr;
@@ -1549,7 +1547,7 @@ export default {
                               //Usado caso o teste seja retomado.
 
                         }
-                        else if (this.extrato1Flag === true) { //Aluno foi reprovado pela segunda vez no extrato 1
+                        else if (this.extrato1Flag === true) { //Aluno foi reprovado pela segunda vez no estrato 1
                             if (this.termina === false) {
                                 //Enviar dados pro backend
                                 this.popupIntervalo();
@@ -1562,7 +1560,7 @@ export default {
                         }
 
                     } else if (this.jiter >= this.nq[this.nestr] - this.jquest) { // termina indefinido
-                        console.log("Fim do extrato 1");
+                        console.log("Fim do estrato 1");
 
                         if (this.termina == false) {
                             this.popupIntervalo();
@@ -1578,7 +1576,7 @@ export default {
                     break;
 
 
-                case 2:                                     //EXTRATO 2
+                case 2:                                     //ESTRATO 2
                     if (this.PSR > this.pouts && this.qtdResp >= 10) {            // aprovação no extrato 2
                         this.resultado = 1;
                         console.log("Fim do extrato 2: Avançando para o Extrato 3");
@@ -1628,10 +1626,10 @@ export default {
                     break;
 
 
-                case 3:                                     //EXTRATO 3
-                    if (this.PSR > this.pouts && this.qtdResp >= 10) {            //Aprovação no extrato 3
+                case 3:                                     //ESTRATO 3
+                    if (this.PSR > this.pouts && this.qtdResp >= 10) {            //Aprovação no estrato 3
                         this.resultado = 1;
-                        console.log("Fim do extrato 3: Aprovado no extrato 3");
+                        console.log("Fim do estrato 3: Aprovado no estrato 3");
                         console.log(this.dadosTeste);
                         if (this.termina === false) {
                             this.popupIntervalo();
@@ -1643,9 +1641,9 @@ export default {
                             this.$router.push('/congratulations');
                             
                         }
-                    } else if (this.PSR < this.poutn && this.qtdResp >= 10) {     // reprovação no extrato 3
+                    } else if (this.PSR < this.poutn && this.qtdResp >= 10) {     // reprovação no estrato 3
                         this.resultado = -1;
-                        console.log("Fim do extrato 3: Reprovado no extrato 3");
+                        console.log("Fim do estrato 3: Reprovado no estrato 3");
                         console.log(this.dadosTeste);
                         this.dadosTeste.resultado = 3;
 
@@ -1658,7 +1656,7 @@ export default {
                             this.$router.push('/congratulations');
                         }
                     } else if (this.jiter >= this.nq[this.nestr] - this.jquest) { // termina indefinido
-                        console.log("Fim do extrato 3");
+                        console.log("Fim do estrato 3");
 
                         if (this.termina == false) {
                             this.popupIntervalo();
