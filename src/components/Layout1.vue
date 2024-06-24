@@ -391,6 +391,7 @@ export default {
                 extrato1Flag: false,
                 termina: false,
                 firstQuestion: true,
+                qtdResp : 0,
             },
 
             dadosTeste2 : {             //Objeto com os dados da parte 2 do teste.
@@ -1174,7 +1175,8 @@ export default {
             this.extrato1Flag = this.dadosTeste.extrato1Flag;
             this.termina = this.dadosTeste.termina;
             this.firstQuestion = this.dadosTeste.firstQuestion;
-
+            this.qtdResp = this.dadosTeste.qtdResp;
+            
             this.PSR = this.dadosTeste.dadosPSR;
             this.PS = 0.5;
             this.pouts = 0.95;
@@ -1376,6 +1378,7 @@ export default {
          
 
             this.qtdResp++;
+            this.dadosTeste.qtdResp = this.qtdResp;
             this.firstQuestion = false;
             this.dadosTeste.firstQuestion = false;
             // "Aplica" uma questão, verificando se o aluno acertou ou não.
