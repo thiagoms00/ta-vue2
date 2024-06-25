@@ -176,13 +176,31 @@
 
                         <v-window v-model="tab">
 
+                          <!-- Tela de dados gerais do aluno -->
                           <v-window-item value="dados">
-                            <v-card>
-                              {{ item.user['nome'] }}
-                            </v-card>
+                            <v-container>
+
+                              <div>
+                                <span class="font-weight-bold"> {{ item.user['nome'] }} </span>
+                                de matrícula
+                                <span class="font-weight-bold"> {{ item.user['mat'] }} </span>
+                              </div>
+
+                              <div>
+                                <v-col cols="4">
+                                  <v-typography variant="h5" class="mb-4">
+                                    Título do Gráfico
+                                  </v-typography>
+                                  <Chart :data="chartData" />
+                                </v-col>
+                              </div>
+
+                            </v-container>
+
 
                           </v-window-item>
 
+                          <!-- Tela da lista de testes do aluno -->
                           <v-window-item value="testes">
 
                             <v-card>
@@ -296,6 +314,7 @@ export default {
     listaNomeTurma: [],
     animateCarregandoTurmas: false,
     tab: 'dados',
+    chartData: [300, 50, 100, 200, 150, 250],
 
 
 
@@ -395,99 +414,6 @@ export default {
 
     },
 
-    getChartDatas(lista) {
-
-      for (let i = 0; i < lista.length; i++) {
-        const objeto = lista[i];
-
-        const dadosHabilidades = this.verificaHabilidades(objeto, true);
-        const dadosHabilidadesErradas = this.verificaHabilidades(objeto, false);
-
-
-        const labels = Array.from({ length: 12 }, (_, i) => `H${(i).toString().padStart(2, '0')}`);
-        const novoChartData = {
-          labels: labels,
-          datasets: [{
-            label: 'Habilidades',
-            data: dadosHabilidades,
-            backgroundColor: [
-              'rgba(255, 99, 132, 0.2)',
-              'rgba(54, 162, 235, 0.2)',
-              'rgba(255, 206, 86, 0.2)',
-              'rgba(75, 192, 192, 0.2)',
-              'rgba(153, 102, 255, 0.2)',
-              'rgba(255, 159, 64, 0.2)',
-              'rgba(50, 205, 50, 0.2)',
-              'rgba(255, 0, 255, 0.2)',
-              'rgba(0, 191, 255, 0.2)',
-              'rgba(255, 140, 0, 0.2)',
-              'rgba(75, 0, 130, 0.2)'
-
-            ],
-            borderColor: [
-              'rgba(255, 99, 132, 1)',
-              'rgba(54, 162, 235, 1)',
-              'rgba(255, 206, 86, 1)',
-              'rgba(75, 192, 192, 1)',
-              'rgba(153, 102, 255, 1)',
-              'rgba(255, 159, 64, 1)',
-              'rgba(50, 205, 50, 1)',
-              'rgba(255, 0, 255, 1)',
-              'rgba(0, 191, 255, 1)',
-              'rgba(255, 140, 0, 1)',
-              'rgba(75, 0, 130, 1)'
-
-            ],
-            borderWidth: 1
-          }]
-        };
-
-        const novoChartDataErradas = {
-          labels: labels,
-          datasets: [{
-            label: 'Habilidades',
-            data: dadosHabilidadesErradas,
-            backgroundColor: [
-              'rgba(255, 99, 132, 0.2)',
-              'rgba(54, 162, 235, 0.2)',
-              'rgba(255, 206, 86, 0.2)',
-              'rgba(75, 192, 192, 0.2)',
-              'rgba(153, 102, 255, 0.2)',
-              'rgba(255, 159, 64, 0.2)',
-              'rgba(50, 205, 50, 0.2)',
-              'rgba(255, 0, 255, 0.2)',
-              'rgba(0, 191, 255, 0.2)',
-              'rgba(255, 140, 0, 0.2)',
-              'rgba(75, 0, 130, 0.2)'
-
-            ],
-            borderColor: [
-              'rgba(255, 99, 132, 1)',
-              'rgba(54, 162, 235, 1)',
-              'rgba(255, 206, 86, 1)',
-              'rgba(75, 192, 192, 1)',
-              'rgba(153, 102, 255, 1)',
-              'rgba(255, 159, 64, 1)',
-              'rgba(50, 205, 50, 1)',
-              'rgba(255, 0, 255, 1)',
-              'rgba(0, 191, 255, 1)',
-              'rgba(255, 140, 0, 1)',
-              'rgba(75, 0, 130, 1)'
-
-            ],
-            borderWidth: 1
-          }]
-        };
-
-
-        objeto.chartData = novoChartData;
-        objeto.chartDataErradas = novoChartDataErradas;
-      }
-
-      return lista;
-
-    },
-
     selecionaTurma(turmaValue) {
 
       this.animateCarregandoTurmas = true;
@@ -559,6 +485,7 @@ export default {
 
   },
   // FIM DO METHODSSSSSSS
+
   computed: {
     ordemTurma() {
       console.log(this.sortOrder);
@@ -615,6 +542,8 @@ export default {
 .color-painel.v-expansion-panel-title--active {
   border-top: 2px solid orange;
   box-shadow: inset 0 0 -5 -5 10px rgba(0, 0, 0, 0.5);
+  background-color: rgba(255, 165, 0, 0.4);
+  /* Laranja com 40% de Opacidade */
 }
 
 .border-bottom-orange {
