@@ -6,6 +6,7 @@
   
           <v-btn v-for="link in links" :key="link" :text="link" variant="text"></v-btn>
           <v-btn @click="mudaDados('itens')">Itens</v-btn>
+          <v-btn @click="mudaDados('novosItens')">Novos Itens</v-btn>
           <v-btn @click="mudaDados('habilidades')">Habilidades</v-btn>
           <v-btn>Sair</v-btn>
 
@@ -22,10 +23,6 @@
   
               <div>
                 <v-expansion-panels>
-                    
-
-                   
-                    
                   <v-expansion-panel bg-color="#1E3892" class="rounded-lg">
                     <v-expansion-panel-title class="rounded-lg" v-ripple style="height: 4vh;" v-if="dadosExibidos=='itens'">
                       <div class="d-flex justify-space-around align-center h-100 w-100">
@@ -34,12 +31,19 @@
                       </div>
                     </v-expansion-panel-title>
 
-                    <v-expansion-panel-title class="rounded-lg" v-ripple style="height: 4vh;" v-else-if="dadosExibidos=='habilidades'">
-                      <div class="d-flex justify-space-around align-center h-100 w-100">
-                        <v-icon icon="mdi-school-outline"> </v-icon>
-                        <p> HABILIDADES </p>
+                    <div class="menu-button" v-else-if="dadosExibidos=='habilidades'">
+                      <div class="d-flex align-center h-100 w-100">
+                        <v-icon icon="mdi-school-outline" class="icon-habilidade"> </v-icon>
+                        <p class="text-habilidade"> HABILIDADES </p>
                       </div>
-                    </v-expansion-panel-title>
+                    </div>
+
+                    <div class="menu-button" v-else-if="dadosExibidos=='novosItens'">
+                      <div class="d-flex align-center h-100 w-100">
+                        <v-icon icon="mdi-school-outline" class="icon-nItens"> </v-icon>
+                        <p class="text-nItens"> NOVOS ITENS </p>
+                      </div>
+                    </div>
                     
   
                     <v-divider></v-divider>
@@ -183,6 +187,36 @@
                   </v-expansion-panel>
                 </v-expansion-panels> 
 
+                <v-expansion-panels variant="accordion" class="">
+                  <v-expansion-panel v-for="(item) in listaNovosItens" :key="item.id" v-if="dadosExibidos=='novosItens'"
+                    :readonly="item.status !== 'Finalizado'" ref="panels" class="rounded-b-lg"
+                    style="border-radius: 0px;">
+  
+                    <v-expansion-panel-title style="height: 5vh;" class="color-painel">
+                      <v-row class="d-flex align-center">
+  
+                        <v-col cols="3" class="d-flex justify-center">
+                          {{ item.id }}
+                        </v-col>
+  
+                        <v-col cols="2" class="d-flex justify-center">
+                          {{ item.habilidade}} 
+                        </v-col>
+  
+                        <v-col cols="2" class="d-flex justify-center">
+                          {{ item.acertos}} %
+                        </v-col>
+  
+                        <v-col cols="2" class="d-flex justify-center">
+                          {{ item.tempo }}
+                        </v-col>
+                      </v-row>
+  
+                    </v-expansion-panel-title>
+
+                  </v-expansion-panel>
+                </v-expansion-panels> 
+
                 
   
               </v-sheet>
@@ -227,6 +261,7 @@
       listaTurma: [],
       listaItens: [], //Itens sendo exibidos, começando pelo estrato 1.
       listaHabilidades : [],
+      listaNovosItens : [],
 
       listaItens0 : [],
       listaItens1 : [],
@@ -363,9 +398,22 @@
           });
       },
 
+      returnNovosItens(){
+        axios({ url: 'https://ta-back.onrender.com/professores/dadosNovosItens' , method: 'POST' })
+          .then((response) => {
+            this.listaNovosItens = response.data.novosItens;
+            console.log(this.listaNovosItens)
+          })
+
+          .catch((error) => {
+            // Tratar erros aqui
+            console.error(error);
+          });
+      },
+
       mudaDados(dados){
-        this.returnHabilidades();
         if(dados=='habilidades'){
+          this.returnHabilidades();
           this.dadosExibidos = 'habilidades';
           this.nome_coluna2 = 'Descrição';
         }
@@ -373,6 +421,11 @@
           this.dadosExibidos = 'itens';
           this.nome_coluna2 = 'Habilidades';
 
+        }
+        else if(dados=='novosItens'){
+          this.returnNovosItens(); 
+          this.dadosExibidos = 'novosItens';
+          this.nome_coluna2 = 'Habilidades';
         }
       
       },
@@ -618,7 +671,17 @@
     src: url(../assets/fonts/Manrope/Manrope-Regular.ttf);
   }
 
+  .menu-button{
+    height: 5vh !important;
+  }
 
+  .icon-habilidade, .icon-nItens {
+    margin-left: 3vw;
+  }
+
+  .text-habilidade, .text-nItens{
+    margin-left: 1.4vw;
+  }
   .placeholder-text{
     font-family: sans-serif;
     font-weight: 600;
