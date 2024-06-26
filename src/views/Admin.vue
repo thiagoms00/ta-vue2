@@ -85,20 +85,30 @@
                       <v-row class="dflex align-center">
   
                         <v-col cols="3" class="d-flex justify-center">
-                          <v-btn block :append-icon="icon[0]" :ripple="false" variant="text"
-                            @click="toggleIcon(0, 'nome')">Código</v-btn>
+                          <v-btn v-if="dadosExibidos=='itens' || dadosExibidos=='novosItens' " block :append-icon="icon[0]" :ripple="false" variant="text"
+                          >Código</v-btn>
+
+                          <v-btn v-else block :append-icon="icon[0]" :ripple="false" variant="text"
+                            @click="toggleIcon(0, 'id')">Código</v-btn>
+                            
                         </v-col>
-                        <v-col cols="2" class="d-flex justify-center">
+
+                        <v-col cols="2" class="d-flex justify-center" v-if="dadosExibidos=='itens' || dadosExibidos=='novosItens'">
                           <v-btn block :append-icon="icon[1]" :ripple="false" variant="text"
-                            @click="toggleIcon(1, 'percentTotal')">{{ nome_coluna2 }}</v-btn>
+                            @click="toggleIcon(1, 'habilidades')">{{ nome_coluna2 }}</v-btn>
                         </v-col>
+                        <v-col cols="4" class="d-flex justify-center" v-if="dadosExibidos=='habilidades'">
+                          <v-btn block :append-icon="icon[1]" :ripple="false" variant="text"
+                            @click="">{{ nome_coluna2 }}</v-btn>
+                        </v-col>
+
                         <v-col cols="2" class="d-flex justify-center">
-                          <v-btn block :append-icon="icon[2]" :ripple="false" variant="text"
-                            @click="toggleIcon(2, 'questaoTotal')">% Acertos</v-btn>
+                          <v-btn class="acertos-button" block :append-icon="icon[2]" :ripple="false" variant="text"
+                            @click="toggleIcon(2, 'acertos')">% Acertos</v-btn>
                         </v-col>
                         <v-col cols="2" class="d-flex justify-center">
                           <v-btn block :append-icon="icon[3]" :ripple="false" variant="text"
-                            @click="toggleIcon(3, 'tempoMedio')">Tempo(segundos)</v-btn>
+                            @click="toggleIcon(3, 'tempo')">Tempo(segundos)</v-btn>
                         </v-col>
                        
                         
@@ -169,8 +179,8 @@
                           {{ item.id }}
                         </v-col>
   
-                        <v-col cols="2" class="d-flex justify-center">
-                          {{ item.habilidade}} 
+                        <v-col cols="4" class="d-flex justify-center">
+                          {{ item.descricao}} 
                         </v-col>
   
                         <v-col cols="2" class="d-flex justify-center">
@@ -271,7 +281,7 @@
       nomeEstratos : [],
 
       nome_coluna1: '',
-      nome_coluna2: 'Habilidades',
+      nome_coluna2: 'Habilidade',
       nome_coluna3: '',
       nome_coluna4: '',
       
@@ -299,7 +309,7 @@
       //this.listaNomeTurma = this.returnTurmas();
       this.dadosExibidos = 'itens'
       this.listaItens = this.returnItens();
-
+      
       /* Separando itens com base no estrato */
   
     },
@@ -344,6 +354,7 @@
             this.listaItens2 = response.data.itens.listaItens2
             this.listaItens3 = response.data.itens.listaItens3
             console.log(this.listaItens )
+
             this.nomeEstratos[0] = {
               "nome" : "Estrato 0",
               "num" : 0,
@@ -385,6 +396,17 @@
         }
       },
 
+      filtroBotoes(tipo,atr){      //realiza o filtro na página com base no tipo(habilidades,itens,novositens) e atributo.
+        if(tipo=='itens'){            //Itens ou novos itens
+          if(atr=='id'){              //Filtro do ID
+            this.listaItens.sort((a, b) => a.id - b.id);
+          }
+          else if(atr=='habilidade'){ //Filtro da habilidade
+            this.listaItens.sort((a, b) => a.habilidade - b.habilidade);
+          }
+        }
+      },
+
       returnHabilidades(){
         axios({ url: 'https://ta-back.onrender.com/professores/dadosHabilidades' , method: 'POST' })
           .then((response) => {
@@ -419,13 +441,13 @@
         }
         else if(dados=='itens'){
           this.dadosExibidos = 'itens';
-          this.nome_coluna2 = 'Habilidades';
+          this.nome_coluna2 = 'Habilidade';
 
         }
         else if(dados=='novosItens'){
           this.returnNovosItens(); 
           this.dadosExibidos = 'novosItens';
-          this.nome_coluna2 = 'Habilidades';
+          this.nome_coluna2 = 'Habilidade';
         }
       
       },
@@ -617,30 +639,62 @@
       },
   
       listaTurmaOrdenada(order) {
-        if (this.toggle === "nome") {
-          this.listaTurma = this.listaTurma.slice().sort((a, b) => a.user['nome'].localeCompare(b.user['nome']));
+
+        if(this.dadosExibidos==='itens'){
+        
+          if (this.toggle === "acertos") {
+            this.listaItens = this.listaItens.slice().sort((a, b) => (a.acertos || 0) - (b.acertos || 0));
+          }
+          else if (this.toggle === "tempo") {
+            this.listaItens = this.listaItens.slice().sort((a, b) => (a.tempo || 0) - (b.tempo || 0));
+          }
+          else if (this.toggle === "habilidades") {
+            this.listaItens = this.listaItens.slice().sort((a, b) => (a.habilidade || 0) - (b.habilidade || 0));
+          }
+             
+          if (order && this.dadosExibidos === 'itens') {
+            return this.listaItens;
+          }
+          else {
+            return this.listaItens.reverse();
+          }
+
         }
-        else if (this.toggle === "questaoTotal") {
-          this.listaTurma = this.listaTurma.slice().sort((a, b) => a.questoesTotais - b.questoesTotais);
+        else if(this.dadosExibidos === "novosItens"){
+          if (this.toggle === "acertos") {
+            this.listaNovosItens = this.listaNovosItens.slice().sort((a, b) => (a.acertos || 0) - (b.acertos || 0));
+          }
+          else if (this.toggle === "tempo") {
+            this.listaNovosItens = this.listaNovosItens.slice().sort((a, b) => (a.tempo || 0) - (b.tempo || 0));
+          }
+          else if (this.toggle === "habilidades") {
+            this.listaNovosItens = this.listaNovosItens.slice().sort((a, b) => (a.habilidade || 0) - (b.habilidade || 0));
+          }
+
+          if (order && this.dadosExibidos === 'novosItens') {
+            return this.listaNovosItens;
+          }
+          else {
+            return this.listaNovosItens.reverse();
+          }
         }
-        else if (this.toggle === "tempoMedio") {
-          this.listaTurma = this.listaTurma.slice().sort((a, b) => a.tempoMedio - b.tempoMedio);
+
+        else if(this.dadosExibidos === "habilidades"){
+          if (this.toggle === "id") {
+            this.listaHabilidades = this.listaHabilidades.slice().sort((a, b) => (a.id || 0) - (b.id || 0));
+          }
+
+          if (order && this.dadosExibidos === 'habilidades') {
+            return this.listaHabilidades;
+          }
+          else {
+            return this.listaHabilidades.reverse();
+          }
         }
-        else if (this.toggle === "percentTotal") {
-          this.listaTurma = this.listaTurma.slice().sort((a, b) => (a.percentTotal || 0) - (b.percentTotal || 0));
-        }
-        else if (this.toggle === "nTeste") {
-          this.listaTurma = this.listaTurma.slice().sort((a, b) => b.numero_questoes_feitas - a.numero_questoes_feitas);
-  
-        }
-        // Adicione condições semelhantes para outros tipos de filtragem, se necessário
-  
-        if (order) {
-          return this.listaTurma;
-        }
-        else {
-          return this.listaTurma.reverse();
-        }
+
+
+
+        
   
   
       },
@@ -682,6 +736,15 @@
   .text-habilidade, .text-nItens{
     margin-left: 1.4vw;
   }
+
+  .acertos-button{
+    display: flex !important;
+    flex-direction: row !important;
+    margin-right: 1.3vw !important;
+    
+  }
+
+
   .placeholder-text{
     font-family: sans-serif;
     font-weight: 600;
