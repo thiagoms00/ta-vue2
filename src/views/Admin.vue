@@ -85,7 +85,7 @@
                       <v-row class="dflex align-center">
   
                         <v-col cols="3" class="d-flex justify-center">
-                          <v-btn v-if="dadosExibidos=='itens' || dadosExibidos=='novosItens' " block :append-icon="icon[0]" :ripple="false" variant="text"
+                          <v-btn v-if="dadosExibidos=='itens' || dadosExibidos=='novosItens' " block  :ripple="false" variant="text"
                           >Código</v-btn>
 
                           <v-btn v-else block :append-icon="icon[0]" :ripple="false" variant="text"
