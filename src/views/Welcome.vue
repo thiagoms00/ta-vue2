@@ -21,9 +21,7 @@ export default{
       MessageWelcome,
     },
     methods:{
-      // ...mapActions([
-      //   'verificarToken'
-      // ])
+    
     },
     created(){
       // this.verificarToken();
