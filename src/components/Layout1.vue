@@ -1453,7 +1453,7 @@ export default {
             switch (this.nestr) {
 
                 case 0:                                     //ESTRATO 0
-                    if (this.PSR > this.pouts && this.qtdResp >= 10) {            // aprovação no estrato 0
+                    if (this.PSR > this.pouts && this.qtdResp >= 5) {            // aprovação no estrato 0
                         this.resultado = 1;
                         console.log("Fim do estrato 0: Avançando para o Extrato 1");
                         this.nestr = 1;
@@ -1468,7 +1468,7 @@ export default {
 
                         this.resetaExtrato(this.nestr, this.indiceEs1);
 
-                    } else if (this.PSR < this.poutn && this.qtdResp >= 10) {     // reprovação no estrato 0
+                    } else if (this.PSR < this.poutn && this.qtdResp >= 5) {     // reprovação no estrato 0
                         this.resultado = -1;
                         console.log("Fim do estrato 0: Reprovado no estrato 0");
                         this.dadosTeste.resultado = 0;
@@ -1511,7 +1511,7 @@ export default {
 
 
                 case 1:                                 //ESTRATO 1
-                    if (this.PSR > this.pouts && this.qtdResp >= 10) {            // aprovação no estrato 1
+                    if (this.PSR > this.pouts && this.qtdResp >= 5) {            // aprovação no estrato 1
                         this.resultado = 1;
                         console.log("Fim do estrato 1: Avançando para o Estrato 2");
                         this.nestr = 2;
@@ -1526,7 +1526,7 @@ export default {
                         this.resetaExtrato(this.nestr, 0);
                          //Usado caso o teste seja retomado.
 
-                    } else if (this.PSR < this.poutn && this.qtdResp >= 10) {     // reprovação no estrato 1
+                    } else if (this.PSR < this.poutn && this.qtdResp >= 5) {     // reprovação no estrato 1
                         this.resultado = -1;
                         this.nestr = 0;
 
@@ -1578,7 +1578,7 @@ export default {
 
 
                 case 2:                                     //ESTRATO 2
-                    if (this.PSR > this.pouts && this.qtdResp >= 10) {            // aprovação no extrato 2
+                    if (this.PSR > this.pouts && this.qtdResp >= 5) {            // aprovação no extrato 2
                         this.resultado = 1;
                         console.log("Fim do extrato 2: Avançando para o Extrato 3");
                         this.nestr = 3;
@@ -1590,7 +1590,7 @@ export default {
                         this.dadosTeste.jiter = 0;
                         this.resetaExtrato(this.nestr, 0);
 
-                    } else if (this.PSR < this.poutn && this.qtdResp >= 10) {     // reprovação no extrato 2.
+                    } else if (this.PSR < this.poutn && this.qtdResp >= 5) {     // reprovação no extrato 2.
                         this.resultado = -1;
                         console.log("Fim do extrato 2: Reprovado no extrato 2");
                         this.dadosTeste.resultado = 2;
@@ -1628,7 +1628,7 @@ export default {
 
 
                 case 3:                                     //ESTRATO 3
-                    if (this.PSR > this.pouts && this.qtdResp >= 10) {            //Aprovação no estrato 3
+                    if (this.PSR > this.pouts && this.qtdResp >= 5) {            //Aprovação no estrato 3
                         this.resultado = 1;
                         console.log("Fim do estrato 3: Aprovado no estrato 3");
                         console.log(this.dadosTeste);
@@ -1642,7 +1642,7 @@ export default {
                             this.$router.push('/congratulations');
                             
                         }
-                    } else if (this.PSR < this.poutn && this.qtdResp >= 10) {     // reprovação no estrato 3
+                    } else if (this.PSR < this.poutn && this.qtdResp >= 5) {     // reprovação no estrato 3
                         this.resultado = -1;
                         console.log("Fim do estrato 3: Reprovado no estrato 3");
                         console.log(this.dadosTeste);

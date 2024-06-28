@@ -8,6 +8,7 @@
           <v-btn @click="mudaDados('itens')">Itens</v-btn>
           <v-btn @click="mudaDados('novosItens')">Novos Itens</v-btn>
           <v-btn @click="mudaDados('habilidades')">Habilidades</v-btn>
+          <v-btn @click="downloadCsv(listaItens1)">Teste csv</v-btn>
           <v-btn>Sair</v-btn>
 
           <v-spacer></v-spacer>
@@ -451,7 +452,28 @@
         }
       
       },
-  
+
+
+      convertToCSV(data) {
+        const header = Object.keys(data[0]).join(",") + "\n";
+        const rows = data.map(item => Object.values(item).join(",")).join("\n");
+        return header + rows;
+      },
+
+      downloadCsv(dados){
+        const csvData = this.convertToCSV(dados);
+        const blob = new Blob([csvData], { type: "text/csv;charset=utf-8;" });
+        const link = document.createElement("a");
+        const url = URL.createObjectURL(blob);
+        link.setAttribute("href", url);
+        link.setAttribute("download", "data.csv");
+        link.style.visibility = "hidden";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      },
+
+
       getColor(chipValue) {
         // Lógica para determinar a cor com base no valor de chipValue
         if (chipValue === 'Não Iniciado') {
