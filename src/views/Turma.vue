@@ -247,6 +247,15 @@
                                         {{ teste.status }}
                                       </v-chip>
                                     </td>
+                                    <td>
+                                      <transition name="fade">
+                                        <p v-if="textoPlanilha" class="hover-text">teste</p>
+                                      </transition>
+                                      <v-btn dark @mouseover="showText('')" @mouseleave="hideText('')" @click="csvTeste(teste.listaQuest,item.user['nome'])" 
+                                          prepend-icon="mdi-google-spreadsheet">
+                                      </v-btn>
+                                     
+                                    </td>
                                   </tr>
                                 </tbody>
 
@@ -315,7 +324,7 @@ export default {
     animateCarregandoTurmas: false,
     tab: 'dados',
     chartData: [300, 50, 100, 200, 150, 250],
-
+    textoPlanilha : false,                      //Flag pro hover do botão da planilha.
 
 
 
@@ -482,6 +491,78 @@ export default {
 
 
     },
+
+    csvTeste(teste,nomeAluno){        //formata dados do teste.
+
+      let dados = [];
+      // Adiciona o nome do aluno
+      dados.push([nomeAluno]);
+
+      // Obtém os estratos únicos
+      const estratos = [...new Set(teste.map(t => t.estrato))];
+
+      // Itera sobre cada estrato
+      estratos.forEach(estrato => {
+          // Adiciona a identificação do estrato testado
+          dados.push([`Identificação do Estrato Testado: Estrato ${estrato}`]);
+
+          // Adiciona cabeçalhos para a seção de questões
+          //dados.push(["Identificador da Questão", "Resposta", "Tempo Gasto"]);
+
+          // Adiciona dados das questões para o estrato atual
+          teste.filter(questao => questao.estrato === estrato).forEach((questao, index) => {
+              dados.push([
+                  `Identificador da Questão ${index + 1}`,
+                  `Resposta à Questão ${index + 1}`,
+                  `Tempo Gasto na Questão ${index + 1}`
+              ]);
+              dados.push([
+                  questao.id,
+                  questao.alternativa,
+                  questao.tempoQuestao
+              ]);
+          });
+
+          // Adiciona resultado do estrato
+          const resultadoEstrato = teste.filter(q => q.estrato === estrato).every(q => q.acertou) ? "aprovação" : "reprovação";
+          dados.push(["Resultado do Estrato", resultadoEstrato]);
+
+          // Adiciona uma linha em branco para separar seções
+          dados.push([]);
+      });
+      this.downloadCsv(dados)
+    },
+
+
+    convertToCSV(data) {
+      return data.map(row => row.map(cell => `"${cell}"`).join(",")).join("\n");
+    },
+
+    downloadCsv(dados){
+      const csvData = this.convertToCSV(dados);
+      const blob = new Blob([csvData], { type: "text/csv;charset=utf-8;" });
+      const link = document.createElement("a");
+      const url = URL.createObjectURL(blob);
+      link.setAttribute("href", url);
+      link.setAttribute("download", "data.csv");
+      link.style.visibility = "hidden";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    },
+
+    showText(texto){     //Mostra texto no momento do hover
+      if(texto==='planilha'){
+        this.textoPlanilha = true;
+      }
+    },
+
+    hideText(texto){    //Esconde texto no momento do hover
+      if(texto==='planilha'){
+        this.textoPlanilha = false;
+      }
+    },
+
 
   },
   // FIM DO METHODSSSSSSS

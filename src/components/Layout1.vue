@@ -1388,6 +1388,7 @@ export default {
                 id: '',
                 estrato : this.nestr,
                 tempoQuestao : 0,
+                alternativa: '',
                 acertou: false,
             
             }
@@ -1402,6 +1403,19 @@ export default {
             this.dadosTeste.indiceAtual = this.ind_questao;                               //Para o Cookie do aluno.
 
             this.Respostas[this.jiter] = iresp;
+            if(iresp==0){
+                auxQuestao.alternativa = 'a'
+            }
+            else if(iresp==1){
+                auxQuestao.alternativa = 'b'
+            }
+            else if(iresp==2){
+                auxQuestao.alternativa = 'c'
+            }
+            else{
+                auxQuestao.alternativa = 'd'
+            }
+            console.log(auxQuestao.alternativa);
 
             //console.log(this.jsonData.questoes[this.questionNumber].id);
 
