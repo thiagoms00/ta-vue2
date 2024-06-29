@@ -191,7 +191,7 @@
                                   <v-typography variant="h5" class="mb-4">
                                     Título do Gráfico
                                   </v-typography>
-                                  <Chart :data="chartData" />
+                                  <Chart :data="item.listaDeHab" />
                                 </v-col>
                               </div>
 
