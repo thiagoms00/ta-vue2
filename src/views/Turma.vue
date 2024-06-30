@@ -514,12 +514,12 @@ export default {
               dados.push([
                   `Identificador da Questão ${index + 1}`,
                   `Resposta à Questão ${index + 1}`,
-                  `Tempo Gasto na Questão ${index + 1}`
+                  `Tempo Gasto na Questão ${index + 1}(s)`
               ]);
               dados.push([
                   questao.id,
                   questao.alternativa,
-                  questao.tempoQuestao
+                  questao.tempoQuestao.toFixed(2)
               ]);
           });
 
