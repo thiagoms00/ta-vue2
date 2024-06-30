@@ -186,14 +186,16 @@
                                 <span class="font-weight-bold"> {{ item.user['mat'] }} </span>
                               </div>
 
-                              <div>
-                                <v-col cols="4">
-                                  <v-typography variant="h5" class="mb-4">
-                                    Título do Gráfico
-                                  </v-typography>
-                                  <Chart :data="item.listaDeHab" />
+                              <v-row>
+                                <v-col cols="6">
+                                  <ChartBar :data="item.listaDeHab" />
                                 </v-col>
-                              </div>
+
+                                <v-col cols="6">
+                                  <ChartBar :data="item.listaDeHab" />
+                                </v-col>
+                              </v-row>
+
 
                             </v-container>
 
@@ -251,10 +253,11 @@
                                       <transition name="fade">
                                         <p v-if="textoPlanilha" class="hover-text">teste</p>
                                       </transition>
-                                      <v-btn dark @mouseover="showText('')" @mouseleave="hideText('')" @click="csvTeste(teste.listaQuest,item.user['nome'])" 
-                                          prepend-icon="mdi-google-spreadsheet">
+                                      <v-btn dark @mouseover="showText('')" @mouseleave="hideText('')"
+                                        @click="csvTeste(teste.listaQuest, item.user['nome'])"
+                                        prepend-icon="mdi-google-spreadsheet">
                                       </v-btn>
-                                     
+
                                     </td>
                                   </tr>
                                 </tbody>
@@ -299,12 +302,14 @@ const links = [
 
 <script>
 import axios from 'axios';
-import Chart from '@/components/Chart.vue'
+// import Chart from '@/components/Chart.vue'
+import ChartBar from '@/components/ChartBar.vue'
 
 export default {
   name: 'Turma',
   components: {
-    Chart
+    // Chart,
+    ChartBar
   },
 
   data: () => ({
@@ -324,7 +329,7 @@ export default {
     animateCarregandoTurmas: false,
     tab: 'dados',
     chartData: [300, 50, 100, 200, 150, 250],
-    textoPlanilha : false,                      //Flag pro hover do botão da planilha.
+    textoPlanilha: false,                      //Flag pro hover do botão da planilha.
 
 
 
@@ -492,7 +497,7 @@ export default {
 
     },
 
-    csvTeste(teste,nomeAluno){        //formata dados do teste.
+    csvTeste(teste, nomeAluno) {        //formata dados do teste.
 
       let dados = [];
       // Adiciona o nome do aluno
@@ -503,32 +508,32 @@ export default {
 
       // Itera sobre cada estrato
       estratos.forEach(estrato => {
-          // Adiciona a identificação do estrato testado
-          dados.push([`Identificação do Estrato Testado: Estrato ${estrato}`]);
+        // Adiciona a identificação do estrato testado
+        dados.push([`Identificação do Estrato Testado: Estrato ${estrato}`]);
 
-          // Adiciona cabeçalhos para a seção de questões
-          //dados.push(["Identificador da Questão", "Resposta", "Tempo Gasto"]);
+        // Adiciona cabeçalhos para a seção de questões
+        //dados.push(["Identificador da Questão", "Resposta", "Tempo Gasto"]);
 
           // Adiciona dados das questões para o estrato atual
           teste.filter(questao => questao.estrato === estrato).forEach((questao, index) => {
               dados.push([
                   `Identificador da Questão ${index + 1}`,
                   `Resposta à Questão ${index + 1}`,
-                  `Tempo Gasto na Questão ${index + 1}(s)`
+                  `Tempo Gasto na Questão ${index + 1}`
               ]);
               dados.push([
                   questao.id,
                   questao.alternativa,
-                  questao.tempoQuestao.toFixed(2)
+                  questao.tempoQuestao
               ]);
           });
 
-          // Adiciona resultado do estrato
-          const resultadoEstrato = teste.filter(q => q.estrato === estrato).every(q => q.acertou) ? "aprovação" : "reprovação";
-          dados.push(["Resultado do Estrato", resultadoEstrato]);
+        // Adiciona resultado do estrato
+        const resultadoEstrato = teste.filter(q => q.estrato === estrato).every(q => q.acertou) ? "aprovação" : "reprovação";
+        dados.push(["Resultado do Estrato", resultadoEstrato]);
 
-          // Adiciona uma linha em branco para separar seções
-          dados.push([]);
+        // Adiciona uma linha em branco para separar seções
+        dados.push([]);
       });
       this.downloadCsv(dados)
     },
@@ -538,7 +543,7 @@ export default {
       return data.map(row => row.map(cell => `"${cell}"`).join(",")).join("\n");
     },
 
-    downloadCsv(dados){
+    downloadCsv(dados) {
       const csvData = this.convertToCSV(dados);
       const blob = new Blob([csvData], { type: "text/csv;charset=utf-8;" });
       const link = document.createElement("a");
@@ -551,14 +556,14 @@ export default {
       document.body.removeChild(link);
     },
 
-    showText(texto){     //Mostra texto no momento do hover
-      if(texto==='planilha'){
+    showText(texto) {     //Mostra texto no momento do hover
+      if (texto === 'planilha') {
         this.textoPlanilha = true;
       }
     },
 
-    hideText(texto){    //Esconde texto no momento do hover
-      if(texto==='planilha'){
+    hideText(texto) {    //Esconde texto no momento do hover
+      if (texto === 'planilha') {
         this.textoPlanilha = false;
       }
     },
