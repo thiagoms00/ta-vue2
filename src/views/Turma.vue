@@ -193,10 +193,12 @@
 
                                 <v-col cols="6" class="border-lg">
 
-                                  <v-list>                                     
-                                    <v-list-item v-for="(habilidade, index) in item.listaDeHab['linguaPortuguesa']" :key="index">
+                                  <v-list>
+                                    <v-list-item v-for="(habilidade, index) in item.listaDeHab['linguaPortuguesa']"
+                                      :key="index">
                                       <span class="text-overline"> Habilidade {{ habilidade.habilidade }} - </span>
-                                      <span class="text-caption"> {{ habilidade.porcentagemAcertos }} % em relação a turma. </span>
+                                      <span class="text-caption"> {{ habilidade.porcentagemAcertos }} % em relação a
+                                        turma. </span>
                                     </v-list-item>
                                   </v-list>
 
@@ -239,6 +241,9 @@
                                     <th class="text-left">
                                       Status
                                     </th>
+                                    <th class="text-left">
+
+                                    </th>
                                   </tr>
                                 </thead>
 
@@ -257,13 +262,26 @@
                                       </v-chip>
                                     </td>
                                     <td>
-                                      <transition name="fade">
+                                      <!-- <transition name="fade">
                                         <p v-if="textoPlanilha" class="hover-text">teste</p>
-                                      </transition>
-                                      <v-btn dark @mouseover="showText('')" @mouseleave="hideText('')"
-                                        @click="csvTeste(teste.listaQuest, item.user['nome'])"
-                                        prepend-icon="mdi-google-spreadsheet">
-                                      </v-btn>
+                                      </transition> -->
+                                      <div class="d-inline-flex">
+                                        <v-btn variant="text" class="optionButton"
+                                          @click="csvTeste(teste.listaQuest, item.user['nome'])">
+
+                                          <v-tooltip activator="parent" location="top">Download CSV</v-tooltip>
+                                          <v-icon size="large" icon="mdi-google-spreadsheet"></v-icon>
+
+                                        </v-btn>
+
+                                        <v-btn variant="text" class="optionButton">
+                                          <v-tooltip activator="parent" location="top">Download CSV</v-tooltip>
+                                          <v-icon size="large" icon="mdi-delete-forever" color="red"></v-icon>
+                                        </v-btn>
+
+
+                                      </div>
+
 
                                     </td>
                                   </tr>
@@ -597,6 +615,11 @@ export default {
 </script>
 
 <style>
+.optionButton {
+  width: 5px !important;
+  min-width : 35px !important;
+}
+
 .custom-panel-text {
   padding: 0;
   margin: 0;
