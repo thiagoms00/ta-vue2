@@ -195,7 +195,8 @@
 
                                   <v-list>                                     
                                     <v-list-item v-for="(habilidade, index) in item.listaDeHab['linguaPortuguesa']" :key="index">
-                                      Habilidade {{ habilidade.habilidade }} - {{ habilidade.porcentagemAcertos }} % em relação a turma.
+                                      <span class="text-overline"> Habilidade {{ habilidade.habilidade }} - </span>
+                                      <span class="text-caption"> {{ habilidade.porcentagemAcertos }} % em relação a turma. </span>
                                     </v-list-item>
                                   </v-list>
 
