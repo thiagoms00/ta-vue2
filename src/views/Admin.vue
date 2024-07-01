@@ -249,21 +249,14 @@
     //'TURMAS',
    
   ]
-
-  const buttons = [
-
-  ]
   </script>
   
   <script>
   import axios from 'axios';
-  import Chart from '@/components/Chart.vue'
+
   
   export default {
     name: 'Admin',
-    components: {
-      Chart
-    },
   
     data: () => ({
 

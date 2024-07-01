@@ -2,6 +2,7 @@
     <div>
       <canvas ref="myChart" :width="width" :height="height"></canvas>
     </div>
+
   </template>
   
   <script>
@@ -25,8 +26,17 @@
     },
     data() {
       return {
-        chart: null
+        chart: null,
+        dadosGraph : []
       };
+    },
+    created(){
+      this.filtraDadosGrafico();
+    },
+    methods:{
+      filtraDadosGrafico(){
+        this.dadosGraph = this.data.map(item => item.tentativas);
+      },
     },
     mounted() {
       // Dados e configuração do gráfico
@@ -35,7 +45,7 @@
         labels: labels,
         datasets: [{
           label: 'Atividades por Habilidade',
-          data: this.data,
+          data: this.dadosGraph,
           backgroundColor: [
               'rgba(255, 99, 132, 0.2)',  // Red
               'rgba(54, 162, 235, 0.2)',  // Blue

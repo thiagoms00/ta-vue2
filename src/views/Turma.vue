@@ -188,11 +188,17 @@
 
                               <v-row>
                                 <v-col cols="6">
-                                  <ChartBar :data="item.listaDeHab" />
+                                  <ChartBar :data="item.listaDeHab['linguaPortuguesa']" />
                                 </v-col>
 
-                                <v-col cols="6">
-                                  <ChartBar :data="item.listaDeHab" />
+                                <v-col cols="6" class="border-lg">
+
+                                  <v-list>                                     
+                                    <v-list-item v-for="(habilidade, index) in item.listaDeHab['linguaPortuguesa']" :key="index">
+                                      Habilidade {{ habilidade.habilidade }} - {{ habilidade.porcentagemAcertos }} % em relação a turma.
+                                    </v-list-item>
+                                  </v-list>
+
                                 </v-col>
                               </v-row>
 
@@ -514,19 +520,19 @@ export default {
         // Adiciona cabeçalhos para a seção de questões
         //dados.push(["Identificador da Questão", "Resposta", "Tempo Gasto"]);
 
-          // Adiciona dados das questões para o estrato atual
-          teste.filter(questao => questao.estrato === estrato).forEach((questao, index) => {
-              dados.push([
-                  `Identificador da Questão ${index + 1}`,
-                  `Resposta à Questão ${index + 1}`,
-                  `Tempo Gasto na Questão ${index + 1}(s)`
-              ]);
-              dados.push([
-                  questao.id,
-                  questao.alternativa,
-                  questao.tempoQuestao.toFixed(2)
-              ]);
-          });
+        // Adiciona dados das questões para o estrato atual
+        teste.filter(questao => questao.estrato === estrato).forEach((questao, index) => {
+          dados.push([
+            `Identificador da Questão ${index + 1}`,
+            `Resposta à Questão ${index + 1}`,
+            `Tempo Gasto na Questão ${index + 1}(s)`
+          ]);
+          dados.push([
+            questao.id,
+            questao.alternativa,
+            questao.tempoQuestao.toFixed(2)
+          ]);
+        });
 
         // Adiciona resultado do estrato
         const resultadoEstrato = teste.filter(q => q.estrato === estrato).every(q => q.acertou) ? "aprovação" : "reprovação";
