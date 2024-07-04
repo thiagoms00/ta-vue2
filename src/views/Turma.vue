@@ -275,7 +275,7 @@
                                         </v-btn>
 
                                         <v-btn variant="text" class="optionButton">
-                                          <v-tooltip activator="parent" location="top">Download CSV</v-tooltip>
+                                          <v-tooltip activator="parent" location="top">Excluir Teste</v-tooltip>
                                           <v-icon size="large" icon="mdi-delete-forever" color="red"></v-icon>
                                         </v-btn>
 
