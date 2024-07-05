@@ -137,18 +137,13 @@
                       </v-col>
 
                       <v-col cols="3" class="d-flex justify-center">
-                        {{ item.tempoMedio.toFixed(2).replace('.', ',') }} s
+                        {{ formatTime(item.tempoMedio) }}
                       </v-col>
 
                       <v-col cols="2" class="d-flex justify-center">
                         {{ item.listaDeTestes.length }}
                       </v-col>
 
-                      <!-- <v-col cols="3" class="d-flex justify-center">
-                        <v-chip :color="getColor(item.status)" :prepend-icon="getIcon(item.status)">
-                          {{ item.status }}
-                        </v-chip>
-                      </v-col> -->
                     </v-row>
 
                   </v-expansion-panel-title>
@@ -220,28 +215,28 @@
 
                                 <thead>
                                   <tr>
-                                    <th class="text-left">
+                                    <th>
                                       Disciplina
                                     </th>
-                                    <th class="text-left">
+                                    <th>
                                       Extrato Final
                                     </th>
-                                    <th class="text-left">
+                                    <th>
                                       Quest. Feitas
                                     </th>
-                                    <th class="text-left">
+                                    <th>
                                       % de Acerto
                                     </th>
-                                    <th class="text-left">
+                                    <th>
                                       N. de Hab.
                                     </th>
-                                    <th class="text-left">
+                                    <th>
                                       Tempo do Teste
                                     </th>
-                                    <th class="text-left">
+                                    <th>
                                       Status
                                     </th>
-                                    <th class="text-left">
+                                    <th>
 
                                     </th>
                                   </tr>
@@ -250,11 +245,11 @@
                                 <tbody>
                                   <tr v-for="teste in item.listaDeTestes" :key="teste._id">
                                     <td>{{ teste.disciplina }}</td>
-                                    <td>{{ teste.extratoFinal }}</td>
-                                    <td>{{ teste.numero_questoes_feitas }}</td>
-                                    <td>{{ (teste.porcentagem_questoes || 0).toFixed(2).replace('.', ',') }}</td>
-                                    <td>{{ teste.nDeHabilidades }}</td>
-                                    <td>{{ (teste.tempoDoTeste || 0).toFixed(2).replace('.', ',') }} s </td>
+                                    <td>{{ getTableValue(teste, 'extratoFinal') }}</td>
+                                    <td>{{ getTableValue(teste, 'numero_questoes_feitas') }}</td>
+                                    <td>{{ getTableValue(teste, 'porcentagem_questoes', true) }}</td>
+                                    <td>{{ getTableValue(teste, 'nDeHabilidades') }}</td>
+                                    <td>{{ getTableValue(teste, 'tempoDoTeste', false, true) }}</td>
                                     <td>
                                       <v-chip size="small" :color="getColor(teste.status)">
                                         <v-icon :icon="getIcon(teste.status)" start></v-icon>
@@ -367,6 +362,27 @@ export default {
 
   },
   methods: {
+
+    getTableValue(teste, key, isPercentage = false, isTime = false) {
+      if (teste.status !== 'Finalizado') {
+        return '-';
+      }
+      let value = teste[key];
+      if (isPercentage) {
+        return (value || 0).toFixed(2).replace('.', ',');
+      }
+      if (isTime) {
+        return this.formatTime(value);
+      }
+      return value !== undefined ? value : '-';
+    },
+
+    formatTime(seconds) {
+      const roundedSeconds = Math.round(seconds);
+      const minutes = Math.floor(roundedSeconds / 60);
+      const remainingSeconds = roundedSeconds % 60;
+      return minutes > 0 ? `${minutes}m ${remainingSeconds}s` : `${remainingSeconds}s`;
+    },
 
     logout() {
       localStorage.clear();
@@ -617,7 +633,7 @@ export default {
 <style>
 .optionButton {
   width: 5px !important;
-  min-width : 35px !important;
+  min-width: 35px !important;
 }
 
 .custom-panel-text {
