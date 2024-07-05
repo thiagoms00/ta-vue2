@@ -554,7 +554,7 @@ export default {
         });
 
         // Adiciona resultado do estrato
-        const resultadoEstrato = teste.filter(q => q.estrato === estrato).every(q => q.acertou) ? "aprovação" : "reprovação";
+        const resultadoEstrato = (teste.filter(q => q.estrato === estrato).filter(q => q.acertou).length / teste.filter(q => q.estrato === estrato).length) >= 0.6 ? "aprovado" : "reprovado";
         dados.push(["Resultado do Estrato", resultadoEstrato]);
 
         // Adiciona uma linha em branco para separar seções
