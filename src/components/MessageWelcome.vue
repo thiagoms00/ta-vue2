@@ -72,7 +72,7 @@ export default {
         token: localStorage.getItem('token'),
         id: localStorage.getItem('id'),
         horaInicio : new Date(),
-        disciplina : "Lingua Portuguesa"
+        disciplina : "linguaPortuguesa"
       };
       console.log(data);
 
