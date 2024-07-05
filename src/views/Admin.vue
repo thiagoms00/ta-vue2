@@ -187,7 +187,7 @@
                         </v-col>
   
                         <v-col cols="2" class="d-flex justify-center">
-                          {{ item.tempo }}
+                          {{ item.tempo.toFixed(2) }}s
                         </v-col>
                       </v-row>
   
