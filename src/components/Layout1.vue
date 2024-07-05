@@ -410,7 +410,9 @@ export default {
             indProb: 0,                //Indice usado para percorrer o array de probabilidades.
             tempoItem : null,
             tempoItem2 : null,
-
+            indiceEs1 : 0,
+            estrato2Flag: false,
+            estrato2Ind: 0,
             dialog: false,
             horaInicio: undefined,
             horaFim: undefined,
@@ -1157,7 +1159,11 @@ export default {
             this.ordem = [ordem_0, ordem_1, ordem_2, ordem_3];
             this.dadosTeste.ordemQuestoes = this.ordem;         //Para o cookie do aluno.
 
-
+            if(this.anoAluno==4 || this.anoAluno==5 || this.anoAluno==6){
+                this.nestr++;
+                console.log(this.nestr)
+                this.resetaExtrato(this.nestr, this.jquest);
+            }
             this.resetaExtrato(this.nestr, this.jquest);
             localStorage.setItem('testeStart', JSON.stringify(this.dadosTeste));
 
@@ -1333,7 +1339,9 @@ export default {
                         this.jsonData = jsonDataQuestoes0;
                     }
                     else if(this.anoAluno == 4 || this.anoAluno == 5){
-                        this.jsonData = jsonDataQuestoes1;
+                        this.jsonData = jsonDataQuestoes0;
+                        //this.nestr++;
+
                     }
                 break;
                 case 1:
@@ -1341,7 +1349,8 @@ export default {
                         this.jsonData = jsonDataQuestoes1;
                     }
                     else if(this.anoAluno == 4 || this.anoAluno == 5){
-                        this.jsonData = jsonDataQuestoes2;
+                        this.jsonData = jsonDataQuestoes1;
+                        //this.nestr++;
                     }
                 break;
                 case 2:
@@ -1349,18 +1358,24 @@ export default {
                         this.jsonData = jsonDataQuestoes2;
                     }
                     else if(this.anoAluno == 4 || this.anoAluno == 5){
-                        this.jsonData = jsonDataQuestoes3;
+                        this.jsonData = jsonDataQuestoes2;
+                        //this.nestr++;
+
                     }
                 break;
                 case 3:
                     if(this.anoAluno == 1 || this.anoAluno == 2 || this.anoAluno == 3){
                         this.jsonData = jsonDataQuestoes3;
                     }
+                    else if(this.anoAluno == 4 || this.anoAluno == 5){
+                        this.jsonData = jsonDataQuestoes3;
+
+                    }
                 break;
             }
         
 
-
+            
             this.Questoes = Array(this.nq[nestr] - jquest).fill(0);  // lista que armazenará os identificadores das questões apresentadas
             this.Respostas = Array(this.nq[nestr] - jquest).fill(0); // lista que armazenará as respostas do estudante às questões
             //this.termina = false;                                  // flag de término da bateria de questões referente ao extrato
@@ -1479,8 +1494,7 @@ export default {
                         this.dadosTeste.seqProbNdom.fill(1);
                         this.dadosTeste.jiter = 0;
                     
-
-                        this.resetaExtrato(this.nestr, this.indiceEs1);
+                        this.resetaExtrato(1, this.indiceEs1);
 
                     } else if (this.PSR < this.poutn && this.qtdResp >= 5) {     // reprovação no estrato 0
                         this.resultado = -1;
@@ -1535,14 +1549,27 @@ export default {
                         this.dadosTeste.seqProbDom.fill(1);
                         this.dadosTeste.seqProbNdom.fill(1);
                         this.dadosTeste.jiter = 0;
-
-
-                        this.resetaExtrato(this.nestr, 0);
+                        if(this.anoAluno>=4){                                    //Ano 4 ou mais.
+                            this.resetaExtrato(this.nestr, this.estrato2Ind);
+                        }
+                        else{
+                            this.resetaExtrato(this.nestr, 0);
+                        }
+                        
                          //Usado caso o teste seja retomado.
 
                     } else if (this.PSR < this.poutn && this.qtdResp >= 5) {     // reprovação no estrato 1
                         this.resultado = -1;
                         this.nestr = 0;
+
+                        if(this.anoAluno==4 || this.anoAluno==5 || this.anoAluno==6){
+                            this.popupIntervalo();
+                            this.dadosTeste.resultado = 1;
+                            this.sendDataTest(this.dadosTeste);
+                            this.questionFlag = true;
+                            this.testeStatus(0);
+                            this.$router.push('/congratulations');
+                        }
 
                         if (this.extrato1Flag === false) {      //Aluno foi reprovado pela primeira vez no estrato 1
                             console.log("Fim do estrato 1: Retrocedendo ao estrato 0");
@@ -1558,6 +1585,7 @@ export default {
                             this.dadosTeste.seqProbDom.fill(1);
                             this.dadosTeste.seqProbNdom.fill(1);
                             this.dadosTeste.jiter = 0;
+                        
                             this.resetaExtrato(this.nestr, 0);
                               //Usado caso o teste seja retomado.
 
@@ -1602,16 +1630,31 @@ export default {
                         this.dadosTeste.seqProbDom.fill(1);
                         this.dadosTeste.seqProbNdom.fill(1);
                         this.dadosTeste.jiter = 0;
+                        
+                     
                         this.resetaExtrato(this.nestr, 0);
 
                     } else if (this.PSR < this.poutn && this.qtdResp >= 5) {     // reprovação no extrato 2.
-                        this.resultado = -1;
                         console.log("Fim do extrato 2: Reprovado no extrato 2");
-                        this.dadosTeste.resultado = 2;
-                        console.log(this.dadosTeste);
-
-
-                        if (this.termina === false) {
+                        if(this.anoAluno==1 || this.anoAluno==2 || this.anoAluno==3){
+                            this.resultado = -1;
+                            this.dadosTeste.resultado = 2;
+                            console.log(this.dadosTeste);
+                        }
+                        
+                        else if(this.anoAluno==4 || this.anoAluno==5 || this.anoAluno==6){      //alunos que começam no estrato 2.
+                            this.nestr = 1;
+                            this.dadosTeste.extratoAtual = this.nestr;  //Usado caso o teste seja retomado.
+                            this.dadosTeste.indiceAtual = 0;            //Usado caso o teste seja retomado.
+                            this.dadosTeste.dadosPSR = 0.5;
+                            this.dadosTeste.seqProbDom.fill(1);
+                            this.dadosTeste.seqProbNdom.fill(1);
+                            this.dadosTeste.jiter = 0;
+                            this.estrato2Ind = this.ind_questao;
+                            this.resetaExtrato(1, 0);
+                        }
+                        
+                        if (this.termina === false && this.anoAluno<=3) {
                             this.popupIntervalo();
                             this.sendDataTest(this.dadosTeste);
                             this.coletaDados = true;
@@ -1620,7 +1663,7 @@ export default {
                             this.dadosTeste2.tempoTeste2 = new Date();
 
                         }
-                        else {                              //Coleta de dados finalizada.
+                        else if(this.termina === true && this.anoAluno<=3 ){                              //Coleta de dados finalizada.
                             this.questionFlag = true;
                             this.testeStatus(0);
                             this.$router.push('/congratulations');
@@ -1810,7 +1853,7 @@ export default {
         },
 
         sendDataTest(dataTest) {   //Faz o envio de dados do teste principal.
-            
+            console.log(dataTest);
             dataTest.id = localStorage.getItem('id')
             dataTest.idTeste = localStorage.getItem('idTeste')
 

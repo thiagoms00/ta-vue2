@@ -8,8 +8,6 @@
           <v-btn @click="mudaDados('itens')">Itens</v-btn>
           <v-btn @click="mudaDados('novosItens')">Novos Itens</v-btn>
           <v-btn @click="mudaDados('habilidades')">Habilidades</v-btn>
-          <v-btn @click="downloadCsv(listaItens1)">Teste csv</v-btn>
-          <v-btn>Sair</v-btn>
 
           <v-spacer></v-spacer>
   
