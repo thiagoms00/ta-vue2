@@ -157,7 +157,7 @@
                         </v-col>
   
                         <v-col cols="2" class="d-flex justify-center">
-                          {{ item.tempo }}
+                          {{ formatTime(item.tempo) }}
                         </v-col>
                       </v-row>
   
@@ -187,7 +187,11 @@
                         </v-col>
   
                         <v-col cols="2" class="d-flex justify-center">
+<<<<<<< Updated upstream
                           {{ item.tempo.toFixed(2) }}s
+=======
+                          {{ formatTime(item.tempo) }}
+>>>>>>> Stashed changes
                         </v-col>
                       </v-row>
   
@@ -217,7 +221,7 @@
                         </v-col>
   
                         <v-col cols="2" class="d-flex justify-center">
-                          {{ item.tempo }}
+                          {{ formatTime(item.tempo) }}dd
                         </v-col>
                       </v-row>
   
@@ -306,6 +310,13 @@
   
     },
     methods: {
+
+      formatTime(seconds) {
+        const roundedSeconds = Math.round(seconds);
+        const minutes = Math.floor(roundedSeconds / 60);
+        const remainingSeconds = roundedSeconds % 60;
+        return minutes > 0 ? `${minutes}m ${remainingSeconds}s` : `${remainingSeconds}s`;
+    },
   
       toggleIcon(index, value) {
         // Reset all icons
