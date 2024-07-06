@@ -72,24 +72,23 @@
                       </v-col>
                       <v-col cols="2" class="d-flex justify-center">
                         <v-btn block :append-icon="icon[1]" :ripple="false" variant="text"
-                          @click="toggleIcon(1, 'percentTotal')">%
-                          Acertos</v-btn>
+                          @click="toggleIcon(1, 'percentTotal')">Extrato
+                          Final</v-btn>
                       </v-col>
                       <v-col cols="2" class="d-flex justify-center">
                         <v-btn :append-icon="icon[2]" :ripple="false" variant="text"
-                          @click="toggleIcon(2, 'questaoTotal')">QUESTõES
-                          totais</v-btn>
+                          @click="toggleIcon(2, 'questaoTotal')">Nº de
+                          questões</v-btn>
                       </v-col>
                       <v-col cols="3" class="d-flex justify-center">
                         <v-btn block :append-icon="icon[3]" :ripple="false" variant="text"
-                          @click="toggleIcon(3, 'tempoMedio')">Tempo
-                          Médio</v-btn>
+                          @click="toggleIcon(3, 'tempoMedio')">Porcentagem</v-btn>
                       </v-col>
                       <v-col cols="2" class="d-flex justify-center">
                         <v-btn block :append-icon="icon[4]" :ripple="false" variant="text"
-                          @click="toggleIcon(4, 'nTeste')">N de
-                          testes</v-btn>
+                          @click="toggleIcon(4, 'nTeste')">Tempo</v-btn>
                       </v-col>
+
 
 
                     </v-row>
@@ -129,19 +128,33 @@
                       </v-col>
 
                       <v-col cols="2" class="d-flex justify-center">
-                        {{ item.percentTotal.toFixed(2).replace('.', ',') }} %
+                        {{ (item.listaDeTestes.length > 0 && item.listaDeTestes[item.listaDeTestes.length - 1].status
+          ===
+          "Finalizado") ?
+          item.listaDeTestes[item.listaDeTestes.length - 1].extratoFinal : "-" }}
                       </v-col>
 
                       <v-col cols="2" class="d-flex justify-center">
-                        {{ item.questoesTotais }}
+                        {{ (item.listaDeTestes.length > 0 && item.listaDeTestes[item.listaDeTestes.length - 1].status
+          ===
+          "Finalizado") ?
+          item.listaDeTestes[item.listaDeTestes.length - 1].numero_questoes_feitas : "-" }}
                       </v-col>
 
                       <v-col cols="3" class="d-flex justify-center">
-                        {{ formatTime(item.tempoMedio) }}
+                        {{
+                          item.listaDeTestes.length > 0 && item.listaDeTestes[item.listaDeTestes.length - 1].status ===
+                            "Finalizado"
+                            ? (item.listaDeTestes[item.listaDeTestes.length - 1].porcentagem_questoes || 0).toFixed(2) + '%'
+                            : "-"
+                        }}
                       </v-col>
 
                       <v-col cols="2" class="d-flex justify-center">
-                        {{ item.listaDeTestes.length }}
+                        {{ (item.listaDeTestes.length > 0 && item.listaDeTestes[item.listaDeTestes.length - 1].status
+          ===
+          "Finalizado") ?
+          formatTime(item.listaDeTestes[item.listaDeTestes.length - 1].tempoDoTeste) : "-" }}
                       </v-col>
 
                     </v-row>
