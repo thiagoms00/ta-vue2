@@ -275,7 +275,7 @@
                                       </transition> -->
                                       <div class="d-inline-flex">
                                         <v-btn variant="text" class="optionButton"
-                                          @click="csvTeste(teste.listaQuest, item.user['nome'])">
+                                          @click="geraXlsx(teste.planilha_teste, item.user['nome'])">
 
                                           <v-tooltip activator="parent" location="top">Download CSV</v-tooltip>
                                           <v-icon size="large" icon="mdi-google-spreadsheet"></v-icon>
@@ -337,6 +337,7 @@ const links = [
 import axios from 'axios';
 // import Chart from '@/components/Chart.vue'
 import ChartBar from '@/components/ChartBar.vue'
+import * as XLSX from 'xlsx';
 
 export default {
   name: 'Turma',
@@ -549,64 +550,55 @@ export default {
 
     },
 
-    csvTeste(teste, nomeAluno) {        //formata dados do teste.
+    geraXlsx(planilha,nome){ 
+      
+      let data = [
+        ['TESTE', 'Estrato', 'Habilidade', 'Item', 'Gabarito', 'Resposta', 'Acerto', 'Tempo Gasto(s)', 'Tipo', 'Resultado']
+      ];
+      planilha.forEach(item => {
+        data.push([
+            item.questaoNum,
+            item.estrato,
+            item.habilidade,
+            item.id_item,
+            item.gabarito.toLowerCase(),
+            item.resposta,
+            item.acerto,
+            item.tempo_gasto.toFixed(2),
+            item.tipo,
+            item.resultado
+        ]);
+    });
+     // Criar uma nova planilha
+     let ws = XLSX.utils.aoa_to_sheet(data);
 
-      let dados = [];
-      // Adiciona o nome do aluno
-      dados.push([nomeAluno]);
+     
+      // Criar um novo workbook
+     let wb = XLSX.utils.book_new();
+     XLSX.utils.book_append_sheet(wb, ws, "Planilha");
 
-      // Obtém os estratos únicos
-      const estratos = [...new Set(teste.map(t => t.estrato))];
-
-      // Itera sobre cada estrato
-      estratos.forEach(estrato => {
-        // Adiciona a identificação do estrato testado
-        dados.push([`Identificação do Estrato Testado: Estrato ${estrato}`]);
-
-        // Adiciona cabeçalhos para a seção de questões
-        //dados.push(["Identificador da Questão", "Resposta", "Tempo Gasto"]);
-
-        // Adiciona dados das questões para o estrato atual
-        teste.filter(questao => questao.estrato === estrato).forEach((questao, index) => {
-          dados.push([
-            `Identificador da Questão ${index + 1}`,
-            `Resposta à Questão ${index + 1}`,
-            `Tempo Gasto na Questão ${index + 1}(s)`
-          ]);
-          dados.push([
-            questao.id,
-            questao.alternativa,
-            questao.tempoQuestao.toFixed(2)
-          ]);
-        });
-
-        // Adiciona resultado do estrato
-        const resultadoEstrato = (teste.filter(q => q.estrato === estrato).filter(q => q.acertou).length / teste.filter(q => q.estrato === estrato).length) >= 0.6 ? "aprovado" : "reprovado";
-        dados.push(["Resultado do Estrato", resultadoEstrato]);
-
-        // Adiciona uma linha em branco para separar seções
-        dados.push([]);
-      });
-      this.downloadCsv(dados)
+     // Gerar arquivo Excel e fazer o download
+     for (let col = 0; col < data[0].length; col++) {
+        const cellAddress = XLSX.utils.encode_cell({ r: 0, c: col });
+        if (ws[cellAddress]) {
+          ws[cellAddress].s = {
+            font: {
+              bold: true,
+              sz: 14,
+              color: { rgb: "000000" } // cor preta
+            },
+            alignment: {
+              vertical: "center",
+              horizontal: "center"
+            }
+          };
+        }
+      }
+     XLSX.writeFile(wb, "planilha.xlsx");
+            
     },
 
-
-    convertToCSV(data) {
-      return data.map(row => row.map(cell => `"${cell}"`).join(",")).join("\n");
-    },
-
-    downloadCsv(dados) {
-      const csvData = this.convertToCSV(dados);
-      const blob = new Blob([csvData], { type: "text/csv;charset=utf-8;" });
-      const link = document.createElement("a");
-      const url = URL.createObjectURL(blob);
-      link.setAttribute("href", url);
-      link.setAttribute("download", "data.csv");
-      link.style.visibility = "hidden";
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    },
+    
 
     showText(texto) {     //Mostra texto no momento do hover
       if (texto === 'planilha') {

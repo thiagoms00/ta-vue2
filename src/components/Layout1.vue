@@ -365,11 +365,6 @@ export default {
             changeTestAudio: false,
             indiceEs1 : 0,                        //Índice do Estrato n (inicial).
 
-            m1Key: 0,                            //Chave do layout1.
-            m2Key: 0,                            //Chave do layout2.
-            m3Key: 0,                            //Chave do layout3.
-            m4Key: 0,                            //Chave do layout4.
-            m5Key: 0,                            //Chave do layout5.
 
             dadosTeste: {                      /* Objeto que armazena as informações do teste. */
                 tokenAluno: '',                //Token referente ao aluno.
@@ -394,6 +389,8 @@ export default {
                 firstQuestion: true,
                 qtdResp : 0,
                 indiceEs1:0,
+                diaTeste: undefined,
+                dados_planilha: []
             },
 
             dadosTeste2 : {             //Objeto com os dados da parte 2 do teste.
@@ -405,6 +402,7 @@ export default {
                 hab : [],
                 itensResp : [],
                 tempoTeste2 : null,
+                diaTeste: undefined,
             },
             qTestProb : [],            //Array com as probabilidades das questões da coleta de dados.
             indProb: 0,                //Indice usado para percorrer o array de probabilidades.
@@ -418,6 +416,8 @@ export default {
             horaFim: undefined,
             tempoInicioQuestao: undefined,
             tempoFimQuestao: undefined,
+            
+            countQuest: 0,                         //Contador geral das questões, não reseta.
 
         }
     },
@@ -429,6 +429,15 @@ export default {
         this.tempoItem = new Date();
         this.anoAluno = localStorage.getItem('anoAtual');
         
+
+        //formatando a data de inicio do teste.
+        const dia = String( this.horaInicio.getDate()).padStart(2, '0');
+        const mes = String( this.horaInicio.getMonth() + 1).padStart(2, '0'); // Janeiro é 0!
+        const ano =  this.horaInicio.getFullYear();
+
+        this.dadosTeste.diaTeste = `${dia}/${mes}/${ano}`;
+        this.dadosTeste2.diaTeste = `${dia}/${mes}/${ano}`;
+
         
 
         let cookieAux = JSON.parse(localStorage.getItem('testeStart'));
@@ -1393,6 +1402,7 @@ export default {
             console.clear();
 
             this.qtdResp++;
+            this.countQuest++;
             this.dadosTeste.qtdResp = this.qtdResp;
             this.firstQuestion = false;
             this.dadosTeste.firstQuestion = false;
@@ -1405,6 +1415,7 @@ export default {
                 tempoQuestao : 0,
                 alternativa: '',
                 acertou: false,
+                
             
             }
             
@@ -1432,11 +1443,40 @@ export default {
             }
             console.log(auxQuestao.alternativa);
 
-            //console.log(this.jsonData.questoes[this.questionNumber].id);
+
+            //Verificando o gabarito da questão.
+            let gabarito = ''
+            if(this.probabilidades_domina[this.nestr][0][iabs] === 0.85){
+                gabarito = 'A'
+            }
+            else if(this.probabilidades_domina[this.nestr][1][iabs] === 0.85){
+                gabarito = 'B'
+            }
+            else if(this.probabilidades_domina[this.nestr][2][iabs] === 0.85){
+                gabarito = 'C'
+            }
+            else{
+                gabarito = 'D'
+            }
+            this.tempoFimQuestao = new Date();
+            auxQuestao.tempoQuestao = ((this.tempoFimQuestao - this.tempoInicioQuestao) / 1000);
+
+            //Preenchendo dados da planilha
+        
+            let obj_planilha = {
+                questaoNum : `Questão ${this.countQuest}`,
+                estrato : this.nestr,
+                habilidade: auxQuestao.id.substring(3, 6),
+                id_item: auxQuestao.id,
+                gabarito : gabarito,
+                resposta : auxQuestao.alternativa,
+                acerto: auxQuestao.alternativa == gabarito.toLowerCase()? "Sim" : "Não",
+                tempo_gasto: auxQuestao.tempoQuestao,
+                tipo: this.coletaDados ? "Extra" : "Normal",
+                resultado: ' - '
+            }
 
 
-
-            // ==============================================
             // Atualiza probabilidades, dada a resposta:
             this.seq_prob_dom[this.jiter] = this.probabilidades_domina[this.nestr][iresp][iabs];  // armazena P(resposta|domina) para a atual resposta
             this.seq_prob_ndom[this.jiter] = this.probabilidades_naodom[this.nestr][iresp][iabs]; // armazena P(resposta|naodomina) para a atual resposta
@@ -1448,8 +1488,7 @@ export default {
                 console.log("Alternativa correta");
             }
 
-            this.tempoFimQuestao = new Date();
-            auxQuestao.tempoQuestao = ((this.tempoFimQuestao - this.tempoInicioQuestao) / 1000);
+    
 
             this.dadosTeste.questoesRespondidas.push(auxQuestao);    
 
@@ -1467,6 +1506,15 @@ export default {
             //this.setCookie('testeStart', this.dadosTeste, 1);
             localStorage.setItem('testeStart', JSON.stringify(this.dadosTeste));
 
+            //Verificando se o "aluno foi aprovado para a planilha"
+            if(this.PSR>this.pouts && this.qtdResp>=5){
+                obj_planilha.resultado = 'Aprovado'
+            }
+            else if(this.PSR<this.poutn  && this.qtdResp>=5){
+                obj_planilha.resultado = 'Reprovado'
+            }
+            console.log(obj_planilha)
+            this.dadosTeste.dados_planilha.push(obj_planilha)
             // Tomada de decisão:
 
             /* 

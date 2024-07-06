@@ -187,11 +187,7 @@
                         </v-col>
   
                         <v-col cols="2" class="d-flex justify-center">
-<<<<<<< Updated upstream
                           {{ item.tempo.toFixed(2) }}s
-=======
-                          {{ formatTime(item.tempo) }}
->>>>>>> Stashed changes
                         </v-col>
                       </v-row>
   
