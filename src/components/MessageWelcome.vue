@@ -71,20 +71,27 @@ export default {
       const data = {
         token: localStorage.getItem('token'),
         id: localStorage.getItem('id'),
-        horaInicio : new Date(),
-        disciplina : "linguaPortuguesa"
+        horaInicio: new Date().toLocaleString('pt-BR', {
+          hour: '2-digit',
+          minute: '2-digit',
+          day: '2-digit',
+          month: '2-digit',
+          year: 'numeric',
+        }),
+        disciplina: "linguaPortuguesa"
       };
+
       console.log(data);
 
       return new Promise((resolve, reject) => {
         axios({ url: 'https://ta-back.onrender.com/alunos/startTest', data: data, method: 'POST' })
           .then((response) => {
-            
+
             const dataIdTeste = response.data.idTeste
-            if(localStorage.getItem('idTeste') === null || localStorage.getItem('idTeste') === ''){
+            if (localStorage.getItem('idTeste') === null || localStorage.getItem('idTeste') === '') {
               localStorage.setItem('idTeste', dataIdTeste);
             }
-            
+
             resolve(response);
           })
           .catch((error) => {
@@ -306,7 +313,7 @@ export default {
     font-size: 14px !important;
   }
 
-  
+
 
 
 }
@@ -315,25 +322,25 @@ export default {
 
 @media(max-width: 768px) {
 
- .main-sheet{
-  width: 82vw !important;
- }
+  .main-sheet {
+    width: 82vw !important;
+  }
 
-.welcome-text {
-  font-size: 1.0rem;
-}
+  .welcome-text {
+    font-size: 1.0rem;
+  }
 
-.img-mascote {
-  width: 100px !important;
+  .img-mascote {
+    width: 100px !important;
 
-}
+  }
 
-.cont-button {
-  margin-top: 6vh !important;
-  height: 6.2vh !important;
-  width: 40vw !important;
-  font-size: 1.1rem !important;
-}
+  .cont-button {
+    margin-top: 6vh !important;
+    height: 6.2vh !important;
+    width: 40vw !important;
+    font-size: 1.1rem !important;
+  }
 
 
 

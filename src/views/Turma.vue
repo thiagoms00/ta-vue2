@@ -351,8 +351,6 @@ export default {
     chartData: [300, 50, 100, 200, 150, 250],
     textoPlanilha: false,                      //Flag pro hover do botão da planilha.
 
-
-
   }),
 
   created() {
