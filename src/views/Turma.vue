@@ -483,8 +483,8 @@ export default {
       axios({ url: 'https://ta-back.onrender.com/professores/dadosTurma', data, method: 'POST' })
         .then((response) => {
           this.listaTurma = response.data.turma
-
-
+          this.sortOrder = true;
+          this.toggleIcon(0, 'nome')
         })
         .catch((error) => {
           // Tratar erros aqui
