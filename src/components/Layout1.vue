@@ -1462,7 +1462,10 @@ export default {
             auxQuestao.tempoQuestao = ((this.tempoFimQuestao - this.tempoInicioQuestao) / 1000);
 
             //Preenchendo dados da planilha
-        
+            let tempo = auxQuestao.tempoQuestao.toFixed(1);
+            tempo = this.formatTime(tempo);
+            console.log(tempo);
+
             let obj_planilha = {
                 questaoNum : `Questão ${this.countQuest}`,
                 estrato : this.nestr,
@@ -1471,7 +1474,7 @@ export default {
                 gabarito : gabarito,
                 resposta : auxQuestao.alternativa,
                 acerto: auxQuestao.alternativa == gabarito.toLowerCase()? "Sim" : "Não",
-                tempo_gasto: auxQuestao.tempoQuestao,
+                tempo_gasto: tempo,
                 tipo: this.coletaDados ? "Extra" : "Normal",
                 resultado: ' - '
             }
@@ -2078,6 +2081,12 @@ export default {
             this.dadosTeste2.itensResp.push(itemResp);  //Adiciona o objeto com os dados do item na lista do teste2.
             this.indProb++;                             //Incrementa o indice do vetor de probabilidades.
             this.tempoItem2 = new Date();                //Inicia a contagem de tempo do próximo item.
+        },
+
+        formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = Math.floor(seconds % 60); // arredondando para baixo para remover casas decimais
+            return `${minutes}m${remainingSeconds}s`;
         },
 
 

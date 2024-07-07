@@ -551,7 +551,7 @@ export default {
     },
 
     geraXlsx(planilha,nome){ 
-      
+      console.log(planilha)
       let data = [
         ['TESTE', 'Estrato', 'Habilidade', 'Item', 'Gabarito', 'Resposta', 'Acerto', 'Tempo Gasto(s)', 'Tipo', 'Resultado']
       ];
@@ -564,7 +564,7 @@ export default {
             item.gabarito.toLowerCase(),
             item.resposta,
             item.acerto,
-            item.tempo_gasto.toFixed(2),
+            item.tempo_gasto,
             item.tipo,
             item.resultado
         ]);
@@ -594,10 +594,10 @@ export default {
           };
         }
       }
-     XLSX.writeFile(wb, "planilha.xlsx");
+     XLSX.writeFile(wb, `${nome}_planilha.xlsx`);
             
     },
-
+   
     
 
     showText(texto) {     //Mostra texto no momento do hover
