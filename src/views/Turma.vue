@@ -232,6 +232,9 @@
                                       Disciplina
                                     </th>
                                     <th>
+                                      Data
+                                    </th>
+                                    <th>
                                       Extrato Final
                                     </th>
                                     <th>
@@ -240,9 +243,9 @@
                                     <th>
                                       % de Acerto
                                     </th>
-                                    <th>
+                                    <!-- <th>
                                       N. de Hab.
-                                    </th>
+                                    </th> -->
                                     <th>
                                       Tempo do Teste
                                     </th>
@@ -258,10 +261,11 @@
                                 <tbody>
                                   <tr v-for="teste in item.listaDeTestes" :key="teste._id">
                                     <td>{{ teste.disciplina }}</td>
+                                    <td>{{ getTableValue(teste, 'horaInicio') }}</td>
                                     <td>{{ getTableValue(teste, 'extratoFinal') }}</td>
                                     <td>{{ getTableValue(teste, 'numero_questoes_feitas') }}</td>
                                     <td>{{ getTableValue(teste, 'porcentagem_questoes', true) }}</td>
-                                    <td>{{ getTableValue(teste, 'nDeHabilidades') }}</td>
+                                    <!--<td>{{ getTableValue(teste, 'nDeHabilidades') }}</td>  -->
                                     <td>{{ getTableValue(teste, 'tempoDoTeste', false, true) }}</td>
                                     <td>
                                       <v-chip size="small" :color="getColor(teste.status)">
@@ -522,6 +526,8 @@ export default {
     },
 
     listaTurmaOrdenada(order) {
+
+      
       if (this.toggle === "nome") {
         this.listaTurma = this.listaTurma.slice().sort((a, b) => a.user['nome'].localeCompare(b.user['nome']));
       }
