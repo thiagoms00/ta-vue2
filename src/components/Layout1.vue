@@ -487,6 +487,8 @@ export default {
         this.questionAlt4 = this.jsonData.questoes[this.questionNumber].alt4;
         this.questionAnswer = this.jsonData.questoes[this.questionNumber].answer;
         this.fonte = this.jsonData.questoes[this.questionNumber].fonte;
+        
+
 
         if (this.questionTextTitle == '') {
             this.stMargin = '0';

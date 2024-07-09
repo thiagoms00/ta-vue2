@@ -353,6 +353,8 @@ export default {
   data: () => ({
 
     listaTurma: [],
+    ultimosTestes: [],
+    testesVazios: [],
     carregandoTurmas: true,
     chipValue: '',
     toggle: undefined,
@@ -499,6 +501,17 @@ export default {
       axios({ url: 'https://ta-back.onrender.com/professores/dadosTurma', data, method: 'POST' })
         .then((response) => {
           this.listaTurma = response.data.turma
+          //criando lista com os ultimos elementos.
+          for(let i=0; i<this.listaTurma.length;i++){
+
+            if(this.listaTurma[i].listaDeTestes[this.listaTurma[i].listaDeTestes.length-1]){
+              this.ultimosTestes.push(this.listaTurma[i].listaDeTestes[this.listaTurma[i].listaDeTestes.length-1]);
+            }
+            else{
+              this.testesVazios.push()
+            }
+
+          }
           this.sortOrder = true;
           this.toggleIcon(0, 'nome')
         })
@@ -526,7 +539,6 @@ export default {
     },
 
     listaTurmaOrdenada(order) {
-
       
       if (this.toggle === "nome") {
         this.listaTurma = this.listaTurma.slice().sort((a, b) => a.user['nome'].localeCompare(b.user['nome']));
@@ -545,15 +557,14 @@ export default {
 
       }
       // Adicione condições semelhantes para outros tipos de filtragem, se necessário
-
+      
       if (order) {
         return this.listaTurma;
       }
       else {
+      
         return this.listaTurma.reverse();
       }
-
-
     },
 
     geraXlsx(planilha,nome){ 
@@ -604,7 +615,6 @@ export default {
             
     },
    
-    
 
     showText(texto) {     //Mostra texto no momento do hover
       if (texto === 'planilha') {
