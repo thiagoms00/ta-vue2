@@ -66,27 +66,31 @@
 
                     <v-row class="dflex align-center">
 
-                      <v-col cols="3" class="d-flex justify-center">
+                      <v-col cols="2" class="d-flex justify-center">
                         <v-btn block :append-icon="icon[0]" :ripple="false" variant="text"
                           @click="toggleIcon(0, 'nome')">Nome</v-btn>
                       </v-col>
                       <v-col cols="2" class="d-flex justify-center">
                         <v-btn block :append-icon="icon[1]" :ripple="false" variant="text"
-                          @click="toggleIcon(1, 'percentTotal')">Extrato
+                          @click="toggleIcon(1, 'extrato')">Extrato
                           Final</v-btn>
                       </v-col>
                       <v-col cols="2" class="d-flex justify-center">
                         <v-btn :append-icon="icon[2]" :ripple="false" variant="text"
-                          @click="toggleIcon(2, 'questaoTotal')">Nº de
+                          @click="toggleIcon(2, 'nQuestoes')">Nº de
                           questões</v-btn>
                       </v-col>
-                      <v-col cols="3" class="d-flex justify-center">
+                      <v-col cols="2" class="d-flex justify-center">
                         <v-btn block :append-icon="icon[3]" :ripple="false" variant="text"
-                          @click="toggleIcon(3, 'tempoMedio')">Porcentagem</v-btn>
+                          @click="toggleIcon(3, 'percentTeste')">Porcentagem</v-btn>
                       </v-col>
                       <v-col cols="2" class="d-flex justify-center">
                         <v-btn block :append-icon="icon[4]" :ripple="false" variant="text"
-                          @click="toggleIcon(4, 'nTeste')">Tempo</v-btn>
+                          @click="toggleIcon(4, 'tempo')">Tempo</v-btn>
+                      </v-col>
+                      <v-col cols="2" class="d-flex justify-center">
+                        <v-btn block :append-icon="icon[4]" :ripple="false" variant="text"
+                          @click="toggleIcon(4, 'status')">Status</v-btn>
                       </v-col>
 
 
@@ -123,7 +127,7 @@
                   <v-expansion-panel-title style="height: 5vh;" class="color-painel">
                     <v-row class="d-flex align-center">
 
-                      <v-col cols="3" class="d-flex justify-center">
+                      <v-col cols="2" class="d-flex justify-center">
                         {{ item.user['nome'] }}
                       </v-col>
 
@@ -141,13 +145,13 @@
           item.listaDeTestes[item.listaDeTestes.length - 1].numero_questoes_feitas : "-" }}
                       </v-col>
 
-                      <v-col cols="3" class="d-flex justify-center">
+                      <v-col cols="2" class="d-flex justify-center">
                         {{
-                          item.listaDeTestes.length > 0 && item.listaDeTestes[item.listaDeTestes.length - 1].status ===
-                            "Finalizado"
-                            ? (item.listaDeTestes[item.listaDeTestes.length - 1].porcentagem_questoes || 0).toFixed(2) + '%'
-                            : "-"
-                        }}
+          item.listaDeTestes.length > 0 && item.listaDeTestes[item.listaDeTestes.length - 1].status ===
+            "Finalizado"
+            ? (item.listaDeTestes[item.listaDeTestes.length - 1].porcentagem_questoes || 0).toFixed(2) + '%'
+            : "-"
+        }}
                       </v-col>
 
                       <v-col cols="2" class="d-flex justify-center">
@@ -155,6 +159,16 @@
           ===
           "Finalizado") ?
           formatTime(item.listaDeTestes[item.listaDeTestes.length - 1].tempoDoTeste) : "-" }}
+                      </v-col>
+
+                      <v-col cols="2" class="d-flex justify-center">
+                        <v-chip size="small"
+                          :color="getColor(item.listaDeTestes?.[item.listaDeTestes.length - 1]?.status ?? '')">
+                          <v-icon :icon="getIcon(item.listaDeTestes?.[item.listaDeTestes.length - 1]?.status ?? '')"
+                            start>
+                          </v-icon>
+                          {{ item.listaDeTestes?.[item.listaDeTestes.length - 1]?.status ?? 'N/A' }}
+                        </v-chip>
                       </v-col>
 
                     </v-row>
@@ -502,12 +516,12 @@ export default {
         .then((response) => {
           this.listaTurma = response.data.turma
           //criando lista com os ultimos elementos.
-          for(let i=0; i<this.listaTurma.length;i++){
+          for (let i = 0; i < this.listaTurma.length; i++) {
 
-            if(this.listaTurma[i].listaDeTestes[this.listaTurma[i].listaDeTestes.length-1]){
-              this.ultimosTestes.push(this.listaTurma[i].listaDeTestes[this.listaTurma[i].listaDeTestes.length-1]);
+            if (this.listaTurma[i].listaDeTestes[this.listaTurma[i].listaDeTestes.length - 1]) {
+              this.ultimosTestes.push(this.listaTurma[i].listaDeTestes[this.listaTurma[i].listaDeTestes.length - 1]);
             }
-            else{
+            else {
               this.testesVazios.push()
             }
 
@@ -539,63 +553,159 @@ export default {
     },
 
     listaTurmaOrdenada(order) {
-      
+
       if (this.toggle === "nome") {
         this.listaTurma = this.listaTurma.slice().sort((a, b) => a.user['nome'].localeCompare(b.user['nome']));
       }
-      else if (this.toggle === "questaoTotal") {
-        this.listaTurma = this.listaTurma.slice().sort((a, b) => a.questoesTotais - b.questoesTotais);
-      }
-      else if (this.toggle === "tempoMedio") {
-        this.listaTurma = this.listaTurma.slice().sort((a, b) => a.tempoMedio - b.tempoMedio);
-      }
-      else if (this.toggle === "percentTotal") {
-        this.listaTurma = this.listaTurma.slice().sort((a, b) => (a.percentTotal || 0) - (b.percentTotal || 0));
-      }
-      else if (this.toggle === "nTeste") {
-        this.listaTurma = this.listaTurma.slice().sort((a, b) => a.listaDeTestes.length - b.listaDeTestes.length);
+      else if (this.toggle === "extrato") {
+
+        const alunosComExtrato = this.listaTurma.filter(aluno => {
+          return aluno.listaDeTestes.length > 0 && typeof aluno.listaDeTestes[aluno.listaDeTestes.length - 1].extratoFinal === 'number';
+        });
+
+        alunosComExtrato.sort((a, b) => {
+          const extratoA = a.listaDeTestes[a.listaDeTestes.length - 1].extratoFinal;
+          const extratoB = b.listaDeTestes[b.listaDeTestes.length - 1].extratoFinal;
+          return extratoA - extratoB;
+        });
+
+        const alunosSemExtrato = this.listaTurma.filter(aluno => {
+          return aluno.listaDeTestes.length === 0 || typeof aluno.listaDeTestes[aluno.listaDeTestes.length - 1].extratoFinal !== 'number';
+        });
+
+        const listaOrdenada = [...alunosSemExtrato, ...alunosComExtrato];
+
+        this.listaTurma = listaOrdenada;
 
       }
-      // Adicione condições semelhantes para outros tipos de filtragem, se necessário
-      
+      else if (this.toggle === "nQuestoes") {
+        const alunosQuestoes = this.listaTurma.filter(aluno => {
+          return aluno.listaDeTestes.length > 0 && typeof aluno.listaDeTestes[aluno.listaDeTestes.length - 1].numero_questoes_feitas === 'number';
+        });
+
+        alunosQuestoes.sort((a, b) => {
+          const extratoA = a.listaDeTestes[a.listaDeTestes.length - 1].numero_questoes_feitas;
+          const extratoB = b.listaDeTestes[b.listaDeTestes.length - 1].numero_questoes_feitas;
+          return extratoA - extratoB;
+        });
+
+        const alunosSemQuestoes = this.listaTurma.filter(aluno => {
+          return aluno.listaDeTestes.length === 0 || typeof aluno.listaDeTestes[aluno.listaDeTestes.length - 1].numero_questoes_feitas !== 'number';
+        });
+
+        const listaOrdenada = [...alunosSemQuestoes, ...alunosQuestoes];
+
+        this.listaTurma = listaOrdenada;
+      }
+      else if (this.toggle === "percentTeste") {
+
+        const alunosPorcentagem = this.listaTurma.filter(aluno => {
+          const temPorcentagem = aluno.listaDeTestes.length > 0 && typeof aluno.listaDeTestes[aluno.listaDeTestes.length - 1].porcentagem_questoes === 'number';
+          return temPorcentagem;
+        });
+
+        alunosPorcentagem.sort((a, b) => {
+          const extratoA = a.listaDeTestes[a.listaDeTestes.length - 1].porcentagem_questoes;
+          const extratoB = b.listaDeTestes[b.listaDeTestes.length - 1].porcentagem_questoes;
+          return extratoA - extratoB;
+        });
+
+        const alunosSemPorcentagem = this.listaTurma.filter(aluno => {
+          const semPorcentagem = aluno.listaDeTestes.length === 0 || typeof aluno.listaDeTestes[aluno.listaDeTestes.length - 1].porcentagem_questoes !== 'number';
+          return semPorcentagem;
+        });
+
+
+        const listaOrdenada = [...alunosSemPorcentagem, ...alunosPorcentagem];
+        this.listaTurma = listaOrdenada;
+
+      }
+      else if (this.toggle === "tempo") {
+        const alunosTempo = this.listaTurma.filter(aluno => {
+          const temPorcentagem = aluno.listaDeTestes.length > 0 && typeof aluno.listaDeTestes[aluno.listaDeTestes.length - 1].tempoDoTeste === 'number';
+          return temPorcentagem;
+        });
+
+        alunosTempo.sort((a, b) => {
+          const extratoA = a.listaDeTestes[a.listaDeTestes.length - 1].tempoDoTeste;
+          const extratoB = b.listaDeTestes[b.listaDeTestes.length - 1].tempoDoTeste;
+          return extratoA - extratoB;
+        });
+
+        const alunosSemTempo = this.listaTurma.filter(aluno => {
+          const semPorcentagem = aluno.listaDeTestes.length === 0 || typeof aluno.listaDeTestes[aluno.listaDeTestes.length - 1].tempoDoTeste !== 'number';
+          return semPorcentagem;
+        });
+
+
+        const listaOrdenada = [...alunosSemTempo, ...alunosTempo];
+        this.listaTurma = listaOrdenada;
+
+      }
+      else if (this.toggle === "status") {
+        const getStatus = aluno => {
+          if (aluno.listaDeTestes.length > 0) {
+            return aluno.listaDeTestes[aluno.listaDeTestes.length - 1].status || 'Não Iniciado';
+          }
+          return 'Sem Status'; // Retorna 'Sem Status' se o aluno não tiver testes
+        };
+
+        // Função de comparação personalizada para ordenar os status
+        const statusOrder = {
+          'Finalizado': 0,
+          'Iniciado': 1,
+          'Não Iniciado': 2,
+          'Sem Status': 3
+        };
+
+        // Recriar a lista de alunos ordenada com base no status
+        const listaOrdenada = this.listaTurma.slice().sort((a, b) => {
+          const statusA = getStatus(a);
+          const statusB = getStatus(b);
+          return statusOrder[statusA] - statusOrder[statusB];
+        });
+
+        // Atribuir a lista ordenada de volta a this.listaTurma
+        this.listaTurma = listaOrdenada;
+      }
+
       if (order) {
         return this.listaTurma;
       }
       else {
-      
         return this.listaTurma.reverse();
       }
     },
 
-    geraXlsx(planilha,nome){ 
+    geraXlsx(planilha, nome) {
       console.log(planilha)
       let data = [
         ['TESTE', 'Estrato', 'Habilidade', 'Item', 'Gabarito', 'Resposta', 'Acerto', 'Tempo Gasto(s)', 'Tipo', 'Resultado']
       ];
       planilha.forEach(item => {
         data.push([
-            item.questaoNum,
-            item.estrato,
-            item.habilidade,
-            item.id_item,
-            item.gabarito.toLowerCase(),
-            item.resposta,
-            item.acerto,
-            item.tempo_gasto,
-            item.tipo,
-            item.resultado
+          item.questaoNum,
+          item.estrato,
+          item.habilidade,
+          item.id_item,
+          item.gabarito.toLowerCase(),
+          item.resposta,
+          item.acerto,
+          item.tempo_gasto,
+          item.tipo,
+          item.resultado
         ]);
-    });
-     // Criar uma nova planilha
-     let ws = XLSX.utils.aoa_to_sheet(data);
+      });
+      // Criar uma nova planilha
+      let ws = XLSX.utils.aoa_to_sheet(data);
 
-     
+
       // Criar um novo workbook
-     let wb = XLSX.utils.book_new();
-     XLSX.utils.book_append_sheet(wb, ws, "Planilha");
+      let wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "Planilha");
 
-     // Gerar arquivo Excel e fazer o download
-     for (let col = 0; col < data[0].length; col++) {
+      // Gerar arquivo Excel e fazer o download
+      for (let col = 0; col < data[0].length; col++) {
         const cellAddress = XLSX.utils.encode_cell({ r: 0, c: col });
         if (ws[cellAddress]) {
           ws[cellAddress].s = {
@@ -611,10 +721,10 @@ export default {
           };
         }
       }
-     XLSX.writeFile(wb, `${nome}_planilha.xlsx`);
-            
+      XLSX.writeFile(wb, `${nome}_planilha.xlsx`);
+
     },
-   
+
 
     showText(texto) {     //Mostra texto no momento do hover
       if (texto === 'planilha') {
