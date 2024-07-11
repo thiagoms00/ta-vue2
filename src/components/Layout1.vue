@@ -1674,18 +1674,25 @@ export default {
 
                 case 2:                                     //ESTRATO 2
                     if (this.PSR > this.pouts && this.qtdResp >= 5) {            // aprovação no extrato 2
-                        this.resultado = 1;
-                        console.log("Fim do extrato 2: Avançando para o Extrato 3");
-                        this.nestr = 3;
-                        this.dadosTeste.extratoAtual = this.nestr;
-                        this.dadosTeste.indiceAtual = 0;            //Usado caso o teste seja retomado.
-                        this.dadosTeste.dadosPSR = 0.5;
-                        this.dadosTeste.seqProbDom.fill(1);
-                        this.dadosTeste.seqProbNdom.fill(1);
-                        this.dadosTeste.jiter = 0;
-                        
-                     
-                        this.resetaExtrato(this.nestr, 0);
+
+                        if(this.anoAluno<=3){      //alunos que começam no estrato 1(ano 1,2 e 3).
+                            this.resultado = -1;
+                            this.dadosTeste.resultado = 2;
+                            console.log(this.dadosTeste);
+                        }
+                        else{                     //alunos que começam no estrato 2 ou superior.
+                            this.resultado = 1;
+                            console.log("Fim do extrato 2: Avançando para o Extrato 3");
+                            this.nestr = 3;
+                            this.dadosTeste.extratoAtual = this.nestr;
+                            this.dadosTeste.indiceAtual = 0;            //Usado caso o teste seja retomado.
+                            this.dadosTeste.dadosPSR = 0.5;
+                            this.dadosTeste.seqProbDom.fill(1);
+                            this.dadosTeste.seqProbNdom.fill(1);
+                            this.dadosTeste.jiter = 0;
+                            this.resetaExtrato(this.nestr, 0);
+                        }
+                       
 
                     } else if (this.PSR < this.poutn && this.qtdResp >= 5) {     // reprovação no extrato 2.
                         console.log("Fim do extrato 2: Reprovado no extrato 2");
@@ -1693,6 +1700,12 @@ export default {
                             this.resultado = -1;
                             this.dadosTeste.resultado = 2;
                             console.log(this.dadosTeste);
+                            this.popupIntervalo();
+                            //Enviar dados pro backend
+                            this.sendDataTest(this.dadosTeste);
+                            this.questionFlag = true;
+                            this.testeStatus(0);
+                            this.$router.push('/congratulations');
                         }
                         
                         else if(this.anoAluno==4 || this.anoAluno==5 || this.anoAluno==6){      //alunos que começam no estrato 2.
@@ -1711,8 +1724,7 @@ export default {
                             this.popupIntervalo();
                             this.sendDataTest(this.dadosTeste);
                             this.coletaDados = true;
-
-                            this.startDataTest(2);          //inicia a coleta de dados.
+                            this.startDataTest(2);          //Inicia a coleta de dados.
                             this.dadosTeste2.tempoTeste2 = new Date();
 
                         }
