@@ -128,7 +128,10 @@
                     <v-row class="d-flex align-center">
 
                       <v-col cols="2" class="d-flex justify-center">
-                        {{ item.user['nome'] }}
+                        <p style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">
+                          {{ item.user['nome'] }}
+                        </p>
+                        
                       </v-col>
 
                       <v-col cols="2" class="d-flex justify-center">
@@ -197,7 +200,6 @@
                         </v-tabs>
 
                         <v-window v-model="tab">
-
                           <!-- Tela de dados gerais do aluno -->
                           <v-window-item value="dados">
                             <v-container>
