@@ -23,18 +23,18 @@
             "acertos": 0 
         },
         {
-            "id" : "LP_H07_03_014",                             
+            "id" : "LP_H06_03_014",                             
             "layout" : "m1",
             "type" : "Lingua portuguesa",
             "textTitle":"O pão no mundo",
-            "qText":"A maior parte do pão consumido no Brasil é a fermentada, incluindo o pão de forma, as bisnagas e a maioria dos pães de centeio. Mas esse tipo de pão não é igualmente consumido em todo o mundo. O pão achatado, que contém pouco ou nenhum fermento, é, para muitos povos, o alimento mais importante. Na América Central, por exemplo, come-se um pão de milho chamado tortilla. Na índia, é comum um tipo de pão chamado chapate, que contém vários tipos de farinha. Na Escócia, fabricam-se broas de aveia e pães de cevada. Na Alemanha, na Rússia e nos países escandinavos, é muito popular um pão preto feito com centeio, ao qual, às vezes, se adiciona farinha de cevada e de batata. Em Portugal, metade da população consome diariamente broas e pães de milho.",
+            "qText":"A maior parte do pão consumido no Brasil é a fermentada, incluindo o pão de forma, as bisnagas e a maioria dos pães de centeio. Mas esse tipo de pão não é igualmente consumido em todo o mundo. O pão achatado, que contém pouco ou nenhum fermento, é, para muitos povos, o alimento mais importante. Na América Central, por exemplo, come-se um pão de milho chamado tortilla. Na Índia, é comum um tipo de pão chamado chapate, que contém vários tipos de farinha. Na Escócia, fabricam-se broas de aveia e pães de cevada. Na Alemanha, na Rússia e nos países escandinavos, é muito popular um pão preto feito com centeio, ao qual, às vezes, se adiciona farinha de cevada e de batata. Em Portugal, metade da população consome diariamente broas e pães de milho.",
             "img1":"url(/src/assets/imgs/extrato3/LP_H09_01_009_M.png)",
             "img2":"",
             "text": "Qual a característica da maior parte do pão consumido no Brasil?",
             "audio1": "/src/assets/audios/extrato3/LP_H07_03_014_Mb.mp3",
             "audio2": "",
             "alt1": "Adiciona farinha de cevada e de batata.",
-            "alt2": "Contem vários tipos de farinha.",
+            "alt2": "Contém vários tipos de farinha.",
             "alt3": "É feito com centeio.",
             "alt4": "É um pão fermentado.",
             "answer" : "É um pão fermentado.",
@@ -47,7 +47,7 @@
             "id" : "LP_H07_03_014",                             
             "layout" : "m1",
             "type" : "Lingua portuguesa",
-            "textTitle":"",
+            "textTitle":"O nascimento do Samba",
             "qText":"O samba como gênero musical nasceu no Rio de Janeiro, perto da Praça Onze, onde moravam muitos negros vindos da Bahia. Apesar da pobreza, era um lugar alegre e festivo, onde músicos e artistas de toda a cidade se encontravam. Uma casa se destacava por lá: a casa de dona Hilária de Almeida, a famosa tia Ciata. O batuque virava a madrugada. Era ali que se reuniam os primeiros sambistas – Sinhô, Donga, Pixinguinha e muitos outros. Foi lá também que surgiu o samba ''Pelo Telefone'', o primeiro gravado em disco, e que fez um sucesso enorme no Carnaval de 1917.",
             "img1":"",
             "img2":"",
@@ -64,48 +64,8 @@
             "tentativas": 0,
             "acertos": 0 
         },
-        {
-            "id" : "LP_H08_03_002",                             
-            "layout" : "m3",
-            "type" : "Lingua portuguesa",
-            "textTitle":"",
-            "qText":"",
-            "img1":"url(/src/assets/imgs/extrato3/LP_H08_03_002_D.png)",
-            "img2":"",
-            "text": "Qual é o assunto do texto que você leu?",
-            "audio1": "/src/assets/audios/extrato3/LP_H08_03_002_D.mp3",
-            "audio2": "",
-            "alt1": "A vida na lua.",
-            "alt2": "A existência de água na lua.",
-            "alt3": "Uma missão na lua.",
-            "alt4": "Uma sonda espacial na lua.",
-            "answer" : "A existência de água na lua.",
-            "fonte" :"Jornal do Brasil, 6 de março de 1988, p. 41. Texto adaptado.",
-            "tempo": 0,
-            "tentativas": 0,
-            "acertos": 0 
-        },
-        {
-            "id" : "LP_H10_03_003",                             
-            "layout" : "m1",
-            "type" : "Lingua portuguesa",
-            "textTitle":"",
-            "qText":"A primavera, o verão, o outono e o inverno eram nomes que se misturavam com outros reinos. A gente só conhecia a estação das águas e a estação da seca. Era o lugar onde o ano estava dividido em sol e chuva, entremeado com o casamento da viúva - sol e chuva ao mesmo tempo - enfeitado de arco-íris. No tempo das águas, eram as enchentes com o gado subindo para o cume da serra, correndo da morte. Eram os raios, chicote de São Pedro, que riscavam os céus - escuras nuvens - acompanhados de trovões que amedrontavam até os animais do terreiro. Eram os pedacinhos de sabão, do perfumado, colocados na beira do telhado com um pedido: “Santa Clara, mande o sol para enxugar nosso lençol”. E as chuvas prometiam farturas. (...)",
-            "img1":"url(/src/assets/imgs/extrato3/LP_H08_03_002_D.png)",
-            "img2":"",
-            "text": "No texto, a estação das águas e a estação da seca correspondem a",
-            "audio1": "/src/assets/audios/extrato3/LP_H08_03_002_D.mp3",
-            "audio2": "",
-            "alt1": "inverno e verão.",
-            "alt2": "inverno e primavera.",
-            "alt3": "outono e primavera.",
-            "alt4": "outono e verão.",
-            "answer" : "inverno e verão.",
-            "fonte" :"QUEIRÓS, B. C. Indez. Belo Horizonte: Miguilim, 1989. p. 9.",
-            "tempo": 0,
-            "tentativas": 0,
-            "acertos": 0 
-        },
+        
+        
         {
             "id" : "LP_H09_02_010",                             
             "layout" : "m3",
@@ -114,7 +74,7 @@
             "qText":"",
             "img1":"url(/src/assets/imgs/extrato3/LP_H09_02_010_M.jpg)",
             "img2":"",
-            "text": "O texto tem como objetivo:",
+            "text": "O texto tem como objetivo",
             "audio1": "/src/assets/audios/extrato3/LP_H09_02_010_M.mp3",
             "audio2": "",
             "alt1": "discutir a importância do brincar para crianças e jovens.",
@@ -129,11 +89,11 @@
         },
        
         {
-            "id" : "LP_H02_02_010",                             
+            "id" : "LP_H06_02_010",                             
             "layout" : "m1",
             "type" : "Lingua portuguesa",
             "textTitle":"FUTEBOL",
-            "qText":"Na Eurocopa, a Alemanha triunfou por três vezes, assim como a Espanha. A França ganhou o torneio duas vezes. Desta forma, Alemanha, França e Espanha são as únicas seleções que ganharam o torneio mais de uma vez. Alguns países ainda não tiveram a sua chance.",
+            "qText":"Na Eurocopa, até 2023, a Alemanha triunfou por três vezes, assim como a Espanha. A França e a Itália ganharam o torneio duas vezes. Desta forma, Alemanha, França, Espanha e Itália são as únicas seleções que ganharam o torneio mais de uma vez. Alguns países ainda não tiveram sua chance.",
             "img1":"url(/src/assets/imgs/extrato3/LP_H02_02_010_M.jpg)",
             "img2":"",
             "text": "Qual é a situação da Espanha na Eurocopa?",
@@ -213,10 +173,10 @@
             "acertos": 0 
         },
         {
-            "id" : "LP_H07_03_015",                             
+            "id" : "LP_H06_03_015",                             
             "layout" : "m1",
             "type" : "Lingua portuguesa",
-            "textTitle":"",
+            "textTitle":"Alberto Santos Dumont(1873-1932)",
             "qText":"Nasceu em Palmira, Minas Gerais, em 1873. Em 1891, mudou-se para Paris, onde ficou conhecido como “brasileiro voador” devido as suas experiências pelos ares, como vôos de balão. Em 1901, contornou a Torre Eiffel e retornou ao ponto de partida em menos de meia hora com o dirigível nº 6. Cinco anos depois, decolou e pousou, pela primeira vez na história, um objeto mais pesado que o ar, o avião 14 Bis. Além do avião, Santos Dumont teve diversos outros inventos, entre eles o relógio de pulso. Em 1910, devido a uma doença, o aviador brasileiro dá a sua carreira de pioneiro da aviação como encerrada. O inventor morreu em 1932 aos 59 anos. Foi um dos pioneiros da aviação mundial.",
             "img1":"url(/src/assets/imgs/extrato3/LP_H08_03_009_D.png)",
             "img2":"",
@@ -260,7 +220,7 @@
             "layout" : "m1",
             "type" : "Lingua portuguesa",
             "textTitle":"",
-            "qText":"O grão do milho que vira pipoca possui mais água e casca mais resistente do que os outros. No entanto, alguns podem ter um furo na casca, que atrapalha o processo para formar a pipoca. Funciona assim: ao ser exposta ao calor, a água dentro da semente se expande e vira vapor rompendo a casca; então o amido que estava dentro se expande e se solidifica formando a parte branca da pipoca.",
+            "qText":"O grão do milho que vira pipoca possui mais quantidade de água e casca mais resistente do que os outros. No entanto, alguns podem ter um furo na casca, que atrapalha o processo para formar a pipoca. Funciona assim: ao ser exposta ao calor, a água dentro da semente se expande e vira vapor rompendo a casca; então o amido que estava dentro se expande e se solidifica formando a parte branca da pipoca.",
             "img1":"url(/src/assets/imgs/extrato3/LP_H08_02_011_D.png)",
             "img2":"",
             "text": "O assunto do texto é a",
@@ -298,7 +258,7 @@
             "acertos": 0 
         },
         {
-            "id" : "LP_H07_01_019",                             
+            "id" : "LP_H06_01_019",                             
             "layout" : "m3",
             "type" : "Lingua portuguesa",
             "textTitle":"",
@@ -397,7 +357,7 @@
             "alt3": "livres.",
             "alt4": "vivos.",
             "answer" : "livres.",
-            "fonte" :"Fonte: ROSA, Guimarães. Almanaque do Aluá, nº1, p.55. SAPÉ: Rio de Janeiro, 1998",
+            "fonte" :"Fonte: Rosa, João Guimarães. Campo Geral, 1964. p.16",
             "tempo": 0,
             "tentativas": 0,
             "acertos": 0 
@@ -407,7 +367,7 @@
             "layout" : "m3",
             "type" : "Lingua portuguesa",
             "textTitle":"",
-            "qText":"",
+            "qText":"O que está sendo anunciado?",
             "img1":"url(/src/assets/imgs/extrato3/LP_H06_00_004_F.png)",
             "img2":"",
             "text": "",
@@ -424,10 +384,10 @@
             "acertos": 0 
         },
         {
-            "id" : "LP_H07_02_017",                             
+            "id" : "LP_H06_02_017",                             
             "layout" : "m3",
             "type" : "Lingua portuguesa",
-            "textTitle":"",
+            "textTitle":"Você sabia?",
             "qText":"",
             "img1":"url(/src/assets/imgs/extrato3/LP_H07_02_017_M.png)",
             "img2":"",
@@ -445,7 +405,7 @@
             "acertos": 0 
         },
         {
-            "id" : "LP_H07_01_003",                             
+            "id" : "LP_H06_01_003",                             
             "layout" : "m1",
             "type" : "Lingua portuguesa",
             "textTitle":"",
@@ -536,7 +496,7 @@
             "qText":"",
             "img1":"url(/src/assets/imgs/extrato3/LP_H09_02_003_M.png)",
             "img2":"",
-            "text": "O objetivo do cartaz é:",
+            "text": "O objetivo do cartaz é",
             "audio1": "/src/assets/audios/extrato3/LP_H09_02_003_M.mp3",
             "audio2": "",
             "alt1": "arrecadar dinheiro para doação.",
@@ -548,33 +508,9 @@
             "tempo": 0,
             "tentativas": 0,
             "acertos": 0 
-        },
-    
-        {
-            "id" : "LP_H01_00_010",                             
-            "layout" : "m4",
-            "type" : "Lingua portuguesa",
-            "textTitle":"",
-            "qText":"",
-            "img1":"url(/src/assets/imgs/extrato3/LP_H01_00_010_M/LP_H01_00_010_M.png)",
-            "img2":"",
-            "text": "",
-            "audio1": "/src/assets/audios/extrato3/LP_H01_00_010_M.mp3",
-            "audio2": "",
-            "alt1": "url(/src/assets/imgs/extrato3/LP_H01_00_010_M/1.png)",
-            "alt2": "url(/src/assets/imgs/extrato3/LP_H01_00_010_M/2.png)",
-            "alt3": "url(/src/assets/imgs/extrato3/LP_H01_00_010_M/3.png)",
-            "alt4": "url(/src/assets/imgs/extrato3/LP_H01_00_010_M/4.png)",
-            "answer" : "3",
-            "fonte" :"",
-            "tempo": 0,
-            "tentativas": 0,
-            "acertos": 0,
-            "alt1Img": "url(/src/assets/imgs/extrato3/LP_H01_00_010_M/1.png)",
-            "alt2Img": "url(/src/assets/imgs/extrato3/LP_H01_00_010_M/2.png)",  
-            "alt3Img": "url(/src/assets/imgs/extrato3/LP_H01_00_010_M/3.png)",
-            "alt4Img": "url(/src/assets/imgs/extrato3/LP_H01_00_010_M/4.png)"
         }
+    
+        
 
        
               

@@ -646,14 +646,15 @@ export default {
 
 
             switch (this.questionId) {
-
+                case 'LP_H05_11_001':
+                    aux = document.getElementById("imgM3");
+                    aux.style.width = '35vw';
+                    aux.style.marginLeft = '4vw';
+                break;
                 case 'LP_H07_03_017':
                     aux = document.getElementById("buttonM1");
                     aux.style.marginTop = '17vh';
-
-                    break;
-
-
+                break;
                 case 'LP_H07_02_020':
                     aux = document.getElementById("imgM3");
                     aux.style.width = '43vw';
@@ -722,7 +723,7 @@ export default {
                 case 'LP_H07_02_002':
                 case 'LP_H07_01_018':
                 case 'LP_H07_03_007':
-                case 'LP_H07_03_014':
+                case 'LP_H06_03_014':
                     aux = document.getElementById("questionForm");
                     aux.style.marginTop = '4vh';
                     break;
@@ -808,7 +809,7 @@ export default {
                     aux = document.getElementById("questionForm");
                     aux.style.marginTop = '4vh';
                     break;
-                case 'LP_H07_03_015':
+                case 'LP_H06_03_015':
                     aux = document.getElementById("questionForm");
                     aux.style.marginTop = '4vh';
                     break;
@@ -821,7 +822,7 @@ export default {
                     aux.style.textAlign = 'end';
                     aux.style.marginLeft = '40vw'
                     break;
-                case 'LP_H07_01_019':
+                case 'LP_H06_01_019':
                     aux = document.getElementById("questionForm");
                     aux.style.marginTop = '4vh';
                     aux2 = document.getElementById("imgM3");
@@ -1167,6 +1168,7 @@ export default {
                 ordem_3.push(i);
             }  
       */
+
             this.ordem = [ordem_0, ordem_1, ordem_2, ordem_3];
             this.dadosTeste.ordemQuestoes = this.ordem;         //Para o cookie do aluno.
 
@@ -1679,6 +1681,10 @@ export default {
                             this.resultado = -1;
                             this.dadosTeste.resultado = 2;
                             console.log(this.dadosTeste);
+                            this.sendDataTest(this.dadosTeste);
+                            this.questionFlag = true;
+                            this.testeStatus(0);
+                            this.$router.push('/congratulations');
                         }
                         else{                     //alunos que começam no estrato 2 ou superior.
                             this.resultado = 1;
