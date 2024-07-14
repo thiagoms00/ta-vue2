@@ -167,10 +167,10 @@
                       <v-col cols="2" class="d-flex justify-center">
                         <v-chip size="small"
                           :color="getColor(item.listaDeTestes?.[item.listaDeTestes.length - 1]?.status ?? '')">
-                          <v-icon :icon="getIcon(item.listaDeTestes?.[item.listaDeTestes.length - 1]?.status ?? '')"
+                          <v-icon :icon="getIcon(item.listaDeTestes?.[item.listaDeTestes.length - 1]?.status ?? 'Não Iniciado')"
                             start>
                           </v-icon>
-                          {{ item.listaDeTestes?.[item.listaDeTestes.length - 1]?.status ?? 'N/A' }}
+                          {{ item.listaDeTestes?.[item.listaDeTestes.length - 1]?.status ?? 'Não Iniciado' }}
                         </v-chip>
                       </v-col>
 
