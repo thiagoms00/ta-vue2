@@ -302,7 +302,7 @@
 
                                         </v-btn>
 
-                                        <v-btn variant="text" class="optionButton">
+                                        <v-btn variant="text" class="optionButton" @click="excluirTeste()">
                                           <v-tooltip activator="parent" location="top">Excluir Teste</v-tooltip>
                                           <v-icon size="large" icon="mdi-delete-forever" color="red"></v-icon>
                                         </v-btn>
@@ -396,6 +396,10 @@ export default {
 
   },
   methods: {
+
+    excluirTeste(){
+
+    },
 
     getTableValue(teste, key, isPercentage = false, isTime = false) {
       if (teste.status !== 'Finalizado') {
