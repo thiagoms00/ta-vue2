@@ -302,7 +302,7 @@
 
                                         </v-btn>
 
-                                        <v-btn variant="text" class="optionButton" @click="excluirTeste()">
+                                        <v-btn variant="text" class="optionButton" @click="excluirTeste(item, teste)">
                                           <v-tooltip activator="parent" location="top">Excluir Teste</v-tooltip>
                                           <v-icon size="large" icon="mdi-delete-forever" color="red"></v-icon>
                                         </v-btn>
@@ -397,9 +397,21 @@ export default {
   },
   methods: {
 
-    excluirTeste(){
+    excluirTeste(item, teste){
 
-    },
+      const data = {
+        token: item.token,
+        id: item._id,
+        idTeste: teste._id
+      };
+
+      console.log(teste)
+
+      //verificar se o teste foi finalizado
+
+      
+
+    },  
 
     getTableValue(teste, key, isPercentage = false, isTime = false) {
       if (teste.status !== 'Finalizado') {
