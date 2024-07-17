@@ -1532,6 +1532,9 @@ export default {
             else if(this.PSR<this.poutn  && this.qtdResp>=5){
                 obj_planilha.resultado = 'Reprovado'
             }
+            else if(this.qtdResp>=12){
+                obj_planilha.resultado = 'Indefinido'
+            }
             console.log(obj_planilha)
             this.dadosTeste.dados_planilha.push(obj_planilha)
             // Tomada de decisão:
@@ -1550,26 +1553,29 @@ export default {
 
                 case 0:                                     //ESTRATO 0
                     if (this.PSR > this.pouts && this.qtdResp >= 5) {            // aprovação no estrato 0
-                        this.resultado = 1;
-                        console.log("Fim do estrato 0: Avançando para o Extrato 1");
-                        this.nestr = 1;
-
-                        this.dadosTeste.extratoAtual = this.nestr;  //Usado caso o teste seja retomado.
-                        this.dadosTeste.indiceAtual = 0;            //Usado caso o teste seja retomado.
-                        this.dadosTeste.dadosPSR = 0.5;
-                        this.dadosTeste.seqProbDom.fill(1);
-                        this.dadosTeste.seqProbNdom.fill(1);
-                        this.dadosTeste.jiter = 0;
-                    
-                        this.resetaExtrato(1, this.indiceEs1);
-
-                    } else if (this.PSR < this.poutn && this.qtdResp >= 5) {     // reprovação no estrato 0
-                        this.resultado = -1;
+                        this.resultado = 0;
+                        console.log("Fim do estrato 0: Aprovado no Estrato 0");
+                        this.dadosTeste.resultado = 0;
+                        console.log(this.dadosTeste);
+                        //Enviar dados pro backend
+                        this.sendDataTest(this.dadosTeste);
+                        this.questionFlag = true;
+                        this.testeStatus(0);
+                        this.$router.push('/congratulations');
+                   
+                    } 
+                    else if (this.PSR < this.poutn && this.qtdResp >= 5) {     // reprovação no estrato 0
+                        this.resultado = 0;
                         console.log("Fim do estrato 0: Reprovado no estrato 0");
                         this.dadosTeste.resultado = 0;
                         console.log(this.dadosTeste);
 
-                        if (this.termina === false) {                    //Flag utilizada para determinar o envio dos dados do teste
+                        this.sendDataTest(this.dadosTeste);
+                        this.questionFlag = true;
+                        this.testeStatus(0);
+                        this.$router.push('/congratulations');
+
+                        /* if (this.termina === false) {                    //Flag utilizada para determinar o envio dos dados do teste
                             //Enviar dados pro backend
                             this.popupIntervalo();
                             this.changeTestAudio = true;
@@ -1582,10 +1588,8 @@ export default {
                             this.questionFlag = true;
                             this.testeStatus(0);
                             this.$router.push('/congratulations');
-                        }
-                        else {                                          //Fim da coleta de dados
-                           
-                        }
+                        } */
+                      
 
 
                     } else if (this.jiter >= this.nq[this.nestr] - this.jquest) { // termina indefinido
@@ -1601,27 +1605,57 @@ export default {
 
                         }
 
-                    }
+                    } else if(this.qtdResp >= 12){                       //Caso o aluno responda 12 questões sem ser aprovado ou reprovado.
+                        this.resultado = 0;
+                        console.log("Fim do estrato 0: Indefinido no estrato 0");
+                        this.dadosTeste.resultado = 0;
+                        console.log(this.dadosTeste);
+
+                        this.sendDataTest(this.dadosTeste);
+                        this.questionFlag = true;
+                        this.testeStatus(0);
+                        this.$router.push('/congratulations');
+                    }   
                     break;
 
 
                 case 1:                                 //ESTRATO 1
                     if (this.PSR > this.pouts && this.qtdResp >= 5) {            // aprovação no estrato 1
-                        this.resultado = 1;
-                        console.log("Fim do estrato 1: Avançando para o Estrato 2");
-                        this.nestr = 2;
-                        this.dadosTeste.extratoAtual = this.nestr;
-                        this.dadosTeste.indiceAtual = 0;                          //Usado caso o teste seja retomado.
-                        this.dadosTeste.dadosPSR = 0.5;
-                        this.dadosTeste.seqProbDom.fill(1);
-                        this.dadosTeste.seqProbNdom.fill(1);
-                        this.dadosTeste.jiter = 0;
-                        if(this.anoAluno>=4){                                    //Ano 4 ou mais.
-                            this.resetaExtrato(this.nestr, this.estrato2Ind);
+
+
+                        if(this.anoAluno>=4){                                    //Ano 4 ou mais, logo o teste termina.
+                            //this.resetaExtrato(this.nestr, this.estrato2Ind);
+                            this.dadosTeste.resultado = 1;
+                            this.sendDataTest(this.dadosTeste);
+                            this.questionFlag = true;
+                            this.testeStatus(0);
+                            this.$router.push('/congratulations');
                         }
                         else{
+                            
+                            this.resultado = 1;
+                            console.log("Fim do estrato 1: Avançando para o Estrato 2");
+                            this.nestr = 2;
+                            this.dadosTeste.extratoAtual = this.nestr;
+                            this.dadosTeste.indiceAtual = 0;                          //Usado caso o teste seja retomado.
+                            this.dadosTeste.dadosPSR = 0.5;
+                            this.dadosTeste.seqProbDom.fill(1);
+                            this.dadosTeste.seqProbNdom.fill(1);
+                            this.dadosTeste.jiter = 0;
                             this.resetaExtrato(this.nestr, 0);
                         }
+
+
+
+                        /* if(this.anoAluno>=4){                                    //Ano 4 ou mais, logo o teste termina.
+                            //this.resetaExtrato(this.nestr, this.estrato2Ind);
+                            this.dadosTeste.resultado = 1;
+                            this.sendDataTest(this.dadosTeste);
+                            this.questionFlag = true;
+                            this.testeStatus(0);
+                            this.$router.push('/congratulations');
+                        } */
+                       
                         
                          //Usado caso o teste seja retomado.
 
@@ -1682,7 +1716,18 @@ export default {
                             this.resetaExtrato(this.nestr, 0);
                         }
                        
+                    } else if(this.qtdResp>=12){
+                        this.resultado = 1;
+                        console.log("Fim do estrato 1: Indefinido no estrato 1");
+                        this.dadosTeste.resultado = 0;
+                        console.log(this.dadosTeste);
+
+                        this.sendDataTest(this.dadosTeste);
+                        this.questionFlag = true;
+                        this.testeStatus(0);
+                        this.$router.push('/congratulations');
                     }
+                    
                     break;
 
 
@@ -1763,6 +1808,16 @@ export default {
                             this.testeStatus(0);
                             this.$router.push('/congratulations');
                         }
+                    } else if(this.qtdResp>=12){
+                        this.resultado = 1;
+                        console.log("Fim do estrato 2: Indefinido no estrato 2");
+                        this.dadosTeste.resultado = 0;
+                        console.log(this.dadosTeste);
+
+                        this.sendDataTest(this.dadosTeste);
+                        this.questionFlag = true;
+                        this.testeStatus(0);
+                        this.$router.push('/congratulations');
                     }
                     break;
 
@@ -1807,6 +1862,16 @@ export default {
                             this.testeStatus(0);
                             this.$router.push('/congratulations');
                         }
+                    } else if(this.qtdResp>=12){
+                        this.resultado = 1;
+                        console.log("Fim do estrato 3: Indefinido no estrato 3");
+                        this.dadosTeste.resultado = 0;
+                        console.log(this.dadosTeste);
+
+                        this.sendDataTest(this.dadosTeste);
+                        this.questionFlag = true;
+                        this.testeStatus(0);
+                        this.$router.push('/congratulations');
                     }
                     break;
                 default:
