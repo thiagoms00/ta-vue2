@@ -471,7 +471,7 @@ export default {
 
         /* Propriedades do item à ser respondido. */
       
-        this.questionNumber = this.ordem[this.nestr][this.ind_questao];
+        this.questionNumber = this.ordem[this.nestr][this.ind_questao]; 
         this.questionId = this.jsonData.questoes[this.questionNumber].id;
         this.questionText = this.jsonData.questoes[this.questionNumber].text;
         this.questionTextTitle = this.jsonData.questoes[this.questionNumber].textTitle;
@@ -1169,6 +1169,17 @@ export default {
             }  
       */
 
+ 
+                 /*    ordem_0 = [
+                    0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+                    10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+                    20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
+                    30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40
+                ];  */
+
+
+
+
             this.ordem = [ordem_0, ordem_1, ordem_2, ordem_3];
             this.dadosTeste.ordemQuestoes = this.ordem;         //Para o cookie do aluno.
 
@@ -1506,6 +1517,7 @@ export default {
             let prn = this.multiplica_array(this.seq_prob_ndom);                     //probabiliade da sequência de respostas, dado que não domine o conteudo
 
             this.PSR = prs * this.PS / (this.PS * prs + (1 - this.PS) * prn);        //probabilidade de dominio do conteúdo, dada a sequência de respostas
+            
             console.log("probabilidade dominio conteudo = ", +this.PSR);
             this.dadosTeste.dadosPSR = this.PSR;                                    //Usado caso o teste seja retomado.
             this.jiter += 1;
@@ -2108,6 +2120,10 @@ export default {
             const remainingSeconds = Math.floor(seconds % 60); // arredondando para baixo para remover casas decimais
             return `${minutes}m${remainingSeconds}s`;
         },
+
+        gera_pdf(){
+
+        }
 
 
     },
