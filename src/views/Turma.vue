@@ -72,7 +72,7 @@
                       </v-col>
                       <v-col cols="2" class="d-flex justify-center">
                         <v-btn block :append-icon="icon[1]" :ripple="false" variant="text"
-                          @click="toggleIcon(1, 'extrato')">Extrato
+                          @click="toggleIcon(1, 'extrato')">Estrato
                           Final</v-btn>
                       </v-col>
                       <v-col cols="2" class="d-flex justify-center">
@@ -251,7 +251,7 @@
                                       Data
                                     </th>
                                     <th>
-                                      Extrato Final
+                                      Estrato Final
                                     </th>
                                     <th>
                                       Quest. Feitas
