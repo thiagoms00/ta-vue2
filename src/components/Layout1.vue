@@ -1559,7 +1559,7 @@ export default {
                         this.dadosTeste.resultado = 0;
 
 
-                        this.dadosTeste.resultado_final = 'Aprovado no estrato 0';
+                        this.dadosTeste.resultado_final = '0 - Aprovado';
                         console.log(this.dadosTeste);
                         //Enviar dados pro backend
                         this.sendDataTest(this.dadosTeste);
@@ -1573,7 +1573,7 @@ export default {
                         this.resultado = 0;
                         console.log("Fim do estrato 0: Reprovado no estrato 0");
                         this.dadosTeste.resultado = 0;
-                        this.dadosTeste.resultado_final = 'Reprovado no estrato 0';
+                        this.dadosTeste.resultado_final = '0 - Reprovado';
 
                         console.log(this.dadosTeste);
 
@@ -1615,7 +1615,7 @@ export default {
                     } else if(this.qtdResp >= 12){                       //Caso o aluno responda 12 questões sem ser aprovado ou reprovado.
                         this.resultado = 0;
                         console.log("Fim do estrato 0: Indefinido no estrato 0");
-                        this.dadosTeste.resultado_final = 'Indefinido no estrato 0';
+                        this.dadosTeste.resultado_final = '0 - Indefinido';
                         this.dadosTeste.resultado = 0;
                         console.log(this.dadosTeste);
 
@@ -1634,7 +1634,7 @@ export default {
                         if(this.anoAluno>=4){                                    //Ano 4 ou mais, logo o teste termina.
                             //this.resetaExtrato(this.nestr, this.estrato2Ind);
                             this.dadosTeste.resultado = 1;
-                            this.dadosTeste.resultado_final = 'Aprovado no estrato 1';
+                            this.dadosTeste.resultado_final = '1 - Aprovado';
                             this.sendDataTest(this.dadosTeste);
                             this.questionFlag = true;
                             this.testeStatus(0);
@@ -1675,7 +1675,7 @@ export default {
                         if(this.anoAluno==4 || this.anoAluno==5 || this.anoAluno==6){
                             this.popupIntervalo();
                             this.dadosTeste.resultado = 1;
-                            this.dadosTeste.resultado_final = 'Reprovado no estrato 1';
+                            this.dadosTeste.resultado_final = '1 - Reprovado';
 
                             this.sendDataTest(this.dadosTeste);
                             this.questionFlag = true;
@@ -1731,7 +1731,7 @@ export default {
                     } else if(this.qtdResp>=12){
                         this.resultado = 1;
                         console.log("Fim do estrato 1: Indefinido no estrato 1");
-                        this.dadosTeste.resultado_final = 'Indefinido no estrato 1';
+                        this.dadosTeste.resultado_final = '1 - Indefinido';
 
                         this.dadosTeste.resultado = 0;
                         console.log(this.dadosTeste);
@@ -1751,7 +1751,7 @@ export default {
                         if(this.anoAluno<=3){      //alunos que começam no estrato 1(ano 1,2 e 3).
                             this.resultado = -1;
                             this.dadosTeste.resultado = 2;
-                            this.dadosTeste.resultado_final = 'Aprovado no estrato 2';
+                            this.dadosTeste.resultado_final = '2 - Aprovado';
 
                             console.log(this.dadosTeste);
                             this.sendDataTest(this.dadosTeste);
@@ -1777,7 +1777,7 @@ export default {
                         console.log("Fim do extrato 2: Reprovado no extrato 2");
                         if(this.anoAluno==1 || this.anoAluno==2 || this.anoAluno==3){
                             this.resultado = -1;
-                            this.dadosTeste.resultado_final = 'Reprovado no estrato 2';
+                            this.dadosTeste.resultado_final = '2 - Reprovado';
                             this.dadosTeste.resultado = 2;
                             console.log(this.dadosTeste);
                             this.popupIntervalo();
@@ -1828,7 +1828,7 @@ export default {
                     } else if(this.qtdResp>=12){
                         this.resultado = 1;
                         console.log("Fim do estrato 2: Indefinido no estrato 2");
-                        this.dadosTeste.resultado_final = 'Indefinido no estrato 2';
+                        this.dadosTeste.resultado_final = '2 - Indefinido';
 
                         this.dadosTeste.resultado = 0;
                         console.log(this.dadosTeste);
@@ -1849,7 +1849,7 @@ export default {
                         console.log(this.dadosTeste);
                         if (this.termina === false) {
                             //Enviar dados pro backend
-                            this.dadosTeste.resultado_final = 'Aprovado no estrato 3';
+                            this.dadosTeste.resultado_final = '3 - Aprovado';
                             this.dadosTeste.resultado = 4;
                             this.sendDataTest(this.dadosTeste);
                             this.questionFlag = true;
@@ -1867,7 +1867,7 @@ export default {
                         if (this.termina === false) {
                             this.popupIntervalo();
                             //Enviar dados pro backend
-                            this.dadosTeste.resultado_final = 'Reprovado no estrato 3';
+                            this.dadosTeste.resultado_final = '3 - Reprovado';
 
                             this.sendDataTest(this.dadosTeste);
                             this.questionFlag = true;
@@ -1888,7 +1888,7 @@ export default {
                     } else if(this.qtdResp>=12){
                         this.resultado = 1;
                         console.log("Fim do estrato 3: Indefinido no estrato 3");
-                        this.dadosTeste.resultado_final = 'Indefinido no estrato 3';
+                        this.dadosTeste.resultado_final = '3 - Indefinido';
 
                         this.dadosTeste.resultado = 0;
                         

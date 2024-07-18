@@ -138,7 +138,7 @@
                         {{ (item.listaDeTestes.length > 0 && item.listaDeTestes[item.listaDeTestes.length - 1].status
           ===
           "Finalizado") ?
-          item.listaDeTestes[item.listaDeTestes.length - 1].extratoFinal : "-" }}
+          item.listaDeTestes[item.listaDeTestes.length - 1].resultado_final : "-" }}
                       </v-col>
 
                       <v-col cols="2" class="d-flex justify-center">
