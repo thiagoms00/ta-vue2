@@ -471,7 +471,6 @@ export default {
     
 
         /* Propriedades do item à ser respondido. */
-      
         this.questionNumber = this.ordem[this.nestr][this.ind_questao]; 
         this.questionId = this.jsonData.questoes[this.questionNumber].id;
         this.questionText = this.jsonData.questoes[this.questionNumber].text;
@@ -1177,7 +1176,6 @@ export default {
                     20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
                     30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40
                 ];  */
-
 
 
 
