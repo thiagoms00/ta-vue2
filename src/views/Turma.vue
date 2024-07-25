@@ -26,9 +26,9 @@
                     <v-list class="pa-0">
 
                       <v-list-item v-for="(item, index) in listaNomeTurma" :key="index" density="compact"
-                        class="d-flex justify-center text-subtitle-2" @click="selecionaTurma(item.id)">
-                        <v-list-item-title v-if="!animateCarregandoTurmas">{{ item.nome }}</v-list-item-title>
-                        <v-progress-circular v-if="animateCarregandoTurmas" indeterminate size="24" />
+                        class="d-flex justify-center text-subtitle-2" @click="selecionaTurma(item.id, index)">               
+                        <v-list-item-title v-if="!loadingStatesTurmas[index]">{{ item.nome }}</v-list-item-title>
+                        <v-progress-circular v-if="loadingStatesTurmas[index]" indeterminate size="24" />
                       </v-list-item>
 
                     </v-list>
@@ -332,14 +332,6 @@
   </v-app>
 </template>
 
-<script setup>
-const links = [
-  'Dashboard',
-  'Mensagem',
-  'Atualizações',
-]
-</script>
-
 <script>
 import axios from 'axios';
 // import Chart from '@/components/Chart.vue'
@@ -371,6 +363,7 @@ export default {
     sortOrder: true,
     mostrarDiv: true,
     listaNomeTurma: [],
+    loadingStatesTurmas: [],
     animateCarregandoTurmas: false,
     tab: 'dados',
     chartData: [300, 50, 100, 200, 150, 250],
@@ -421,11 +414,6 @@ export default {
       const minutes = Math.floor(roundedSeconds / 60);
       const remainingSeconds = roundedSeconds % 60;
       return minutes > 0 ? `${minutes}m ${remainingSeconds}s` : `${remainingSeconds}s`;
-    },
-
-    logout() {
-      localStorage.clear();
-      this.$router.push('/proflogin');
     },
 
     toggleIcon(index, value) {
@@ -508,9 +496,9 @@ export default {
 
     },
 
-    selecionaTurma(turmaValue) {
+    selecionaTurma(turmaValue, index) {
 
-      this.animateCarregandoTurmas = true;
+      this.loadingStatesTurmas[index] = true;
       const data = {
         token: localStorage.getItem('tokenProf'),
         idTurma: turmaValue,
@@ -545,7 +533,8 @@ export default {
           this.mostrarDiv = false;
           this.ativarAnimacaoLista();
           console.log(this.listaTurma)
-          this.animateCarregandoTurmas = false;
+          this.loadingStatesTurmas[index] = false;
+          
         });
 
 
