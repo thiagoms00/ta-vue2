@@ -1,19 +1,6 @@
 <template>
   <v-app id="inspire">
-    <v-app-bar flat color="#1E3892">
-      <v-container class="mx-auto d-flex align-center justify-center">
-        <v-avatar class="me-4 " color="blue-lighten-4" size="32"></v-avatar>
-
-        <v-btn v-for="link in links" :key="link" :text="link" variant="text"></v-btn>
-
-        <v-spacer></v-spacer>
-
-        <v-btn dark @click="logout" prepend-icon="mdi-logout-variant">
-          SAIR
-        </v-btn>
-
-      </v-container>
-    </v-app-bar>
+  <NavBar/>
 
     <v-main class="bg-blue-grey-lighten-5">
       <v-container>
@@ -357,13 +344,15 @@ const links = [
 import axios from 'axios';
 // import Chart from '@/components/Chart.vue'
 import ChartBar from '@/components/ChartBar.vue'
+import NavBar from '@/components/NavBar.vue'
 import * as XLSX from 'xlsx';
 
 export default {
   name: 'Turma',
   components: {
     // Chart,
-    ChartBar
+    ChartBar,
+    NavBar
   },
 
   data: () => ({
@@ -397,21 +386,21 @@ export default {
   },
   methods: {
 
-    excluirTeste(item, teste){
+    // excluirTeste(item, teste){
 
-      const data = {
-        token: item.token,
-        id: item._id,
-        idTeste: teste._id
-      };
+    //   const data = {
+    //     token: item.token,
+    //     id: item._id,
+    //     idTeste: teste._id
+    //   };
 
-      console.log(teste)
+    //   console.log(teste)
 
-      //verificar se o teste foi finalizado
+    //   verificar se o teste foi finalizado
 
       
 
-    },  
+    // },  
 
     getTableValue(teste, key, isPercentage = false, isTime = false) {
       if (teste.status !== 'Finalizado') {
