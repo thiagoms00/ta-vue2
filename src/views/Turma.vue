@@ -379,21 +379,17 @@ export default {
   },
   methods: {
 
-    // excluirTeste(item, teste){
+    excluirTeste(item, teste){
 
-    //   const data = {
-    //     token: item.token,
-    //     id: item._id,
-    //     idTeste: teste._id
-    //   };
+      const data = {
+        token: item.token,
+        id: item._id,
+        idTeste: teste._id
+      };
 
-    //   console.log(teste)
+      console.log(teste)
 
-    //   verificar se o teste foi finalizado
-
-      
-
-    // },  
+    },  
 
     getTableValue(teste, key, isPercentage = false, isTime = false) {
       if (teste.status !== 'Finalizado') {
