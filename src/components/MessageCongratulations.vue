@@ -58,7 +58,10 @@ export default {
 
   methods: {
     proximaPagina() {
-      localStorage.clear();
+      localStorage.removeItem('anoAtual');
+      localStorage.removeItem('id');
+      localStorage.removeItem('token');
+      localStorage.removeItem('idTeste');
       this.$router.push('/login');
     },
 

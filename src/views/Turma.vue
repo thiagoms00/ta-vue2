@@ -107,7 +107,7 @@
             <v-sheet rounded="lg" class="" :class="{ 'fade-in': animacaoListaAtiva }">
 
               <v-expansion-panels variant="accordion">
-                <v-expansion-panel v-for="(item) in listaTurma" :key="item.nome" :readonly="item.nTestes === 0"
+                <v-expansion-panel v-for="(item, indexAluno) in listaTurma" :key="item.nome" :readonly="item.nTestes === 0"
                   ref="panels" class="rounded-b-lg" style="border-radius: 0px;">
 
 
@@ -262,7 +262,7 @@
                                 </thead>
 
                                 <tbody>
-                                  <tr v-for="teste in item.listaDeTestes" :key="teste._id">
+                                  <tr v-for="(teste, indexTeste) in item.listaDeTestes" :key="teste._id">
                                     <td>{{ teste.disciplina }}</td>
                                     <td>{{ getTableValue(teste, 'horaInicio') }}</td>
                                     <td>{{ getTableValue(teste, 'extratoFinal') }}</td>
@@ -289,10 +289,13 @@
 
                                         </v-btn>
 
-                                        <v-btn variant="text" class="optionButton" @click="excluirTeste(item, teste)">
+                                        <DialogExcluirTeste @trigger-metododeexclusão="excluirTeste(item, teste, indexAluno ,indexTeste)" />
+                                        
+
+                                        <!-- <v-btn variant="text" class="optionButton" @click="excluirTeste(item, teste)">
                                           <v-tooltip activator="parent" location="top">Excluir Teste</v-tooltip>
                                           <v-icon size="large" icon="mdi-delete-forever" color="red"></v-icon>
-                                        </v-btn>
+                                        </v-btn> -->
 
 
                                       </div>
@@ -336,6 +339,7 @@
 import axios from 'axios';
 // import Chart from '@/components/Chart.vue'
 import ChartBar from '@/components/ChartBar.vue'
+import DialogExcluirTeste from '@/components/DialogExcluirTeste.vue'
 import NavBar from '@/components/NavBar.vue'
 import * as XLSX from 'xlsx';
 
@@ -344,7 +348,8 @@ export default {
   components: {
     // Chart,
     ChartBar,
-    NavBar
+    NavBar,
+    DialogExcluirTeste
   },
 
   data: () => ({
@@ -379,7 +384,7 @@ export default {
   },
   methods: {
 
-    excluirTeste(item, teste){
+    excluirTeste(item, teste, indexAluno, indexTeste){
 
       const data = {
         token: item.token,
@@ -387,7 +392,7 @@ export default {
         idTeste: teste._id
       };
 
-      console.log(data)
+      this.listaTurma[indexAluno].listaDeTestes[indexTeste].splice(index, 1);
 
       axios({ url: 'https://ta-back.onrender.com/professores/excluirTesteAluno', data, method: 'POST' })
         .then((response) => {
