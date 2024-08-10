@@ -37,6 +37,27 @@
               </v-expansion-panels>
             </div>
 
+            <div class="mt-4"> 
+               
+              <v-text-field
+                rounded="lg"
+                
+                append-inner-icon="mdi-magnify"
+                density="compact"
+                label="Buscar aluno"
+                variant="solo"
+                v-model="search"
+                :style="{ borderRadius: '8px', border: '2px solid #1E3892' }"
+                
+                
+                
+              >
+              
+              </v-text-field>
+              
+            </div>
+            
+
 
 
           </v-col>
@@ -92,6 +113,7 @@
 
             <!-- Mensagem de Seleção de Turma -->
             <div>
+
               <v-sheet v-if="mostrarDiv" class="d-flex justify-center align-center rounded-b-lg" height="250"
                 color="grey-lighten-5" border="md">
                 <p class="text-overline"
@@ -766,6 +788,7 @@ export default {
 </script>
 
 <style>
+
 .optionButton {
   width: 5px !important;
   min-width: 35px !important;
