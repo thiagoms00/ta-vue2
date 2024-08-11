@@ -40,14 +40,15 @@
             <div class="mt-4"> 
                
               <v-text-field
-                rounded="lg"
+                
                 
                 append-inner-icon="mdi-magnify"
                 density="compact"
                 label="Buscar aluno"
                 variant="solo"
                 v-model="search"
-                :style="{ borderRadius: '8px', border: '2px solid #1E3892' }"
+                class="custom-border"
+                
                 
                 
                 
@@ -788,6 +789,10 @@ export default {
 </script>
 
 <style>
+.custom-border .v-input__control {
+  border-radius: 8px;
+  border: 2px solid #DCDCDC;
+}
 
 .optionButton {
   width: 5px !important;
