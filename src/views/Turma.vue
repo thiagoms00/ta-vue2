@@ -130,7 +130,7 @@
             <v-sheet rounded="lg" class="" :class="{ 'fade-in': animacaoListaAtiva }">
 
               <v-expansion-panels variant="accordion">
-                <v-expansion-panel v-for="(item, indexAluno) in listaTurma" :key="item.nome" :readonly="item.nTestes === 0"
+                <v-expansion-panel v-for="(item, indexAluno) in listaFiltrada" :key="item.nome" :readonly="item.nTestes === 0"
                   ref="panels" class="rounded-b-lg" style="border-radius: 0px;">
 
 
@@ -396,7 +396,7 @@ export default {
     tab: 'dados',
     chartData: [300, 50, 100, 200, 150, 250],
     textoPlanilha: false,                      //Flag pro hover do botão da planilha.
-
+    search:''
   }),
 
   created() {
@@ -543,6 +543,7 @@ export default {
       axios({ url: 'https://ta-back.onrender.com/professores/dadosTurma', data, method: 'POST' })
         .then((response) => {
           this.listaTurma = response.data.turma
+          
           //criando lista com os ultimos elementos.
           for (let i = 0; i < this.listaTurma.length; i++) {
 
@@ -754,7 +755,6 @@ export default {
 
     },
 
-
     showText(texto) {     //Mostra texto no momento do hover
       if (texto === 'planilha') {
         this.textoPlanilha = true;
@@ -784,6 +784,19 @@ export default {
 
       return this.listaTurma;
     },
+
+    listaFiltrada(){
+      let result = this.listaTurma;
+
+      // Filtro de busca por nome
+      if (this.search) {
+        result = result.filter(item =>
+          item.user['nome'].toLowerCase().includes(this.search.toLowerCase())
+        );
+      }
+
+      return result;
+    }
   },
 }
 </script>
