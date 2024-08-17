@@ -107,7 +107,7 @@
   >
     <v-expansion-panels variant="accordion">
       <v-expansion-panel
-        v-for="(item, indexAluno) in listaDeAlunos"
+        v-for="(item, indexAluno) in listaTurma"
         :key="item.nome"
         :readonly="item.nTestes === 0"
         ref="panels"
@@ -388,6 +388,7 @@ export default {
     animacaoListaAtiva: false,
     icon: ["", "", "", "", "", ""],
     tab: "dados",
+    listaTurma: [],
   }),
 
   props: {
@@ -398,16 +399,19 @@ export default {
     },
   },
 
-  emits: ['eventDeleteTest'],
+  watch: {
+    // Observa mudanças em `listaDeAlunos`
+    listaDeAlunos(newVal) {
+      this.listaTurma = newVal;
+    },
+  },
+  mounted() {
+    this.listaTurma = this.listaDeAlunos;
+  },
+
+  emits: ["eventDeleteTest"],
 
   methods: {
-    ativarAnimacaoLista() {
-      this.animacaoListaAtiva = true;
-      // Após um certo tempo, desativar a animação
-      setTimeout(() => {
-        this.animacaoListaAtiva = false;
-      }, 500); // Tempo correspondente à duração da animação em milissegundos
-    },
 
     toggleIcon(index, value) {
       // Reset all icons
@@ -472,6 +476,7 @@ export default {
 
     mudarTela() {
       this.mostrarDiv = false;
+      console.log("1");
     },
 
     geraXlsx(planilha, nome) {
@@ -535,11 +540,163 @@ export default {
         token: item.token,
         id: item._id,
         idTeste: teste._id,
-        indexAluno : indexAluno,
-        indexTeste : indexTeste
+        indexAluno: indexAluno,
+        indexTeste: indexTeste,
       };
 
-      this.$emit('eventDeleteTest', data);
+      this.$emit("eventDeleteTest", data);
+    },
+
+    listaTurmaOrdenada(order) {
+      if (this.toggle === "nome") {
+        this.listaTurma = this.listaTurma
+          .slice()
+          .sort((a, b) => a.user["nome"].localeCompare(b.user["nome"]));
+      } else if (this.toggle === "extrato") {
+        const alunosComExtrato = this.listaTurma.filter((aluno) => {
+          return (
+            aluno.listaDeTestes.length > 0 &&
+            typeof aluno.listaDeTestes[aluno.listaDeTestes.length - 1]
+              .extratoFinal === "number"
+          );
+        });
+
+        alunosComExtrato.sort((a, b) => {
+          const extratoA =
+            a.listaDeTestes[a.listaDeTestes.length - 1].extratoFinal;
+          const extratoB =
+            b.listaDeTestes[b.listaDeTestes.length - 1].extratoFinal;
+          return extratoA - extratoB;
+        });
+
+        const alunosSemExtrato = this.listaTurma.filter((aluno) => {
+          return (
+            aluno.listaDeTestes.length === 0 ||
+            typeof aluno.listaDeTestes[aluno.listaDeTestes.length - 1]
+              .extratoFinal !== "number"
+          );
+        });
+
+        const listaOrdenada = [...alunosSemExtrato, ...alunosComExtrato];
+
+        this.listaTurma = listaOrdenada;
+      } else if (this.toggle === "nQuestoes") {
+        const alunosQuestoes = this.listaTurma.filter((aluno) => {
+          return (
+            aluno.listaDeTestes.length > 0 &&
+            typeof aluno.listaDeTestes[aluno.listaDeTestes.length - 1]
+              .numero_questoes_feitas === "number"
+          );
+        });
+
+        alunosQuestoes.sort((a, b) => {
+          const extratoA =
+            a.listaDeTestes[a.listaDeTestes.length - 1].numero_questoes_feitas;
+          const extratoB =
+            b.listaDeTestes[b.listaDeTestes.length - 1].numero_questoes_feitas;
+          return extratoA - extratoB;
+        });
+
+        const alunosSemQuestoes = this.listaTurma.filter((aluno) => {
+          return (
+            aluno.listaDeTestes.length === 0 ||
+            typeof aluno.listaDeTestes[aluno.listaDeTestes.length - 1]
+              .numero_questoes_feitas !== "number"
+          );
+        });
+
+        const listaOrdenada = [...alunosSemQuestoes, ...alunosQuestoes];
+
+        this.listaTurma = listaOrdenada;
+      } else if (this.toggle === "percentTeste") {
+        const alunosPorcentagem = this.listaTurma.filter((aluno) => {
+          const temPorcentagem =
+            aluno.listaDeTestes.length > 0 &&
+            typeof aluno.listaDeTestes[aluno.listaDeTestes.length - 1]
+              .porcentagem_questoes === "number";
+          return temPorcentagem;
+        });
+
+        alunosPorcentagem.sort((a, b) => {
+          const extratoA =
+            a.listaDeTestes[a.listaDeTestes.length - 1].porcentagem_questoes;
+          const extratoB =
+            b.listaDeTestes[b.listaDeTestes.length - 1].porcentagem_questoes;
+          return extratoA - extratoB;
+        });
+
+        const alunosSemPorcentagem = this.listaTurma.filter((aluno) => {
+          const semPorcentagem =
+            aluno.listaDeTestes.length === 0 ||
+            typeof aluno.listaDeTestes[aluno.listaDeTestes.length - 1]
+              .porcentagem_questoes !== "number";
+          return semPorcentagem;
+        });
+
+        const listaOrdenada = [...alunosSemPorcentagem, ...alunosPorcentagem];
+        this.listaTurma = listaOrdenada;
+      } else if (this.toggle === "tempo") {
+        const alunosTempo = this.listaTurma.filter((aluno) => {
+          const temPorcentagem =
+            aluno.listaDeTestes.length > 0 &&
+            typeof aluno.listaDeTestes[aluno.listaDeTestes.length - 1]
+              .tempoDoTeste === "number";
+          return temPorcentagem;
+        });
+
+        alunosTempo.sort((a, b) => {
+          const extratoA =
+            a.listaDeTestes[a.listaDeTestes.length - 1].tempoDoTeste;
+          const extratoB =
+            b.listaDeTestes[b.listaDeTestes.length - 1].tempoDoTeste;
+          return extratoA - extratoB;
+        });
+
+        const alunosSemTempo = this.listaTurma.filter((aluno) => {
+          const semPorcentagem =
+            aluno.listaDeTestes.length === 0 ||
+            typeof aluno.listaDeTestes[aluno.listaDeTestes.length - 1]
+              .tempoDoTeste !== "number";
+          return semPorcentagem;
+        });
+
+        const listaOrdenada = [...alunosSemTempo, ...alunosTempo];
+        this.listaTurma = listaOrdenada;
+      } else if (this.toggle === "status") {
+        const getStatus = (aluno) => {
+          if (aluno.listaDeTestes.length > 0) {
+            return (
+              aluno.listaDeTestes[aluno.listaDeTestes.length - 1].status ||
+              "Não Iniciado"
+            );
+          }
+          return "Sem Status"; // Retorna 'Sem Status' se o aluno não tiver testes
+        };
+
+        // Função de comparação personalizada para ordenar os status
+        const statusOrder = {
+          Finalizado: 0,
+          Iniciado: 1,
+          "Não Iniciado": 2,
+          "Sem Status": 3,
+        };
+
+        // Recriar a lista de alunos ordenada com base no status
+        const listaOrdenada = this.listaTurma.slice().sort((a, b) => {
+          const statusA = getStatus(a);
+          const statusB = getStatus(b);
+          return statusOrder[statusA] - statusOrder[statusB];
+        });
+
+        // Atribuir a lista ordenada de volta a this.listaTurma
+        this.listaTurma = listaOrdenada;
+      }
+
+      if (order) {
+        return this.listaTurma;
+      } else {
+        return this.listaTurma.reverse();
+      }
     },
   },
 };
