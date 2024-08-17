@@ -65,7 +65,7 @@
 
           <v-col>
 
-            <TurmaDataInfo :listaDeAlunos="listaFiltrada" ref="turmaDataInfo"/>
+            <TurmaDataInfo :listaDeAlunos="listaFiltrada" ref="turmaDataInfo" @eventDeleteTest ='excluirTeste'/>
 
             
 
@@ -127,15 +127,12 @@ export default {
   },
   methods: {
 
-    excluirTeste(item, teste, indexAluno, indexTeste){
+    excluirTeste(data){
 
-      const data = {
-        token: item.token,
-        id: item._id,
-        idTeste: teste._id
-      };
+      const indexAluno = data.indexAluno
+      const indexTeste = data.indexTeste
 
-      this.listaTurma[indexAluno].listaDeTestes[indexTeste].splice(index, 1);
+      this.listaTurma[indexAluno].listaDeTestes.splice(indexTeste, 1);
 
       axios({ url: 'https://ta-back.onrender.com/professores/excluirTesteAluno', data, method: 'POST' })
         .then((response) => {

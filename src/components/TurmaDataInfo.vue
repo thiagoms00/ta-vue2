@@ -1,5 +1,4 @@
 <template>
-
   <v-sheet class="rounded-t-lg">
     <v-expansion-panels :readonly="true">
       <v-expansion-panel
@@ -100,7 +99,12 @@
     </v-sheet>
   </div>
 
-  <v-sheet v-if="!mostrarDiv" rounded="lg" class="" :class="{ 'fade-in': animacaoListaAtiva }">
+  <v-sheet
+    v-if="!mostrarDiv"
+    rounded="lg"
+    class=""
+    :class="{ 'fade-in': animacaoListaAtiva }"
+  >
     <v-expansion-panels variant="accordion">
       <v-expansion-panel
         v-for="(item, indexAluno) in listaDeAlunos"
@@ -364,27 +368,28 @@
       </v-expansion-panel>
     </v-expansion-panels>
   </v-sheet>
-
 </template>
 
 <script>
 import DialogExcluirTeste from "@/components/DialogExcluirTeste.vue";
-import ChartBar from '@/components/ChartBar.vue'
-import * as XLSX from 'xlsx';
-
+import ChartBar from "@/components/ChartBar.vue";
+import * as XLSX from "xlsx";
 
 export default {
   name: "TurmaDataInfo",
+
   components: {
     DialogExcluirTeste,
     ChartBar,
   },
+
   data: () => ({
     mostrarDiv: true,
     animacaoListaAtiva: false,
     icon: ["", "", "", "", "", ""],
-    tab: 'dados',
+    tab: "dados",
   }),
+
   props: {
     listaDeAlunos: {
       type: Array,
@@ -393,8 +398,9 @@ export default {
     },
   },
 
-  methods: {
+  emits: ['eventDeleteTest'],
 
+  methods: {
     ativarAnimacaoLista() {
       this.animacaoListaAtiva = true;
       // Após um certo tempo, desativar a animação
@@ -405,7 +411,13 @@ export default {
 
     toggleIcon(index, value) {
       // Reset all icons
-      this.icon = this.icon.map((icon, i) => (i === index ? (this.lastClicked === index ? "mdi-menu-down" : "mdi-menu-up") : ""));
+      this.icon = this.icon.map((icon, i) =>
+        i === index
+          ? this.lastClicked === index
+            ? "mdi-menu-down"
+            : "mdi-menu-up"
+          : ""
+      );
 
       // Update last clicked index
       this.lastClicked = this.lastClicked === index ? -1 : index;
@@ -415,24 +427,23 @@ export default {
     },
 
     getIcon(chipValue) {
-
-if (chipValue === 'Não Iniciado') {
-  return 'mdi-cancel'; // Default
-} else if (chipValue === 'Iniciado') {
-  return 'mdi-minus-circle'; // Verde
-} else if (chipValue === 'Finalizado') {
-  return 'mdi-checkbox-marked-circle'; // Vermelho (ou qualquer outra cor padrão)
-}
+      if (chipValue === "Não Iniciado") {
+        return "mdi-cancel"; // Default
+      } else if (chipValue === "Iniciado") {
+        return "mdi-minus-circle"; // Verde
+      } else if (chipValue === "Finalizado") {
+        return "mdi-checkbox-marked-circle"; // Vermelho (ou qualquer outra cor padrão)
+      }
     },
 
     getColor(chipValue) {
       // Lógica para determinar a cor com base no valor de chipValue
-      if (chipValue === 'Não Iniciado') {
-        return ''; // Default
-      } else if (chipValue === 'Iniciado') {
-        return 'orange'; // Verde
-      } else if (chipValue === 'Finalizado') {
-        return 'green'; // Vermelho (ou qualquer outra cor padrão)
+      if (chipValue === "Não Iniciado") {
+        return ""; // Default
+      } else if (chipValue === "Iniciado") {
+        return "orange"; // Verde
+      } else if (chipValue === "Finalizado") {
+        return "green"; // Vermelho (ou qualquer outra cor padrão)
       }
     },
 
@@ -440,33 +451,45 @@ if (chipValue === 'Não Iniciado') {
       const roundedSeconds = Math.round(seconds);
       const minutes = Math.floor(roundedSeconds / 60);
       const remainingSeconds = roundedSeconds % 60;
-      return minutes > 0 ? `${minutes}m ${remainingSeconds}s` : `${remainingSeconds}s`;
+      return minutes > 0
+        ? `${minutes}m ${remainingSeconds}s`
+        : `${remainingSeconds}s`;
     },
 
     getTableValue(teste, key, isPercentage = false, isTime = false) {
-      if (teste.status !== 'Finalizado') {
-        return '-';
+      if (teste.status !== "Finalizado") {
+        return "-";
       }
       let value = teste[key];
       if (isPercentage) {
-        return (value || 0).toFixed(2).replace('.', ',');
+        return (value || 0).toFixed(2).replace(".", ",");
       }
       if (isTime) {
         return this.formatTime(value);
       }
-      return value !== undefined ? value : '-';
+      return value !== undefined ? value : "-";
     },
 
-    mudarTela(){
-        this.mostrarDiv = false;
+    mudarTela() {
+      this.mostrarDiv = false;
     },
 
     geraXlsx(planilha, nome) {
-      console.log(planilha)
       let data = [
-        ['TESTE', 'Estrato', 'Habilidade', 'Item', 'Gabarito', 'Resposta', 'Acerto', 'Tempo Gasto(s)', 'Tipo', 'Resultado']
+        [
+          "TESTE",
+          "Estrato",
+          "Habilidade",
+          "Item",
+          "Gabarito",
+          "Resposta",
+          "Acerto",
+          "Tempo Gasto(s)",
+          "Tipo",
+          "Resultado",
+        ],
       ];
-      planilha.forEach(item => {
+      planilha.forEach((item) => {
         data.push([
           item.questaoNum,
           item.estrato,
@@ -477,12 +500,11 @@ if (chipValue === 'Não Iniciado') {
           item.acerto,
           item.tempo_gasto,
           item.tipo,
-          item.resultado
+          item.resultado,
         ]);
       });
       // Criar uma nova planilha
       let ws = XLSX.utils.aoa_to_sheet(data);
-
 
       // Criar um novo workbook
       let wb = XLSX.utils.book_new();
@@ -496,40 +518,29 @@ if (chipValue === 'Não Iniciado') {
             font: {
               bold: true,
               sz: 14,
-              color: { rgb: "000000" } // cor preta
+              color: { rgb: "000000" }, // cor preta
             },
             alignment: {
               vertical: "center",
-              horizontal: "center"
-            }
+              horizontal: "center",
+            },
           };
         }
       }
       XLSX.writeFile(wb, `${nome}_planilha.xlsx`);
-
     },
 
-    excluirTeste(item, teste, indexAluno, indexTeste){
+    excluirTeste(item, teste, indexAluno, indexTeste) {
+      const data = {
+        token: item.token,
+        id: item._id,
+        idTeste: teste._id,
+        indexAluno : indexAluno,
+        indexTeste : indexTeste
+      };
 
-const data = {
-  token: item.token,
-  id: item._id,
-  idTeste: teste._id
-};
-
-this.listaTurma[indexAluno].listaDeTestes[indexTeste].splice(index, 1);
-
-axios({ url: 'https://ta-back.onrender.com/professores/excluirTesteAluno', data, method: 'POST' })
-  .then((response) => {
-    console.log(response)
-  })
-  .catch((error) => {
-    // Tratar erros aqui
-    console.error(error);
-  });
-
-},  
-
+      this.$emit('eventDeleteTest', data);
+    },
   },
 };
 </script>
