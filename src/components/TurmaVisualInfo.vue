@@ -14,12 +14,10 @@
 
       <v-sheet v-if="!mostrarDiv">
         <v-table>
-
           <thead>
             <tr>
-
-              <th class="pa-0" style="width: 20% ">
-                <div class=" text-center text-overline">Nome</div>
+              <th class="pa-0" style="width: 20%">
+                <div class="text-center text-overline">Nome</div>
               </th>
 
               <th class="pa-0" style="width: 80%">
@@ -32,24 +30,24 @@
                     style="height: 100%"
                   >
                     <v-divider vertical></v-divider>
-                    
-                    <div class="text-center text-overline ml-2">Estrato {{ i }}</div>
+
+                    <div class="text-center text-overline ml-2">
+                      Estrato {{ i }}
+                    </div>
                   </v-col>
                 </v-row>
               </th>
-
             </tr>
           </thead>
 
           <tbody>
             <tr v-for="item in listaTurma" :key="item.name">
-              
               <td class="pa-0" style="width: 20%">
-                <div class=" text-center">
+                <div class="text-center">
                   {{ item.user["nome"] }}
                 </div>
               </td>
-              
+
               <td style="width: 80%" class="pa-0">
                 <v-row style="height: 100%">
                   <v-col
@@ -57,64 +55,51 @@
                     :key="i"
                     cols="4"
                     class="d-flex pa-0 d-flex align-center"
-                    
                   >
                     <v-divider vertical></v-divider>
                     <div class="d-flex flex-column w-100">
-    <!-- Primeira linha de 6 chips -->
-    <v-row class="ma-0 d-flex justify-start">
-      <v-chip
-        v-for="(itemListQuest, index) in getChipsForEstrato(
-          i,
-          item.listaDeTestes?.[item.listaDeTestes.length - 1]?.listaQuest
-        ).slice(0, 6)"
-        :key="index"
-        :color="getColor(itemListQuest.acertou)"
-        size="x-small"
-        label
-        class="ml-1"
-      >
-        <span>{{ extractDigitsFromId(itemListQuest.id) }}</span>
-      </v-chip>
-    </v-row>
+                      <!-- Primeira linha de 6 chips -->
+                      <v-row class="ma-0 d-flex justify-start">
+                        <v-chip
+                          v-for="(itemListQuest, index) in getChipsForEstrato(
+                            i,
+                            item.listaDeTestes?.[item.listaDeTestes.length - 1]
+                              ?.listaQuest
+                          ).slice(0, 6)"
+                          :key="index"
+                          :color="getColor(itemListQuest.acertou)"
+                          size="x-small"
+                          label
+                          class="ml-1"
+                        >
+                          <span>{{
+                            extractDigitsFromId(itemListQuest.id)
+                          }}</span>
+                        </v-chip>
+                      </v-row>
 
-    <div class="mt-1"></div>
+                      <div class="mt-1"></div>
 
-    <!-- Segunda linha de 6 chips -->
-    <v-row class="ma-0 d-flex justify-start">
-      <v-chip
-        v-for="(itemListQuest, index) in getChipsForEstrato(
-          i,
-          item.listaDeTestes?.[item.listaDeTestes.length - 1]?.listaQuest
-        ).slice(6, 12)"
-        :key="index"
-        class="ml-1"
-        :color="getColor(itemListQuest.acertou)"
-        size="x-small"
-        label
-      >
-        <span>{{ extractDigitsFromId(itemListQuest.id) }}</span>
-      </v-chip>
-    </v-row>
-  </div>
-
-                    <!-- <v-chip
-                      
-                      v-for="(itemListQuest, index) in getChipsForEstrato(
-                        i,
-                        item.listaDeTestes?.[item.listaDeTestes.length - 1]
-                          ?.listaQuest
-                      )"
-                      :key="index"
-                      class="ml-1"
-                      :color="getColor(itemListQuest.acertou)"
-                      size="small"
-                      label
-                    >
-                      <span>
-                        {{ extractDigitsFromId(itemListQuest.id) }}
-                      </span>
-                    </v-chip> -->
+                      <!-- Segunda linha de 6 chips -->
+                      <v-row class="ma-0 d-flex justify-start">
+                        <v-chip
+                          v-for="(itemListQuest, index) in getChipsForEstrato(
+                            i,
+                            item.listaDeTestes?.[item.listaDeTestes.length - 1]
+                              ?.listaQuest
+                          ).slice(6, 12)"
+                          :key="index"
+                          class="ml-1"
+                          :color="getColor(itemListQuest.acertou)"
+                          size="x-small"
+                          label
+                        >
+                          <span>{{
+                            extractDigitsFromId(itemListQuest.id)
+                          }}</span>
+                        </v-chip>
+                      </v-row>
+                    </div>
                   </v-col>
                 </v-row>
               </td>
