@@ -20,7 +20,8 @@
             "fonte": "",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         {
             "id" : "LP_H07_01_010",                             
@@ -41,10 +42,11 @@
             "fonte": "http://www.mestredomarketing.com/como-conseguir-um-bom-emprego/ (Texto adaptado)",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         {
-            "id" : "LP_H07_01_009",                             
+            "id" : "LP_H06_01_009",                             
             "layout" : "m1",
             "type" : "Lingua portuguesa",
             "textTitle":"",
@@ -62,10 +64,11 @@
             "fonte": "http://enxaquecanao.com.br/o-que-e-enxaqueca/",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         {
-            "id" : "LP_H06_00_008",                             
+            "id" : "LP_H08_00_008",                             
             "layout" : "m3",
             "type" : "Lingua portuguesa",
             "textTitle":"",
@@ -83,7 +86,8 @@
             "fonte": "",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         {
             "id" : "LP_H08_03_003",                             
@@ -104,10 +108,11 @@
             "fonte": "http://www.sitedecuriosidades.com/curiosidade/a-maior-velocidade-atingida-pelo-homem.",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         {
-            "id" : "LP_H07_03_009",                             
+            "id" : "LP_H06_03_009",                             
             "layout" : "m1",
             "type" : "Lingua portuguesa",
             "textTitle":"Caixinha de surpresa",
@@ -125,7 +130,8 @@
             "fonte": "PIMENTEL, L. O gandula que comeu a bola: histórias e historinhas de futebol. Belo Horizonte: Dimensão. 2014. p.7",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         {
             "id" : "LP_H07_02_020",                             
@@ -146,10 +152,11 @@
             "fonte": "http://s2.glbimg.com/I9l9FLjldU36MLjicsqCrlJK_bY=/0x0:689x314/690x314/s.glbimg.com/es/ge/f/original/2015/10/08/tabela11_1.png",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         {
-            "id" : "LP_H07_03_015",                             
+            "id" : "LP_H06_03_015",                             
             "layout" : "m1",
             "type" : "Lingua portuguesa",
             "textTitle":"O pão no mundo",
@@ -167,10 +174,11 @@
             "fonte": "Almoço e jantar- Receitas Básicas. Caderno de Cozinha. São Paulo: Abril Cultural, S.d. In: Almanaque do Aluá, nº2, p.35. SAPÉ: Rio de Janeiro, 2006.",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         {
-            "id" : "LP_H10_03_002",                             
+            "id" : "LP_H08_03_002",                             
             "layout" : "m1",
             "type" : "Lingua portuguesa",
             "textTitle":"",
@@ -188,11 +196,12 @@
             "fonte": "VÓVIO, C. L. (coord.). Viver, aprender: educação de jovens e adultos (Livro 1). São Paulo: Ação Educativa; Brasília: MEC, 1998, p.34. (Texto adaptado)",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
        
         {
-            "id" : "LP_H07_03_003",                             
+            "id" : "LP_H06_04_003",                             
             "layout" : "m1",
             "type" : "Lingua portuguesa",
             "textTitle":"Classificação alimentar básica",
@@ -210,10 +219,11 @@
             "fonte": "COSTA, L. C. Viva Melhor! Com a medicina natural. Itaquaquecetuba: Editora Missionária. 1996. p.63",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         {
-            "id" : "LP_H07_02_022",                             
+            "id" : "LP_H06_04_022",                             
             "layout" : "m1",
             "type" : "Lingua portuguesa",
             "textTitle":"",
@@ -231,10 +241,11 @@
             "fonte": "http://www.fundaj.gov.br/",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         {
-            "id" : "LP_H06_00_002",                             
+            "id" : "LP_H07_04_002",                             
             "layout" : "m3",
             "type" : "Lingua portuguesa",
             "textTitle":"",
@@ -252,11 +263,12 @@
             "fonte": "",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         
         {
-            "id" : "LP_H07_02_002",                             
+            "id" : "LP_H06_04_002",                             
             "layout" : "m1",
             "type" : "Lingua portuguesa",
             "textTitle":"VOCÊ SABIA?",
@@ -274,10 +286,11 @@
             "fonte": "http://super.abril.com.br /blogs/ideias-verdes/ 8-itens-que-podem-ser-reciclados-e-voce-nem-imaginava.",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         {
-            "id" : "LP_H07_03_005",                             
+            "id" : "LP_H06_04_005",                             
             "layout" : "m1",
             "type" : "Lingua portuguesa",
             "textTitle":"",
@@ -295,10 +308,11 @@
             "fonte": "PRADO, Adélia. Carmela vai à escola. Rio de Janeiro: Galera Record, 2012. p.28.",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         {
-            "id" : "LP_H07_02_011",                             
+            "id" : "LP_H06_04_011",                             
             "layout" : "m1",
             "type" : "Lingua portuguesa",
             "textTitle":"",
@@ -316,7 +330,8 @@
             "fonte": "PRADO, Adélia. Carmela vai à escola. Rio de Janeiro: Galera Record, 2012. p.31.",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         {
             "id" : "LP_H09_02_009",                             
@@ -337,7 +352,8 @@
             "fonte": "http://www.drdcom.com.br/#!cipa/c3y6",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         {
             "id" : "LP_H07_03_013",                             
@@ -358,7 +374,8 @@
             "fonte": "https://www.jatai.go.gov.br/voce-conhece-os-sintomas-da-dengue-zika-e-chikungunya-entenda-as-diferencas/",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         {
             "id" : "LP_H08_02_003",                             
@@ -379,7 +396,8 @@
             "fonte": "http://portalsaude.saude.gov.br",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         {
             "id" : "LP_H07_02_014",                             
@@ -400,7 +418,8 @@
             "fonte": "http://4.bp.blogspot.com/-lbIg2SepCUY/Vq-MjyG4z8I/AAAAAAAAAP0/kjzhw0WOFIY/s1600/cha1.png",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
        
         {
@@ -422,10 +441,11 @@
             "fonte": "http://kdfrases.com/frase/106532",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         {
-            "id" : "LP_H07_03_017",                             
+            "id" : "LP_H06_04_017",                             
             "layout" : "m1",
             "type" : "Lingua portuguesa",
             "textTitle":"CURIOSIDADES SOBRE OS RATOS",
@@ -443,7 +463,8 @@
             "fonte": "http://guiadoscuriosos.com.br/categorias/2005/1/10-curiosidades-sobre-ratos.html.",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         
         {
@@ -465,7 +486,8 @@
             "fonte": "Revista da Unimed Federação Minas. Ano 5, 21ª Edição, Abril/Maio/Junho de 2016, p.25.(Fragmento adaptado)",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
        
         {
@@ -487,10 +509,11 @@
             "fonte": "Almanaque do Aluá, nº1, p.20. SAPÉ: Rio de Janeiro, 1998.",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         {
-            "id" : "LP_H07_02_003",                             
+            "id" : "LP_H11_04_003",                             
             "layout" : "m1",
             "type" : "Lingua portuguesa",
             "textTitle":"",
@@ -508,10 +531,11 @@
             "fonte": "http://www.tribunapr.com.br/>13/10/2016.",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         {
-            "id" : "LP_H07_03_007",                             
+            "id" : "LP_H06_04_007",                             
             "layout" : "m1",
             "type" : "Lingua portuguesa",
             "textTitle":"Plantas Carnívoras",
@@ -529,7 +553,8 @@
             "fonte": "http://www.infoescola.com/plantas/plantas-carnivoras/.",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         {
             "id" : "LP_H07_02_019",                             
@@ -550,10 +575,11 @@
             "fonte": "",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         {
-            "id" : "LP_H07_03_008",                             
+            "id" : "LP_H06_04_008",                             
             "layout" : "m1",
             "type" : "Lingua portuguesa",
             "textTitle":"Mil pauzinhos e uma canoa",
@@ -571,7 +597,8 @@
             "fonte": "http://super.abril.com.br/ciencia/o-segredo-das-formigas.",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         {
             "id" : "LP_H10_01_003",                             
@@ -592,7 +619,8 @@
             "fonte": "",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         
         {
@@ -614,7 +642,8 @@
             "fonte": "",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         {
             "id" : "LP_H07_02_022",                             
@@ -635,10 +664,11 @@
             "fonte": "http://www.fundaj.gov.br",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         {
-            "id" : "LP_H07_03_010",                             
+            "id" : "LP_H06_03_010",                             
             "layout" : "m1",
             "type" : "Lingua portuguesa",
             "textTitle":"Alberto Santos Dumont(1873-1932)",
@@ -656,10 +686,11 @@
             "fonte": "Um mundo de Ciência (CP, EBAP, UFMG), 2004, p.11.",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         {
-            "id" : "LP_H07_02_001",                             
+            "id" : "LP_H06_04_001",                             
             "layout" : "m1",
             "type" : "Lingua portuguesa",
             "textTitle":"Carlos Drummond de Andrade",
@@ -677,7 +708,8 @@
             "fonte": "http://www.releituras.com/drummond_bio.asp",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         {
             "id" : "LP_H08_03_013",                             
@@ -698,7 +730,8 @@
             "fonte": "",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         {
             "id" : "LP_H07_01_018",                             
@@ -719,7 +752,8 @@
             "fonte": "http://www.energienutricao.com.br/tag/dieta/",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         
         {
@@ -741,7 +775,8 @@
             "fonte": "http://www.diabetes.org.br/receitas-diabetes/receitas-lanches/560-refresco-de-melancia.",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         {
             "id" : "LP_H10_02_009",                             
@@ -762,10 +797,11 @@
             "fonte": "PIMENTEL, L.O gandula que comeu a bola: histórias e historinhas de futebol. Belo Horizonte: Dimensão, 2014. p. 29",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         {
-            "id" : "LP_H08_03_010",                             
+            "id" : "LP_H06_04_010",                             
             "layout" : "m1",
             "type" : "Lingua portuguesa",
             "textTitle":"",
@@ -783,7 +819,8 @@
             "fonte": "Caderno Santa Catarina – Passaporte Turístico. Editora Letras Brasileiras, 2011. p.7.",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         }
        
 

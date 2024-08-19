@@ -12,12 +12,12 @@
 
         <v-form v-model="valid" class="w-40 main-form" @submit.prevent="submitForm">
           <v-container class="">
-            <v-text-field class="form-field aluno-field" v-model="email" :rules="emailRules" label="Professor"
+            <v-text-field dense class="form-field aluno-field" v-model="email" :rules="emailRules" label="Email"
               variant="outlined" bg-color="white" color="#1E3892" prepend-inner-icon="mdi-account">
 
             </v-text-field>
 
-            <v-text-field class="form-field senha-field" v-model="senha" :rules="senhaRules" label="Senha"
+            <v-text-field dense class="form-field senha-field" v-model="senha" :rules="senhaRules" label="Senha"
               variant="outlined" bg-color="white" color="#1E3892" type="password" prepend-inner-icon="mdi-lock-outline">
 
             </v-text-field>
@@ -127,15 +127,6 @@ export default {
     }
 
 
-
-
-
-
-
-
-
-
-
   }
 }
 
@@ -156,14 +147,14 @@ export default {
   font-weight: bold;
 }
 
-@media(max-width: 1400px) {
+@media(max-width: 1600px) {
 
   .logo-planoA {
-    width: 13vw;
+    width: 16vw;
   }
 
   .text-login {
-    font-size: 1.4rem !important;
+    font-size: 1.5rem !important;
     margin-top: 0px !important;
 
   }
@@ -179,7 +170,7 @@ export default {
     padding-top: 0 !important;
   }
 
-
+  
   .form-field input {
     font-size: 0.8rem !important;
   }
@@ -191,11 +182,26 @@ export default {
 
   .btnTeste {
     width: 25vw !important;
-    height: 6.3vh !important;
+    height: 5.3vh !important;
     font-size: 0.8rem !important;
+    border-radius: 2px !important;
   }
 
 
+
+
+  .v-input__control{
+    height: 8vh !important;
+    width: 27vw !important;
+  }
+
+  .v-text-field .v-input__control .v-input__slot {
+    min-height: auto !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+
+ 
 
 }
 </style>

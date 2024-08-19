@@ -20,7 +20,8 @@
             "fonte" :"DUARTE, M. A Arca dos Bichos. São Paulo: Companhia das Letrinhas. 1999. p. 39.",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         {
             "id" : "LP_H06_03_014",                             
@@ -41,7 +42,8 @@
             "fonte" :"Fonte: Almoço e jantar- Receitas Básicas. Caderno de Cozinha. São Paulo: Abril Cultural, S.d. In: Almanaque do Aluá, nº2, p.35. SAPÉ: Rio de Janeiro, 2006.",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         {
             "id" : "LP_H07_03_014",                             
@@ -62,7 +64,8 @@
             "fonte" :"http://www.canalkids.com.br/arte/musica/samba.htm.",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         
         
@@ -85,7 +88,8 @@
             "fonte" :"",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
        
         {
@@ -107,7 +111,8 @@
             "fonte" :" https://pt.wikipedia.org/wiki/Campeonato_Europeu_de_Futebol#Maiores_goleadores.",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         {
             "id" : "LP_H10_02_002",                             
@@ -128,7 +133,8 @@
             "fonte" :"",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         {
             "id" : "LP_H07_03_016",                             
@@ -149,7 +155,8 @@
             "fonte" :"http://www.brasil.gov.br/saude.",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         {
             "id" : "LP_H08_03_009",                             
@@ -170,7 +177,8 @@
             "fonte" :"DUARTE, M. A arca dos bichos. São Paulo: Companhia das Letrinhas, 1999. p. 41.",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         {
             "id" : "LP_H06_03_015",                             
@@ -191,7 +199,8 @@
             "fonte" :"",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         {
             "id" : "LP_H08_02_004",                             
@@ -213,7 +222,8 @@
             "fonte" :"Fonte: www.releituras.com/luisdecamoes_soneto.(Fragmento)",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         {
             "id" : "LP_H08_02_011",                             
@@ -234,7 +244,8 @@
             "fonte" :"Guia Sítio & Cia. 100 Plantas e Flores. reed. São Paulo: Casa Dois Editora, 2013. p. 85. (Adaptado).",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         {
             "id" : "LP_H09_01_005",                             
@@ -255,7 +266,8 @@
             "fonte" :"http://www.piadasnet.com/piada1931curtas.htm.",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         {
             "id" : "LP_H06_01_019",                             
@@ -276,7 +288,8 @@
             "fonte" :"",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         {
             "id" : "LP_H09_02_001",                             
@@ -297,7 +310,8 @@
             "fonte" :"",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         {
             "id" : "LP_H09_03_002",                             
@@ -318,7 +332,8 @@
             "fonte" :"http://sbqueimaduras.org.br/queimaduras-conceito-e-causas/primeiros-socorros-e-cuidados/.",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         {
             "id" : "LP_H08_03_005",                             
@@ -339,7 +354,8 @@
             "fonte" :"Saúde é Vital. Nº 403, maio de 2016. p.46.",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         {
             "id" : "LP_H10_01_008",                             
@@ -360,7 +376,8 @@
             "fonte" :"Fonte: Rosa, João Guimarães. Campo Geral, 1964. p.16",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         {
             "id" : "LP_H06_00_004",                             
@@ -381,7 +398,8 @@
             "fonte" :"",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         {
             "id" : "LP_H06_02_017",                             
@@ -402,7 +420,8 @@
             "fonte" :"http://www.vocesabia.net/ciencia/curiosidades-sobre-alguns-animais.",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         {
             "id" : "LP_H06_01_003",                             
@@ -423,7 +442,8 @@
             "fonte" :"Guia Sítio & Cia. Horta & Pomar. reed. São Paulo: Casadois Editora, 2011. p.38",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         {
             "id" : "LP_H09_01_003",                             
@@ -444,7 +464,8 @@
             "fonte" :"",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         {
             "id" : "LP_H07_02_013",                             
@@ -465,7 +486,8 @@
             "fonte" :"http://todamaterna.com.br/wp-content/ uploads/2015/01/TABELA_tarefas-domesticas-para-criancas-01-01.jpg. Acesso em: Setembro/2016.",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         {
             "id" : "LP_H08_02_002",                             
@@ -486,7 +508,8 @@
             "fonte" :"http://kdfrases.com/frase/106532.",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         },
         {
             "id" : "LP_H09_02_003",                             
@@ -507,7 +530,8 @@
             "fonte" :"http://casaziraldodecultura.blogspot.com.br/2014/04/participe-aqueca-seu-coracao-doe-um.html.",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0 
+            "acertos": 0,
+            "ensino" : "geral" 
         }
     
         

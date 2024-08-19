@@ -651,7 +651,7 @@ export default {
                     aux.style.width = '35vw';
                     aux.style.marginLeft = '4vw';
                 break;
-                case 'LP_H07_03_017':
+                case 'LP_H06_04_017':
                     aux = document.getElementById("buttonM1");
                     aux.style.marginTop = '17vh';
                 break;
@@ -708,21 +708,21 @@ export default {
                     aux.style.letterSpacing = '10px';
                     break;
 
-                case 'LP_H07_03_003':
+                case 'LP_H06_04_003':
                     aux = document.getElementById("questionForm");
                     aux.style.marginTop = '4vh';
                     aux = document.getElementById("questionStatement");
                     aux.style.fontSize = '1.0rem';
                     break;
 
-                case 'LP_H07_03_008':
+                case 'LP_H06_04_008':
                 case 'LP_H07_02_014':
-                case 'LP_H07_02_022':
-                case 'LP_H07_02_001':
+                case 'LP_H06_04_022':
+                case 'LP_H06_04_001':
                 case 'LP_H10_02_009':
-                case 'LP_H07_02_002':
+                case 'LP_H06_04_002':
                 case 'LP_H07_01_018':
-                case 'LP_H07_03_007':
+                case 'LP_H06_04_007':
                 case 'LP_H06_03_014':
                     aux = document.getElementById("questionForm");
                     aux.style.marginTop = '4vh';
@@ -750,7 +750,7 @@ export default {
                     break;
 
 
-                case 'LP_H07_01_009':
+                case 'LP_H06_01_009':
                     aux = document.getElementById("questionDiv");
                     aux.style.width = '77%'
                     break;
@@ -1671,7 +1671,7 @@ export default {
                         this.nestr = 0;
 
                         if(this.anoAluno==4 || this.anoAluno==5 || this.anoAluno==6){
-                            this.popupIntervalo();
+                            //this.popupIntervalo();
                             this.dadosTeste.resultado = 1;
                             this.dadosTeste.resultado_final = '1 - Reprovado';
 
@@ -1778,7 +1778,7 @@ export default {
                             this.dadosTeste.resultado_final = '2 - Reprovado';
                             this.dadosTeste.resultado = 2;
                             console.log(this.dadosTeste);
-                            this.popupIntervalo();
+                            //this.popupIntervalo();
                             //Enviar dados pro backend
                             this.sendDataTest(this.dadosTeste);
                             this.questionFlag = true;
@@ -2013,8 +2013,7 @@ export default {
             for (let i = 0; i < jsonData3.extrato.length; i++) {
                 ordem_3[i] = [i];
             }
-           
-
+        
             ordem_0 = this.randomizaOrdem(0);
             ordem_1 = this.randomizaOrdem(1);
             ordem_2 = this.randomizaOrdem(2);

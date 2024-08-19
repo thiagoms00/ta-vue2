@@ -19,12 +19,10 @@
             "fonte": "",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0
+            "acertos": 0,
+            "ensino" : "geral"
             
             
-            
-                
-
         },
         {
             "id" : "LP_H02_01_005",                             
@@ -45,10 +43,9 @@
             "fonte": "",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0
+            "acertos": 0,
+            "ensino" : "geral"
             
-            
-
         },
         {
             "id" : "LP_H05_00_009",                             
@@ -69,7 +66,8 @@
             "fonte": "",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0
+            "acertos": 0,
+            "ensino" : "geral"
             
             
 
@@ -97,10 +95,10 @@
             "fonte": "",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0
+            "acertos": 0,
+            "ensino" : "geral"
             
-            
-
+        
         },
         {
             "id" : "LP_H01_00_003",                             
@@ -121,7 +119,8 @@
             "fonte": "",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0
+            "acertos": 0,
+            "ensino" : "geral"
             
             
 
@@ -145,7 +144,8 @@
             "fonte": "",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0
+            "acertos": 0,
+            "ensino" : "geral"
             
             
 
@@ -169,7 +169,8 @@
             "fonte": "",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0
+            "acertos": 0,
+            "ensino" : "geral"
             
             
 
@@ -193,7 +194,8 @@
             "fonte":"http://www.avoa.com.br/public/site/images/onibus-circular.png.",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0
+            "acertos": 0,
+            "ensino" : "geral"
             
 
         },
@@ -217,7 +219,8 @@
             "fonte": "",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0
+            "acertos": 0,
+            "ensino" : "geral"
             
             
 
@@ -241,7 +244,8 @@
             "fonte" : "www.olx.com.br.(Fragmento adaptado)",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0
+            "acertos": 0,
+            "ensino" : "geral"
             
         },
         {
@@ -263,7 +267,8 @@
             "fonte" : "",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0
+            "acertos": 0,
+            "ensino" : "geral"
             
         },
         {
@@ -285,7 +290,8 @@
             "fonte" : "",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0
+            "acertos": 0,
+            "ensino" : "geral"
             
         },
         {
@@ -307,7 +313,8 @@
             "fonte" : "",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0
+            "acertos": 0,
+            "ensino" : "geral"
             
         },
         {
@@ -329,7 +336,8 @@
             "fonte" : "",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0
+            "acertos": 0,
+            "ensino" : "geral"
             
         },
         {
@@ -351,7 +359,8 @@
             "fonte" : "",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0
+            "acertos": 0,
+            "ensino" : "geral"
             
         },
         {
@@ -373,7 +382,8 @@
             "fonte" : "",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0
+            "acertos": 0,
+            "ensino" : "geral"
             
         },
         {
@@ -395,7 +405,8 @@
             "fonte" : "",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0
+            "acertos": 0,
+            "ensino" : "geral"
             
         },
         {
@@ -417,7 +428,8 @@
             "fonte" : "",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0
+            "acertos": 0,
+            "ensino" : "geral"
             
         },
         {
@@ -439,7 +451,8 @@
             "fonte" : "",
             "tempo": 0,
             "tentativas": 0,
-            "acertos": 0
+            "acertos": 0,
+            "ensino" : "geral"
             
         }
 
