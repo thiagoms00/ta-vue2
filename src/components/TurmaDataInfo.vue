@@ -80,7 +80,7 @@
   <!-- Mensagem de Seleção de Turma -->
   <div>
     <v-sheet
-      v-if="mostrarDiv"
+      v-if="mostrarDivInfo"
       class="d-flex justify-center align-center rounded-b-lg"
       height="250"
       color="grey-lighten-5"
@@ -100,7 +100,7 @@
   </div>
 
   <v-sheet
-    v-if="!mostrarDiv"
+    v-if="!mostrarDivInfo"
     rounded="lg"
     class=""
     :class="{ 'fade-in': animacaoListaAtiva }"
@@ -384,7 +384,7 @@ export default {
   },
 
   data: () => ({
-    mostrarDiv: true,
+    mostrarDivInfo: true,
     animacaoListaAtiva: false,
     icon: ["", "", "", "", "", ""],
     tab: "dados",
@@ -474,9 +474,8 @@ export default {
       return value !== undefined ? value : "-";
     },
 
-    mudarTela() {
-      this.mostrarDiv = false;
-      console.log("1");
+    mostrarDiv() {
+      this.mostrarDivInfo = false;
     },
 
     geraXlsx(planilha, nome) {

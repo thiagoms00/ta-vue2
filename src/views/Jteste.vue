@@ -52,15 +52,35 @@
               class="custom-switch mt-4 elevation-2 d-flex justify-center align-center"
               rounded="lg"
             >
-              <v-switch
-                label="Formato"
+              <v-tabs
+                v-model="tab"
                 color="primary"
-                v-model="mostrarFormato"
-              ></v-switch>
+                direction="vertical"
+                style="width: 100%"
+              >
+                <v-tab
+                  prepend-icon="mdi-account"
+                  text="Option 1"
+                  value="option-1"
+                  class="pa-1 d-flex justify-center"
+                ></v-tab>
+                <v-tab
+                  prepend-icon="mdi-lock"
+                  text="Option 2"
+                  value="option-2"
+                  class="pa-1 d-flex justify-center"
+                ></v-tab>
+                <v-tab
+                  prepend-icon="mdi-access-point"
+                  text="Option 3"
+                  value="option-3"
+                  class="pa-1 d-flex justify-center"
+                ></v-tab>
+              </v-tabs>
             </v-sheet>
 
+            <!-- Campo de busca de aluno -->
             <div class="mt-4">
-              <!-- Campo de busca de aluno -->
               <v-text-field
                 append-inner-icon="mdi-magnify"
                 density="compact"
@@ -74,17 +94,27 @@
           </v-col>
 
           <v-col>
-            <TurmaDataInfo
-              v-if="mostrarFormato"
-              :listaDeAlunos="listaFiltrada"
-              ref="turmaDataInfo"
-              @eventDeleteTest="excluirTeste"
-            />
-            <TurmaVisualInfo
-              v-if="!mostrarFormato"
-              :listaDeAlunos="listaFiltrada"
-              ref="turmaVisualInfo"
-            />
+            <v-window v-model="tab">
+              <!-- Janela de Dados 1 -->
+              <v-window-item value="option-1">
+                <TurmaDataInfo
+                  :listaDeAlunos="listaFiltrada"
+                  ref="turmaDataInfo"
+                  @eventDeleteTest="excluirTeste"
+                />
+              </v-window-item>
+
+              <!-- Janela de Dados 2 -->
+              <v-window-item value="option-2">
+                <TurmaVisualInfo
+                  :listaDeAlunos="listaFiltrada"
+                  ref="turmaVisualInfo"
+                />
+              </v-window-item>
+
+              <!-- Janela de Dados 3 -->
+              <v-window-item value="option-3"> Mundo </v-window-item>
+            </v-window>
           </v-col>
         </v-row>
       </v-container>
@@ -126,7 +156,6 @@ export default {
     icon: ["", "", "", "", "", ""],
     lastClicked: -1,
     sortOrder: true,
-    mostrarDiv: true,
     listaNomeTurma: [],
     loadingStatesTurmas: [],
     animateCarregandoTurmas: false,
@@ -134,7 +163,7 @@ export default {
     chartData: [300, 50, 100, 200, 150, 250],
     textoPlanilha: false, //Flag pro hover do botão da planilha.
     search: "",
-    mostrarFormato: false,
+    tab: "option-1",
   }),
 
   created() {
@@ -297,17 +326,11 @@ export default {
         .finally(() => {
           // Define carregandoTurmas como false quando a promessa for resolvida ou rejeitada
           this.carregandoTurmas = false;
-          this.mostrarDiv = false;
           this.ativarAnimacaoLista();
           console.log(this.listaTurma);
           this.loadingStatesTurmas[index] = false;
-
-          if (this.mostrarFormato) {
-            this.$refs.turmaDataInfo.mudarTela();
-          } else {
-            this.$refs.turmaVisualInfo.mudarTela();
-          }
-          
+          this.$refs.turmaDataInfo.mostrarDiv();
+          this.$refs.turmaVisualInfo.mostrarDiv();
         });
     },
 

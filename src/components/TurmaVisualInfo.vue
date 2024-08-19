@@ -12,7 +12,7 @@
         <div class="text-button ml-2">Resultado dos alunos</div>
       </v-sheet>
 
-      <v-sheet v-if="!mostrarDiv">
+      <v-sheet v-if="!mostrarDivInfo">
         <v-table>
           <thead>
             <tr>
@@ -137,7 +137,7 @@
 export default {
   data() {
     return {
-      mostrarDiv: true,
+      mostrarDivInfo: true,
       listaAlunos: [
         {
           nome: "Aluno 1",
@@ -173,13 +173,12 @@ export default {
   },
 
   methods: {
-    mudarTela() {
-      this.mostrarDiv = false;
-      console.log("2");
+    mostrarDiv(){
+      this.mostrarDivInfo = false;
     },
 
     getColor(acertou) {
-      return acertou ? "blue" : "red lighten-4";
+      return acertou ? "green-darken-3" : "deep-orange-darken-2";
     },
 
     getChipsForEstrato(estratoIndex, listaQuest) {
