@@ -206,6 +206,11 @@
                             <v-icon icon="mdi-animation"></v-icon>
                             Testes
                           </v-tab>
+                          
+                          <v-tab value="progressao">
+                            <v-icon icon="mdi-animation"></v-icon>
+                            Mapa
+                          </v-tab>
 
                         </v-tabs>
 
@@ -335,6 +340,36 @@
 
                           </v-window-item>
 
+                          <v-window-item value="progressao">
+                            <v-container>
+
+                              <v-table>
+                                <thead>
+                                  <tr>
+                                    <th class="text-left">
+                                      Habilidade
+                                    </th>
+                                    <th class="text-left">
+                                      Descrição
+                                    </th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr
+                                    v-for="item in habilidades"
+                                    :key="item.nome_hab"
+                                  >
+                                    <td>{{ item.nome_hab }}</td>
+                                    <td>{{ item.desc_hab }}</td>
+                                  </tr>
+                                </tbody>
+                              </v-table>
+                              
+                            </v-container>
+
+
+                          </v-window-item>
+
                         </v-window>
 
 
@@ -396,7 +431,55 @@ export default {
     tab: 'dados',
     chartData: [300, 50, 100, 200, 150, 250],
     textoPlanilha: false,                      //Flag pro hover do botão da planilha.
-    search:''
+    search:'',
+    habilidades: [
+          {
+            nome_hab: '1',
+            desc_hab: 'Ler palavras com diferentes padrões silábicos.',
+          },
+          {
+            nome_hab: '2',
+            desc_hab: 'Reconhecer a finalidade ou o objetivo de um texto.',
+          },
+          {
+            nome_hab: '3',
+            desc_hab: 'Identificar o número de sílabas de uma palavra.',
+          },
+          {
+            nome_hab: '4',
+            desc_hab: 'Analisar informações em gráficos, infográficos, tabelas e outros textos que apresentam recursos semióticos',
+          },
+          {
+            nome_hab: '5',
+            desc_hab: 'Reconhecer letras reproduzidas com diferentes fontes e formatos.',
+          },
+          {
+            nome_hab: '6',
+            desc_hab: 'Inferir informações em textos de diferentes gêneros.',
+          },
+          {
+            nome_hab: '7',
+            desc_hab: 'Identificar o assunto ou tema principal de um texto.',
+          },
+          {
+            nome_hab: '8',
+            desc_hab: 'Analisar informações em gráficos, infográficos, tabelas e outros textos que apresentam recursos semióticos',
+          },
+          {
+            nome_hab: '9',
+            desc_hab: 'Reconhecer a finalidade ou o objetivo de um texto.',
+          },
+          {
+            nome_hab: '10',
+            desc_hab: 'Reconhecer informações explícitas em textos.',
+          },
+          {
+            nome_hab: '11',
+            desc_hab: 'Inferir informações em textos de diferentes gêneros.',
+          },
+          
+        ],
+
   }),
 
   created() {
