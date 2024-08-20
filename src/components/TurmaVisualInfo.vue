@@ -31,7 +31,7 @@
                   >
                     <v-divider vertical></v-divider>
 
-                    <div class="text-center text-overline ml-2">
+                    <div class="text-center text-overline" style="width: 100%;">
                       Estrato {{ i }}
                     </div>
                   </v-col>

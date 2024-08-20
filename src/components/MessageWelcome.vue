@@ -78,7 +78,7 @@ export default {
           hour: '2-digit',
           minute: '2-digit'
         }),
-        disciplina: "linguaPortuguesa"
+        disciplina: "Lingua Portuguesa"
       };
 
       console.log(data);

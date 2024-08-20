@@ -227,7 +227,7 @@
 
                               <v-row>
                                 <v-col cols="6">
-                                  <ChartBar :data="item.listaDeHab['linguaPortuguesa']" />
+                                  <ChartBar :data="item.listaDeHab['Lingua Portuguesa']" />
                                 </v-col>
 
                                 <v-col cols="6" class="border-lg">
@@ -532,7 +532,7 @@ export default {
       return minutes > 0 ? `${minutes}m ${remainingSeconds}s` : `${remainingSeconds}s`;
     },
 
-    toggleIcon(index, value) {
+    toggleIcon(index, value){
       // Reset all icons
       this.icon = this.icon.map((icon, i) => (i === index ? (this.lastClicked === index ? "mdi-menu-down" : "mdi-menu-up") : ""));
 
