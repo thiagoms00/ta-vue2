@@ -12,8 +12,8 @@
         <div class="text-button ml-2">Resultado dos alunos</div>
       </v-sheet>
 
-      <v-sheet v-if="!mostrarDivInfo">
-        <v-table>
+      <v-sheet>
+        <v-table v-if="isAtivo">
           <thead>
             <tr>
               <th class="pa-0" style="width: 20%">
@@ -72,6 +72,14 @@
                           label
                           class="ml-1"
                         >
+                          <v-tooltip activator="parent" location="top">
+                            {{
+                              getHabilidadeDescricao(
+                                extractDigitsFromId(itemListQuest.id)
+                              )
+                            }}
+                          </v-tooltip>
+
                           <span>{{
                             extractDigitsFromId(itemListQuest.id)
                           }}</span>
@@ -94,6 +102,13 @@
                           size="x-small"
                           label
                         >
+                          <v-tooltip activator="parent" location="top">
+                            {{
+                              getHabilidadeDescricao(
+                                extractDigitsFromId(itemListQuest.id)
+                              )
+                            }}
+                          </v-tooltip>
                           <span>{{
                             extractDigitsFromId(itemListQuest.id)
                           }}</span>
@@ -111,7 +126,7 @@
       <!-- DIV de seleção de turma -->
       <div>
         <v-sheet
-          v-if="mostrarDiv"
+          v-if="!isAtivo"
           class="d-flex justify-center align-center rounded-b-lg"
           height="250"
           color="grey-lighten-5"
@@ -137,7 +152,6 @@
 export default {
   data() {
     return {
-      mostrarDivInfo: true,
       listaAlunos: [
         {
           nome: "Aluno 1",
@@ -159,6 +173,11 @@ export default {
       required: true,
       default: () => [],
     },
+    isAtivo: {
+      type: Boolean,
+      required: true,
+      default: true,
+    },
   },
 
   watch: {
@@ -173,9 +192,6 @@ export default {
   },
 
   methods: {
-    mostrarDiv(){
-      this.mostrarDivInfo = false;
-    },
 
     getColor(acertou) {
       return acertou ? "green-darken-3" : "deep-orange-darken-2";
@@ -189,6 +205,24 @@ export default {
     extractDigitsFromId(itemId) {
       const match = itemId.match(/_(H\d{2})_/);
       return match ? match[1] : "";
+    },
+
+    getHabilidadeDescricao(habilidadeCode) {
+      const habilidades = {
+        H01: "Reconhecer letras do alfabeto.",
+        H02: "Identificar o número de sílabas de uma palavra.",
+        H03: "Reconhecer letras reproduzidas com diferentes fontes e formatos.",
+        H04: "Identificar elementos sonoros (sílaba, rima, fonema) em palavras.",
+        H05: "Ler palavras com diferentes padrões silábicos.",
+        H06: "Reconhecer informações explícitas em textos.",
+        H07: "Analisar informações em gráficos, infográficos, tabelas e outros textos que apresentam recursos multissemióticos.",
+        H08: "Identificar o assunto ou tema principal de um texto.",
+        H09: "Reconhecer a finalidade ou o objetivo de um texto.",
+        H10: "Inferir informações em textos de diferentes gêneros.",
+        H11: "Estabelecer relações de causa e consequência em textos de diferentes gêneros.",
+      };
+
+      return habilidades[habilidadeCode] || "Habilidade desconhecida";
     },
   },
 };

@@ -99,6 +99,7 @@
               <v-window-item value="option-1">
                 <TurmaDataInfo
                   :listaDeAlunos="listaFiltrada"
+                  :isAtivo = "infoAtiva"
                   ref="turmaDataInfo"
                   @eventDeleteTest="excluirTeste"
                 />
@@ -108,6 +109,7 @@
               <v-window-item value="option-2">
                 <TurmaVisualInfo
                   :listaDeAlunos="listaFiltrada"
+                  :isAtivo = "infoAtiva"
                   ref="turmaVisualInfo"
                 />
               </v-window-item>
@@ -164,6 +166,7 @@ export default {
     textoPlanilha: false, //Flag pro hover do botão da planilha.
     search: "",
     tab: "option-1",
+    infoAtiva : false
   }),
 
   created() {
@@ -324,13 +327,11 @@ export default {
           console.error(error);
         })
         .finally(() => {
-          // Define carregandoTurmas como false quando a promessa for resolvida ou rejeitada
           this.carregandoTurmas = false;
           this.ativarAnimacaoLista();
           console.log(this.listaTurma);
           this.loadingStatesTurmas[index] = false;
-          this.$refs.turmaDataInfo.mostrarDiv();
-          this.$refs.turmaVisualInfo.mostrarDiv();
+          this.infoAtiva = true;
         });
     },
 

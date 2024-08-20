@@ -80,7 +80,7 @@
   <!-- Mensagem de Seleção de Turma -->
   <div>
     <v-sheet
-      v-if="mostrarDivInfo"
+      v-if="!isAtivo"
       class="d-flex justify-center align-center rounded-b-lg"
       height="250"
       color="grey-lighten-5"
@@ -100,7 +100,7 @@
   </div>
 
   <v-sheet
-    v-if="!mostrarDivInfo"
+    
     rounded="lg"
     class=""
     :class="{ 'fade-in': animacaoListaAtiva }"
@@ -349,11 +349,6 @@
                                   )
                                 "
                               />
-
-                              <!-- <v-btn variant="text" class="optionButton" @click="excluirTeste(item, teste)">
-                            <v-tooltip activator="parent" location="top">Excluir Teste</v-tooltip>
-                            <v-icon size="large" icon="mdi-delete-forever" color="red"></v-icon>
-                          </v-btn> -->
                             </div>
                           </td>
                         </tr>
@@ -384,7 +379,6 @@ export default {
   },
 
   data: () => ({
-    mostrarDivInfo: true,
     animacaoListaAtiva: false,
     icon: ["", "", "", "", "", ""],
     tab: "dados",
@@ -396,6 +390,11 @@ export default {
       type: Array,
       required: true,
       default: () => [],
+    },
+    isAtivo: {
+      type: Boolean,
+      required: true,
+      default: true,
     },
   },
 
@@ -472,10 +471,6 @@ export default {
         return this.formatTime(value);
       }
       return value !== undefined ? value : "-";
-    },
-
-    mostrarDiv() {
-      this.mostrarDivInfo = false;
     },
 
     geraXlsx(planilha, nome) {
