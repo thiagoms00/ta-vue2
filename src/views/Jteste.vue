@@ -71,8 +71,8 @@
                   class="pa-1 d-flex justify-center"
                 ></v-tab>
                 <v-tab
-                  prepend-icon="mdi-access-point"
-                  text="Option 3"
+                  prepend-icon="mdi-menu"
+                  text="Níveis"
                   value="option-3"
                   class="pa-1 d-flex justify-center"
                 ></v-tab>
@@ -115,7 +115,13 @@
               </v-window-item>
 
               <!-- Janela de Dados 3 -->
-              <v-window-item value="option-3"> Mundo </v-window-item>
+              <v-window-item value="option-3"> 
+                <TurmaNiveisInfo
+                  :listaDeAlunos="listaFiltrada"
+                  :isAtivo = "infoAtiva"
+                  ref="turmaVisualInfo"
+                />
+              </v-window-item>
             </v-window>
           </v-col>
         </v-row>
@@ -133,6 +139,7 @@ import TurmaDataInfo from "@/components/TurmaDataInfo.vue";
 import NavBar from "@/components/NavBar.vue";
 import * as XLSX from "xlsx";
 import TurmaVisualInfo from "@/components/TurmaVisualInfo.vue";
+import TurmaNiveisInfo from "@/components/TurmaNiveisInfo.vue";
 
 export default {
   name: "Turma",
@@ -143,7 +150,8 @@ export default {
     DialogExcluirTeste,
     TurmaDataInfo,
     TurmaVisualInfo,
-  },
+    TurmaNiveisInfo
+},
 
   data: () => ({
     listaTurma: [],
