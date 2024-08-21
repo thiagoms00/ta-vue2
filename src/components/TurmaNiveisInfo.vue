@@ -59,6 +59,7 @@
 <!--                     {{ item.listaDeTestes.length > 0 && item.listaDeTestes[item.listaDeTestes.length - 1].status === "Finalizado"? item.listaDeTestes[item.listaDeTestes.length - 1].resultado_final : "-"}}
                       
  -->                  
+                    <!-- Substitui o resultado final pelo nível correspondente -->
                     <p v-if="item.listaDeTestes.length > 0 && item.listaDeTestes[item.listaDeTestes.length - 1].status === 'Finalizado' 
                     && item.listaDeTestes[item.listaDeTestes.length - 1].resultado_final==='0 - Reprovado'">1</p>
 
@@ -87,6 +88,8 @@
 
                 <td class="pa-0" style="width: 60%">
                   <div class="text-center">
+                    <!-- Muda o -->
+
                     <p v-if="item.listaDeTestes.length > 0 && item.listaDeTestes[item.listaDeTestes.length - 1].status === 'Finalizado' 
                     && item.listaDeTestes[item.listaDeTestes.length - 1].resultado_final==='0 - Reprovado'">
                          O aluno está desenvolvendo habilidades de reconhecimento de letras.
