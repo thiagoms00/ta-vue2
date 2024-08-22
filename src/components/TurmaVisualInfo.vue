@@ -32,7 +32,7 @@
                     <v-divider vertical></v-divider>
 
                     <div class="text-center text-overline" style="width: 100%;">
-                      Estrato {{ i }}
+                      Estrato {{ i-aux_estrato }}
                     </div>
                   </v-col>
                 </v-row>
@@ -164,6 +164,12 @@ export default {
         // Adicione mais alunos conforme necessário
       ],
       listaTurma: [],
+      //numeros dos estratos  *mudar quando permitir que o professor defina o estrato inicial de cada turma
+      e1: 1,
+      e2: 2,
+      e3: 3,
+      aux_estrato: 0,
+
     };
   },
 
@@ -178,18 +184,31 @@ export default {
       required: true,
       default: true,
     },
+    anoTurma : {
+      type : Number,
+      required : true,
+      default: 1,
+    },
   },
 
   watch: {
     // Observa mudanças em `listaDeAlunos`
     listaDeAlunos(newVal) {
       this.listaTurma = newVal;
-      console.log(this.listaTurma)
+      console.log(this.anoTurma)
+      if(this.anoTurma<=3){
+       this.aux_estrato=1;
+      }
+      else{
+        this.aux_estrato=0;
+      }
+
     },
   },
 
   mounted() {
     this.listaTurma = this.listaDeAlunos;
+
   },
 
   methods: {

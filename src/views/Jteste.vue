@@ -110,6 +110,7 @@
                 <TurmaVisualInfo
                   :listaDeAlunos="listaFiltrada"
                   :isAtivo = "infoAtiva"
+                  :anoTurma = "anoTurma"
                   ref="turmaVisualInfo"
                 />
               </v-window-item>
@@ -313,7 +314,7 @@ export default {
         .then((response) => {
           this.listaTurma = response.data.turma;
           this.anoTurma = response.data.anoTurma;
-
+          console.log(this.anoTurma)
           //criando lista com os ultimos elementos.
           for (let i = 0; i < this.listaTurma.length; i++) {
             if (
