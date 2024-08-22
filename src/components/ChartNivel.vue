@@ -1,6 +1,6 @@
 <!-- Chart.vue -->
 <template>
-  <div class="chart-container">
+  <div class="chart-container d-flex justify-center">
     <canvas ref="chart"></canvas>
   </div>
 </template>
@@ -77,11 +77,13 @@ export default {
                     "Alfabetização Consolidada.",
                   ];
 
-                  const label = tooltipItem[0].label;
-                  const index = label.indexOf(label);
+                  // Busca a descrição com base no índice
+                  const index = tooltipItem.dataIndex;
+                  const description = descriptions[index];
+                  const value = tooltipItem.raw;
 
-                  return descriptions[index-1]
-
+                  // Retorna a descrição e a quantidade de itens
+                  return `${description} (${value} alunos)`;
                 },
                 title: function (tooltipItem) {
                   return `${tooltipItem[0].label}`;

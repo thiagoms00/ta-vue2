@@ -53,7 +53,16 @@
 
       <v-divider class="mb-4"> </v-divider>
 
-      <v-sheet>
+      <v-sheet
+        class="rounded-t-lg elevation-2 pa-2 d-flex align-center"
+        color="#1E3892"
+        height="48"
+      >
+        <v-icon icon="mdi-ballot"> </v-icon>
+        <div class="text-button ml-2">Níveis de Altabetização e Letramento</div>
+      </v-sheet>
+
+      <v-sheet class="d-flex justify-center">
         <ChartNivel :data="dadosGraph" />
       </v-sheet>
       

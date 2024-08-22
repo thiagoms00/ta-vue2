@@ -59,20 +59,20 @@
                 style="width: 100%"
               >
                 <v-tab
-                  prepend-icon="mdi-account"
-                  text="Testes"
+                  prepend-icon="mdi-checkbox-outline"
+                  text="Teste"
                   value="option-1"
                   class="pa-1 d-flex justify-center"
                 ></v-tab>
                 <v-tab
-                  prepend-icon="mdi-lock"
+                  prepend-icon="mdi-compass-outline"
                   text="Mapa"
                   value="option-2"
                   class="pa-1 d-flex justify-center"
                 ></v-tab>
                 <v-tab
                   prepend-icon="mdi-menu"
-                  text="Níveis"
+                  text="Nível"
                   value="option-3"
                   class="pa-1 d-flex justify-center"
                 ></v-tab>
