@@ -76,6 +76,12 @@
                   value="option-3"
                   class="pa-1 d-flex justify-center"
                 ></v-tab>
+                <v-tab
+                  prepend-icon="mdi-menu"
+                  text="COMP"
+                  value="option-4"
+                  class="pa-1 d-flex justify-center"
+                ></v-tab>
               </v-tabs>
             </v-sheet>
 
@@ -122,6 +128,13 @@
                   :isAtivo = "infoAtiva"
                   ref="turmaVisualInfo"
                 />
+              </v-window-item>
+
+               <!-- Janela de Dados 4 -->
+               <v-window-item value="option-4"> 
+                <h1>
+                  TESTE
+                </h1>
               </v-window-item>
             </v-window>
           </v-col>
