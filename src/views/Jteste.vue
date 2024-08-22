@@ -66,7 +66,7 @@
                 ></v-tab>
                 <v-tab
                   prepend-icon="mdi-lock"
-                  text="Option 2"
+                  text="Mapa"
                   value="option-2"
                   class="pa-1 d-flex justify-center"
                 ></v-tab>
@@ -174,7 +174,8 @@ export default {
     textoPlanilha: false, //Flag pro hover do botão da planilha.
     search: "",
     tab: "option-1",
-    infoAtiva : false
+    infoAtiva : false,
+    anoTurma : 1,
   }),
 
   created() {
@@ -311,6 +312,7 @@ export default {
       })
         .then((response) => {
           this.listaTurma = response.data.turma;
+          this.anoTurma = response.data.anoTurma;
 
           //criando lista com os ultimos elementos.
           for (let i = 0; i < this.listaTurma.length; i++) {

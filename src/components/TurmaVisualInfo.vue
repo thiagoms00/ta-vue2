@@ -184,6 +184,7 @@ export default {
     // Observa mudanças em `listaDeAlunos`
     listaDeAlunos(newVal) {
       this.listaTurma = newVal;
+      console.log(this.listaTurma)
     },
   },
 
