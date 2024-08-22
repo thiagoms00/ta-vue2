@@ -51,6 +51,13 @@
         </v-table>
       </v-sheet>
 
+      <v-divider class="mb-4"> </v-divider>
+
+      <v-sheet>
+        <ChartNivel :data="dadosGraph" />
+      </v-sheet>
+      
+
       <!-- DIV de seleção de turma -->
       <div>
         <v-sheet
@@ -77,7 +84,13 @@
 </template>
 
 <script>
+import ChartNivel from "@/components/ChartNivel.vue";
+
 export default {
+  components: {
+    ChartNivel,
+  },
+
   data() {
     return {
       listaAlunos: [
@@ -93,6 +106,7 @@ export default {
       ],
       listaTurma: [],
       melhoresResultados: [],
+      dadosGraph: [],
     };
   },
 
@@ -113,6 +127,7 @@ export default {
     // Observa mudanças em `listaDeAlunos`
     listaDeAlunos(newVal) {
       this.listaTurma = newVal;
+      this.gerarDadosGrafico();
       this.getMaiorNivel(this.listaTurma);
     },
   },
@@ -121,6 +136,7 @@ export default {
 
   mounted() {
     this.listaTurma = this.listaDeAlunos;
+    this.gerarDadosGrafico();
   },
 
   methods: {
@@ -190,7 +206,54 @@ export default {
     }
     },
 
+    getResultadoFinal2(item) {
+      if (item.listaDeTestes.length === 0) {
+        return "-";
+      }
 
-  },
+      const ultimoTeste = item.listaDeTestes[item.listaDeTestes.length - 1];
+
+      if (ultimoTeste.status !== "Finalizado") {
+        return "-";
+      }
+
+      switch (ultimoTeste.resultado_final) {
+        case "0 - Reprovado":
+          return 1;
+        case "0 - Aprovado":
+        case "1 - Reprovado":
+          return 2;
+        case "1 - Aprovado":
+        case "2 - Reprovado":
+          return 3;
+        case "2 - Aprovado":
+        case "3 - Reprovado":
+          return 4;
+        case "3 - Aprovado":
+          return 5;
+        default:
+          return null;
+      }
+
+
+    },
+
+    gerarDadosGrafico() {
+      // Inicializa o array para armazenar a contagem de cada nível
+      const niveis = [0, 0, 0, 0, 0]; // Índices 0-4 correspondem aos níveis 1-5
+      
+      // Itera sobre a lista de alunos
+      this.listaDeAlunos.forEach(aluno => {
+        const resultadoFinal = this.getResultadoFinal(aluno);
+        if (resultadoFinal !== "-" && resultadoFinal !== null) {
+          niveis[resultadoFinal - 1] += 1; // Incrementa a contagem para o nível correspondente
+        }
+      });
+
+      // Define os dados para o gráfico
+      this.dadosGraph = niveis;
+      console.log(niveis)
+    }
+  }
 };
 </script>

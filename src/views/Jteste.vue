@@ -60,7 +60,7 @@
               >
                 <v-tab
                   prepend-icon="mdi-account"
-                  text="Option 1"
+                  text="Testes"
                   value="option-1"
                   class="pa-1 d-flex justify-center"
                 ></v-tab>
