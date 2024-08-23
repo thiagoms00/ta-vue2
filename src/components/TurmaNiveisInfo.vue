@@ -65,6 +65,20 @@
       <v-sheet class="d-flex justify-center">
         <ChartNivel :data="dadosGraph" />
       </v-sheet>
+
+      <v-divider class="mb-4"> </v-divider>
+
+      <v-sheet
+        class="rounded-t-lg elevation-2 pa-2 d-flex align-center"
+        color="#1E3892"
+        height="48"
+      >
+        <v-icon icon="mdi-ballot"> </v-icon>
+        <div class="text-button ml-2">Comparativo de habilidades entre Turma</div>
+      </v-sheet>
+      <v-sheet>
+        <ComparaHabilidades/>
+      </v-sheet>
       
 
       <!-- DIV de seleção de turma -->
@@ -94,10 +108,12 @@
 
 <script>
 import ChartNivel from "@/components/ChartNivel.vue";
+import ComparaHabilidades from "@/components/ComparaHabilidades.vue";
 
 export default {
   components: {
     ChartNivel,
+    ComparaHabilidades
   },
 
   data() {
@@ -261,7 +277,6 @@ export default {
 
       // Define os dados para o gráfico
       this.dadosGraph = niveis;
-      console.log(niveis)
     }
   }
 };
