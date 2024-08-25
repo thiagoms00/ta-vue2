@@ -1,4 +1,5 @@
 <template>
+
   <v-row>
     <v-col cols="12">
       <!-- Mensagem de Seleção de Turma -->
@@ -12,7 +13,9 @@
         <div class="text-button ml-2">Níveis de Aprendizado</div>
       </v-sheet>
 
+      
       <v-sheet>
+        <div ref="teste">
         <v-table v-if="isAtivo" density="compact">
           <thead>
             <tr>
@@ -49,6 +52,8 @@
             </tr>
           </tbody>
         </v-table>
+        </div>
+        <v-btn @click="generateTurmasPDf()">TESTE</v-btn>
       </v-sheet>
 
       <v-divider class="mb-4"> </v-divider>
@@ -109,6 +114,8 @@
 <script>
 import ChartNivel from "@/components/ChartNivel.vue";
 import ComparaHabilidades from "@/components/ComparaHabilidades.vue";
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 export default {
   components: {
@@ -165,6 +172,24 @@ export default {
   },
 
   methods: {
+
+
+    generateTurmasPDf(){
+      const pdfContent = this.$refs.teste;
+
+      html2canvas(pdfContent).then((canvas) => {
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jsPDF({
+          orientation: 'landscape', // This makes the page landscape
+          unit: 'mm', // Unit of measurement
+          format: [397, 238] // Custom size, [width, height] in mm (A4 in landscape)
+        });
+        pdf.addImage(imgData, 'PNG', 0, 0);
+        pdf.save('download.pdf');
+      });
+    },  
+
+
     getMaiorNivel(listaTurma) {
       for (let i = 0; i < listaTurma.length; i++) {
         console.log();

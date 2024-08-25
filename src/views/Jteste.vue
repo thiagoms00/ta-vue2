@@ -76,12 +76,12 @@
                   value="option-3"
                   class="pa-1 d-flex justify-center"
                 ></v-tab>
-                <!-- <v-tab
+                <!--  <v-tab
                   prepend-icon="mdi-menu"
                   text="COMP"
                   value="option-4"
                   class="pa-1 d-flex justify-center"
-                ></v-tab> -->
+                ></v-tab>  -->
               </v-tabs>
             </v-sheet>
 
@@ -103,7 +103,7 @@
             <v-window v-model="tab">
               <!-- Janela de Dados 1 -->
               <v-window-item value="option-1">
-                <TurmaDataInfo
+                <TurmaDataInfo 
                   :listaDeAlunos="listaFiltrada"
                   :isAtivo = "infoAtiva"
                   ref="turmaDataInfo"
@@ -132,7 +132,11 @@
 
                <!-- Janela de Dados 4 -->
                <v-window-item value="option-4"> 
-                <TurmasCompInfo/>
+                <div ref="pdfContent" id="pdf-content">
+                  <h1>My PDF Content</h1>
+                  <p>This content will be converted to a PDF.</p>
+                </div>
+                <v-btn @click="generateTurmasPDf()">TESTE</v-btn>
               </v-window-item>
             </v-window>
           </v-col>
@@ -153,6 +157,8 @@ import * as XLSX from "xlsx";
 import TurmaVisualInfo from "@/components/TurmaVisualInfo.vue";
 import TurmaNiveisInfo from "@/components/TurmaNiveisInfo.vue";
 import TurmasCompInfo from "@/components/TurmasCompInfo.vue";
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 export default {
   name: "Turma",
@@ -577,6 +583,16 @@ export default {
       }
       XLSX.writeFile(wb, `${nome}_planilha.xlsx`);
     },
+    generateTurmasPDf(){
+      const pdfContent = this.$refs.teste;
+
+      html2canvas(pdfContent).then((canvas) => {
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jsPDF();
+        pdf.addImage(imgData, 'PNG', 0, 0);
+        pdf.save('download.pdf');
+      });
+    },  
   },
   // FIM DO METHODSSSSSSS
 
