@@ -20,13 +20,13 @@
           <thead>
             <tr>
               <th class="pa-0" style="width: 30%">
-                <div class="text-center text-overline">Aluno</div>
+                <div class="text-left ml-2 text-overline">Aluno</div>
               </th>
               <th class="pa-0" style="width: 10%">
                 <div class="text-center text-overline">Nível</div>
               </th>
               <th class="pa-0" style="width: 60%">
-                <div class="text-center text-overline">Descrição</div>
+                <div class="text-center ml-2 text-overline">Descrição</div>
               </th>
             </tr>
           </thead>
@@ -34,7 +34,7 @@
           <tbody>
             <tr v-for="item in listaTurma" :key="item.name">
               <td class="pa-0" style="width: 30%">
-                <div class="text-center">
+                <div class="text-left ml-2">
                   {{ item.user["nome"] }}
                 </div>
               </td>
@@ -212,12 +212,15 @@ export default {
           return 1;
         case "0 - Aprovado":
         case "1 - Reprovado":
+        case "1 - Indefinido":
           return 2;
         case "1 - Aprovado":
         case "2 - Reprovado":
+        case "2 - Indefinido":
           return 3;
         case "2 - Aprovado":
         case "3 - Reprovado":
+        case "3 - Indefinido":
           return 4;
         case "3 - Aprovado":
           return 5;
@@ -240,14 +243,17 @@ export default {
     switch (ultimoTeste.resultado_final) {
       case '0 - Reprovado':
         return 'O aluno está desenvolvendo habilidades de reconhecimento de letras.';
-      case '0 - Aprovado':
-      case '1 - Reprovado':
+      case "0 - Aprovado":
+      case "1 - Reprovado":
+      case "1 - Indefinido":
         return 'O aluno reconhece letras, e está desenvolvendo habilidades de decodificação de palavras.';
-      case '1 - Aprovado':
-      case '2 - Reprovado':
+      case "1 - Aprovado":
+      case "2 - Reprovado":
+      case "2 - Indefinido":
         return 'O aluno lê palavras e identifica informações explícitas em textos curtos de léxico e sintaxe simples.';
-      case '2 - Aprovado':
-      case '3 - Reprovado':
+      case "2 - Aprovado":
+      case "3 - Reprovado":
+      case "3 - Indefinido":
         return 'O aluno lê pequenos textos, recuperando informações explícitas e começa a identificar seu tema ou assunto principal';
       case '3 - Aprovado':
         return 'Alfabetização Consolidada';
