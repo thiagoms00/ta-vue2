@@ -343,27 +343,7 @@
                           <v-window-item value="progressao">
                             <v-container>
 
-                              <v-table>
-                                <thead>
-                                  <tr>
-                                    <th class="text-left">
-                                      Habilidade
-                                    </th>
-                                    <th class="text-left">
-                                      Descrição
-                                    </th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <tr
-                                    v-for="item in habilidades"
-                                    :key="item.nome_hab"
-                                  >
-                                    <td>{{ item.nome_hab }}</td>
-                                    <td>{{ item.desc_hab }}</td>
-                                  </tr>
-                                </tbody>
-                              </v-table>
+                              
                               
                             </v-container>
 
