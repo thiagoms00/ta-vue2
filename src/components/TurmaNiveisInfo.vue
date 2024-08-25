@@ -53,8 +53,8 @@
           </tbody>
         </v-table>
         </div>
-        <v-btn @click="generateTurmasPDf()">TESTE</v-btn>
-      </v-sheet>
+<!--         <v-btn @click="generateTurmasPDf()">TESTE</v-btn>
+ -->      </v-sheet>
 
       <v-divider class="mb-4"> </v-divider>
 
