@@ -218,6 +218,11 @@
                   <v-icon icon="mdi-animation"></v-icon>
                   Testes
                 </v-tab>
+
+                <v-tab value="provisorio">
+                  <v-icon icon="mdi-chart-bubble"></v-icon>
+                  Nova Aba
+                </v-tab>
               </v-tabs>
 
               <v-window v-model="tab">
@@ -236,14 +241,14 @@
 
                     <v-row>
                       <v-col cols="6">
-                        <ChartBar :data="item.listaDeHab['linguaPortuguesa']" />
+                        <ChartBar :data="item.listaDeHab['Lingua Portuguesa']" />
                       </v-col>
 
                       <v-col cols="6" class="border-lg">
                         <v-list>
                           <v-list-item
                             v-for="(habilidade, index) in item.listaDeHab[
-                              'linguaPortuguesa'
+                              'Lingua Portuguesa'
                             ]"
                             :key="index"
                           >
@@ -355,6 +360,10 @@
                       </tbody>
                     </v-table>
                   </v-card>
+                </v-window-item>
+
+                <v-window-item value = "provisorio">
+                  Adicone aqui o novo conteudo
                 </v-window-item>
               </v-window>
             </v-card>
