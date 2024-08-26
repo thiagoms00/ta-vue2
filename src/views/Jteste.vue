@@ -10,7 +10,6 @@
               <v-expansion-panels>
                 <v-expansion-panel bg-color="#1E3892" class="rounded-lg">
                   <v-expansion-panel-title
-                    class="rounded-lg"
                     v-ripple
                     style="height: 4vh"
                   >
@@ -25,7 +24,7 @@
                   <v-divider></v-divider>
 
                   <v-expansion-panel-text class="rounded-lg">
-                    <v-list class="pa-0">
+                    <v-list class="pa-0 rounded-b-lg">
                       <v-list-item
                         v-for="(item, index) in listaNomeTurma"
                         :key="index"
@@ -93,7 +92,7 @@
                 label="Buscar aluno"
                 variant="solo"
                 v-model="search"
-                class="custom-border"
+                class="custom-border "
               >
               </v-text-field>
             </div>
@@ -642,7 +641,10 @@ export default {
 
 .custom-border .v-input__control {
   border-radius: 8px;
-  border: 2px solid #dcdcdc;
+}
+
+.custom-border .v-field{
+  border-radius: 9px;
 }
 
 .optionButton {
@@ -653,6 +655,7 @@ export default {
 .custom-panel-text {
   padding: 0;
   margin: 0;
+
 }
 
 .v-expansion-panel-text__wrapper {
