@@ -1,7 +1,7 @@
 <!-- Chart.vue -->
 <template>
-  <div class="chart-container d-flex justify-center">
-    <canvas ref="chart"></canvas>
+  <div class="chart-container d-flex justify-center ma-0">
+    <canvas ref="chart" width="800"></canvas>
   </div>
 </template>
 
@@ -50,19 +50,19 @@ export default {
           ],
         },
         options: {
+          
           plugins: {
             responsive: true,
             maintainAspectRatio: false,
             legend: {
               title: {
-                display: true,
-                text: "Nível",
+                
               },
               position: "left",
               align: "center",
               labels: {
                 padding: 15,
-                boxWidth: 10,
+                boxWidth: 25,
               },
             },
             tooltip: {
@@ -94,6 +94,7 @@ export default {
               bodyColor: "#fff", // Cor do corpo do texto
               borderColor: "#ddd", // Cor da borda da tooltip
               borderWidth: 1, // Largura da borda da tooltip
+              position: 'nearest'
             },
           },
           scales: {
@@ -123,10 +124,6 @@ export default {
 </script>
 
 <style>
-.chart-container {
-  width: 100%;
-  height: 450px; /* Adjust the height as needed */
-  max-width: 600px; /* Optional: Set a max-width if you want to limit the size */
-  margin: 0 auto; /* Center the chart horizontally */
-}
+
+
 </style>
