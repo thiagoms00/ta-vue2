@@ -93,7 +93,7 @@
                 label="Buscar aluno"
                 variant="solo"
                 v-model="search"
-                class="custom-border"
+                class="custom-border buscar-field"
               >
               </v-text-field>
             </div>
@@ -610,6 +610,10 @@ export default {
 </script>
 
 <style>
+
+
+
+
 .custom-switch .v-input--density-default {
   --v-input-control-height: 43 px;
 }
@@ -678,4 +682,22 @@ export default {
 .border-bottom-orange {
   border-bottom: 2px solid orange;
 }
+
+@media (max-width:1600px){
+  .buscar-field .v-input__control{
+    width: 12.5vw !important;
+    font-size: 1px;
+  }
+
+}
+
+@media (max-width:1200px){
+  .buscar-field .v-input__control{
+    width: 13vw !important;
+    font-size: 1px;
+  }
+
+}
+
+
 </style>
