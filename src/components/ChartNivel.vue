@@ -1,7 +1,7 @@
 <!-- Chart.vue -->
 <template>
   <div class="chart-container d-flex justify-center ma-0">
-    <canvas ref="chart" width="800"></canvas>
+    <canvas ref="chart"></canvas>
   </div>
 </template>
 
@@ -50,14 +50,11 @@ export default {
           ],
         },
         options: {
-          
           plugins: {
             responsive: true,
             maintainAspectRatio: false,
             legend: {
-              title: {
-                
-              },
+              title: {},
               position: "left",
               align: "center",
               labels: {
@@ -82,11 +79,40 @@ export default {
                   const description = descriptions[index];
                   const value = tooltipItem.raw;
 
-                  // Retorna a descrição e a quantidade de itens
-                  return `${description} (${value} alunos)`;
+                  // Define um limite de comprimento para cada linha
+                  const maxLength = 50;
+                  const words = description.split(" ");
+                  let line = "";
+                  const lines = [];
+
+                  words.forEach((word) => {
+                    if (line.length + word.length + 1 <= maxLength) {
+                      line += (line ? " " : "") + word;
+                    } else {
+                      lines.push(line);
+                      line = word;
+                    }
+                  });
+
+                  // Adiciona a última linha
+                  if (line) {
+                    lines.push(line);
+                  }
+
+                  // Adiciona o valor de alunos na última linha
+                  lines.push(`${value} alunos`);
+
+                  return lines;
                 },
-                title: function (tooltipItem) {
-                  return `${tooltipItem[0].label}`;
+                title: function (tooltipItems) {
+                  const total = tooltipItems[0].dataset.data.reduce(
+                    (sum, value) => sum + value,
+                    0
+                  );
+                  const value = tooltipItems[0].raw;
+                  const percentage = ((value / total) * 100).toFixed(2); // Calcula a porcentagem com 2 casas decimais
+
+                  return `${tooltipItems[0].label}: ${percentage}% dos alunos`;
                 },
               },
               backgroundColor: "rgba(0,0,0,0.7)", // Cor de fundo da tooltip
@@ -94,7 +120,7 @@ export default {
               bodyColor: "#fff", // Cor do corpo do texto
               borderColor: "#ddd", // Cor da borda da tooltip
               borderWidth: 1, // Largura da borda da tooltip
-              position: 'nearest'
+              position: "nearest",
             },
           },
           scales: {
@@ -124,6 +150,8 @@ export default {
 </script>
 
 <style>
-
-
+.chart-container {
+  overflow: visible;
+  padding: 20px;
+}
 </style>
