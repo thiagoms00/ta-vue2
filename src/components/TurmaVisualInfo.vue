@@ -62,7 +62,7 @@
                       <v-row class="ma-0 d-flex justify-start">
                         <v-chip
                           v-for="(itemListQuest, index) in getChipsForEstrato(
-                            i-1,
+                            i,
                             item.listaDeTestes?.[item.listaDeTestes.length - 1]
                               ?.listaQuest
                           ).slice(0, 6)"
