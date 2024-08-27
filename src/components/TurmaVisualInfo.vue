@@ -165,9 +165,9 @@ export default {
       ],
       listaTurma: [],
       //numeros dos estratos  *mudar quando permitir que o professor defina o estrato inicial de cada turma
-      e1: 1,
-      e2: 2,
-      e3: 3,
+      e1: 0,
+      e2: 1,
+      e3: 2,
       aux_estrato: 0,
 
     };
@@ -191,13 +191,22 @@ export default {
     },
   },
 
+  created() {
+    if(this.anoTurma<=3){
+       this.aux_estrato=1;
+      }
+      else{
+        this.aux_estrato=0;
+      }
+  },
+
   watch: {
     // Observa mudanças em `listaDeAlunos`
     listaDeAlunos(newVal) {
       this.listaTurma = newVal;
       console.log(this.anoTurma)
       if(this.anoTurma<=3){
-       this.aux_estrato=1;
+        this.aux_estrato=1;
       }
       else{
         this.aux_estrato=0;
@@ -218,6 +227,8 @@ export default {
     },
 
     getChipsForEstrato(estratoIndex, listaQuest) {
+      estratoIndex = estratoIndex-this.aux_estrato;
+      console.log(this.aux_estrato)
       if (!Array.isArray(listaQuest)) return [];
       return listaQuest.filter((item) => item.estrato == estratoIndex);
     },
