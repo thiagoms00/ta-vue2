@@ -242,19 +242,19 @@ export default {
 
     switch (ultimoTeste.resultado_final) {
       case '0 - Reprovado':
-        return 'O aluno está desenvolvendo habilidades de reconhecimento de letras.';
+        return 'Está desenvolvendo habilidades de reconhecimento de letras.';
       case "0 - Aprovado":
       case "1 - Reprovado":
       case "1 - Indefinido":
-        return 'O aluno reconhece letras, e está desenvolvendo habilidades de decodificação de palavras.';
+        return 'Reconhece letras, e está desenvolvendo habilidades de decodificação de palavras.';
       case "1 - Aprovado":
       case "2 - Reprovado":
       case "2 - Indefinido":
-        return 'O aluno lê palavras e identifica informações explícitas em textos curtos de léxico e sintaxe simples.';
+        return 'Lê palavras e identifica informações explícitas em textos curtos de léxico e sintaxe simples.';
       case "2 - Aprovado":
       case "3 - Reprovado":
       case "3 - Indefinido":
-        return 'O aluno lê pequenos textos, recuperando informações explícitas e começa a identificar seu tema ou assunto principal';
+        return 'Lê pequenos textos, recuperando informações explícitas e começa a identificar seu tema ou assunto principal';
       case '3 - Aprovado':
         return 'Alfabetização Consolidada';
       default:
