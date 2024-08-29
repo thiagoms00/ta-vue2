@@ -58,8 +58,8 @@ export default {
               position: "left",
               align: "center",
               labels: {
-                padding: 15,
-                boxWidth: 25,
+                padding: 10,
+                boxWidth: 15,
               },
             },
             tooltip: {

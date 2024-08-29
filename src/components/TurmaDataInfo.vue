@@ -1,5 +1,5 @@
 <template>
-  <v-sheet class="rounded-t-lg">
+  <v-sheet elevation="10" class="rounded-t-lg">
     <v-expansion-panels :readonly="true">
       <v-expansion-panel
         class="rounded-t-lg"
@@ -102,10 +102,9 @@
   <v-sheet
     
     rounded="lg"
-    class=""
     :class="{ 'fade-in': animacaoListaAtiva }"
   >
-    <v-expansion-panels variant="accordion">
+    <v-expansion-panels variant="accordion" class="elevation-">
       <v-expansion-panel
         v-for="(item, indexAluno) in listaTurma"
         :key="item.nome"
@@ -113,6 +112,7 @@
         ref="panels"
         class="rounded-b-lg"
         style="border-radius: 0px"
+        
       >
         <v-expansion-panel-title style="height: 5vh" class="color-painel">
           <v-row class="d-flex align-center">

@@ -6,7 +6,7 @@
       <v-container>
         <v-row>
           <v-col cols="2">
-            <div>
+            <div class="elevation-2 rounded-lg">
               <v-expansion-panels>
                 <v-expansion-panel bg-color="#1E3892" class="rounded-lg">
                   <v-expansion-panel-title
@@ -89,7 +89,7 @@
             </v-sheet>
 
             <!-- Campo de busca de aluno -->
-            <div class="mt-4">
+            <div class="mt-4 ">
               <v-text-field
                 append-inner-icon="mdi-magnify"
                 density="compact"
@@ -137,6 +137,7 @@
                <v-window-item value="option-4"> 
                 <TurmaGraphInfo 
                 :listaDeAlunos="listaFiltrada"
+                :idTurma = "turmaSelecionadaAtual"
                 :isAtivo = "infoAtiva"
                 />
               </v-window-item>
@@ -196,6 +197,7 @@ export default {
     tab: "option-1",
     infoAtiva : false,
     anoTurma : 1,
+    turmaSelecionadaAtual : ""
 
     
   }),
@@ -320,6 +322,7 @@ export default {
     },
 
     selecionaTurma(turmaValue, index) {
+      this.turmaSelecionadaAtual = turmaValue
       this.loadingStatesTurmas[index] = true;
       const data = {
         token: localStorage.getItem("tokenProf"),
@@ -635,7 +638,7 @@ export default {
 }
 
 .custom-border .v-input__control {
-  border-radius: 8px;
+  border-radius: 10px;
   border: 2px solid #dcdcdc;
 }
 
