@@ -84,6 +84,12 @@
                   value="option-4"
                   class="pa-1 d-flex justify-center"
                 ></v-tab>
+                <v-tab
+                  prepend-icon="mdi-cog"
+                  text="Config"
+                  value="option-5"
+                  class="pa-1 d-flex justify-center"
+                ></v-tab>
 
               </v-tabs>
             </v-sheet>
@@ -141,6 +147,14 @@
                 :isAtivo = "infoAtiva"
                 />
               </v-window-item>
+
+              <v-window-item value="option-5"> 
+                <TurmaConfig
+                  :listaDeAlunos="listaFiltrada"
+                  :habilidadesTurma = "habilidadesTurmaAtual"
+                  :isAtivo = "infoAtiva"
+                ></TurmaConfig>
+              </v-window-item>
             </v-window>
           </v-col>
         </v-row>
@@ -160,6 +174,7 @@ import * as XLSX from "xlsx";
 import TurmaMapInfo from "@/components/TurmaMapInfo.vue";
 import TurmaNiveisInfo from "@/components/TurmaNiveisInfo.vue";
 import TurmaGraphInfo from "@/components/TurmaGraphInfo.vue";
+import TurmaConfig from "@/components/TurmaConfig.vue";
 
 export default {
   name: "Turma",
@@ -171,7 +186,8 @@ export default {
     TurmaDataInfo,
     TurmaMapInfo,
     TurmaNiveisInfo,
-    TurmaGraphInfo
+    TurmaGraphInfo,
+    TurmaConfig
 },
 
   data: () => ({
