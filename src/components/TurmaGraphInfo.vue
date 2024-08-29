@@ -1,6 +1,16 @@
 <template>
   <v-row>
     <v-col cols="12">
+      <!-- Layout de titulo de gráfico -->
+      <v-sheet
+        class="rounded-t-lg pa-2 d-flex align-center elevation-2"
+        color="#1E3892"
+        height="48"
+      >
+        <v-icon icon="mdi-ballot"> </v-icon>
+        <div class="text-button ml-2">Porcentagem de nível por turma</div>
+      </v-sheet>
+
       <!-- Layout indormativo de seleção de turma -->
       <v-sheet
         v-if="!isAtivo"
@@ -21,16 +31,6 @@
         </p>
       </v-sheet>
 
-      <!-- Layout de titulo de gráfico -->
-      <v-sheet
-        class="rounded-t-lg pa-2 d-flex align-center elevation-2"
-        color="#1E3892"
-        height="48"
-      >
-        <v-icon icon="mdi-ballot"> </v-icon>
-        <div class="text-button ml-2">Porcentagem de nível por turma</div>
-      </v-sheet>
-
       <!-- Layout do gráfico -->
       <v-sheet class="d-flex justify-center rounded-b-lg" v-if="isAtivo">
         <ChartNivel :data="dadosGraphNivel" />
@@ -38,12 +38,15 @@
 
       <!-- Layout de titulo de gráfico -->
       <v-sheet
-        class="rounded-t-lg pa-2 d-flex align-center  mt-4"
+        class="rounded-t-lg pa-2 d-flex align-center mt-4"
         color="#1E3892"
         height="48"
+        v-if="isAtivo"
       >
         <v-icon icon="mdi-ballot"> </v-icon>
-        <div class="text-button ml-2">Porcentagem de Habilidade por turma</div>
+        <div class="text-button ml-2">
+          Porcentagem de Acerto por Habilidade da turma
+        </div>
       </v-sheet>
 
       <!-- Layout do gráfico -->
@@ -57,7 +60,6 @@
 <script>
 import ChartNivel from "@/components/ChartNivel.vue";
 import ChartHabilidade from "./ChartHabilidade.vue";
-import axios from "axios";
 
 export default {
   components: {
@@ -100,8 +102,7 @@ export default {
     },
   },
 
-  created() {
-  },
+  created() {},
 
   mounted() {
     this.listaTurma = this.listaDeAlunos;

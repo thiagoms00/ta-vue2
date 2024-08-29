@@ -204,7 +204,6 @@ export default {
     // Observa mudanças em `listaDeAlunos`
     listaDeAlunos(newVal) {
       this.listaTurma = newVal;
-      console.log(this.anoTurma)
       if(this.anoTurma<=3){
         this.aux_estrato=1;
       }
@@ -228,7 +227,6 @@ export default {
 
     getChipsForEstrato(estratoIndex, listaQuest) {
       estratoIndex = estratoIndex-this.aux_estrato;
-      console.log(this.aux_estrato)
       if (!Array.isArray(listaQuest)) return [];
       return listaQuest.filter((item) => item.estrato == estratoIndex);
     },
