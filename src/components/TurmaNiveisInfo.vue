@@ -125,17 +125,6 @@ export default {
 
   data() {
     return {
-      listaAlunos: [
-        {
-          nome: "Aluno 1",
-          respostas: [true, false, true, true, false],
-        },
-        {
-          nome: "Aluno 2",
-          respostas: [false, true, false, true, true],
-        },
-        // Adicione mais alunos conforme necessário
-      ],
       listaTurma: [],
       melhoresResultados: [],
       dadosGraph: [],
@@ -160,7 +149,6 @@ export default {
     listaDeAlunos(newVal) {
       this.listaTurma = newVal;
       this.gerarDadosGrafico();
-      this.getMaiorNivel(this.listaTurma);
     },
   },
 
@@ -188,13 +176,6 @@ export default {
         pdf.save('download.pdf');
       });
     },  
-
-
-    getMaiorNivel(listaTurma) {
-      for (let i = 0; i < listaTurma.length; i++) {
-        console.log();
-      }
-    },
 
     getResultadoFinal(item) {
       if (item.listaDeTestes.length === 0) {

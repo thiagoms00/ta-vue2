@@ -155,7 +155,7 @@ import NavBar from "@/components/NavBar.vue";
 import * as XLSX from "xlsx";
 import TurmaVisualInfo from "@/components/TurmaVisualInfo.vue";
 import TurmaNiveisInfo from "@/components/TurmaNiveisInfo.vue";
-import TurmasCompInfo from "@/components/TurmasCompInfo.vue";
+import TurmasCompInfo from "@/components/TurmaGraphInfo.vue";
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 

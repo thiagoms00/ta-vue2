@@ -256,8 +256,7 @@
                               Habilidade {{ habilidade.habilidade }} -
                             </span>
                             <span class="text-caption">
-                              {{ habilidade.porcentagemAcertos }} % em relação a
-                              turma.
+                              {{ habilidade.porcentagemAcertos }} % de taxa de acerto.
                             </span>
                           </v-list-item>
                         </v-list>

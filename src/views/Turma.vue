@@ -76,12 +76,12 @@
                   value="option-3"
                   class="pa-1 d-flex justify-center"
                 ></v-tab>
-                <!-- <v-tab
-                  prepend-icon="mdi-menu"
-                  text="COMP"
+                <v-tab
+                  prepend-icon="mdi-chart-bar"
+                  text="Conceito"
                   value="option-4"
                   class="pa-1 d-flex justify-center"
-                ></v-tab> -->
+                ></v-tab>
               </v-tabs>
             </v-sheet>
 
@@ -132,7 +132,10 @@
 
                <!-- Janela de Dados 4 -->
                <v-window-item value="option-4"> 
-                <TurmasCompInfo/>
+                <TurmaGraphInfo 
+                :listaDeAlunos="listaFiltrada"
+                :isAtivo = "infoAtiva"
+                />
               </v-window-item>
             </v-window>
           </v-col>
@@ -152,7 +155,7 @@ import NavBar from "@/components/NavBar.vue";
 import * as XLSX from "xlsx";
 import TurmaVisualInfo from "@/components/TurmaVisualInfo.vue";
 import TurmaNiveisInfo from "@/components/TurmaNiveisInfo.vue";
-import TurmasCompInfo from "@/components/TurmasCompInfo.vue";
+import TurmaGraphInfo from "@/components/TurmaGraphInfo.vue";
 
 export default {
   name: "Turma",
@@ -164,7 +167,7 @@ export default {
     TurmaDataInfo,
     TurmaVisualInfo,
     TurmaNiveisInfo,
-    TurmasCompInfo
+    TurmaGraphInfo
 },
 
   data: () => ({
