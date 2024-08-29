@@ -38,7 +38,7 @@
 
       <!-- Layout de titulo de gráfico -->
       <v-sheet
-        class="rounded-t-lg pa-2 d-flex align-center elevation-2"
+        class="rounded-t-lg pa-2 d-flex align-center  mt-4"
         color="#1E3892"
         height="48"
       >
@@ -48,7 +48,7 @@
 
       <!-- Layout do gráfico -->
       <v-sheet class="d-flex justify-center rounded-b-lg" v-if="isAtivo">
-        <!-- <ChartHabilidade :data="dadosGraphHabilidade" /> -->
+        <ChartHabilidade :data="habilidadesTurma" />
       </v-sheet>
     </v-col>
   </v-row>
@@ -85,10 +85,10 @@ export default {
       required: true,
       default: true,
     },
-    turmaSelecionada: {
-      type: String,
+    habilidadesTurma: {
+      type: Array,
       required: true,
-      default: "",
+      default: () => [],
     },
   },
 
@@ -101,7 +101,6 @@ export default {
   },
 
   created() {
-    dadosHabilidades();
   },
 
   mounted() {
@@ -157,27 +156,6 @@ export default {
         default:
           return null;
       }
-    },
-
-    dadosHabilidades() {
-
-      const data = {
-        idTurma: this.turmaSelecionada
-      };
-
-      axios({
-        url: "https://ta-back.onrender.com/professores/returnPercentHabTurmaOK",
-        data,
-        method: "POST",
-      })
-        .then((response) => {
-          this.dadosGraphHabilidade = response.data; // Armazena o resultado no objeto 'resultado'
-          console.log(this.resultado);
-        })
-        .catch((error) => {
-          // Tratar erros aqui
-          console.error(error);
-        });
     },
   },
 };

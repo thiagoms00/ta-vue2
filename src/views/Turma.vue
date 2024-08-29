@@ -137,7 +137,7 @@
                <v-window-item value="option-4"> 
                 <TurmaGraphInfo 
                 :listaDeAlunos="listaFiltrada"
-                :idTurma = "turmaSelecionadaAtual"
+                :habilidadesTurma = "habilidadesTurmaAtual"
                 :isAtivo = "infoAtiva"
                 />
               </v-window-item>
@@ -197,7 +197,7 @@ export default {
     tab: "option-1",
     infoAtiva : false,
     anoTurma : 1,
-    turmaSelecionadaAtual : ""
+    habilidadesTurmaAtual : []
 
     
   }),
@@ -322,7 +322,6 @@ export default {
     },
 
     selecionaTurma(turmaValue, index) {
-      this.turmaSelecionadaAtual = turmaValue
       this.loadingStatesTurmas[index] = true;
       const data = {
         token: localStorage.getItem("tokenProf"),
@@ -338,7 +337,7 @@ export default {
         .then((response) => {
           this.listaTurma = response.data.turma;
           this.anoTurma = response.data.anoTurma;
-          console.log(this.anoTurma)
+          this.habilidadesTurmaAtual = response.data.habTurma;
           //criando lista com os ultimos elementos.
           for (let i = 0; i < this.listaTurma.length; i++) {
             if (
