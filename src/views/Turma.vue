@@ -25,7 +25,7 @@
                   <v-divider></v-divider>
 
                   <v-expansion-panel-text class="rounded-lg">
-                    <v-list class="pa-0">
+                    <v-list class="pa-0 rounded-b-lg">
                       <v-list-item
                         v-for="(item, index) in listaNomeTurma"
                         :key="index"
