@@ -153,7 +153,7 @@ import DialogExcluirTeste from "@/components/DialogExcluirTeste.vue";
 import TurmaDataInfo from "@/components/TurmaDataInfo.vue";
 import NavBar from "@/components/NavBar.vue";
 import * as XLSX from "xlsx";
-import TurmaVisualInfo from "@/components/TurmaVisualInfo.vue";
+import TurmaVisualInfo from "@/components/TurmaMapInfo.vue";
 import TurmaNiveisInfo from "@/components/TurmaNiveisInfo.vue";
 import TurmasCompInfo from "@/components/TurmaGraphInfo.vue";
 import jsPDF from 'jspdf';

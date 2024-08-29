@@ -24,6 +24,7 @@
 
                   <v-divider></v-divider>
 
+                  <!-- Expansion Panel com as turmas de um professor -->
                   <v-expansion-panel-text class="rounded-lg">
                     <v-list class="pa-0 rounded-b-lg">
                       <v-list-item
@@ -44,6 +45,7 @@
                       </v-list-item>
                     </v-list>
                   </v-expansion-panel-text>
+
                 </v-expansion-panel>
               </v-expansion-panels>
             </div>
@@ -78,10 +80,11 @@
                 ></v-tab>
                 <v-tab
                   prepend-icon="mdi-chart-bar"
-                  text="Conceito"
+                  text="Geral"
                   value="option-4"
                   class="pa-1 d-flex justify-center"
                 ></v-tab>
+
               </v-tabs>
             </v-sheet>
 
@@ -113,11 +116,11 @@
 
               <!-- Janela de Dados 2 -->
               <v-window-item value="option-2">
-                <TurmaVisualInfo
+                <TurmaMapInfo
                   :listaDeAlunos="listaFiltrada"
                   :isAtivo = "infoAtiva"
                   :anoTurma = "anoTurma"
-                  ref="turmaVisualInfo"
+                  ref="turmaMapInfo"
                 />
               </v-window-item>
 
@@ -153,7 +156,7 @@ import DialogExcluirTeste from "@/components/DialogExcluirTeste.vue";
 import TurmaDataInfo from "@/components/TurmaDataInfo.vue";
 import NavBar from "@/components/NavBar.vue";
 import * as XLSX from "xlsx";
-import TurmaVisualInfo from "@/components/TurmaVisualInfo.vue";
+import TurmaMapInfo from "@/components/TurmaMapInfo.vue";
 import TurmaNiveisInfo from "@/components/TurmaNiveisInfo.vue";
 import TurmaGraphInfo from "@/components/TurmaGraphInfo.vue";
 
@@ -165,7 +168,7 @@ export default {
     NavBar,
     DialogExcluirTeste,
     TurmaDataInfo,
-    TurmaVisualInfo,
+    TurmaMapInfo,
     TurmaNiveisInfo,
     TurmaGraphInfo
 },
