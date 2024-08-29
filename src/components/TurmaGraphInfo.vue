@@ -1,7 +1,36 @@
 <template>
     <v-row>
       <v-col cols="12">
-        <v-sheet class="d-flex justify-center">
+
+        <v-sheet
+        class="rounded-t-lg elevation-2 pa-2 d-flex align-center"
+        color="#1E3892"
+        height="48"
+      >
+        <v-icon icon="mdi-ballot"> </v-icon>
+        <div class="text-button ml-2">Dados gerais da turma</div>
+      </v-sheet>
+      
+        <v-sheet
+          v-if="!isAtivo"
+          class="d-flex justify-center align-center rounded-b-lg"
+          height="250"
+          color="grey-lighten-5"
+          border="md"
+        >
+          <p
+            class="text-overline"
+            style="
+              color: #cfd8dc;
+              font-size: 3rem !important;
+              text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+            "
+          >
+            Selecione uma turma
+          </p>
+        </v-sheet>
+
+        <v-sheet class="d-flex justify-center" v-if="isAtivo">
         <ChartNivel :data="dadosGraph" />
       </v-sheet>
       </v-col>
