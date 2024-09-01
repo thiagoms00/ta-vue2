@@ -87,13 +87,13 @@
                 <v-tab
                   prepend-icon="mdi-remote-desktop"
                   text="Compara"
-                  value="option-4"
+                  value="option-5"
                   class="pa-1 d-flex justify-center"
                 ></v-tab>
                 <v-tab
                   prepend-icon="mdi-cog"
                   text="Config"
-                  value="option-5"
+                  value="option-6"
                   class="pa-1 d-flex justify-center"
                 ></v-tab>
 
@@ -154,11 +154,21 @@
                 />
               </v-window-item>
 
+              <!-- Janela de Dados 4 -->
               <v-window-item value="option-5"> 
+                <TurmaCompara 
+                :listaDeAlunos="listaFiltrada"               
+                :isAtivo = "infoAtiva"
+                :iDsTurma = "listaNomeTurma"
+                :turmaAtual = "turmaSelecionada"
+                />
+              </v-window-item>
+
+              <v-window-item value="option-6"> 
                 <TurmaConfig
                   :listaDeAlunos="listaFiltrada"
                   :habilidadesTurma = "habilidadesTurmaAtual"
-                  :isAtivo = "infoAtiva"
+                  :isAtivo = "infoAtiva"     
                 ></TurmaConfig>
               </v-window-item>
             </v-window>
@@ -181,6 +191,7 @@ import TurmaMapInfo from "@/components/TurmaMapInfo.vue";
 import TurmaNiveisInfo from "@/components/TurmaNiveisInfo.vue";
 import TurmaGraphInfo from "@/components/TurmaGraphInfo.vue";
 import TurmaConfig from "@/components/TurmaConfig.vue";
+import TurmaCompara from "@/components/TurmaCompara.vue";
 
 export default {
   name: "Turma",
@@ -193,8 +204,9 @@ export default {
     TurmaMapInfo,
     TurmaNiveisInfo,
     TurmaGraphInfo,
-    TurmaConfig
-},
+    TurmaConfig,
+    TurmaCompara
+  },
 
   data: () => ({
     listaTurma: [],
@@ -219,7 +231,8 @@ export default {
     tab: "option-1",
     infoAtiva : false,
     anoTurma : 1,
-    habilidadesTurmaAtual : []
+    habilidadesTurmaAtual : [],
+    turmaSelecionada : ""
 
     
   }),
@@ -345,6 +358,8 @@ export default {
 
     selecionaTurma(turmaValue, index) {
       this.loadingStatesTurmas[index] = true;
+      this.turmaSelecionada = turmaValue
+      console.log('Tipo de turmaSelecionada:', typeof this.turmaSelecionada);
       const data = {
         token: localStorage.getItem("tokenProf"),
         idTurma: turmaValue,

@@ -81,19 +81,7 @@
 
         <div class="mb-4"> </div>
 
-        <v-sheet
-          class="rounded-t-lg elevation-2 pa-2 d-flex align-center"
-          color="#1E3892"
-          height="48"
-        >
-          <v-icon icon="mdi-ballot"> </v-icon>
-          <div class="text-button ml-2">
-            Comparativo de habilidades entre Turma
-          </div>
-        </v-sheet>
-        <v-sheet>
-          <ComparaHabilidades />
-        </v-sheet>
+        
       </div>
     </v-col>
   </v-row>
@@ -101,14 +89,12 @@
 
 <script>
 import ChartNivel from "@/components/ChartNivel.vue";
-import ComparaHabilidades from "@/components/ComparaHabilidades.vue";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 
 export default {
   components: {
     ChartNivel,
-    ComparaHabilidades,
   },
 
   data() {
