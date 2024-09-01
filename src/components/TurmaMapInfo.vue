@@ -72,7 +72,7 @@
                           label
                           class="ml-1"
                         >
-                          <v-tooltip activator="parent" location="top">
+                          <v-tooltip text="" activator="parent" location="top" :open-delay="0" :close-delay="0" transition="fade-transition">
                             {{
                               getHabilidadeDescricao(
                                 extractDigitsFromId(itemListQuest.id)
@@ -102,7 +102,7 @@
                           size="x-small"
                           label
                         >
-                          <v-tooltip activator="parent" location="top">
+                          <v-tooltip activator="parent" location="top" :open-delay="0" :close-delay="0" transition="fade-transition">
                             {{
                               getHabilidadeDescricao(
                                 extractDigitsFromId(itemListQuest.id)

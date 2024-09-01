@@ -25,6 +25,9 @@
                 <v-switch class="switch-start" color="indigo" label="" inset></v-switch>
             </div>
 
+            <div class="d-flex align-md-center justify-sm-center save-div mt-8">
+              <v-btn elevation="8" size="x-large" class="salvar-btn mt-5" color="#1E3892" @click="">Salvar</v-btn>
+            </div>
            
         </v-sheet>
       </v-col>
@@ -100,7 +103,7 @@
     border: 0.1rem solid rgba(58, 58, 58, 0.18);
     padding: 3vh 3vw;
     border-radius: 5px;
-    height: 40vh;
+    height: 50vh;
   }
 
   .config-title{
@@ -139,6 +142,11 @@
     margin-top: 1vh;
   }
 
+
+
+  .salvar-btn{
+    width: 12vw !important;
+  }
 
 @media (max-width: 1600px) {
   
@@ -181,6 +189,16 @@
     margin-top: 0vh;
   }
 
+  .save-div{ 
+    margin-top: 1vh !important;
+  }
+
+  .salvar-btn{
+    width: 13vw !important;
+    height: 6vh !important;
+    font-size: 0.9rem !important;
+  }
+
 }
 
 @media (max-width: 1300px) {
@@ -219,6 +237,18 @@
   .switch-start .v-input__control{
     margin-top: 0vh;
   }
+
+  .save-div{ 
+    margin-top: 1vh !important;
+  }
+
+  .salvar-btn{
+    width: 13vw !important;
+    height: 6vh !important;
+    font-size: 0.9rem !important;
+  }
+
+  
 
 }
 
