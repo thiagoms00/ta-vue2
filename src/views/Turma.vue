@@ -85,6 +85,12 @@
                   class="pa-1 d-flex justify-center"
                 ></v-tab>
                 <v-tab
+                  prepend-icon="mdi-remote-desktop"
+                  text="Compara"
+                  value="option-4"
+                  class="pa-1 d-flex justify-center"
+                ></v-tab>
+                <v-tab
                   prepend-icon="mdi-cog"
                   text="Config"
                   value="option-5"

@@ -8,7 +8,7 @@
         height="48"
       >
         <v-icon icon="mdi-ballot"> </v-icon>
-        <div class="text-button ml-2">Porcentagem de nível por turma</div>
+        <div class="text-button ml-2">Níveis de Alfabetização e Letramento</div>
       </v-sheet>
 
       <!-- Layout indormativo de seleção de turma -->
