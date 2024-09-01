@@ -1,6 +1,6 @@
 <template>
-  <v-row>
-    <v-col cols="12">
+  <v-row class="main-row">
+    <v-col cols="12" class="main-col">
       <!-- Mensagem de Seleção de Turma -->
 
       <v-sheet
@@ -9,22 +9,22 @@
         height="48"
       >
         <v-icon icon="mdi-ballot"> </v-icon>
-        <div class="text-button ml-2">Níveis de Aprendizado</div>
+        <div class="text-button ml-5 font-weight-bold area-title">Níveis de Aprendizado</div>
       </v-sheet>
 
-      <v-sheet v-if="isAtivo">
+      <v-sheet v-if="isAtivo" class="">
         <div ref="teste">
-          <v-table v-if="isAtivo" density="compact">
+          <v-table v-if="isAtivo">
             <thead>
               <tr>
                 <th class="pa-0" style="width: 30%">
-                  <div class="text-left ml-2 text-overline">Aluno</div>
+                  <div class="text-left ml-8 text-overline title-column">Aluno</div>
                 </th>
                 <th class="pa-0" style="width: 10%">
-                  <div class="text-center text-overline">Nível</div>
+                  <div class="text-center text-overline ml-2 title-column">Nível</div>
                 </th>
                 <th class="pa-0" style="width: 60%">
-                  <div class="text-center ml-2 text-overline">Descrição</div>
+                  <div class="text-center ml-2 text-overline title-column">Descrição</div>
                 </th>
               </tr>
             </thead>
@@ -32,13 +32,13 @@
             <tbody>
               <tr v-for="item in listaTurma" :key="item.name">
                 <td class="pa-0" style="width: 30%">
-                  <div class="text-left ml-2">
+                  <div class="text-left ml-8 main-text">
                     {{ item.user["nome"] }}
                   </div>
                 </td>
 
                 <td class="pa-0" style="width: 10%">
-                  <div class="text-center">
+                  <div class="text-center main-text">
                     <!-- Substitui o resultado final pelo nível correspondente -->
                     <p v-if="getResultadoFinal(item)">
                       {{ getResultadoFinal(item) }}
@@ -47,7 +47,7 @@
                 </td>
 
                 <td class="pa-0" style="width: 60%">
-                  <p class="text-center">
+                  <p class="text-center main-text">
                     {{ getDescricaoResultadoFinal(item) }}
                   </p>
                 </td>
@@ -277,3 +277,22 @@ export default {
   },
 };
 </script>
+
+<style>
+
+
+.title-column{
+  font-weight: bold !important;
+  font-size: 0.8rem !important;    
+}
+
+.main-text{
+  font-size: 0.93rem !important;
+}
+
+
+@media (max-width: 1800px){
+
+}
+
+</style>

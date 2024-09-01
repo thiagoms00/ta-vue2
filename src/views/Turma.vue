@@ -34,7 +34,7 @@
                         class="d-flex justify-center text-subtitle-2"
                         @click="selecionaTurma(item.id, index)"
                       >
-                        <v-list-item-title v-if="!loadingStatesTurmas[index]">{{
+                        <v-list-item-title class="name-turma" v-if="!loadingStatesTurmas[index]">{{
                           item.nome
                         }}</v-list-item-title>
                         <v-progress-circular
@@ -641,7 +641,9 @@ export default {
 
 <style>
 
-
+.name-turma{
+  font-size: 1.1rem !important;
+}
 
 
 .custom-switch .v-input--density-default {
