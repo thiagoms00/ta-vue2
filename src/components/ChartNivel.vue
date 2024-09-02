@@ -35,14 +35,14 @@ export default {
                 "rgba(255, 99, 132, 0.2)", // Red
                 "rgba(54, 162, 235, 0.2)", // Blue
                 "rgba(255, 206, 86, 0.2)", // Yellow
-                "rgba(75, 192, 192, 0.2)", // Green
+                "rgba(34, 139, 34, 0.2)",
                 "rgba(153, 102, 255, 0.2)", // Purple
               ],
               borderColor: [
                 "rgba(255, 99, 132, 1)", // Red
                 "rgba(54, 162, 235, 1)", // Blue
                 "rgba(255, 206, 86, 1)", // Yellow
-                "rgba(75, 192, 192, 1)", // Green
+                "rgba(34, 139, 34, 1)",
                 "rgba(153, 102, 255, 1)", // Purple
               ],
               borderWidth: 1,

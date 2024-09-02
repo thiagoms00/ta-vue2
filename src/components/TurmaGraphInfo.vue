@@ -1,58 +1,71 @@
 <template>
   <v-row>
     <v-col cols="12">
-      <!-- Layout de titulo de gráfico -->
-      <v-sheet
-        class="rounded-t-lg pa-2 d-flex align-center elevation-2"
-        color="#1E3892"
-        height="48"
-      >
-        <v-icon icon="mdi-ballot"> </v-icon>
-        <div class="text-button ml-2">Níveis de Alfabetização e Letramento</div>
-      </v-sheet>
-
-      <!-- Layout indormativo de seleção de turma -->
-      <v-sheet
-        v-if="!isAtivo"
-        class="d-flex justify-center align-center rounded-b-lg"
-        height="250"
-        color="grey-lighten-5"
-        border="md"
-      >
-        <p
-          class="text-overline"
-          style="
-            color: #cfd8dc;
-            font-size: 3rem !important;
-            text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
-          "
+      <v-sheet class="rounded-t-lg elevation-4" color="#1E3892" height="48">
+        <v-tabs
+          v-model="tab"
+          color="primary"
+          style="width: 100%"
+          class="selectColor"
         >
-          Selecione uma turma
-        </p>
+          <v-tab
+            prepend-icon="mdi-apple-keyboard-caps"
+            text="Nível"
+            value="option-1"
+            class="pa-1 d-flex justify-center"
+          ></v-tab>
+
+          <v-tab
+            prepend-icon="mdi-align-vertical-bottom"
+            text="Habilidade"
+            value="option-2"
+            class="pa-1 d-flex justify-center"
+          ></v-tab>
+        </v-tabs>
       </v-sheet>
 
-      <!-- Layout do gráfico -->
-      <v-sheet class="d-flex justify-center rounded-b-lg" v-if="isAtivo">
-        <ChartNivel :data="dadosGraphNivel" />
-      </v-sheet>
+      <v-col class="pa-0 rounded-b-lg">
+        <v-window v-model="tab">
+          <!-- Janela de Dados 1 -->
+          <v-window-item value="option-1">
+            <!-- Layout de titulo de gráfico -->
+            <v-sheet class="pa-2 d-flex align-center elevation-2 rounded-b-lg">
+              <v-row>
+                <v-col cols="6">
+                  <div class="text-button ml-2">
+                    <v-icon icon="mdi-apple-keyboard-caps"> </v-icon>
+                    Níveis de Alfabetização e Letramento
+                  </div>
+                  <ChartNivel :data="dadosGraphNivel" />
+                </v-col>
+                <v-col cols="6"> </v-col>
+              </v-row>
+            </v-sheet>
 
-      <!-- Layout de titulo de gráfico -->
-      <v-sheet
-        class="rounded-t-lg pa-2 d-flex align-center mt-4"
-        color="#1E3892"
-        height="48"
-        v-if="isAtivo"
-      >
-        <v-icon icon="mdi-ballot"> </v-icon>
-        <div class="text-button ml-2">
-          Porcentagem de Acerto por Habilidade da turma
-        </div>
-      </v-sheet>
+            <v-sheet class="rounded-b-lg"> </v-sheet>
+          </v-window-item>
 
-      <!-- Layout do gráfico -->
-      <v-sheet class="d-flex justify-center rounded-b-lg" v-if="isAtivo">
-        <ChartHabilidade :data="habilidadesTurma" />
-      </v-sheet>
+          <!-- Janela de Dados 2 -->
+          <v-window-item value="option-2">
+
+            <!-- Layout de titulo de gráfico -->
+            <v-sheet class=" pa-2 d-flex align-center" v-if="isAtivo" >
+              <v-row>
+                <v-col>
+                  <div class="text-button ml-2">
+                    <v-icon icon="mdi-align-vertical-bottom"></v-icon>
+                    Porcentagem de Acerto por Habilidade da turma
+                  </div>
+
+                  <ChartHabilidade :data="habilidadesTurma" />
+                </v-col>
+              </v-row>
+              
+              
+            </v-sheet>
+          </v-window-item>
+        </v-window>
+      </v-col>
     </v-col>
   </v-row>
 </template>
@@ -73,6 +86,7 @@ export default {
       melhoresResultados: [],
       dadosGraphNivel: [],
       dadosGraphHabilidade: [],
+      tab: "option-1",
     };
   },
 
@@ -161,3 +175,9 @@ export default {
   },
 };
 </script>
+
+<style>
+.selectColor .text-primary {
+  color: orange !important;
+}
+</style>

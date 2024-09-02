@@ -101,9 +101,7 @@
   <style>
   .chart-container {
     width: 100%;
-    height: 450px; /* Ajuste a altura conforme necessário */
-    max-width: 600px; /* Opcional: Defina uma largura máxima */
-    margin: 0 auto; /* Centralize o gráfico horizontalmente */
+    height: 550px; /* Ajuste a altura conforme necessário */
   }
   </style>
   

@@ -224,7 +224,6 @@ export default {
     listaNomeTurma: [],
     loadingStatesTurmas: [],
     animateCarregandoTurmas: false,
-    tab: "dados",
     textoPlanilha: false, //Flag pro hover do botão da planilha.
     search: "",
     tab: "option-1",
@@ -357,7 +356,6 @@ export default {
     selecionaTurma(turmaValue, index) {
       this.loadingStatesTurmas[index] = true;
       this.turmaSelecionada = turmaValue
-      console.log('Tipo de turmaSelecionada:', typeof this.turmaSelecionada);
       const data = {
         token: localStorage.getItem("tokenProf"),
         idTurma: turmaValue,
