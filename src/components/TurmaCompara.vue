@@ -45,25 +45,22 @@
     <v-icon icon="mdi-ballot"> </v-icon>
     <div class="text-button ml-2">Comparativo de habilidades entre Turma</div>
   </v-sheet>
+
   <v-sheet>
-    <!-- <ComparaHabilidades /> -->
+    <div v-if="resultadoHabilidade">
+      <ChartComparaHabilidades :data="resultadoHabilidade" />
+    </div>
   </v-sheet>
-
-  <div>
-    <ChartComparaHabilidades :data="resultadoHabilidade" />
-  </div>
-
 </template>
 
 <script>
-import ComparaHabilidades from "@/components/ComparaHabilidades.vue";
 import axios from "axios";
 import ChartComparaHabilidades from "@/components/ChartComparaHabilidades.vue";
 
 export default {
   data: () => ({
     iDTurmaAtual: null,
-    resultadoHabilidade : []
+    resultadoHabilidade: [],
   }),
 
   props: {
@@ -89,7 +86,6 @@ export default {
     },
   },
   components: {
-    ComparaHabilidades,
     ChartComparaHabilidades,
   },
 
@@ -97,7 +93,7 @@ export default {
     selecionarTurmaParaComparar(itemTurma) {
       const data = {
         id_turma1: this.turmaAtual,
-        id_turma2: itemTurma.id
+        id_turma2: itemTurma.id,
       };
 
       axios({

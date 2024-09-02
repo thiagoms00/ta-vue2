@@ -36,13 +36,11 @@
   
   <script>
   import ChartNivel from "@/components/ChartNivel.vue";
-  import ComparaHabilidades from "@/components/ComparaHabilidades.vue";
 
   
   export default {
     components: {
       ChartNivel,
-      ComparaHabilidades,
     },
   
     data() {
