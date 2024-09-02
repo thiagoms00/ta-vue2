@@ -6,14 +6,19 @@
   >
     <v-icon icon="mdi-ballot"> </v-icon>
     <div class="text-button ml-2">
-        Escolha uma turma para ser comparada
-        {{ iDTurmaAtual }}
+      Escolha uma turma para ser comparada
+      {{ iDTurmaAtual }}
     </div>
   </v-sheet>
 
   <v-sheet class="rounded-b-lg">
     <v-row class="justify-space-evenly ma-0">
-      <v-col v-for="(item, index) in turmasFiltradas" :key="index" cols="12" md="2">
+      <v-col
+        v-for="(item, index) in turmasFiltradas"
+        :key="index"
+        cols="12"
+        md="2"
+      >
         <v-card
           class="mx-auto d-flex align-center justify-center"
           width="150"
@@ -41,16 +46,24 @@
     <div class="text-button ml-2">Comparativo de habilidades entre Turma</div>
   </v-sheet>
   <v-sheet>
-    <ComparaHabilidades />
+    <!-- <ComparaHabilidades /> -->
   </v-sheet>
+
+  <div>
+    <ChartComparaHabilidades :data="resultadoHabilidade" />
+  </div>
+
 </template>
 
 <script>
 import ComparaHabilidades from "@/components/ComparaHabilidades.vue";
+import axios from "axios";
+import ChartComparaHabilidades from "@/components/ChartComparaHabilidades.vue";
 
 export default {
   data: () => ({
     iDTurmaAtual: null,
+    resultadoHabilidade : []
   }),
 
   props: {
@@ -77,21 +90,41 @@ export default {
   },
   components: {
     ComparaHabilidades,
+    ChartComparaHabilidades,
   },
 
   methods: {
-    selecionarTurmaParaComparar(itemTurma) {},
+    selecionarTurmaParaComparar(itemTurma) {
+      const data = {
+        id_turma1: this.turmaAtual,
+        id_turma2: itemTurma.id
+      };
+
+      axios({
+        url: "https://ta-back.onrender.com/professores/returnPercentHabTurmas",
+        data,
+        method: "POST",
+      })
+        .then((response) => {
+          this.resultadoHabilidade = response.data.habilidade;
+          console.log(this.resultadoHabilidade);
+        })
+        .catch((error) => {
+          // Tratar erros aqui
+          console.error(error);
+        });
+    },
   },
 
   computed: {
     turmasFiltradas() {
-      return this.iDsTurma.filter(item => item.id !== this.turmaAtual);
-    }
+      return this.iDsTurma.filter((item) => item.id !== this.turmaAtual);
+    },
   },
 
   watch: {
     turmaAtual(newValue) {
-      this.iDTurmaAtual = newValue
+      this.iDTurmaAtual = newValue;
     },
   },
 };
