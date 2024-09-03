@@ -168,7 +168,9 @@
                 <TurmaConfig
                   :listaDeAlunos="listaFiltrada"
                   :habilidadesTurma = "habilidadesTurmaAtual"
-                  :isAtivo = "infoAtiva"     
+                  :isAtivo = "infoAtiva" 
+                  :estratoInicial="estratoInicial"    
+                  :turmaSelecionada = "turmaSelecionada"
                 ></TurmaConfig>
               </v-window-item>
             </v-window>
@@ -229,6 +231,7 @@ export default {
     tab: "option-1",
     infoAtiva : false,
     anoTurma : 1,
+    estratoInicial : 1,
     habilidadesTurmaAtual : [],
     turmaSelecionada : ""
 
@@ -370,6 +373,7 @@ export default {
         .then((response) => {
           this.listaTurma = response.data.turma;
           this.anoTurma = response.data.anoTurma;
+          this.estratoInicial = response.data.estratoInicial;
           this.habilidadesTurmaAtual = response.data.habTurma;
           //criando lista com os ultimos elementos.
           for (let i = 0; i < this.listaTurma.length; i++) {

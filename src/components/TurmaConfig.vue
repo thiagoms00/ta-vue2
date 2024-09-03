@@ -12,8 +12,8 @@
                 <p class="change-est-p font-weight-medium">Escolha o primeiro estrato à ser avaliado no teste adaptativo.</p>
               </div>
               <div class="buttons d-flex ga-2 mt-3">
-                <v-btn class="change-button elevation-5" icon="mdi-numeric-1" :color="corBtn[0]" @click="mudaEstrato(1)"></v-btn>
-                <v-btn class="change-button elevation-5" icon="mdi-numeric-2" :color="corBtn[1]" @click="mudaEstrato(2)"></v-btn>
+                <v-btn class="change-button elevation-5" icon="mdi-numeric-1" :color="corBtn[0]" @click="mudaCorEstrato(1)"></v-btn>
+                <v-btn class="change-button elevation-5" icon="mdi-numeric-2" :color="corBtn[1]" @click="mudaCorEstrato(2)"></v-btn>
               </div>
             </div>
 
@@ -26,8 +26,36 @@
             </div>
 
             <div class="d-flex align-md-center justify-sm-center save-div mt-8">
-              <v-btn elevation="8" size="x-large" class="salvar-btn mt-5" color="#1E3892" @click="">Salvar</v-btn>
+<!--               <v-btn elevation="8" size="x-large" class="salvar-btn mt-5" color="#1E3892" @click="mudaEstrato()">Salvar</v-btn> -->      
+            
+          <v-app>
+            <v-container>
+              <v-dialog max-width="500">
+                <template v-slot:activator="{ props: activatorProps }">
+                  <v-btn elevation="8" size="x-large" class="salvar-btn mt-5" color="#1E3892" @click="mudaEstrato()" v-bind="activatorProps">
+                    Salvar</v-btn>
+                </template>
+
+                <template v-slot:default="{ isActive }">
+                  <v-card title="">
+                    <v-card-text class="alt-text">Configurações alteradas com sucesso!</v-card-text>
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn
+                        class="close-btn"
+                        text="Fechar"
+                        @click="isActive.value = false"
+                      ></v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </template>
+              </v-dialog>
+            </v-container>
+          </v-app>
+
             </div>
+
+          
            
         </v-sheet>
       </v-col>
@@ -36,6 +64,8 @@
   
   <script>
   import ChartNivel from "@/components/ChartNivel.vue";
+  import axios from 'axios';
+
 
   
   export default {
@@ -50,6 +80,8 @@
         dadosGraph: [],
 
         corBtn: ['info','white'],
+        novoEstrato : 1,
+        configVer: false,
       };
     },
   
@@ -64,6 +96,16 @@
         required: true,
         default: true,
       },
+      estratoInicial :{
+        type: Number,
+        required: true,
+        default: 1,
+      },
+      turmaSelecionada : {
+        type: String,
+        required: true,
+        default: '',
+      }
     },
   
     watch: {
@@ -73,24 +115,66 @@
       },
     },
   
-    created() {},
+    created() {
+      this.mudaCorEstrato(this.estratoInicial)
+    },
   
     mounted() {
       this.listaTurma = this.listaDeAlunos;
     },
   
     methods: {
-      //Adicionar lógica que muda de estrato depois.
-      mudaEstrato(val){
-        if(val===1){
+      /* Altera o estrato inicial da turma, envia no "Data" o object ID da turma e o ano do novo estrato:
+
+          0 - Estrato 1
+          1 - Estrato 2 
+
+      */
+      mudaCorEstrato(val){
+        if(val===1){                 
           this.corBtn[0] = 'info';
           this.corBtn[1] = 'white';
+          this.novoEstrato = 1;
         }
         else if(val===2){
           this.corBtn[0] = 'white';
           this.corBtn[1] = 'info';
+          this.novoEstrato = 2;
         }
-      }
+        else{
+          this.corBtn[0] = 'info';
+          this.corBtn[1] = 'white';
+        }
+      },
+
+      mudaEstrato(){
+        console.log('teste')
+        const data = {
+          "id_turma" : this.turmaSelecionada,
+          "novo_estrato" : this.novoEstrato,
+        }
+
+        axios({
+        url: "https://ta-back.onrender.com/professores/alteraEstratoTurma",
+        data,
+        method: "POST",
+        })
+        .then((response) => {
+          if(response.data.turma_alterada){
+            this.mostraAltPopup();
+          }
+        })
+        .catch((error) => {
+          // Tratar erros aqui
+          console.error(error);
+        });
+
+        
+      },
+
+      mostraAltPopup(){
+        console.log('Estrato alterado')
+      },
     },
   };
   </script>
@@ -144,6 +228,17 @@
 
   .salvar-btn{
     width: 12vw !important;
+  }
+
+  .alt-text{
+    font-size: 1.4rem !important;
+    margin-top: 0vh !important;
+    font-weight: 600;
+  }
+
+  .close-btn{
+    font-size: 1.0rem !important;
+    font-weight: 600;
   }
 
 @media (max-width: 1600px) {
