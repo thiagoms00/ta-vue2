@@ -14,6 +14,7 @@ export default {
     data: {
       type: Object,
       required: true,
+      default: () => ({ turma1: [], turma2: [] })
     },
   },
   mounted() {
@@ -32,14 +33,14 @@ export default {
           datasets: [
             {
               label: "Turma 1",
-              data: this.data.turma1,
+              data: this.data.turma1 || [],
               backgroundColor: "rgba(255, 99, 132, 0.2)", // Red
               borderColor: "rgba(255, 99, 132, 1)", // Red
               borderWidth: 1,
             },
             {
               label: "Turma 2",
-              data: this.data.turma2,
+              data: this.data.turma2 || [],
               backgroundColor: "rgba(54, 162, 235, 0.2)", // Blue
               borderColor: "rgba(54, 162, 235, 1)", // Blue
               borderWidth: 1,
