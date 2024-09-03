@@ -37,10 +37,15 @@ export default createStore({
                     const token = response.data.token;
                     const id = response.data.id;
                     const anoAtual = response.data.anoAtual;
+                    const idTurma = response.data.idTurma;
+                    const estratoInicial = response.data.estratoInicial;
 
                     localStorage.setItem('token', token);
                     localStorage.setItem('id', id)
                     localStorage.setItem('anoAtual', anoAtual);
+                    localStorage.setItem('idTurma', idTurma);
+                    localStorage.setItem('estratoInicial', estratoInicial);
+
 
                     axios.defaults.headers.common['Authorization'] = token;
                     commit('auth_success', token);

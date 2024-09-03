@@ -62,6 +62,9 @@ export default {
       localStorage.removeItem('id');
       localStorage.removeItem('token');
       localStorage.removeItem('idTeste');
+      localStorage.removeItem('idTurma');
+      localStorage.removeItem('estratoInicial');
+
       this.$router.push('/login');
     },
 

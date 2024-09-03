@@ -327,6 +327,7 @@ export default {
             audioVis: '',
 
             anoAluno: 1,         //Ano do aluno que está realizando o teste.
+            estratoInicial: 1,   //Estrato inicial do teste.
             qtdResp : 0,
 
             /* Dados do Teste adaptativo */
@@ -405,6 +406,8 @@ export default {
                 tempoTeste2 : null,
                 diaTeste: undefined,
             },
+
+
             qTestProb : [],            //Array com as probabilidades das questões da coleta de dados.
             indProb: 0,                //Indice usado para percorrer o array de probabilidades.
             tempoItem : null,
@@ -428,7 +431,9 @@ export default {
         this.horaInicio = new Date();
         this.tempoInicioQuestao = new Date();
         this.tempoItem = new Date();
-        this.anoAluno = localStorage.getItem('anoAtual');
+        //this.anoAluno = localStorage.getItem('anoAtual');
+        this.estratoInicial = Number(localStorage.getItem('estratoInicial'));
+        this.defineEstratoN();
         
 
         //formatando a data de inicio do teste.
@@ -2209,10 +2214,19 @@ export default {
             return `${minutes}m${remainingSeconds}s`;
         },
 
-        gera_pdf(){
-
-        }
-
+        //Método que  usa o estrato inicial para definir por onde o teste deve iniciar OBS:Alterar quando a estrutura final do teste for definida
+        defineEstratoN(){
+            console.log(`Estrato inicial ${this.estratoInicial}`);
+            switch(this.estratoInicial){
+                case 1:
+                    this.anoAluno = 1;
+                break;
+                case 2:
+                    this.anoAluno = 4;
+                break;
+                
+            }
+        },
 
     },
 
