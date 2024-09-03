@@ -49,6 +49,8 @@
   <v-sheet>
     <div v-if="resultadoHabilidade">
       <ChartComparaHabilidades :data="resultadoHabilidade" />
+      <ChartComparaNivel :data="resultadoNivel" />
+      
     </div>
   </v-sheet>
 </template>
@@ -56,11 +58,13 @@
 <script>
 import axios from "axios";
 import ChartComparaHabilidades from "@/components/ChartComparaHabilidades.vue";
+import ChartComparaNivel from "@/components/ChartComparaNivel.vue";
 
 export default {
   data: () => ({
     iDTurmaAtual: null,
     resultadoHabilidade: [],
+    resultadoNivel : []
   }),
 
   props: {
@@ -87,6 +91,7 @@ export default {
   },
   components: {
     ChartComparaHabilidades,
+    ChartComparaNivel
   },
 
   methods: {
@@ -103,6 +108,8 @@ export default {
       })
         .then((response) => {
           this.resultadoHabilidade = response.data.habilidade;
+          this.resultadoNivel = response.data.nivel;
+          console.log(this.resultadoNivel);
           console.log(this.resultadoHabilidade);
         })
         .catch((error) => {
