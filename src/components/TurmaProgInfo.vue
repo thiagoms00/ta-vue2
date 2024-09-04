@@ -30,7 +30,7 @@
     <v-window v-model="tab">
         <v-window-item value="teste1">
             
-            <v-table>
+            <v-table v-if="this.testes_org.length>=1">
                 <thead>
                 <tr>
                     <th class="text-left">
@@ -60,7 +60,7 @@
             
         </v-window-item>
         <v-window-item value="teste2">
-            <v-table>
+            <v-table v-if="this.testes_org.length>=2">
                 <thead>
                 <tr>
                     <th class="text-left">
@@ -88,7 +88,7 @@
          </v-table>
         </v-window-item>
         <v-window-item value="teste3">
-            <v-table>
+            <v-table v-if="this.testes_org.length>=3">
                 <thead>
                 <tr>
                     <th class="text-left">
@@ -116,7 +116,7 @@
          </v-table>
         </v-window-item>
         <v-window-item value="teste4">
-            <v-table>
+            <v-table v-if="this.testes_org.length>=4">
                 <thead>
                 <tr>
                     <th class="text-left">
@@ -144,7 +144,7 @@
          </v-table>
         </v-window-item>
         <v-window-item value="teste5">
-            <v-table>
+            <v-table v-if="this.testes_org.length>=5">
                 <thead>
                 <tr>
                     <th class="text-left">
@@ -225,24 +225,25 @@
             console.log(this.listaTestes)
             console.log(`QTD DE TESTES : ${this.qtdTestes}`)
         },
-
+        
         organizaTestes(){
            //Obtendo os dados armazenados nas planilhas...
-           let i=1;
-           
+            let i=1;
             let aux=5;
             if(this.listaTestes.length<4){
                 aux = this.listaTestes.length;
+                console.log(aux);
             }
-
-            while(this.testes_org.length<=aux){
+            
+                while(this.testes_org.length<aux){
                 if(this.listaTestes[this.listaTestes.length-i].status==="Finalizado"){
                     let teste_p = this.listaTestes[this.listaTestes.length-i].planilha_teste;
                     this.testes_org.push(teste_p);
-                    
                 }
                 i++;
-            } 
+            
+            }
+            
             console.log(this.testes_org)
             
             
