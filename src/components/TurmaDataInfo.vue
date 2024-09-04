@@ -133,8 +133,10 @@
                 item.listaDeTestes.length > 0 &&
                 item.listaDeTestes[item.listaDeTestes.length - 1].status ===
                   "Finalizado"
-                  ? item.listaDeTestes[item.listaDeTestes.length - 1]
-                      .resultado_final
+                  ? /* item.listaDeTestes[item.listaDeTestes.length - 1]
+                      .resultado_final */
+                      this.alteraResultado(item.listaDeTestes[item.listaDeTestes.length - 1]
+                      .resultado_final)
                   : "-"
               }}
             </v-col>
@@ -217,6 +219,11 @@
                 <v-tab value="testes">
                   <v-icon icon="mdi-animation"></v-icon>
                   Testes
+                </v-tab>
+
+                <v-tab value="prog">
+                  <v-icon icon="mdi-chart-bubble"></v-icon>
+                  Progressão
                 </v-tab>
 
                 <v-tab value="provisorio">
@@ -361,9 +368,17 @@
                   </v-card>
                 </v-window-item>
 
+                <v-window-item value = "prog">
+                 <TurmaProgInfo :listaTestes="item.listaDeTestes"
+                 >
+                 </TurmaProgInfo>
+                </v-window-item>
+
                 <v-window-item value = "provisorio">
                   Adicone aqui o novo conteudo
                 </v-window-item>
+
+                
               </v-window>
             </v-card>
           </v-container>
@@ -376,6 +391,7 @@
 <script>
 import DialogExcluirTeste from "@/components/DialogExcluirTeste.vue";
 import ChartBar from "@/components/ChartBar.vue";
+import TurmaProgInfo from "./TurmaProgInfo.vue";
 import * as XLSX from "xlsx";
 
 export default {
@@ -384,6 +400,7 @@ export default {
   components: {
     DialogExcluirTeste,
     ChartBar,
+    TurmaProgInfo,
   },
 
   data: () => ({
@@ -492,8 +509,8 @@ export default {
           "Resposta",
           "Acerto",
           "Tempo Gasto(s)",
-          "Tipo",
-          "Resultado",
+          /* "Tipo",
+          "Resultado", */
         ],
       ];
       planilha.forEach((item) => {
@@ -506,8 +523,8 @@ export default {
           item.resposta,
           item.acerto,
           item.tempo_gasto,
-          item.tipo,
-          item.resultado,
+        /*   item.tipo,
+          item.resultado, */
         ]);
       });
       // Criar uma nova planilha
@@ -700,7 +717,24 @@ export default {
         return this.listaTurma.reverse();
       }
     },
+
+    alteraResultado(str) {
+      if (str.endsWith(' - Reprovado')) {
+        return str.replace(' - Reprovado', ' - Estágio Inicial');
+      } else if (str.endsWith(' - Indefinido')) {
+        return str.replace(' - Indefinido', ' - Em desenvolvimento');
+      } else if (str.endsWith(' - Aprovado')) {
+        return str.replace(' - Aprovado', ' - Consolidado');
+      } else {
+        console.log(str)
+        return str; // Return the original string if no match is found
+    }
+  }
+
   },
+
+ 
+
 };
 </script>
 
