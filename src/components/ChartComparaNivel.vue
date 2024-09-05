@@ -65,7 +65,10 @@ export default {
                   const turma = tooltipItem.dataset.label;
                   const value = tooltipItem.raw;
 
-                  return `${turma}: ${value}% dos alunos`;
+                  const total = tooltipItem.dataset.data.reduce((acc, val) => acc + val, 0);
+                  const percentage = ((value / total) * 100).toFixed(2);
+
+                  return `${turma}: ${percentage}% dos alunos`;
                 },
                 title: function (tooltipItems) {
                   return tooltipItems[0].label;
@@ -85,7 +88,7 @@ export default {
             y: {
               beginAtZero: true,
               min: 0, // Valor mínimo
-              max: Math.max(...this.data.turma1, ...this.data.turma2) + 10, // Valor máximo dinamicamente ajustado
+              
               
             },
           },

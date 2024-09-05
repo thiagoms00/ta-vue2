@@ -69,7 +69,7 @@
                     const turma = tooltipItem.dataset.label;
                     const value = tooltipItem.raw;
   
-                    return `${turma}: ${value}% de acertos`;
+                    return `${turma}: ${value}% de acerto`;
                   },
                   title: function (tooltipItems) {
                     return tooltipItems[0].label;
