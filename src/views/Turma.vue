@@ -286,11 +286,47 @@ export default {
     },
 
     returnTurmas() {
+
+      const type = localStorage.getItem("type");
+
+
       const data = {
         tokenProf: localStorage.getItem("tokenProf"),
       };
 
-      axios({
+      if(type === 'coord'){
+          axios({
+            url: "https://ta-back.onrender.com/coordenadores/retorna_turmas",
+            data,
+            method: "POST",
+          })
+          .then((response) => {
+            this.listaNomeTurma = response.data.listaTurmas;
+          })
+          .catch((error) => {
+            // Tratar erros aqui
+            console.error(error);
+          });
+      }
+      else if(type === 'dir'){
+
+      }
+
+      else{
+          axios({
+            url: "https://ta-back.onrender.com/professores/returnTurmas",
+            data,
+            method: "POST",
+          })
+          .then((response) => {
+            this.listaNomeTurma = response.data.listaTurmas;
+          })
+          .catch((error) => {
+            // Tratar erros aqui
+            console.error(error);
+          });
+      }
+      /* axios({
         url: "https://ta-back.onrender.com/professores/returnTurmas",
         data,
         method: "POST",
@@ -301,7 +337,7 @@ export default {
         .catch((error) => {
           // Tratar erros aqui
           console.error(error);
-        });
+        }); */
     },
 
     getColor(chipValue) {
@@ -365,8 +401,22 @@ export default {
         idProfessor: localStorage.getItem("idProf"),
       };
 
+      const type = localStorage.getItem("type");
+      let urlAdd = '';
+      if(type === 'coord'){
+        urlAdd = 'https://ta-back.onrender.com/coordenadores/dadosTurma'
+      }
+      else if(type === 'dir'){
+
+      }
+      else{
+        urlAdd = 'https://ta-back.onrender.com/professores/dadosTurma'
+      }
+      
+      
+
       axios({
-        url: "https://ta-back.onrender.com/professores/dadosTurma",
+        url: urlAdd,
         data,
         method: "POST",
       })

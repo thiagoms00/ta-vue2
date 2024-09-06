@@ -92,7 +92,6 @@ export default createStore({
           const data = {
             token : localStorage.getItem('tokenProf')
           };
-
           return axios({ url: 'https://ta-back.onrender.com/professores/verificaToken', data, method: 'POST' })
           .then((response) => {
             console.log(response.status)

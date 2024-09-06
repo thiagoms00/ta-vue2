@@ -27,6 +27,7 @@
   
     methods: {
       verificaLogin() {
+        console.log('TESTE123')
         const dataToken = localStorage.getItem('tokenProf');
         
         if (dataToken === null || dataToken === undefined) {

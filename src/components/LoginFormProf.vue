@@ -93,7 +93,7 @@ export default {
       };
 
       axios({
-        url: 'https://ta-back.onrender.com/professores/login',
+        url: 'https://ta-back.onrender.com/professores/login', 
         data: userData,
         method: 'POST'
       })
@@ -101,9 +101,12 @@ export default {
           
           const tokenProf = response.data.tokenProf;
           const idProf = response.data.idProf;
+          const type = response.data.type
 
           localStorage.setItem('tokenProf', tokenProf);
           localStorage.setItem('idProf', idProf);
+          localStorage.setItem('type', type);
+
           axios.defaults.headers.common['Authorization'] = tokenProf;
 
           console.log('Login bem-sucedido');
