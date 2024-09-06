@@ -65,6 +65,10 @@ export default createStore({
             token : localStorage.getItem('token')
           };
 
+          
+       
+
+          //url: 'https://ta-back.onrender.com/alunos/verificaToken'
           return axios({ url: 'https://ta-back.onrender.com/alunos/verificaToken', data, method: 'POST' })
           .then((response) => {
             console.log(response.status)
@@ -87,12 +91,27 @@ export default createStore({
 
         },
 
+        //url: 'https://ta-back.onrender.com/alunos/verificaToken'
+
         verificarTokenProfs({ commit }, {router} ){
+
+          const type = localStorage.getItem("type");
+          let urlAdd = '';
+          if(type === 'coord'){
+            urlAdd = 'https://ta-back.onrender.com/coordenadores/verificaToken'
+          }
+          else if(type === 'dir'){
+            urlAdd = 'https://ta-back.onrender.com/diretores/verificaToken'
+          }
+          else{
+            urlAdd = 'https://ta-back.onrender.com/professores/verificaToken'
+          }
+
 
           const data = {
             token : localStorage.getItem('tokenProf')
           };
-          return axios({ url: 'https://ta-back.onrender.com/professores/verificaToken', data, method: 'POST' })
+          return axios({ url: urlAdd, data, method: 'POST' })
           .then((response) => {
             console.log(response.status)
             if (response.status === 200) {
