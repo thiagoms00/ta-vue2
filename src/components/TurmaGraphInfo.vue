@@ -1,30 +1,41 @@
 <template>
   <v-row>
     <v-col cols="12">
-      <v-sheet class="rounded-t-lg elevation-4" color="#1E3892" height="48">
-        <v-tabs
-          v-model="tab"
-          color="primary"
-          style="width: 100%"
-          class="selectColor"
-        >
-          <v-tab
-            prepend-icon="mdi-apple-keyboard-caps"
-            text="Nível"
-            value="option-1"
-            class="pa-1 d-flex justify-center"
-          ></v-tab>
-
-          <v-tab
-            prepend-icon="mdi-align-vertical-bottom"
-            text="Habilidade"
-            value="option-2"
-            class="pa-1 d-flex justify-center"
-          ></v-tab>
-        </v-tabs>
+      <v-sheet
+        class="rounded-t-lg elevation-2 pa-2 d-flex align-center"
+        color="#1E3892"
+        height="48"
+      >
+        <v-icon icon="mdi-chart-bar"> </v-icon>
+        <div class="text-button ml-5 font-weight-bold area-title">Geral</div>
       </v-sheet>
 
       <v-col class="pa-0 rounded-b-lg">
+        <v-sheet>
+          <v-tabs
+            v-model="tab"
+            color="primary"
+            style="width: 100%"
+            class="selectColor"
+          >
+            <v-tab
+              prepend-icon="mdi-apple-keyboard-caps"
+              text="Níveis de Alfabetização e Letramento"
+              value="option-1"
+              class="pa-1 d-flex justify-center"
+              style="width: 50%"
+            ></v-tab>
+
+            <v-tab
+              prepend-icon="mdi-align-vertical-bottom"
+              text="Porcentagem de Acerto por Habilidade da turma"
+              value="option-2"
+              class="pa-1 d-flex justify-center"
+              style="width: 50%"
+            ></v-tab>
+          </v-tabs>
+        </v-sheet>
+
         <v-window v-model="tab">
           <!-- Janela de Dados 1 -->
           <v-window-item value="option-1">
@@ -32,13 +43,27 @@
             <v-sheet class="pa-2 d-flex align-center elevation-2 rounded-b-lg">
               <v-row>
                 <v-col cols="6">
-                  <div class="text-button ml-2">
-                    <v-icon icon="mdi-apple-keyboard-caps"> </v-icon>
-                    Níveis de Alfabetização e Letramento
-                  </div>
                   <ChartNivel :data="dadosGraphNivel" />
                 </v-col>
-                <v-col cols="6"> </v-col>
+
+                <v-col cols="6" class="d-flex align-center">
+                  <v-sheet class="rounded-lg" border>
+                    <v-table density="compact">
+                      <thead>
+                        <tr>
+                          <th class="text-center">Nível</th>
+                          <th class="text-left">Descrição</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="(item, index) in descricoes">
+                          <td>{{ index + 1}}</td>
+                          <td>{{ item }}</td>
+                        </tr>
+                      </tbody>
+                    </v-table>
+                  </v-sheet>
+                </v-col>
               </v-row>
             </v-sheet>
 
@@ -47,21 +72,13 @@
 
           <!-- Janela de Dados 2 -->
           <v-window-item value="option-2">
-
             <!-- Layout de titulo de gráfico -->
-            <v-sheet class=" pa-2 d-flex align-center" v-if="isAtivo" >
+            <v-sheet class="pa-2 d-flex align-center" v-if="isAtivo">
               <v-row>
                 <v-col>
-                  <div class="text-button ml-2">
-                    <v-icon icon="mdi-align-vertical-bottom"></v-icon>
-                    Porcentagem de Acerto por Habilidade da turma
-                  </div>
-
                   <ChartHabilidade :data="habilidadesTurma" />
                 </v-col>
               </v-row>
-              
-              
             </v-sheet>
           </v-window-item>
         </v-window>
@@ -87,6 +104,13 @@ export default {
       dadosGraphNivel: [],
       dadosGraphHabilidade: [],
       tab: "option-1",
+      descricoes: [
+        "Está desenvolvendo habilidades de reconhecimento de letras.", // Para "0 - Reprovado"
+        "Reconhece letras, e está desenvolvendo habilidades de decodificação de palavras.", // Para "0 - Aprovado", "1 - Reprovado", "1 - Indefinido"
+        "Lê palavras e identifica informações explícitas em textos curtos de léxico e sintaxe simples.", // Para "1 - Aprovado", "2 - Reprovado", "2 - Indefinido"
+        "Lê pequenos textos, recuperando informações explícitas e começa a identificar seu tema ou assunto principal.", // Para "2 - Aprovado", "3 - Reprovado", "3 - Indefinido"
+        "Alfabetização Consolidada", // Para "3 - Aprovado"
+      ],
     };
   },
 
@@ -178,6 +202,6 @@ export default {
 
 <style>
 .selectColor .text-primary {
-  color: orange !important;
+  color: #1e3892;
 }
 </style>

@@ -55,7 +55,6 @@
             </tbody>
           </v-table>
         </div>
-        <!--         <v-btn @click="generateTurmasPDf()">TESTE</v-btn -->
       </v-sheet>
 
       <!-- DIV de seleção de turma -->
