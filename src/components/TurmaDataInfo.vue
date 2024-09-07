@@ -99,11 +99,7 @@
     </v-sheet>
   </div>
 
-  <v-sheet
-    
-    rounded="lg"
-    :class="{ 'fade-in': animacaoListaAtiva }"
-  >
+  <v-sheet rounded="lg" :class="{ 'fade-in': animacaoListaAtiva }">
     <v-expansion-panels variant="accordion" class="elevation-">
       <v-expansion-panel
         v-for="(item, indexAluno) in listaTurma"
@@ -112,7 +108,6 @@
         ref="panels"
         class="rounded-b-lg"
         style="border-radius: 0px"
-        
       >
         <v-expansion-panel-title style="height: 5vh" class="color-painel">
           <v-row class="d-flex align-center">
@@ -129,16 +124,23 @@
             </v-col>
 
             <v-col cols="2" class="d-flex justify-center">
-              {{
+              <p style="
+                  text-overflow: ellipsis;
+                  overflow: hidden;
+                  white-space: nowrap;
+                "> 
+                {{
                 item.listaDeTestes.length > 0 &&
                 item.listaDeTestes[item.listaDeTestes.length - 1].status ===
                   "Finalizado"
-                  ? /* item.listaDeTestes[item.listaDeTestes.length - 1]
-                      .resultado_final */
-                      this.alteraResultado(item.listaDeTestes[item.listaDeTestes.length - 1]
-                      .resultado_final)
+                  ? this.alteraResultado(
+                      item.listaDeTestes[item.listaDeTestes.length - 1]
+                        .resultado_final
+                    )
                   : "-"
               }}
+              </p>
+              
             </v-col>
 
             <v-col cols="2" class="d-flex justify-center">
@@ -248,7 +250,9 @@
 
                     <v-row>
                       <v-col cols="6">
-                        <ChartBar :data="item.listaDeHab['Lingua Portuguesa']" />
+                        <ChartBar
+                          :data="item.listaDeHab['Lingua Portuguesa']"
+                        />
                       </v-col>
 
                       <v-col cols="6" class="border-lg">
@@ -263,7 +267,8 @@
                               Habilidade {{ habilidade.habilidade }} -
                             </span>
                             <span class="text-caption">
-                              {{ habilidade.porcentagemAcertos }} % de taxa de acerto.
+                              {{ habilidade.porcentagemAcertos }} % de taxa de
+                              acerto.
                             </span>
                           </v-list-item>
                         </v-list>
@@ -368,17 +373,14 @@
                   </v-card>
                 </v-window-item>
 
-                <v-window-item value = "prog">
-                 <TurmaProgInfo :listaTestes="item.listaDeTestes"
-                 >
-                 </TurmaProgInfo>
+                <v-window-item value="prog">
+                  <TurmaProgInfo :listaTestes="item.listaDeTestes">
+                  </TurmaProgInfo>
                 </v-window-item>
 
-                <v-window-item value = "provisorio">
+                <v-window-item value="provisorio">
                   Adicone aqui o novo conteudo
                 </v-window-item>
-
-                
               </v-window>
             </v-card>
           </v-container>
@@ -436,7 +438,6 @@ export default {
   emits: ["eventDeleteTest"],
 
   methods: {
-
     toggleIcon(index, value) {
       // Reset all icons
       this.icon = this.icon.map((icon, i) =>
@@ -523,7 +524,7 @@ export default {
           item.resposta,
           item.acerto,
           item.tempo_gasto,
-        /*   item.tipo,
+          /*   item.tipo,
           item.resultado, */
         ]);
       });
@@ -719,22 +720,18 @@ export default {
     },
 
     alteraResultado(str) {
-      if (str.endsWith(' - Reprovado')) {
-        return str.replace(' - Reprovado', ' - Estágio Inicial');
-      } else if (str.endsWith(' - Indefinido')) {
-        return str.replace(' - Indefinido', ' - Em desenvolvimento');
-      } else if (str.endsWith(' - Aprovado')) {
-        return str.replace(' - Aprovado', ' - Consolidado');
+      if (str.endsWith(" - Reprovado")) {
+        return str.replace(" - Reprovado", " - Estágio Inicial");
+      } else if (str.endsWith(" - Indefinido")) {
+        return str.replace(" - Indefinido", " - Em desenvolvimento");
+      } else if (str.endsWith(" - Aprovado")) {
+        return str.replace(" - Aprovado", " - Consolidado");
       } else {
-        console.log(str)
+        console.log(str);
         return str; // Return the original string if no match is found
-    }
-  }
-
+      }
+    },
   },
-
- 
-
 };
 </script>
 

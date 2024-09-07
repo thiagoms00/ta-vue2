@@ -42,7 +42,7 @@
 
           <tbody>
             <tr v-for="item in listaTurma" :key="item.name">
-              <td class="pa-0" style="width: 20%">
+              <td class="pa-0" style="width: 20%; ">
                 <div class="text-center">
                   {{ item.user["nome"] }}
                 </div>
@@ -256,3 +256,7 @@ export default {
   },
 };
 </script>
+
+<style> 
+
+</style>
