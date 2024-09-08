@@ -1,6 +1,10 @@
 <template>
-  <div v-if="data" class="chart-container d-flex justify-center">
-    <canvas ref="chart"></canvas>
+  <div v-if="data" class="d-flex justify-center">
+    <v-row class="d-flex justify-center">
+      <v-col cols="10" >
+        <canvas ref="chart"></canvas>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
@@ -9,7 +13,7 @@ import { Chart, registerables } from "chart.js";
 Chart.register(...registerables);
 
 export default {
-  name: "ChartNivel",
+  name: "ChartHabilidade",
   props: {
     data: {
       type: Array,
@@ -99,8 +103,5 @@ export default {
 </script>
 
 <style>
-.chart-container {
-  width: 100%; /* Ajuste a largura para 100% */
-  height: 50px; /* Defina a altura conforme necessário */
-}
+
 </style>

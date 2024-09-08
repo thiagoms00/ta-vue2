@@ -1,6 +1,10 @@
 <template>
-  <div v-if="data" class="chart-container d-flex justify-center">
-    <canvas ref="chart"></canvas>
+  <div v-if="data" class="d-flex justify-center">
+    <v-row class="d-flex justify-center">
+      <v-col cols="10" >
+        <canvas ref="chart"></canvas>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
@@ -110,12 +114,3 @@ export default {
   },
 };
 </script>
-
-<style>
-.chart-container {
-  width: 100%;
-  height: 450px; /* Ajuste a altura conforme necessário */
-  max-width: 600px; /* Opcional: Defina uma largura máxima */
-  margin: 0 auto; /* Centralize o gráfico horizontalmente */
-}
-</style>

@@ -43,13 +43,65 @@
     height="48"
   >
     <v-icon icon="mdi-ballot"> </v-icon>
-    <div class="text-button ml-2">Comparativo de habilidades entre Turma</div>
+    <div class="text-button ml-2">Comparativo</div>
+  </v-sheet>
+
+  <v-sheet>
+    <v-tabs
+      v-model="tab"
+      color="primary"
+      style="width: 100%"
+      class="selectColor"
+    >
+      <v-tab
+        prepend-icon="mdi-align-vertical-bottom"
+        text="Habilidades das turmas"
+        value="option-1"
+        class="pa-1 d-flex justify-center"
+        style="width: 50%"
+      ></v-tab>
+
+      <v-tab
+        prepend-icon="mdi-apple-keyboard-caps"
+        text="Níveis das turmas"
+        value="option-2"
+        class="pa-1 d-flex justify-center"
+        style="width: 50%"
+      ></v-tab>
+    </v-tabs>
+
+    <v-window v-model="tab">
+          <!-- Janela de Dados 1 -->
+          <v-window-item value="option-1">
+            <!-- Layout de titulo de gráfico -->
+            <v-sheet class="pa-2 d-flex align-center elevation-2 rounded-b-lg">
+              <v-row>
+                <v-col>
+                  <ChartComparaHabilidades :data="resultadoHabilidade" />
+                </v-col>
+              </v-row>
+            </v-sheet>
+
+            <v-sheet class="rounded-b-lg"> </v-sheet>
+          </v-window-item>
+
+          <!-- Janela de Dados 2 -->
+          <v-window-item value="option-2">
+            <!-- Layout de titulo de gráfico -->
+            <v-sheet class="pa-2 d-flex align-center" v-if="isAtivo">
+              <v-row>
+                <v-col>
+                  <ChartComparaNivel :data="resultadoNivel" />
+                </v-col>
+              </v-row>
+            </v-sheet>
+          </v-window-item>
+        </v-window>
   </v-sheet>
 
   <v-sheet>
     <div v-if="resultadoHabilidade">
-      <ChartComparaHabilidades :data="resultadoHabilidade" />
-      <ChartComparaNivel :data="resultadoNivel" />
+      
       
     </div>
   </v-sheet>
@@ -64,7 +116,8 @@ export default {
   data: () => ({
     iDTurmaAtual: null,
     resultadoHabilidade: [],
-    resultadoNivel : []
+    resultadoNivel: [],
+    tab: "option-1",
   }),
 
   props: {
@@ -91,7 +144,7 @@ export default {
   },
   components: {
     ChartComparaHabilidades,
-    ChartComparaNivel
+    ChartComparaNivel,
   },
 
   methods: {
@@ -132,3 +185,9 @@ export default {
   },
 };
 </script>
+
+<style>
+.selectColor .text-primary {
+  color: #1e3892;
+}
+</style>
