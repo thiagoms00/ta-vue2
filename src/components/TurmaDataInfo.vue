@@ -238,30 +238,28 @@
                 <!-- Tela de dados gerais do aluno -->
                 <v-window-item value="dados">
                   <v-container>
-                    <div>
+                    <v-row>
                       <span class="font-weight-bold">
-                        {{ item.user["nome"] }}
+                        {{ item.user["nome"] }}&nbsp;
                       </span>
-                      de matrícula
-                      <span class="font-weight-bold">
-                        {{ item.user["mat"] }}
+                      <span>
+                        em seu último teste:  
                       </span>
-                    </div>
+                    </v-row>
 
                     <v-row>
                       <v-col cols="6">
-                        <ChartBar
-                          :data="item.listaDeHab['Lingua Portuguesa']"
-                        />
+                        <ChartBar :data="item.listaDeHab['Lingua Portuguesa']"/>
                       </v-col>
 
                       <v-col cols="6" class="border-lg">
-                        <v-list>
+                        <v-list class="ma-0 pa-0">
                           <v-list-item
                             v-for="(habilidade, index) in item.listaDeHab[
                               'Lingua Portuguesa'
                             ]"
                             :key="index"
+                            class="ma-0 pa-0"
                           >
                             <span class="text-overline">
                               Habilidade {{ habilidade.habilidade }} -
