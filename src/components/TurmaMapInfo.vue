@@ -10,7 +10,7 @@
       >
       <div class="d-flex align-center" >
         <v-icon icon="mdi-ballot"> </v-icon>
-        <div class="text-button ml-2">Resultado dos alunos</div>
+        <div class="text-button ml-2">Mapa de habilidade</div>
       </div>
         
         <div class="text-button mr-2"> {{ this.nomeTurma }} </div>
