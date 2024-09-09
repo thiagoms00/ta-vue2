@@ -2,12 +2,15 @@
   <v-row>
     <v-col cols="12">
       <v-sheet
-        class="rounded-t-lg elevation-2 pa-2 d-flex align-center"
+        class="rounded-t-lg elevation-2 pa-2 d-flex align-center justify-space-between"
         color="#1E3892"
         height="48"
       >
+      <div class="d-flex align-center" >
         <v-icon icon="mdi-chart-bar"> </v-icon>
-        <div class="text-button ml-5 font-weight-bold area-title">Geral</div>
+        <div class="text-button ml-2">Resultado dos alunos</div>
+      </div>
+      <div class="text-button mr-2"> {{ this.nomeTurma }} </div>
       </v-sheet>
 
       <v-col class="pa-0 rounded-b-lg">
@@ -129,6 +132,11 @@ export default {
       type: Array,
       required: true,
       default: () => [],
+    },
+    nomeTurma: {
+      type: String,
+      required: true,
+      default: "",
     },
   },
 

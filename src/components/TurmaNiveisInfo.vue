@@ -4,12 +4,17 @@
       <!-- Mensagem de Seleção de Turma -->
 
       <v-sheet
-        class="rounded-t-lg elevation-2 pa-2 d-flex align-center"
+        class="rounded-t-lg elevation-2 pa-2 d-flex align-center justify-space-between"
         color="#1E3892"
         height="48"
       >
-        <v-icon icon="mdi-ballot"> </v-icon>
-        <div class="text-button ml-5 font-weight-bold area-title">Níveis de Aprendizado</div>
+
+        <div class="d-flex align-center">
+          <v-icon icon="mdi-ballot"> </v-icon>
+          <div class="text-button ml-2">Níveis de Aprendizado</div>
+        </div>
+
+        <div class="text-button mr-2">{{ this.nomeTurma }}</div>
       </v-sheet>
 
       <v-sheet v-if="isAtivo" class="">
@@ -18,13 +23,19 @@
             <thead>
               <tr>
                 <th class="pa-0" style="width: 30%">
-                  <div class="text-left ml-8 text-overline title-column">Aluno</div>
+                  <div class="text-left ml-8 text-overline title-column">
+                    Aluno
+                  </div>
                 </th>
                 <th class="pa-0" style="width: 10%">
-                  <div class="text-center text-overline ml-2 title-column">Nível</div>
+                  <div class="text-center text-overline ml-2 title-column">
+                    Nível
+                  </div>
                 </th>
                 <th class="pa-0" style="width: 60%">
-                  <div class="text-center ml-2 text-overline title-column">Descrição</div>
+                  <div class="text-center ml-2 text-overline title-column">
+                    Descrição
+                  </div>
                 </th>
               </tr>
             </thead>
@@ -78,9 +89,7 @@
           </p>
         </v-sheet>
 
-        <div class="mb-4"> </div>
-
-        
+        <div class="mb-4"></div>
       </div>
     </v-col>
   </v-row>
@@ -114,6 +123,11 @@ export default {
       type: Boolean,
       required: true,
       default: true,
+    },
+    nomeTurma: {
+      type: String,
+      required: true,
+      default: "",
     },
   },
 
@@ -264,20 +278,15 @@ export default {
 </script>
 
 <style>
-
-
-.title-column{
+.title-column {
   font-weight: bold !important;
-  font-size: 0.8rem !important;    
+  font-size: 0.8rem !important;
 }
 
-.main-text{
+.main-text {
   font-size: 0.93rem !important;
 }
 
-
-@media (max-width: 1800px){
-
+@media (max-width: 1800px) {
 }
-
 </style>

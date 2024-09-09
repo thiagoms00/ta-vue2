@@ -4,12 +4,16 @@
       <!-- Mensagem de Seleção de Turma -->
 
       <v-sheet
-        class="rounded-t-lg elevation-2 pa-2 d-flex align-center"
+        class="rounded-t-lg elevation-2 pa-2 d-flex align-center justify-space-between"
         color="#1E3892"
         height="48"
       >
+      <div class="d-flex align-center" >
         <v-icon icon="mdi-ballot"> </v-icon>
         <div class="text-button ml-2">Resultado dos alunos</div>
+      </div>
+        
+        <div class="text-button mr-2"> {{ this.nomeTurma }} </div>
       </v-sheet>
 
       <v-sheet>
@@ -188,6 +192,11 @@ export default {
       type : Number,
       required : true,
       default: 1,
+    },
+    nomeTurma: {
+      type: String,
+      required: true,
+      default: "",
     },
   },
 

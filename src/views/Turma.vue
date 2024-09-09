@@ -19,6 +19,7 @@
                     >
                       <v-icon icon="mdi-school-outline"> </v-icon>
                       <div class="text-button">TURMAS</div>
+
                     </div>
                   </v-expansion-panel-title>
 
@@ -32,7 +33,7 @@
                         :key="index"
                         density="compact"
                         class="d-flex justify-center text-subtitle-2"
-                        @click="selecionaTurma(item.id, index)"
+                        @click="selecionaTurma(item, index)"
                       >
                         <v-list-item-title class="name-turma" v-if="!loadingStatesTurmas[index]">{{
                           item.nome
@@ -132,6 +133,7 @@
                   :listaDeAlunos="listaFiltrada"
                   :isAtivo = "infoAtiva"
                   :anoTurma = "anoTurma"
+                  :nomeTurma = "nomeTurmaSelecionada"
                   ref="turmaMapInfo"
                 />
               </v-window-item>
@@ -141,6 +143,7 @@
                 <TurmaNiveisInfo
                   :listaDeAlunos="listaFiltrada"
                   :isAtivo = "infoAtiva"
+                  :nomeTurma = "nomeTurmaSelecionada"
                   ref="turmaVisualInfo"
                 />
               </v-window-item>
@@ -150,6 +153,7 @@
                 <TurmaGraphInfo 
                 :listaDeAlunos="listaFiltrada"
                 :habilidadesTurma = "habilidadesTurmaAtual"
+                :nomeTurma = "nomeTurmaSelecionada"
                 :isAtivo = "infoAtiva"
                 />
               </v-window-item>
@@ -233,7 +237,8 @@ export default {
     anoTurma : 1,
     estratoInicial : 1,
     habilidadesTurmaAtual : [],
-    turmaSelecionada : ""
+    turmaSelecionada : "",
+    nomeTurmaSelecionada : ""
 
   }),
 
@@ -326,18 +331,6 @@ export default {
             console.error(error);
           });
       }
-      /* axios({
-        url: "https://ta-back.onrender.com/professores/returnTurmas",
-        data,
-        method: "POST",
-      })
-        .then((response) => {
-          this.listaNomeTurma = response.data.listaTurmas;
-        })
-        .catch((error) => {
-          // Tratar erros aqui
-          console.error(error);
-        }); */
     },
 
     getColor(chipValue) {
@@ -393,11 +386,12 @@ export default {
     },
 
     selecionaTurma(turmaValue, index) {
+      this.nomeTurmaSelecionada = turmaValue.nome
       this.loadingStatesTurmas[index] = true;
-      this.turmaSelecionada = turmaValue
+      this.turmaSelecionada = turmaValue.id
       const data = {
         token: localStorage.getItem("tokenProf"),
-        idTurma: turmaValue,
+        idTurma: turmaValue.id,
         idProfessor: localStorage.getItem("idProf"),
       };
 
