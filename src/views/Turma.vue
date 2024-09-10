@@ -175,6 +175,7 @@
                   :isAtivo = "infoAtiva" 
                   :estratoInicial="estratoInicial"    
                   :turmaSelecionada = "turmaSelecionada"
+                  :nomeTurma = "nomeTurmaSelecionada"
                 ></TurmaConfig>
               </v-window-item>
             </v-window>
