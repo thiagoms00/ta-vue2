@@ -315,7 +315,19 @@ export default {
           });
       }
       else if(type === 'dir'){
-
+        axios({
+            url: "https://ta-back.onrender.com/diretores/retorna_turmas",
+            data,
+            method: "POST",
+          })
+          .then((response) => {
+            this.listaNomeTurma = response.data.listaTurmas;
+            console.log(this.listaNomeTurma)
+          })
+          .catch((error) => {
+            // Tratar erros aqui
+            console.error(error);
+          });
       }
 
       else{
@@ -402,7 +414,7 @@ export default {
         urlAdd = 'https://ta-back.onrender.com/coordenadores/dadosTurma'
       }
       else if(type === 'dir'){
-
+        urlAdd = 'https://ta-back.onrender.com/diretores/dadosTurma'
       }
       else{
         urlAdd = 'https://ta-back.onrender.com/professores/dadosTurma'
