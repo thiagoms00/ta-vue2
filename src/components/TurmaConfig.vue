@@ -113,6 +113,7 @@
             <!-- Switchs de disciplinas -->
             <div class="noInputDatails">
               <v-switch
+                class="custom-switch-discipline"
                 v-model="disciplinaSelected"
                 :value="'Lingua Portuguesa'"
                 label="Lingua Portuguesa"
@@ -121,6 +122,7 @@
               ></v-switch>
 
               <v-switch
+                class="custom-switch-discipline"
                 v-model="disciplinaSelected"
                 :value="'Matemática'"
                 label="Matemática"
@@ -129,6 +131,7 @@
               ></v-switch>
 
               <v-switch
+                class="custom-switch-discipline"
                 v-model="disciplinaSelected"
                 :value="'Ciencias'"
                 label="Ciências"
@@ -137,6 +140,7 @@
               ></v-switch>
 
               <v-switch
+                class="custom-switch-discipline"
                 v-model="disciplinaSelected"
                 :value="'História'"
                 label="História"
@@ -145,6 +149,7 @@
               ></v-switch>
 
               <v-switch
+                class="custom-switch-discipline"
                 v-model="disciplinaSelected"
                 :value="'Geografia'"
                 label="Geografia"
@@ -177,7 +182,7 @@
             <v-btn
               class="mr-3 elevation-5"
               icon="mdi-numeric-1"
-              :color="corBtn[1]"
+              :color="corBtn[0]"
               @click="mudaCorEstrato(1)"
             ></v-btn>
 
@@ -191,7 +196,7 @@
             <v-btn
               class="mr-3 elevation-5"
               icon="mdi-numeric-3"
-              :color="corBtn[1]"
+              :color="corBtn[2]"
               @click="mudaCorEstrato(3)"
             ></v-btn>
           </v-col>
@@ -213,8 +218,25 @@
               color="#1E3892"
               prepend-icon="mdi-check-bold"
               text="SALVAR"
-              @click=""
+              @click="openDialogMudancaTurma()"
             ></v-btn>
+
+            <v-dialog v-model="dialogConfigSave" max-width="450">
+
+              <v-card
+                prepend-icon="mdi-update"
+                text="Você realmente deseja confirmar as configurações de turma ?"
+                title="Confirmar alterações"
+              >
+                <template v-slot:actions>
+                  <v-spacer></v-spacer>
+
+                  <v-btn variant="tonal" color="red" @click="dialogConfigSave = false"> Não </v-btn>
+
+                  <v-btn variant="tonal" color="blue" @click="mudancaDadosTurma()"> Sim </v-btn>
+                </template>
+              </v-card>
+            </v-dialog>
           </v-col>
         </v-row>
       </v-sheet>
@@ -233,15 +255,12 @@ export default {
 
   data() {
     return {
-      listaTurma: [],
-      melhoresResultados: [],
-      dadosGraph: [],
-
-      corBtn: ["info", "white"],
+      corBtn: ["info", "white", "white"],
       novoEstrato: 1,
       configVer: false,
 
       disciplinaSelected: null,
+      dialogConfigSave: false,
     };
   },
 
@@ -273,52 +292,49 @@ export default {
     },
   },
 
-  watch: {
-    // Observa mudanças em `listaDeAlunos`
-    listaDeAlunos(newVal) {
-      this.listaTurma = newVal;
-    },
-  },
-
   created() {
     this.mudaCorEstrato(this.estratoInicial);
   },
 
-  mounted() {
-    this.listaTurma = this.listaDeAlunos;
-  },
-
   methods: {
+
+    openDialogMudancaTurma() {
+      this.dialogConfigSave = true;
+    },
+
     onSwitchChange(value) {
       // Aqui você pode adicionar lógica extra, se necessário
       console.log("Disciplina selecionada:", this.disciplinaSelected);
     },
-    /* Altera o estrato inicial da turma, envia no "Data" o object ID da turma e o ano do novo estrato:
 
-          0 - Estrato 1
-          1 - Estrato 2 
-
-      */
     mudaCorEstrato(val) {
       if (val === 1) {
         this.corBtn[0] = "info";
         this.corBtn[1] = "white";
+        this.corBtn[2] = "white";
         this.novoEstrato = 1;
       } else if (val === 2) {
         this.corBtn[0] = "white";
         this.corBtn[1] = "info";
+        this.corBtn[2] = "white";
+        this.novoEstrato = 2;
+      } else if (val === 3) {
+        this.corBtn[0] = "white";
+        this.corBtn[1] = "white";
+        this.corBtn[2] = "info";
         this.novoEstrato = 2;
       } else {
         this.corBtn[0] = "info";
         this.corBtn[1] = "white";
+        this.corBtn[2] = "white";
       }
     },
 
-    mudaEstrato() {
-      console.log("teste");
+    mudancaDadosTurma() {
       const data = {
         id_turma: this.turmaSelecionada,
         novo_estrato: this.novoEstrato,
+        disciplina : this.disciplinaSelected
       };
 
       axios({
@@ -345,6 +361,9 @@ export default {
 </script>
 
 <style>
+.custom-switch-discipline {
+  height: 40px; /* ajuste o tamanho conforme necessário */
+}
 .noInputDatails .v-input__details {
   margin: 0;
   padding: 0;
