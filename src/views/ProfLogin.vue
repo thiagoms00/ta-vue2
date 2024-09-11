@@ -36,11 +36,10 @@
           const data = {
             token: dataToken
           };
-          axios({ url: 'https://ta-back.onrender.com/professores/verificaTokenProfs', data, method: 'POST' })
+          axios({ url: 'https://ta-back.onrender.com/professores/verificaToken', data, method: 'POST' })
             .then((response) => {
               console.log(response.status)
-              if (response.status === 200) {
-                // Token é válido
+              if (response.status === 200) { // Token é válido
                 this.$router.push('/turma');
               }
             })
@@ -60,15 +59,6 @@
   
   </script>
   
-  <!-- <style scoped>
-  .bg {
-    background: url('../assets/imgs/homeBackground.jpg');
-    background-size: cover;
-    height: 100vh;
-    background-position: center;
-  }
-  </style> -->
-  
   <style>
   .main-div {
     display: flex;
@@ -82,7 +72,6 @@
   
   .absoluteClass {
     position: absolute;
-    
     width: 100%;
   }
   </style>
