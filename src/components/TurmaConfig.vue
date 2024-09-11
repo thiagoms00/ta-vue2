@@ -1,92 +1,11 @@
 <template>
   <v-row>
     <v-col cols="12">
-      <v-sheet class="main-sheet d-flex flex-column">
-        <div class="d-flex title-icon" :class="{}">
-          <!--               <v-icon class="mt-4" icon="mdi-cog"></v-icon>
- -->
-          <h1 class="ml-2 config-title">Configurações da Turma</h1>
-        </div>
-        <div class="change-est mt-5 d-flex elevation-1">
-          <div class="option-texts d-flex flex-column">
-            <h1 class="change-text font-weight-black">
-              Alterar estrato inicial
-            </h1>
-            <p class="change-est-p font-weight-medium">
-              Escolha o primeiro estrato à ser avaliado no teste adaptativo.
-            </p>
-          </div>
-          <div class="buttons d-flex ga-2 mt-3">
-            <v-btn
-              class="change-button elevation-5"
-              icon="mdi-numeric-1"
-              :color="corBtn[0]"
-              @click="mudaCorEstrato(1)"
-            ></v-btn>
-            <v-btn
-              class="change-button elevation-5"
-              icon="mdi-numeric-2"
-              :color="corBtn[1]"
-              @click="mudaCorEstrato(2)"
-            ></v-btn>
-          </div>
-        </div>
-
-        <div class="change-est mt-5 d-flex elevation-1">
-          <div class="option-texts d-flex flex-column">
-            <h1 class="change-text font-weight-black">Permitir testes</h1>
-            <p class="change-est-p font-weight-medium">
-              Possibilita que alunos desta turma possam iniciar o teste
-              adaptativo.
-            </p>
-          </div>
-          <v-switch
-            class="switch-start"
-            color="indigo"
-            label=""
-            inset
-          ></v-switch>
-        </div>
-
-        <div class="d-flex align-md-center justify-sm-center save-div mt-8">
-          <!--               <v-btn elevation="8" size="x-large" class="salvar-btn mt-5" color="#1E3892" @click="mudaEstrato()">Salvar</v-btn> -->
-
-          <v-dialog max-width="500">
-            <template v-slot:activator="{ props: activatorProps }">
-              <v-btn
-                elevation="8"
-                size="x-large"
-                class="salvar-btn mt-5"
-                color="#1E3892"
-                @click="mudaEstrato()"
-                v-bind="activatorProps"
-              >
-                Salvar</v-btn
-              >
-            </template>
-
-            <template v-slot:default="{ isActive }">
-              <v-card title="">
-                <v-card-text class="alt-text"
-                  >Configurações alteradas com sucesso!</v-card-text
-                >
-                <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-btn
-                    class="close-btn"
-                    text="Fechar"
-                    @click="isActive.value = false"
-                  ></v-btn>
-                </v-card-actions>
-              </v-card>
-            </template>
-          </v-dialog>
-        </div>
-      </v-sheet>
+   
 
       <!-- SHEET de titulo -->
       <v-sheet
-        class="rounded-t-lg elevation-2 pa-2 mt-10 d-flex align-center justify-space-between"
+        class="rounded-t-lg elevation-2 pa-2 d-flex align-center justify-space-between"
         color="#1E3892"
         height="48"
       >
@@ -406,6 +325,7 @@ export default {
   color: black;
   font-size: 1.4rem;
 }
+
 
 .change-est-p {
   color: rgb(0, 0, 0);
