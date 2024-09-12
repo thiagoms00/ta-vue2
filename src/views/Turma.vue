@@ -19,7 +19,6 @@
                     >
                       <v-icon icon="mdi-school-outline"> </v-icon>
                       <div class="text-button">TURMAS</div>
-
                     </div>
                   </v-expansion-panel-title>
 
@@ -35,9 +34,11 @@
                         class="d-flex justify-center text-subtitle-2"
                         @click="selecionaTurma(item, index)"
                       >
-                        <v-list-item-title class="name-turma" v-if="!loadingStatesTurmas[index]">{{
-                          item.nome
-                        }}</v-list-item-title>
+                        <v-list-item-title
+                          class="name-turma"
+                          v-if="!loadingStatesTurmas[index]"
+                          >{{ item.nome }}</v-list-item-title
+                        >
                         <v-progress-circular
                           v-if="loadingStatesTurmas[index]"
                           indeterminate
@@ -46,7 +47,6 @@
                       </v-list-item>
                     </v-list>
                   </v-expansion-panel-text>
-
                 </v-expansion-panel>
               </v-expansion-panels>
             </div>
@@ -97,12 +97,11 @@
                   value="option-6"
                   class="pa-1 d-flex justify-center"
                 ></v-tab>
-
               </v-tabs>
             </v-sheet>
 
             <!-- Campo de busca de aluno -->
-            <div class="mt-4 ">
+            <div class="mt-4">
               <v-text-field
                 append-inner-icon="mdi-magnify"
                 density="compact"
@@ -116,12 +115,31 @@
           </v-col>
 
           <v-col>
-            <v-window v-model="tab">
+            <!-- MENSAGEM DE SELEÇÂO DE TURMA -->
+            <v-sheet
+              v-if="!controlOptions"
+              class="d-flex justify-center align-center rounded-lg"
+              height="250"
+              color="grey-lighten-5"
+              border="md"
+            >
+              <p
+                class="text-overline"
+                style="
+                  color: #cfd8dc;
+                  font-size: 3rem !important;
+                  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+                "
+              >
+                Selecione uma turma
+              </p>
+            </v-sheet>
+
+            <v-window v-model="tab" v-if="controlOptions">
               <!-- Janela de Dados 1 -->
               <v-window-item value="option-1">
                 <TurmaDataInfo
                   :listaDeAlunos="listaFiltrada"
-                  :isAtivo = "infoAtiva"
                   ref="turmaDataInfo"
                   @eventDeleteTest="excluirTeste"
                 />
@@ -131,51 +149,46 @@
               <v-window-item value="option-2">
                 <TurmaMapInfo
                   :listaDeAlunos="listaFiltrada"
-                  :isAtivo = "infoAtiva"
-                  :anoTurma = "anoTurma"
-                  :nomeTurma = "nomeTurmaSelecionada"
+                  :anoTurma="anoTurma"
+                  :nomeTurma="nomeTurmaSelecionada"
                   ref="turmaMapInfo"
                 />
               </v-window-item>
 
               <!-- Janela de Dados 3 -->
-              <v-window-item value="option-3"> 
+              <v-window-item value="option-3">
                 <TurmaNiveisInfo
                   :listaDeAlunos="listaFiltrada"
-                  :isAtivo = "infoAtiva"
-                  :nomeTurma = "nomeTurmaSelecionada"
+                  :nomeTurma="nomeTurmaSelecionada"
                   ref="turmaVisualInfo"
                 />
               </v-window-item>
 
-               <!-- Janela de Dados 4 -->
-               <v-window-item value="option-4"> 
-                <TurmaGraphInfo 
-                :listaDeAlunos="listaFiltrada"
-                :habilidadesTurma = "habilidadesTurmaAtual"
-                :nomeTurma = "nomeTurmaSelecionada"
-                :isAtivo = "infoAtiva"
+              <!-- Janela de Dados 4 -->
+              <v-window-item value="option-4">
+                <TurmaGraphInfo
+                  :listaDeAlunos="listaFiltrada"
+                  :habilidadesTurma="habilidadesTurmaAtual"
+                  :nomeTurma="nomeTurmaSelecionada"
                 />
               </v-window-item>
 
               <!-- Janela de Dados 4 -->
-              <v-window-item value="option-5"> 
-                <TurmaCompara 
-                :listaDeAlunos="listaFiltrada"               
-                :isAtivo = "infoAtiva"
-                :iDsTurma = "listaNomeTurma"
-                :turmaAtual = "turmaSelecionada"
+              <v-window-item value="option-5">
+                <TurmaCompara
+                  :listaDeAlunos="listaFiltrada"
+                  :iDsTurma="listaNomeTurma"
+                  :turmaAtual="turmaSelecionada"
                 />
               </v-window-item>
 
-              <v-window-item value="option-6"> 
+              <v-window-item value="option-6">
                 <TurmaConfig
                   :listaDeAlunos="listaFiltrada"
-                  :habilidadesTurma = "habilidadesTurmaAtual"
-                  :isAtivo = "infoAtiva" 
-                  :estratoInicial="estratoInicial"    
-                  :turmaSelecionada = "turmaSelecionada"
-                  :nomeTurma = "nomeTurmaSelecionada"
+                  :habilidadesTurma="habilidadesTurmaAtual"
+                  :estratoInicial="estratoInicial"
+                  :turmaSelecionada="turmaSelecionada"
+                  :nomeTurma="nomeTurmaSelecionada"
                 ></TurmaConfig>
               </v-window-item>
             </v-window>
@@ -212,7 +225,7 @@ export default {
     TurmaNiveisInfo,
     TurmaGraphInfo,
     TurmaConfig,
-    TurmaCompara
+    TurmaCompara,
   },
 
   data: () => ({
@@ -234,13 +247,12 @@ export default {
     textoPlanilha: false, //Flag pro hover do botão da planilha.
     search: "",
     tab: "option-1",
-    infoAtiva : false,
-    anoTurma : 1,
-    estratoInicial : 1,
-    habilidadesTurmaAtual : [],
-    turmaSelecionada : "",
-    nomeTurmaSelecionada : ""
-
+    anoTurma: 1,
+    estratoInicial: 1,
+    habilidadesTurmaAtual: [],
+    turmaSelecionada: "",
+    nomeTurmaSelecionada: "",
+    controlOptions: false,
   }),
 
   created() {
@@ -292,50 +304,45 @@ export default {
     },
 
     returnTurmas() {
-
       const type = localStorage.getItem("type");
-
 
       const data = {
         tokenProf: localStorage.getItem("tokenProf"),
       };
 
-      if(type === 'coord'){
-          axios({
-            url: "https://ta-back.onrender.com/coordenadores/retorna_turmas",
-            data,
-            method: "POST",
-          })
-          .then((response) => {
-            this.listaNomeTurma = response.data.listaTurmas;
-          })
-          .catch((error) => {
-            // Tratar erros aqui
-            console.error(error);
-          });
-      }
-      else if(type === 'dir'){
+      if (type === "coord") {
         axios({
-            url: "https://ta-back.onrender.com/diretores/retorna_turmas",
-            data,
-            method: "POST",
-          })
+          url: "https://ta-back.onrender.com/coordenadores/retorna_turmas",
+          data,
+          method: "POST",
+        })
           .then((response) => {
             this.listaNomeTurma = response.data.listaTurmas;
-            console.log(this.listaNomeTurma)
           })
           .catch((error) => {
             // Tratar erros aqui
             console.error(error);
           });
-      }
-
-      else{
-          axios({
-            url: "https://ta-back.onrender.com/professores/returnTurmas",
-            data,
-            method: "POST",
+      } else if (type === "dir") {
+        axios({
+          url: "https://ta-back.onrender.com/diretores/retorna_turmas",
+          data,
+          method: "POST",
+        })
+          .then((response) => {
+            this.listaNomeTurma = response.data.listaTurmas;
+            console.log(this.listaNomeTurma);
           })
+          .catch((error) => {
+            // Tratar erros aqui
+            console.error(error);
+          });
+      } else {
+        axios({
+          url: "https://ta-back.onrender.com/professores/returnTurmas",
+          data,
+          method: "POST",
+        })
           .then((response) => {
             this.listaNomeTurma = response.data.listaTurmas;
           })
@@ -399,9 +406,10 @@ export default {
     },
 
     selecionaTurma(turmaValue, index) {
-      this.nomeTurmaSelecionada = turmaValue.nome
+      
+      this.nomeTurmaSelecionada = turmaValue.nome;
       this.loadingStatesTurmas[index] = true;
-      this.turmaSelecionada = turmaValue.id
+      this.turmaSelecionada = turmaValue.id;
       const data = {
         token: localStorage.getItem("tokenProf"),
         idTurma: turmaValue.id,
@@ -409,18 +417,14 @@ export default {
       };
 
       const type = localStorage.getItem("type");
-      let urlAdd = '';
-      if(type === 'coord'){
-        urlAdd = 'https://ta-back.onrender.com/coordenadores/dadosTurma'
+      let urlAdd = "";
+      if (type === "coord") {
+        urlAdd = "https://ta-back.onrender.com/coordenadores/dadosTurma";
+      } else if (type === "dir") {
+        urlAdd = "https://ta-back.onrender.com/diretores/dadosTurma";
+      } else {
+        urlAdd = "https://ta-back.onrender.com/professores/dadosTurma";
       }
-      else if(type === 'dir'){
-        urlAdd = 'https://ta-back.onrender.com/diretores/dadosTurma'
-      }
-      else{
-        urlAdd = 'https://ta-back.onrender.com/professores/dadosTurma'
-      }
-      
-      
 
       axios({
         url: urlAdd,
@@ -459,7 +463,7 @@ export default {
           this.ativarAnimacaoLista();
           console.log(this.listaTurma);
           this.loadingStatesTurmas[index] = false;
-          this.infoAtiva = true;
+          this.controlOptions = true;
         });
     },
 
@@ -712,11 +716,9 @@ export default {
 </script>
 
 <style>
-
-.name-turma{
+.name-turma {
   font-size: 1.1rem !important;
 }
-
 
 .custom-switch .v-input--density-default {
   --v-input-control-height: 43 px;
@@ -787,21 +789,17 @@ export default {
   border-bottom: 2px solid orange;
 }
 
-@media (max-width:1600px){
-  .buscar-field .v-input__control{
+@media (max-width: 1600px) {
+  .buscar-field .v-input__control {
     width: 12.5vw !important;
     font-size: 1px;
   }
-
 }
 
-@media (max-width:1200px){
-  .buscar-field .v-input__control{
+@media (max-width: 1200px) {
+  .buscar-field .v-input__control {
     width: 13vw !important;
     font-size: 1px;
   }
-
 }
-
-
 </style>

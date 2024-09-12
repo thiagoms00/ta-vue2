@@ -17,9 +17,9 @@
         <div class="text-button mr-2">{{ this.nomeTurma }}</div>
       </v-sheet>
 
-      <v-sheet v-if="isAtivo" class="">
+      <v-sheet>
         <div ref="teste">
-          <v-table v-if="isAtivo">
+          <v-table>
             <thead>
               <tr>
                 <th class="pa-0" style="width: 30%">
@@ -67,30 +67,6 @@
           </v-table>
         </div>
       </v-sheet>
-
-      <!-- DIV de seleção de turma -->
-      <div>
-        <v-sheet
-          v-if="!isAtivo"
-          class="d-flex justify-center align-center rounded-b-lg"
-          height="250"
-          color="grey-lighten-5"
-          border="md"
-        >
-          <p
-            class="text-overline"
-            style="
-              color: #cfd8dc;
-              font-size: 3rem !important;
-              text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
-            "
-          >
-            Selecione uma turma
-          </p>
-        </v-sheet>
-
-        <div class="mb-4"></div>
-      </div>
     </v-col>
   </v-row>
 </template>
@@ -118,11 +94,6 @@ export default {
       type: Array,
       required: true,
       default: () => [],
-    },
-    isAtivo: {
-      type: Boolean,
-      required: true,
-      default: true,
     },
     nomeTurma: {
       type: String,

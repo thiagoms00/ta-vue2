@@ -1,103 +1,82 @@
 <template>
-  <v-sheet elevation="10" class="rounded-t-lg">
-    <v-expansion-panels :readonly="true">
-      <v-expansion-panel
-        class="rounded-t-lg"
-        bg-color="#1E3892"
-        style="border-radius: 0px"
-      >
-        <v-expansion-panel-title style="height: 4vh" disable-icon>
-          <template v-slot:actions>
-            <!-- Só pra retirar o ícone. -->
-          </template>
 
-          <v-row class="dflex align-center">
-            <v-col cols="2" class="d-flex justify-center">
-              <v-btn
-                block
-                :append-icon="icon[0]"
-                :ripple="false"
-                variant="text"
-                @click="toggleIcon(0, 'nome')"
-                >Nome</v-btn
-              >
-            </v-col>
-            <v-col cols="2" class="d-flex justify-center">
-              <v-btn
-                block
-                :append-icon="icon[1]"
-                :ripple="false"
-                variant="text"
-                @click="toggleIcon(1, 'extrato')"
-                >Estrato Final</v-btn
-              >
-            </v-col>
-            <v-col cols="2" class="d-flex justify-center">
-              <v-btn
-                :append-icon="icon[2]"
-                :ripple="false"
-                variant="text"
-                @click="toggleIcon(2, 'nQuestoes')"
-                >Nº de questões</v-btn
-              >
-            </v-col>
-            <v-col cols="2" class="d-flex justify-center">
-              <v-btn
-                block
-                :append-icon="icon[3]"
-                :ripple="false"
-                variant="text"
-                @click="toggleIcon(3, 'percentTeste')"
-                >Porcentagem</v-btn
-              >
-            </v-col>
-            <v-col cols="2" class="d-flex justify-center">
-              <v-btn
-                block
-                :append-icon="icon[4]"
-                :ripple="false"
-                variant="text"
-                @click="toggleIcon(4, 'tempo')"
-                >Tempo</v-btn
-              >
-            </v-col>
-            <v-col cols="2" class="d-flex justify-center">
-              <v-btn
-                block
-                :append-icon="icon[4]"
-                :ripple="false"
-                variant="text"
-                @click="toggleIcon(4, 'status')"
-                >Status</v-btn
-              >
-            </v-col>
-          </v-row>
-        </v-expansion-panel-title>
-      </v-expansion-panel>
-    </v-expansion-panels>
-  </v-sheet>
+<v-sheet elevation="10" class="rounded-t-lg">
+                <v-expansion-panels :readonly="true">
+                  <v-expansion-panel
+                    class="rounded-t-lg"
+                    bg-color="#1E3892"
+                    style="border-radius: 0px"
+                  >
+                    <v-expansion-panel-title style="height: 4vh" disable-icon>
+                      <template v-slot:actions>
+                        <!-- Só pra retirar o ícone. -->
+                      </template>
 
-  <!-- Mensagem de Seleção de Turma -->
-  <div>
-    <v-sheet
-      v-if="!isAtivo"
-      class="d-flex justify-center align-center rounded-b-lg"
-      height="250"
-      color="grey-lighten-5"
-      border="md"
-    >
-      <p
-        class="text-overline"
-        style="
-          color: #cfd8dc;
-          font-size: 3rem !important;
-          text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
-        "
-      >
-        Selecione uma turma
-      </p>
-    </v-sheet>
-  </div>
+                      <v-row class="dflex align-center">
+                        <v-col cols="2" class="d-flex justify-center">
+                          <v-btn
+                            block
+                            :append-icon="icon[0]"
+                            :ripple="false"
+                            variant="text"
+                            @click="toggleIcon(0, 'nome')"
+                            >Nome</v-btn
+                          >
+                        </v-col>
+                        <v-col cols="2" class="d-flex justify-center">
+                          <v-btn
+                            block
+                            :append-icon="icon[1]"
+                            :ripple="false"
+                            variant="text"
+                            @click="toggleIcon(1, 'extrato')"
+                            >Estrato Final</v-btn
+                          >
+                        </v-col>
+                        <v-col cols="2" class="d-flex justify-center">
+                          <v-btn
+                            :append-icon="icon[2]"
+                            :ripple="false"
+                            variant="text"
+                            @click="toggleIcon(2, 'nQuestoes')"
+                            >Nº de questões</v-btn
+                          >
+                        </v-col>
+                        <v-col cols="2" class="d-flex justify-center">
+                          <v-btn
+                            block
+                            :append-icon="icon[3]"
+                            :ripple="false"
+                            variant="text"
+                            @click="toggleIcon(3, 'percentTeste')"
+                            >Porcentagem</v-btn
+                          >
+                        </v-col>
+                        <v-col cols="2" class="d-flex justify-center">
+                          <v-btn
+                            block
+                            :append-icon="icon[4]"
+                            :ripple="false"
+                            variant="text"
+                            @click="toggleIcon(4, 'tempo')"
+                            >Tempo</v-btn
+                          >
+                        </v-col>
+                        <v-col cols="2" class="d-flex justify-center">
+                          <v-btn
+                            block
+                            :append-icon="icon[4]"
+                            :ripple="false"
+                            variant="text"
+                            @click="toggleIcon(4, 'status')"
+                            >Status</v-btn
+                          >
+                        </v-col>
+                      </v-row>
+                    </v-expansion-panel-title>
+                  </v-expansion-panel>
+                </v-expansion-panels>
+              </v-sheet>
 
   <v-sheet rounded="lg" :class="{ 'fade-in': animacaoListaAtiva }">
     <v-expansion-panels variant="accordion" class="elevation-">
@@ -415,11 +394,6 @@ export default {
       type: Array,
       required: true,
       default: () => [],
-    },
-    isAtivo: {
-      type: Boolean,
-      required: true,
-      default: true,
     },
   },
 

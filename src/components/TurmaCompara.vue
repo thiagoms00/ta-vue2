@@ -101,7 +101,7 @@
       <!-- Janela de Dados 2 -->
       <v-window-item value="option-2">
         <!-- Layout de titulo de gráfico -->
-        <v-sheet class="pa-2 d-flex align-center" v-if="isAtivo">
+        <v-sheet class="pa-2 d-flex align-center">
           <v-row>
             <v-col>
               <ChartComparaNivel :data="resultadoNivel" />
@@ -137,11 +137,6 @@ export default {
       type: Array,
       required: true,
       default: () => [],
-    },
-    isAtivo: {
-      type: Boolean,
-      required: true,
-      default: true,
     },
     turmaAtual: {
       type: String,

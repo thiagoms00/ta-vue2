@@ -17,7 +17,7 @@
       </v-sheet>
 
       <v-sheet>
-        <v-table v-if="isAtivo">
+        <v-table>
           <thead>
             <tr>
               <th class="pa-0" style="width: 20%">
@@ -126,28 +126,6 @@
           </tbody>
         </v-table>
       </v-sheet>
-
-      <!-- DIV de seleção de turma -->
-      <div>
-        <v-sheet
-          v-if="!isAtivo"
-          class="d-flex justify-center align-center rounded-b-lg"
-          height="250"
-          color="grey-lighten-5"
-          border="md"
-        >
-          <p
-            class="text-overline"
-            style="
-              color: #cfd8dc;
-              font-size: 3rem !important;
-              text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
-            "
-          >
-            Selecione uma turma
-          </p>
-        </v-sheet>
-      </div>
     </v-col>
   </v-row>
 </template>
@@ -182,11 +160,6 @@ export default {
       type: Array,
       required: true,
       default: () => [],
-    },
-    isAtivo: {
-      type: Boolean,
-      required: true,
-      default: true,
     },
     anoTurma : {
       type : Number,

@@ -189,11 +189,6 @@ export default {
       required: true,
       default: () => [],
     },
-    isAtivo: {
-      type: Boolean,
-      required: true,
-      default: true,
-    },
     estratoInicial: {
       type: Number,
       required: true,
