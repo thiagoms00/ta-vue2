@@ -19,20 +19,33 @@
         cols="12"
         md="2"
       >
-        <v-card
+        <!-- <v-card
           class="mx-auto d-flex align-center justify-center"
           width="150"
           height="90"
           variant="elevated"
           elevation="4"
-          color="blue-lighten-2"
+          :color="turmaSelecionada === item.nome ? 'info' : 'white'"
           @click="selecionarTurmaParaComparar(item)"
         >
           <p class="text-center">
             <v-icon icon="mdi-animation"></v-icon>
             {{ item.nome }}
           </p>
-        </v-card>
+        </v-card> -->
+
+        <v-btn
+          variant="tonal"
+          prepend-icon="mdi-animation"
+          min-width="155"
+          :color="
+            turmaSelecionada === item.nome ? 'info' : 'blue-grey-darken-4'
+          "
+          elevation="4"
+          @click="selecionarTurmaParaComparar(item)"
+        >
+          {{ item.nome }}
+        </v-btn>
       </v-col>
     </v-row>
   </v-sheet>
@@ -71,39 +84,32 @@
     </v-tabs>
 
     <v-window v-model="tab">
-          <!-- Janela de Dados 1 -->
-          <v-window-item value="option-1">
-            <!-- Layout de titulo de gráfico -->
-            <v-sheet class="pa-2 d-flex align-center elevation-2 rounded-b-lg">
-              <v-row>
-                <v-col>
-                  <ChartComparaHabilidades :data="resultadoHabilidade" />
-                </v-col>
-              </v-row>
-            </v-sheet>
+      <!-- Janela de Dados 1 -->
+      <v-window-item value="option-1">
+        <!-- Layout de titulo de gráfico -->
+        <v-sheet class="pa-2 d-flex align-center elevation-2 rounded-b-lg">
+          <v-row>
+            <v-col>
+              <ChartComparaHabilidades :data="resultadoHabilidade" />
+            </v-col>
+          </v-row>
+        </v-sheet>
 
-            <v-sheet class="rounded-b-lg"> </v-sheet>
-          </v-window-item>
+        <v-sheet class="rounded-b-lg"> </v-sheet>
+      </v-window-item>
 
-          <!-- Janela de Dados 2 -->
-          <v-window-item value="option-2">
-            <!-- Layout de titulo de gráfico -->
-            <v-sheet class="pa-2 d-flex align-center" v-if="isAtivo">
-              <v-row>
-                <v-col>
-                  <ChartComparaNivel :data="resultadoNivel" />
-                </v-col>
-              </v-row>
-            </v-sheet>
-          </v-window-item>
-        </v-window>
-  </v-sheet>
-
-  <v-sheet>
-    <div v-if="resultadoHabilidade">
-      
-      
-    </div>
+      <!-- Janela de Dados 2 -->
+      <v-window-item value="option-2">
+        <!-- Layout de titulo de gráfico -->
+        <v-sheet class="pa-2 d-flex align-center" v-if="isAtivo">
+          <v-row>
+            <v-col>
+              <ChartComparaNivel :data="resultadoNivel" />
+            </v-col>
+          </v-row>
+        </v-sheet>
+      </v-window-item>
+    </v-window>
   </v-sheet>
 </template>
 
@@ -118,6 +124,7 @@ export default {
     resultadoHabilidade: [],
     resultadoNivel: [],
     tab: "option-1",
+    turmaSelecionada: null,
   }),
 
   props: {
@@ -149,6 +156,7 @@ export default {
 
   methods: {
     selecionarTurmaParaComparar(itemTurma) {
+      this.turmaSelecionada = itemTurma.nome;
       const data = {
         id_turma1: this.turmaAtual,
         id_turma2: itemTurma.id,
