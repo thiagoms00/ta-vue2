@@ -112,12 +112,6 @@
               @click="mudaCorEstrato(2)"
             ></v-btn>
 
-            <v-btn
-              class="mr-3 elevation-5"
-              icon="mdi-numeric-3"
-              :color="corBtn[2]"
-              @click="mudaCorEstrato(3)"
-            ></v-btn>
           </v-col>
         </v-row>
 
@@ -225,22 +219,18 @@ export default {
       if (val === 1) {
         this.corBtn[0] = "info";
         this.corBtn[1] = "white";
-        this.corBtn[2] = "white";
         this.novoEstrato = 1;
       } else if (val === 2) {
         this.corBtn[0] = "white";
         this.corBtn[1] = "info";
-        this.corBtn[2] = "white";
         this.novoEstrato = 2;
       } else if (val === 3) {
         this.corBtn[0] = "white";
         this.corBtn[1] = "white";
-        this.corBtn[2] = "info";
         this.novoEstrato = 2;
       } else {
         this.corBtn[0] = "info";
         this.corBtn[1] = "white";
-        this.corBtn[2] = "white";
       }
     },
 
