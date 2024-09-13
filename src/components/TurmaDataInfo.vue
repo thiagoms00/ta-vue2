@@ -1,103 +1,55 @@
 <template>
+  <v-sheet elevation="10" class="rounded-t-lg">
+    <v-expansion-panels :readonly="true">
+      <v-expansion-panel class="rounded-t-lg" bg-color="#1E3892" style="border-radius: 0px">
+        <v-expansion-panel-title style="height: 4vh" disable-icon>
+          <template v-slot:actions>
+            <!-- Só pra retirar o ícone. -->
+          </template>
 
-<v-sheet elevation="10" class="rounded-t-lg">
-                <v-expansion-panels :readonly="true">
-                  <v-expansion-panel
-                    class="rounded-t-lg"
-                    bg-color="#1E3892"
-                    style="border-radius: 0px"
-                  >
-                    <v-expansion-panel-title style="height: 4vh" disable-icon>
-                      <template v-slot:actions>
-                        <!-- Só pra retirar o ícone. -->
-                      </template>
-
-                      <v-row class="dflex align-center">
-                        <v-col cols="2" class="d-flex justify-center">
-                          <v-btn
-                            block
-                            :append-icon="icon[0]"
-                            :ripple="false"
-                            variant="text"
-                            @click="toggleIcon(0, 'nome')"
-                            >Nome</v-btn
-                          >
-                        </v-col>
-                        <v-col cols="2" class="d-flex justify-center">
-                          <v-btn
-                            block
-                            :append-icon="icon[1]"
-                            :ripple="false"
-                            variant="text"
-                            @click="toggleIcon(1, 'extrato')"
-                            >Percurso Final</v-btn
-                          >
-                        </v-col>
-                        <v-col cols="2" class="d-flex justify-center">
-                          <v-btn
-                            :append-icon="icon[2]"
-                            :ripple="false"
-                            variant="text"
-                            @click="toggleIcon(2, 'nQuestoes')"
-                            >Nº de questões</v-btn
-                          >
-                        </v-col>
-                        <v-col cols="2" class="d-flex justify-center">
-                          <v-btn
-                            block
-                            :append-icon="icon[3]"
-                            :ripple="false"
-                            variant="text"
-                            @click="toggleIcon(3, 'percentTeste')"
-                            >Porcentagem</v-btn
-                          >
-                        </v-col>
-                        <v-col cols="2" class="d-flex justify-center">
-                          <v-btn
-                            block
-                            :append-icon="icon[4]"
-                            :ripple="false"
-                            variant="text"
-                            @click="toggleIcon(4, 'tempo')"
-                            >Tempo</v-btn
-                          >
-                        </v-col>
-                        <v-col cols="2" class="d-flex justify-center">
-                          <v-btn
-                            block
-                            :append-icon="icon[4]"
-                            :ripple="false"
-                            variant="text"
-                            @click="toggleIcon(4, 'status')"
-                            >Status</v-btn
-                          >
-                        </v-col>
-                      </v-row>
-                    </v-expansion-panel-title>
-                  </v-expansion-panel>
-                </v-expansion-panels>
-              </v-sheet>
+          <v-row class="dflex align-center">
+            <v-col cols="2" class="d-flex justify-center">
+              <v-btn block :append-icon="icon[0]" :ripple="false" variant="text"
+                @click="toggleIcon(0, 'nome')">Nome</v-btn>
+            </v-col>
+            <v-col cols="2" class="d-flex justify-center">
+              <v-btn block :append-icon="icon[1]" :ripple="false" variant="text"
+                @click="toggleIcon(1, 'extrato')">Percurso Final</v-btn>
+            </v-col>
+            <v-col cols="2" class="d-flex justify-center">
+              <v-btn :append-icon="icon[2]" :ripple="false" variant="text" @click="toggleIcon(2, 'nQuestoes')">Nº de
+                questões</v-btn>
+            </v-col>
+            <v-col cols="2" class="d-flex justify-center">
+              <v-btn block :append-icon="icon[3]" :ripple="false" variant="text"
+                @click="toggleIcon(3, 'percentTeste')">Porcentagem</v-btn>
+            </v-col>
+            <v-col cols="2" class="d-flex justify-center">
+              <v-btn block :append-icon="icon[4]" :ripple="false" variant="text"
+                @click="toggleIcon(4, 'tempo')">Tempo</v-btn>
+            </v-col>
+            <v-col cols="2" class="d-flex justify-center">
+              <v-btn block :append-icon="icon[4]" :ripple="false" variant="text"
+                @click="toggleIcon(4, 'status')">Status</v-btn>
+            </v-col>
+          </v-row>
+        </v-expansion-panel-title>
+      </v-expansion-panel>
+    </v-expansion-panels>
+  </v-sheet>
 
   <v-sheet rounded="lg" :class="{ 'fade-in': animacaoListaAtiva }">
     <v-expansion-panels variant="accordion" class="elevation-">
-      <v-expansion-panel
-        v-for="(item, indexAluno) in listaTurma"
-        :key="item.nome"
-        :readonly="item.nTestes === 0"
-        ref="panels"
-        class="rounded-b-lg"
-        style="border-radius: 0px"
-      >
+      <v-expansion-panel v-for="(item, indexAluno) in listaTurma" :key="item.nome" :readonly="item.nTestes === 0"
+        ref="panels" class="rounded-b-lg" style="border-radius: 0px">
         <v-expansion-panel-title style="height: 5vh" class="color-painel">
           <v-row class="d-flex align-center">
             <v-col cols="2" class="d-flex justify-center">
-              <p
-                style="
+              <p style="
                   text-overflow: ellipsis;
                   overflow: hidden;
                   white-space: nowrap;
-                "
-              >
+                ">
                 {{ item.user["nome"] }}
               </p>
             </v-col>
@@ -107,29 +59,29 @@
                   text-overflow: ellipsis;
                   overflow: hidden;
                   white-space: nowrap;
-                "> 
+                ">
                 {{
-                item.listaDeTestes.length > 0 &&
-                item.listaDeTestes[item.listaDeTestes.length - 1].status ===
+                  item.listaDeTestes.length > 0 &&
+                  item.listaDeTestes[item.listaDeTestes.length - 1].status ===
                   "Finalizado"
                   ? this.alteraResultado(
-                      item.listaDeTestes[item.listaDeTestes.length - 1]
-                        .resultado_final
-                    )
+                    item.listaDeTestes[item.listaDeTestes.length - 1]
+                      .resultado_final
+                  )
                   : "-"
-              }}
+                }}
               </p>
-              
+
             </v-col>
 
             <v-col cols="2" class="d-flex justify-center">
               {{
                 item.listaDeTestes.length > 0 &&
                 item.listaDeTestes[item.listaDeTestes.length - 1].status ===
-                  "Finalizado"
-                  ? item.listaDeTestes[item.listaDeTestes.length - 1]
-                      .numero_questoes_feitas
-                  : "-"
+                "Finalizado"
+                ? item.listaDeTestes[item.listaDeTestes.length - 1]
+                  .numero_questoes_feitas
+                : "-"
               }}
             </v-col>
 
@@ -137,12 +89,12 @@
               {{
                 item.listaDeTestes.length > 0 &&
                 item.listaDeTestes[item.listaDeTestes.length - 1].status ===
-                  "Finalizado"
-                  ? (
-                      item.listaDeTestes[item.listaDeTestes.length - 1]
-                        .porcentagem_questoes || 0
-                    ).toFixed(2) + "%"
-                  : "-"
+                "Finalizado"
+                ? (
+                  item.listaDeTestes[item.listaDeTestes.length - 1]
+                    .porcentagem_questoes || 0
+                ).toFixed(2) + "%"
+                : "-"
               }}
             </v-col>
 
@@ -150,34 +102,26 @@
               {{
                 item.listaDeTestes.length > 0 &&
                 item.listaDeTestes[item.listaDeTestes.length - 1].status ===
-                  "Finalizado"
-                  ? formatTime(
-                      item.listaDeTestes[item.listaDeTestes.length - 1]
-                        .tempoDoTeste
-                    )
-                  : "-"
+                "Finalizado"
+                ? formatTime(
+                  item.listaDeTestes[item.listaDeTestes.length - 1]
+                    .tempoDoTeste
+                )
+                : "-"
               }}
             </v-col>
 
             <v-col cols="2" class="d-flex justify-center">
-              <v-chip
-                size="small"
-                :color="
-                  getColor(
+              <v-chip size="small" :color="getColor(
                     item.listaDeTestes?.[item.listaDeTestes.length - 1]
                       ?.status ?? ''
                   )
-                "
-              >
-                <v-icon
-                  :icon="
-                    getIcon(
-                      item.listaDeTestes?.[item.listaDeTestes.length - 1]
-                        ?.status ?? 'Não Iniciado'
-                    )
-                  "
-                  start
-                >
+                  ">
+                <v-icon :icon="getIcon(
+                  item.listaDeTestes?.[item.listaDeTestes.length - 1]
+                    ?.status ?? 'Não Iniciado'
+                )
+                  " start>
                 </v-icon>
                 {{
                   item.listaDeTestes?.[item.listaDeTestes.length - 1]?.status ??
@@ -222,24 +166,20 @@
                         {{ item.user["nome"] }}&nbsp;
                       </span>
                       <span>
-                        em seu último teste:  
+                        em seu último teste:
                       </span>
                     </v-row>
 
                     <v-row>
                       <v-col cols="6">
-                        <ChartBar :data="item.listaDeHab['Lingua Portuguesa']"/>
+                        <ChartBar :data="item.listaDeHab['Lingua Portuguesa']" />
                       </v-col>
 
                       <v-col cols="6" class="border-lg">
                         <v-list class="ma-0 pa-0">
-                          <v-list-item
-                            v-for="(habilidade, index) in item.listaDeHab[
-                              'Lingua Portuguesa'
-                            ]"
-                            :key="index"
-                            class="ma-0 pa-0"
-                          >
+                          <v-list-item v-for="(habilidade, index) in item.listaDeHab[
+                            'Lingua Portuguesa'
+                          ]" :key="index" class="ma-0 pa-0">
                             <span class="text-overline">
                               Habilidade {{ habilidade.habilidade }} -
                             </span>
@@ -275,10 +215,7 @@
                       </thead>
 
                       <tbody>
-                        <tr
-                          v-for="(teste, indexTeste) in item.listaDeTestes"
-                          :key="teste._id"
-                        >
+                        <tr v-for="(teste, indexTeste) in item.listaDeTestes" :key="teste._id">
                           <td>{{ teste.disciplina }}</td>
                           <td>{{ getTableValue(teste, "horaInicio") }}</td>
                           <td>{{ getTableValue(teste, "extratoFinal") }}</td>
@@ -297,14 +234,8 @@
                             }}
                           </td>
                           <td>
-                            <v-chip
-                              size="small"
-                              :color="getColor(teste.status)"
-                            >
-                              <v-icon
-                                :icon="getIcon(teste.status)"
-                                start
-                              ></v-icon>
+                            <v-chip size="small" :color="getColor(teste.status)">
+                              <v-icon :icon="getIcon(teste.status)" start></v-icon>
                               {{ teste.status }}
                             </v-chip>
                           </td>
@@ -313,35 +244,24 @@
                           <p v-if="textoPlanilha" class="hover-text">teste</p>
                         </transition> -->
                             <div class="d-inline-flex">
-                              <v-btn
-                                variant="text"
-                                class="optionButton"
-                                @click="
-                                  geraXlsx(
-                                    teste.planilha_teste,
-                                    item.user['nome']
-                                  )
-                                "
-                              >
-                                <v-tooltip activator="parent" location="top"
-                                  >Download CSV</v-tooltip
-                                >
-                                <v-icon
-                                  size="large"
-                                  icon="mdi-google-spreadsheet"
-                                ></v-icon>
+                              <v-btn variant="text" class="optionButton" @click="
+                                geraXlsx(
+                                  teste.planilha_teste,
+                                  item.user['nome']
+                                )
+                                ">
+                                <v-tooltip activator="parent" location="top">Download CSV</v-tooltip>
+                                <v-icon size="large" icon="mdi-google-spreadsheet"></v-icon>
                               </v-btn>
 
-                              <DialogExcluirTeste
-                                @trigger-metododeexclusão="
-                                  excluirTeste(
-                                    item,
-                                    teste,
-                                    indexAluno,
-                                    indexTeste
-                                  )
-                                "
-                              />
+                              <DialogExcluirTeste @trigger-metododeexclusão="
+                                excluirTeste(
+                                  item,
+                                  teste,
+                                  indexAluno,
+                                  indexTeste
+                                )
+                                " />
                             </div>
                           </td>
                         </tr>
