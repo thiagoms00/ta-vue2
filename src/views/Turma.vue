@@ -62,38 +62,41 @@
                 style="width: 100%"
               >
                 <v-tab
-                  prepend-icon="mdi-checkbox-outline"
-                  text="Teste"
+                  prepend-icon="mdi-menu"
+                  text="Níveis de aprendizado"
                   value="option-1"
                   class="pa-1 d-flex justify-center"
                 ></v-tab>
+                
                 <v-tab
                   prepend-icon="mdi-compass-outline"
-                  text="Mapa"
+                  text="Sequência na avaliação"
                   value="option-2"
                   class="pa-1 d-flex justify-center"
                 ></v-tab>
+
                 <v-tab
-                  prepend-icon="mdi-menu"
-                  text="Nível"
+                  prepend-icon="mdi-checkbox-outline"
+                  text="Dados gerais"
                   value="option-3"
                   class="pa-1 d-flex justify-center"
                 ></v-tab>
+               
                 <v-tab
                   prepend-icon="mdi-chart-bar"
                   text="Geral"
                   value="option-4"
                   class="pa-1 d-flex justify-center"
                 ></v-tab>
-                <v-tab
+                <!-- <v-tab
                   prepend-icon="mdi-remote-desktop"
                   text="Compara"
                   value="option-5"
                   class="pa-1 d-flex justify-center"
-                ></v-tab>
+                ></v-tab> -->
                 <v-tab
                   prepend-icon="mdi-cog"
-                  text="Config"
+                  text="Configurações"
                   value="option-6"
                   class="pa-1 d-flex justify-center"
                 ></v-tab>
@@ -138,12 +141,14 @@
             <v-window v-model="tab" v-if="controlOptions">
               <!-- Janela de Dados 1 -->
               <v-window-item value="option-1">
-                <TurmaDataInfo
+                <TurmaNiveisInfo
                   :listaDeAlunos="listaFiltrada"
-                  ref="turmaDataInfo"
-                  @eventDeleteTest="excluirTeste"
+                  :nomeTurma="nomeTurmaSelecionada"
+                  ref="turmaVisualInfo"
                 />
               </v-window-item>
+
+              
 
               <!-- Janela de Dados 2 -->
               <v-window-item value="option-2">
@@ -156,13 +161,15 @@
               </v-window-item>
 
               <!-- Janela de Dados 3 -->
+
               <v-window-item value="option-3">
-                <TurmaNiveisInfo
+                <TurmaDataInfo
                   :listaDeAlunos="listaFiltrada"
-                  :nomeTurma="nomeTurmaSelecionada"
-                  ref="turmaVisualInfo"
+                  ref="turmaDataInfo"
+                  @eventDeleteTest="excluirTeste"
                 />
               </v-window-item>
+              
 
               <!-- Janela de Dados 4 -->
               <v-window-item value="option-4">
@@ -632,7 +639,7 @@ export default {
       let data = [
         [
           "TESTE",
-          "Estrato",
+          "Percurso",
           "Habilidade",
           "Item",
           "Gabarito",

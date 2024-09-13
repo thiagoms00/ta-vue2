@@ -30,7 +30,7 @@
                             :ripple="false"
                             variant="text"
                             @click="toggleIcon(1, 'extrato')"
-                            >Estrato Final</v-btn
+                            >Percurso Final</v-btn
                           >
                         </v-col>
                         <v-col cols="2" class="d-flex justify-center">
@@ -262,7 +262,7 @@
                         <tr>
                           <th>Disciplina</th>
                           <th>Data</th>
-                          <th>Estrato Final</th>
+                          <th>Percurso Final</th>
                           <th>Quest. Feitas</th>
                           <th>% de Acerto</th>
                           <!-- <th>

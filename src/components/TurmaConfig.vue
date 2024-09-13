@@ -91,7 +91,7 @@
 
         <v-row class="ma-0">
           <v-col class="ma-0" cols="8">
-            <p class="text-h5">Estrato Inicial</p>
+            <p class="text-h5">Percurso Inicial</p>
             <p class="text-subtitle-2">
               Escolha o primeiro estrato à ser avaliado no teste adaptativo.
             </p>
