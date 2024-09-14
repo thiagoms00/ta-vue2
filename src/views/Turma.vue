@@ -5,7 +5,7 @@
     <v-main class="bg-blue-grey-lighten-5">
       <v-container>
         <v-row>
-          <v-col cols="2">
+          <v-col cols="2" style="min-width: 270px">
             <div class="elevation-2 rounded-lg">
               <v-expansion-panels>
                 <v-expansion-panel bg-color="#1E3892" class="rounded-lg">
@@ -15,10 +15,10 @@
                     style="height: 4vh"
                   >
                     <div
-                      class="d-flex justify-space-around align-center h-100 w-100"
+                      class="d-flex justify-center align-center h-100 w-100"
                     >
                       <v-icon icon="mdi-school-outline"> </v-icon>
-                      <div class="text-button">TURMAS</div>
+                      <div class="text-button pl-2">TURMAS</div>
                     </div>
                   </v-expansion-panel-title>
 
@@ -62,31 +62,32 @@
                 style="width: 100%"
               >
                 <v-tab
-                  prepend-icon="mdi-menu"
-                  text="Níveis de aprendizado"
                   value="option-1"
-                  class="pa-1 d-flex justify-center"
-                ></v-tab>
-                
+                  class="pl-4 d-flex justify-start"
+                >
+                <v-icon icon="mdi-menu"> </v-icon>
+                  Níveis de aprendizado
+                </v-tab>
+
                 <v-tab
                   prepend-icon="mdi-compass-outline"
                   text="Sequência na avaliação"
                   value="option-2"
-                  class="pa-1 d-flex justify-center"
+                  class="pl-4 d-flex justify-start"
                 ></v-tab>
 
                 <v-tab
                   prepend-icon="mdi-checkbox-outline"
                   text="Dados gerais"
                   value="option-3"
-                  class="pa-1 d-flex justify-center"
+                  class="pl-4 d-flex justify-start"
                 ></v-tab>
-               
+
                 <v-tab
                   prepend-icon="mdi-chart-bar"
                   text="Geral"
                   value="option-4"
-                  class="pa-1 d-flex justify-center"
+                  class="pl-4 d-flex justify-start"
                 ></v-tab>
                 <!-- <v-tab
                   prepend-icon="mdi-remote-desktop"
@@ -98,23 +99,24 @@
                   prepend-icon="mdi-cog"
                   text="Configurações"
                   value="option-6"
-                  class="pa-1 d-flex justify-center"
+                  class="pl-4 d-flex justify-start"
                 ></v-tab>
               </v-tabs>
             </v-sheet>
 
             <!-- Campo de busca de aluno -->
-            <div class="mt-4">
+            
               <v-text-field
                 append-inner-icon="mdi-magnify"
                 density="compact"
                 label="Buscar aluno"
                 variant="solo"
                 v-model="search"
-                class="custom-border buscar-field"
+                class="custom-border buscar-field mt-4"
+                style="width: 100%;"
               >
               </v-text-field>
-            </div>
+            
           </v-col>
 
           <v-col>
@@ -148,8 +150,6 @@
                 />
               </v-window-item>
 
-              
-
               <!-- Janela de Dados 2 -->
               <v-window-item value="option-2">
                 <TurmaMapInfo
@@ -169,7 +169,6 @@
                   @eventDeleteTest="excluirTeste"
                 />
               </v-window-item>
-              
 
               <!-- Janela de Dados 4 -->
               <v-window-item value="option-4">
@@ -413,7 +412,6 @@ export default {
     },
 
     selecionaTurma(turmaValue, index) {
-      
       this.nomeTurmaSelecionada = turmaValue.nome;
       this.loadingStatesTurmas[index] = true;
       this.turmaSelecionada = turmaValue.id;
@@ -798,14 +796,15 @@ export default {
 
 @media (max-width: 1600px) {
   .buscar-field .v-input__control {
-    width: 12.5vw !important;
+    
+    /* width: 12.5vw !important; */
     font-size: 1px;
   }
 }
 
 @media (max-width: 1200px) {
   .buscar-field .v-input__control {
-    width: 13vw !important;
+    /* width: 13vw !important; */
     font-size: 1px;
   }
 }
