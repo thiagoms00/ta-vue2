@@ -42,9 +42,9 @@
           </v-container>
           <v-container>
             <v-expansion-panels variant="accordion" class="">
-              <v-expansion-panel v-for="(item, index) in listaTurma" :key="item.name" ref="panels" class=""
+              <v-expansion-panel v-for="(item, index) in listaTurma" :key="item.name" ref="panels" class="" @click="geraDescricaoHab(index)"
                 style="border-radius: 0px">
-                <v-expansion-panel-title style="height: 6vh" @click="geraDescricaoHab(index)">
+                <v-expansion-panel-title style="height: 6vh">
                   <v-row class="align-center">
                     <v-col class="pa-0" cols="3">
                       <div class="text-left ml-7 main-text">
@@ -76,9 +76,9 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="item in habilidades" :key="item.nome">
-                        <td class="">{{ item.nome }}</td>
-                        <td>{{ item.desc }}</td>
+                      <tr v-for="(item,index) in habilidades" :key="item.nome">
+                        <td class="text-left">{{ item.nome }}</td>
+                        <td class="desc-hab" :class="habilidades[index].colorClass">{{ item.desc }}</td>
                       </tr>
                     </tbody>
                   </v-table>
@@ -111,50 +111,62 @@ export default {
       dadosGraph: [],
       isOpen: false,
       oldIndex: 99,
+      descColor: '',
       habilidades: [
         {
           nome: 'H01',
-          desc: 'PLACEHOLDER'
+          desc: 'PLACEHOLDER',
+          colorClass : '',
         },
         {
           nome: 'H02',
-          desc: 'PLACEHOLDER'
+          desc: 'PLACEHOLDER',
+          colorClass : '',
         },
         {
           nome: 'H03',
-          desc: 'PLACEHOLDER'
+          desc: 'PLACEHOLDER',
+          colorClass : '',
         },
         {
           nome: 'H04',
-          desc: 'PLACEHOLDER'
+          desc: 'PLACEHOLDER',
+          colorClass : '',
         },
         {
           nome: 'H05',
-          desc: 'PLACEHOLDER'
+          desc: 'PLACEHOLDER',
+          colorClass : '',
         },
         {
           nome: 'H06',
-          desc: 'PLACEHOLDER'
+          desc: 'PLACEHOLDER',
+          colorClass : '',
         },
         {
           nome: 'H07',
-          desc: 'PLACEHOLDER'
+          desc: 'PLACEHOLDER',
+          colorClass : '',
         },
         {
           nome: 'H08',
-          desc: 'PLACEHOLDER'
+          desc: 'PLACEHOLDER',
+          colorClass : '',
         },
         {
           nome: 'H09',
-          desc: 'PLACEHOLDER'
+          desc: 'PLACEHOLDER',
+          colorClass : '',
         },
         {
           nome: 'H10',
-          desc: 'PLACEHOLDER'
+          desc: 'PLACEHOLDER',
+          colorClass : '',
         },
         {
           nome: 'H11',
-          desc: 'PLACEHOLDER'
+          desc: 'PLACEHOLDER',
+          colorClass : '',
         },
       ]
 
@@ -183,11 +195,11 @@ export default {
 
   created() {
     this.listaTurma = this.listaDeAlunos;
-
+    
   },
 
   mounted() {
-
+    
   },
 
   methods: {
@@ -313,22 +325,11 @@ export default {
         for (let i = 0; i <= 10; i++) {
           const hab = this.listaTurma[index].listaDeHab['Lingua Portuguesa'][i];
           console.log(hab);
+          this.habilidades[i].desc = this.descByHab(i+1,hab.tentativas,hab.porcentagemAcertos);
 
-          if (hab.tentativas === 0) {
-            this.habilidades[i].desc = 'O aluno não respondeu uma questão com essa habilidade.';
-          }
-          else if (hab.tentativas >= 1 && hab.porcentagemAcertos === 100) {
-            this.habilidades[i].desc = 'Reconheceu uma letra do alfabeto.';
-          }
-          else if (hab.tentativas >= 1 && hab.porcentagemAcertos === 0) {
-            this.habilidades[i].desc = 'Não reconheceu uma letra do alfabeto.';
-          }
-          else if (hab.tentativas >= 1 && hab.porcentagemAcertos >= 0 && hab.porcentagemAcertos <= 99.9) {
-            this.habilidades[i].desc = 'Há situações em que se reconhece uma letra do alfabeto e outras em que isso não ocorre, o que possivelmente evidencia que essa habilidade está em desenvolvimento.';
-          }
+        
         }
 
-        //Alterando habilidade 02
 
 
 
@@ -341,30 +342,209 @@ export default {
 
 
     },
+    //descByHab(i,hab.tentativas,hab.acertos)
+    descByHab(numHab, tentativas, acertos) {
+      console.log(this.habilidades[numHab-1].colorClass)
 
-    descByHab(numHab,tentativas,acertos) {
       switch (numHab) {
         case 1:
+          if (tentativas === 0) {
+            this.habilidades[numHab-1].colorClass = 'tent0';
+            return ('O aluno não respondeu uma questão com essa habilidade');
+          }
+          else if (tentativas >= 1 && acertos === 100) {
+            this.habilidades[numHab-1].colorClass = 'hab100';
+            return ('Reconheceu uma letra do alfabeto.');
+          }
+          else if (tentativas >= 1 && acertos > 0 && acertos < 100) {
+            this.habilidades[numHab-1].colorClass = 'hab50';
+            return ('Há situações em que se reconhece uma letra do alfabeto e outras em que isso não ocorre, o que possivelmente evidencia que essa habilidade está em desenvolvimento.');
+          }
+          else if (tentativas >= 1 && acertos === 0) {
+            this.habilidades[numHab-1].colorClass = 'hab0';
+            return ('Não reconheceu uma letra do alfabeto.');
+          }
           break;
         case 2:
+          if (tentativas === 0) {
+            this.habilidades[numHab-1].colorClass = 'tent0'
+            return ('O aluno não respondeu uma questão com essa habilidade')
+          }
+          else if (tentativas >= 1 && acertos === 100) {
+            this.habilidades[numHab-1].colorClass = 'hab100'
+            return ('Identificou o número de sílabas de uma palavra.')
+          }
+          else if (tentativas >= 1 && acertos > 0 && acertos < 100) {
+            this.habilidades[numHab-1].colorClass = 'hab50'
+            return ('Não identificou o número de sílabas de uma palavra.')
+          }
+          else if (tentativas >= 1 && acertos === 0) {
+            this.habilidades[numHab-1].colorClass = 'hab0'
+            return ('A oscilação entre erros e acertos sugere que a habilidade de reconhecer o número de sílabas de uma palavra está em desenvolvimento.')
+          }
+
           break;
         case 3:
+          if (tentativas === 0) {
+            this.habilidades[numHab-1].colorClass = 'tent0'
+            return ('O aluno não respondeu uma questão com essa habilidade')
+          }
+          else if (tentativas >= 1 && acertos === 100) {
+            this.habilidades[numHab-1].colorClass = 'hab100'
+            return ('Reconheceu uma mesma letra escrita com fontes e formatos distintos.')
+          }
+          else if (tentativas >= 1 && acertos > 0 && acertos < 100) {
+            this.habilidades[numHab-1].colorClass = 'hab50'
+            return ('O reconhecimento de uma mesma letra reproduzida com diferentes fontes e formatos ora é realizado, ora não, o que indicia que essa habilidade está em desenvolvimento.')
+          }
+          else if (tentativas >= 1 && acertos === 0) {
+            this.habilidades[numHab-1].colorClass = 'hab0'
+            return ('Não reconheceu uma mesma letra reproduzida com diferentes fontes e formatos.')
+          }
           break;
         case 4:
+          if (tentativas === 0) {
+            this.habilidades[numHab-1].colorClass = 'tent0'
+            return ('O aluno não respondeu uma questão com essa habilidade')
+          }
+          else if (tentativas >= 1 && acertos === 100) {
+            this.habilidades[numHab-1].colorClass = 'hab100'
+            return ('Reconheceu um elemento sonoro específico em uma palavra.')
+          }
+          else if (tentativas >= 1 && acertos > 0 && acertos < 100) {
+            this.habilidades[numHab-1].colorClass = 'hab50'
+            return ('Há ocorrências de erro e de acerto no reconhecimento de elementos sonoros específicos em palavras, o que pode sinalizar que essa habilidade está em desenvolvimento.')
+          }
+          else if (tentativas >= 1 && acertos === 0) {
+            this.habilidades[numHab-1].colorClass = 'hab0'
+            return ('Não reconheceu um elemento sonoro específico em uma palavra.')
+          }
           break;
         case 5:
+          if (tentativas === 0) {
+            this.habilidades[numHab-1].colorClass = 'tent0'
+            return ('O aluno não respondeu uma questão com essa habilidade')
+          }
+          else if (tentativas >= 1 && acertos === 100) {
+            this.habilidades[numHab-1].colorClass = 'hab100'
+            return ('Decodificou uma palavra.')
+          }
+          else if (tentativas >= 1 && acertos > 0 && acertos < 100) {
+            this.habilidades[numHab-1].colorClass = 'hab50'
+            return ('A decodificação de palavras oscila entre acertos e erros, o que pode indicar que essa habilidade está em desenvolvimento')
+          }
+          else if (tentativas >= 1 && acertos === 0) {
+            this.habilidades[numHab-1].colorClass = 'hab0'
+            return ('Não decodificou uma palavra.')
+          }
           break;
         case 6:
+          if (tentativas === 0) {
+            this.habilidades[numHab-1].colorClass = 'tent0'
+            return ('O aluno não respondeu uma questão com essa habilidade')
+          }
+          else if (tentativas >= 1 && acertos === 100) {
+            this.habilidades[numHab-1].colorClass = 'hab100'
+            return ('Reconheceu uma informação explícita em um texto.')
+          }
+          else if (tentativas >= 1 && acertos > 0 && acertos < 100) {
+            this.habilidades[numHab-1].colorClass = 'hab50'
+            return ('O reconhecimento de informações explícitas em textos pode estar em desenvolvimento, com ocorrências de erros e acertos.')
+          }
+          else if (tentativas >= 1 && acertos === 0) {
+            this.habilidades[numHab-1].colorClass = 'hab0'
+            return ('Não reconheceu uma informação explícita em um texto.')
+          }
           break;
         case 7:
+          if (tentativas === 0) {
+            this.habilidades[numHab-1].colorClass = 'tent0'
+            return ('O aluno não respondeu uma questão com essa habilidade')
+          }
+          else if (tentativas >= 1 && acertos === 100) {
+            this.habilidades[numHab-1].colorClass = 'hab100'
+            return ('Reconheceu uma informação em um texto que articula linguagem verbal e não verbal.')
+          }
+          else if (tentativas >= 1 && acertos > 0 && acertos < 100) {
+            this.habilidades[numHab-1].colorClass = 'hab50'
+            return ('A produção de respostas corretas e incorretas na análise de textos que articulam linguagem verbal e não verbal indicia que essa habilidade está em desenvolvimento.')
+          }
+          else if (tentativas >= 1 && acertos === 0) {
+            this.habilidades[numHab-1].colorClass = 'hab0'
+            return ('Não reconheceu uma informação em um texto que articula linguagem verbal e não verbal.')
+          }
           break;
         case 8:
+          if (tentativas === 0) {
+            this.habilidades[numHab-1].colorClass = 'tent0'
+            return ('O aluno não respondeu uma questão com essa habilidade')
+          }
+          else if (tentativas >= 1 && acertos === 100) {
+            this.habilidades[numHab-1].colorClass = 'hab100'
+            return ('Identificou o tema ou o assunto principal de um texto.')
+          }
+          else if (tentativas >= 1 && acertos > 0 && acertos < 100) {
+            this.habilidades[numHab-1].colorClass = 'hab50'
+            return ('A presença de erros e acertos em questões que demandam a identificação do tema ou do assunto principal de textos indica que essa é uma habilidade em desenvolvimento')
+          }
+          else if (tentativas >= 1 && acertos === 0) {
+            this.habilidades[numHab-1].colorClass = 'hab0'
+            return ('Não identificou o tema ou o assunto principal de um texto.')
+          }
           break;
         case 9:
+          if (tentativas === 0) {
+            this.habilidades[numHab-1].colorClass = 'tent0'
+            return ('O aluno não respondeu uma questão com essa habilidade')
+          }
+          else if (tentativas >= 1 && acertos === 100) {
+            this.habilidades[numHab-1].colorClass = 'hab100'
+            return ('Identificou a finalidade ou o objetivo de um texto.')
+          }
+          else if (tentativas >= 1 && acertos > 0 && acertos < 100) {
+            this.habilidades[numHab-1].colorClass = 'hab50'
+            return ('A presença de erros e acertos em questões que demandam a identificação do tema ou do assunto de diferentes textos indica que essa habilidade está em desenvolvimento.')
+          }
+          else if (tentativas >= 1 && acertos === 0) {
+            this.habilidades[numHab-1].colorClass = 'hab0'
+            return ('Não identificou a finalidade ou o objetivo de um texto.')
+          }
           break;
         case 10:
+          if (tentativas === 0) {
+            this.habilidades[numHab-1].colorClass = 'tent0'
+            return ('O aluno não respondeu uma questão com essa habilidade')
+          }
+          else if (tentativas >= 1 && acertos === 100) {
+            this.habilidades[numHab-1].colorClass = 'hab100'
+            return ('Inferiu uma informação implícita em um texto.')
+          }
+          else if (tentativas >= 1 && acertos > 0 && acertos < 100) {
+            this.habilidades[numHab-1].colorClass = 'hab50'
+            return ('A presença de erros e acertos indicia que a habilidade de inferir informações em textos está em desenvolvimento.')
+          }
+          else if (tentativas >= 1 && acertos === 0) {
+            this.habilidades[numHab-1].colorClass = 'hab0'
+            return ('Não inferiu uma informação implícita em um texto.')
+          }
           break;
         case 11:
+          if (tentativas === 0) {
+            this.habilidades[numHab-1].colorClass = 'tent0'
+            return ('O aluno não respondeu uma questão com essa habilidade')
+          }
+          else if (tentativas >= 1 && acertos === 100) {
+            this.habilidades[numHab-1].colorClass = 'hab100'
+            return ('Estabeleceu relação de causa e consequência em um texto.')
+          }
+          else if (tentativas >= 1 && acertos > 0 && acertos < 100) {
+            this.habilidades[numHab-1].colorClass = 'hab50'
+            return ('Não conseguiu estabelecer relação de causa e consequência em um texto.')
+          }
+          else if (tentativas >= 1 && acertos === 0) {
+            this.habilidades[numHab-1].colorClass = 'hab0'
+            return ('A habilidade de estabelecer relações de causa e consequência pode estar em desenvolvimento, com ocorrências de respostas corretas e incorretas.')
+          }
           break;
 
       }
@@ -379,6 +559,8 @@ export default {
 .title-column {
   font-weight: bold !important;
   font-size: 0.91rem !important;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+  margin-top: 2vh !important;
 }
 
 
@@ -390,6 +572,29 @@ export default {
 .main-text {
   font-size: 1rem !important;
 }
+
+.desc-hab{
+  font-size: 1rem !important;
+}
+
+.tent0{
+  background-color: #fff !important;
+}
+
+.hab100{
+  color: #1a7a11 !important;
+}
+
+.hab50{
+  color: #ee7b1d !important;
+}
+
+
+.hab0{
+  color: #ef2d2d !important;
+}
+
+
 
 @media (max-width: 1800px) {}
 </style>
