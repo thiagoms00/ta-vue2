@@ -16,8 +16,6 @@
 
       <v-sheet>
 
-
-
         <v-sheet class="d-flex flex-column rounded-t-lg">
           <v-container class="d-flex flex-row rounded-b-lg title-container">
             <v-row>
@@ -40,7 +38,7 @@
             </v-row>
 
           </v-container>
-          <v-container>
+          <v-container class="exp-container">
             <v-expansion-panels variant="accordion" class="">
               <v-expansion-panel v-for="(item, index) in listaTurma" :key="item.name" ref="panels" class="" @click="geraDescricaoHab(index)"
                 style="border-radius: 0px">
@@ -563,6 +561,15 @@ export default {
   margin-top: 2vh !important;
 }
 
+
+.title-container{
+  min-width: 100%;
+
+}
+
+.exp-container{
+  min-width: 100%;
+}
 
 .table-text {
   font-size: 1rem !important;
