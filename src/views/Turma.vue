@@ -3,201 +3,204 @@
     <NavBar />
 
     <v-main class="bg-blue-grey-lighten-5">
-      <v-container>
-        <v-row>
-          <v-col cols="2" style="min-width: 270px">
-            <div class="elevation-2 rounded-lg">
-              <v-expansion-panels>
-                <v-expansion-panel bg-color="#1E3892" class="rounded-lg">
-                  <v-expansion-panel-title
-                    class="rounded-lg"
-                    v-ripple
-                    style="height: 4vh"
-                  >
-                    <div
-                      class="d-flex justify-center align-center h-100 w-100"
-                    >
-                      <v-icon icon="mdi-school-outline"> </v-icon>
-                      <div class="text-button pl-2">TURMAS</div>
-                    </div>
-                  </v-expansion-panel-title>
-
-                  <v-divider></v-divider>
-
-                  <!-- Expansion Panel com as turmas de um professor -->
-                  <v-expansion-panel-text class="rounded-lg">
-                    <v-list class="pa-0 rounded-b-lg">
-                      <v-list-item
-                        v-for="(item, index) in listaNomeTurma"
-                        :key="index"
-                        density="compact"
-                        class="d-flex justify-center text-subtitle-2"
-                        @click="selecionaTurma(item, index)"
+      <v-container fluid>
+        <v-row class="d-flex justify-center">
+          <v-col cols="11">
+            <v-row>
+              <v-col cols="2" style="min-width: 270px">
+                <div class="elevation-2 rounded-lg">
+                  <v-expansion-panels>
+                    <v-expansion-panel bg-color="#1E3892" class="rounded-lg">
+                      <v-expansion-panel-title
+                        class="rounded-lg"
+                        v-ripple
+                        style="height: 4vh"
                       >
-                        <v-list-item-title
-                          class="name-turma"
-                          v-if="!loadingStatesTurmas[index]"
-                          >{{ item.nome }}</v-list-item-title
+                        <div
+                          class="d-flex justify-center align-center h-100 w-100"
                         >
-                        <v-progress-circular
-                          v-if="loadingStatesTurmas[index]"
-                          indeterminate
-                          size="24"
-                        />
-                      </v-list-item>
-                    </v-list>
-                  </v-expansion-panel-text>
-                </v-expansion-panel>
-              </v-expansion-panels>
-            </div>
+                          <v-icon icon="mdi-school-outline"> </v-icon>
+                          <div class="text-button pl-2">TURMAS</div>
+                        </div>
+                      </v-expansion-panel-title>
 
-            <v-sheet
-              class="custom-switch mt-4 elevation-2 d-flex justify-center align-center"
-              rounded="lg"
-            >
-              <v-tabs
-                v-model="tab"
-                color="primary"
-                direction="vertical"
-                style="width: 100%"
-              >
-                <v-tab
-                  value="option-1"
-                  class="pl-4 d-flex justify-start"
+                      <v-divider></v-divider>
+
+                      <!-- Expansion Panel com as turmas de um professor -->
+                      <v-expansion-panel-text class="rounded-lg">
+                        <v-list class="pa-0 rounded-b-lg">
+                          <v-list-item
+                            v-for="(item, index) in listaNomeTurma"
+                            :key="index"
+                            density="compact"
+                            class="d-flex justify-center text-subtitle-2"
+                            @click="selecionaTurma(item, index)"
+                          >
+                            <v-list-item-title
+                              class="name-turma"
+                              v-if="!loadingStatesTurmas[index]"
+                              >{{ item.nome }}</v-list-item-title
+                            >
+                            <v-progress-circular
+                              v-if="loadingStatesTurmas[index]"
+                              indeterminate
+                              size="24"
+                            />
+                          </v-list-item>
+                        </v-list>
+                      </v-expansion-panel-text>
+                    </v-expansion-panel>
+                  </v-expansion-panels>
+                </div>
+
+                <v-sheet
+                  class="custom-switch mt-4 elevation-2 d-flex justify-center align-center"
+                  rounded="lg"
                 >
-                <v-icon icon="mdi-menu"> </v-icon>
-                  Níveis de aprendizado
-                </v-tab>
+                  <v-tabs
+                    v-model="tab"
+                    color="primary"
+                    direction="vertical"
+                    style="width: 100%"
+                  >
+                    <v-tab
+                      value="option-1"
+                      class="pl-4 d-flex justify-start"
+                      prepend-icon="mdi-menu"
+                      text="Níveis de aprendizado"
+                    >
+                    </v-tab>
 
-                <v-tab
-                  prepend-icon="mdi-compass-outline"
-                  text="Sequência na avaliação"
-                  value="option-2"
-                  class="pl-4 d-flex justify-start"
-                ></v-tab>
+                    <v-tab
+                      prepend-icon="mdi-compass-outline"
+                      text="Sequência na avaliação"
+                      value="option-2"
+                      class="pl-4 d-flex justify-start"
+                    ></v-tab>
 
-                <v-tab
-                  prepend-icon="mdi-checkbox-outline"
-                  text="Dados gerais"
-                  value="option-3"
-                  class="pl-4 d-flex justify-start"
-                ></v-tab>
+                    <v-tab
+                      prepend-icon="mdi-checkbox-outline"
+                      text="Dados gerais"
+                      value="option-3"
+                      class="pl-4 d-flex justify-start"
+                    ></v-tab>
 
-                <v-tab
-                  prepend-icon="mdi-chart-bar"
-                  text="Geral"
-                  value="option-4"
-                  class="pl-4 d-flex justify-start"
-                ></v-tab>
-                <!-- <v-tab
+                    <v-tab
+                      prepend-icon="mdi-chart-bar"
+                      text="Geral"
+                      value="option-4"
+                      class="pl-4 d-flex justify-start"
+                    ></v-tab>
+                    <!-- <v-tab
                   prepend-icon="mdi-remote-desktop"
                   text="Compara"
                   value="option-5"
                   class="pa-1 d-flex justify-center"
                 ></v-tab> -->
-                <v-tab
-                  prepend-icon="mdi-cog"
-                  text="Configurações"
-                  value="option-6"
-                  class="pl-4 d-flex justify-start"
-                ></v-tab>
-              </v-tabs>
-            </v-sheet>
+                    <v-tab
+                      prepend-icon="mdi-cog"
+                      text="Configurações"
+                      value="option-6"
+                      class="pl-4 d-flex justify-start"
+                    ></v-tab>
+                  </v-tabs>
+                </v-sheet>
 
-            <!-- Campo de busca de aluno -->
-            
-              <v-text-field
-                append-inner-icon="mdi-magnify"
-                density="compact"
-                label="Buscar aluno"
-                variant="solo"
-                v-model="search"
-                class="custom-border buscar-field mt-4"
-                style="width: 100%;"
-              >
-              </v-text-field>
-            
-          </v-col>
+                <!-- Campo de busca de aluno -->
 
-          <v-col>
-            <!-- MENSAGEM DE SELEÇÂO DE TURMA -->
-            <v-sheet
-              v-if="!controlOptions"
-              class="d-flex justify-center align-center rounded-lg"
-              height="250"
-              color="grey-lighten-5"
-              border="md"
-            >
-              <p
-                class="text-overline"
-                style="
-                  color: #cfd8dc;
-                  font-size: 3rem !important;
-                  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
-                "
-              >
-                Selecione uma turma
-              </p>
-            </v-sheet>
+                <v-text-field
+                  append-inner-icon="mdi-magnify"
+                  density="compact"
+                  label="Buscar aluno"
+                  variant="solo"
+                  v-model="search"
+                  class="custom-border buscar-field mt-4"
+                  style="width: 100%"
+                >
+                </v-text-field>
+              </v-col>
 
-            <v-window v-model="tab" v-if="controlOptions">
-              <!-- Janela de Dados 1 -->
-              <v-window-item value="option-1">
-                <TurmaNiveisInfo
-                  :listaDeAlunos="listaFiltrada"
-                  :nomeTurma="nomeTurmaSelecionada"
-                  ref="turmaVisualInfo"
-                />
-              </v-window-item>
+              <v-col>
+                <!-- MENSAGEM DE SELEÇÂO DE TURMA -->
+                <v-sheet
+                  v-if="!controlOptions"
+                  class="d-flex justify-center align-center rounded-lg"
+                  height="250"
+                  color="grey-lighten-5"
+                  border="md"
+                >
+                  <p
+                    class="text-overline"
+                    style="
+                      color: #cfd8dc;
+                      font-size: 3rem !important;
+                      text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+                    "
+                  >
+                    Selecione uma turma
+                  </p>
+                </v-sheet>
 
-              <!-- Janela de Dados 2 -->
-              <v-window-item value="option-2">
-                <TurmaMapInfo
-                  :listaDeAlunos="listaFiltrada"
-                  :anoTurma="anoTurma"
-                  :nomeTurma="nomeTurmaSelecionada"
-                  ref="turmaMapInfo"
-                />
-              </v-window-item>
+                <v-window v-model="tab" v-if="controlOptions">
+                  <!-- Janela de Dados 1 -->
+                  <v-window-item value="option-1">
+                    <TurmaNiveisInfo
+                      :listaDeAlunos="listaFiltrada"
+                      :nomeTurma="nomeTurmaSelecionada"
+                      ref="turmaVisualInfo"
+                    />
+                  </v-window-item>
 
-              <!-- Janela de Dados 3 -->
+                  <!-- Janela de Dados 2 -->
+                  <v-window-item value="option-2">
+                    <TurmaMapInfo
+                      :listaDeAlunos="listaFiltrada"
+                      :anoTurma="anoTurma"
+                      :nomeTurma="nomeTurmaSelecionada"
+                      ref="turmaMapInfo"
+                    />
+                  </v-window-item>
 
-              <v-window-item value="option-3">
-                <TurmaDataInfo
-                  :listaDeAlunos="listaFiltrada"
-                  ref="turmaDataInfo"
-                  @eventDeleteTest="excluirTeste"
-                />
-              </v-window-item>
+                  <!-- Janela de Dados 3 -->
 
-              <!-- Janela de Dados 4 -->
-              <v-window-item value="option-4">
-                <TurmaGraphInfo
-                  :listaDeAlunos="listaFiltrada"
-                  :habilidadesTurma="habilidadesTurmaAtual"
-                  :nomeTurma="nomeTurmaSelecionada"
-                />
-              </v-window-item>
+                  <v-window-item value="option-3">
+                    <TurmaDataInfo
+                      :listaDeAlunos="listaFiltrada"
+                      ref="turmaDataInfo"
+                      @eventDeleteTest="excluirTeste"
+                    />
+                  </v-window-item>
 
-              <!-- Janela de Dados 4 -->
-              <v-window-item value="option-5">
-                <TurmaCompara
-                  :listaDeAlunos="listaFiltrada"
-                  :iDsTurma="listaNomeTurma"
-                  :turmaAtual="turmaSelecionada"
-                />
-              </v-window-item>
+                  <!-- Janela de Dados 4 -->
+                  <v-window-item value="option-4">
+                    <TurmaGraphInfo
+                      :listaDeAlunos="listaFiltrada"
+                      :habilidadesTurma="habilidadesTurmaAtual"
+                      :nomeTurma="nomeTurmaSelecionada"
+                    />
+                  </v-window-item>
 
-              <v-window-item value="option-6">
-                <TurmaConfig
-                  :listaDeAlunos="listaFiltrada"
-                  :habilidadesTurma="habilidadesTurmaAtual"
-                  :estratoInicial="estratoInicial"
-                  :turmaSelecionada="turmaSelecionada"
-                  :nomeTurma="nomeTurmaSelecionada"
-                ></TurmaConfig>
-              </v-window-item>
-            </v-window>
+                  <!-- Janela de Dados 4 -->
+                  <v-window-item value="option-5">
+                    <TurmaCompara
+                      :listaDeAlunos="listaFiltrada"
+                      :iDsTurma="listaNomeTurma"
+                      :turmaAtual="turmaSelecionada"
+                    />
+                  </v-window-item>
+
+                  <v-window-item value="option-6">
+                    <TurmaConfig
+                      :listaDeAlunos="listaFiltrada"
+                      :habilidadesTurma="habilidadesTurmaAtual"
+                      :estratoInicial="estratoInicial"
+                      :turmaSelecionada="turmaSelecionada"
+                      :nomeTurma="nomeTurmaSelecionada"
+                    ></TurmaConfig>
+                  </v-window-item>
+                </v-window>
+              </v-col>
+            </v-row>
           </v-col>
         </v-row>
       </v-container>
@@ -796,7 +799,6 @@ export default {
 
 @media (max-width: 1600px) {
   .buscar-field .v-input__control {
-    
     /* width: 12.5vw !important; */
     font-size: 1px;
   }
