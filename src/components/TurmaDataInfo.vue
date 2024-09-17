@@ -181,7 +181,7 @@
                             'Lingua Portuguesa'
                           ]" :key="index" class="ma-0 pa-0">
                             <span class="text-overline">
-                              Habilidade {{ habilidade.habilidade }} -
+                              H{{habilidade.habilidade }} -
                             </span>
                             <span class="text-caption">
                               {{ habilidade.porcentagemAcertos }} % de taxa de
