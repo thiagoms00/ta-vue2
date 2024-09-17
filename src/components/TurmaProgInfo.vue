@@ -7,23 +7,7 @@
                   <v-icon icon="mdi-numeric-1"></v-icon>
                 </v-tab>
 
-                <v-tab value="teste2">
-                  <v-icon icon="mdi-numeric-2"></v-icon>
-                  
-                </v-tab>
-
-                <v-tab value="teste3">
-                  <v-icon icon="mdi-numeric-3"></v-icon>
-                  
-                </v-tab>
-
-                <v-tab value="teste4">
-                  <v-icon icon="mdi-numeric-4"></v-icon>
-                </v-tab>
-
-                <v-tab value="teste5">
-                  <v-icon icon="mdi-numeric-5"></v-icon>
-                </v-tab>
+               
               </v-tabs>
         </v-card>
 
@@ -33,12 +17,26 @@
             <v-table v-if="this.testes_org.length>=1">
                 <thead>
                 <tr>
+                    
                     <th class="text-left">
                     Questão
+                    <v-tooltip activator="parent" location="end"
+                        class="main-tooltip">
+
+                        <p class="tooltip-hab t-text">
+                            <spam class="t-text" :style="{ color: '#1a7a11' }">VERDE</spam> {{ tooltip1 }}
+                        </p>
+                        <p class="tooltip-hab t-text">
+                            <spam class="t-text" :style="{ color: '#fce78f' }">Amarelo</spam> {{ tooltip2 }}
+                        </p>
+                       
+                    </v-tooltip>
                     </th>
                     <th class="text-left">
                     Habilidade
+                    
                     </th>
+                   
                 </tr>
                 </thead>
                 <tbody>
@@ -47,7 +45,8 @@
                         :key="item.estrato"
                     >
                         
-                        <td v-if="item.acerto==='Sim'" class="cor-acerto">{{ index + 1 }}</td>
+                        <td v-if="item.acerto==='Sim'" class="cor-acerto">
+                            {{ index + 1 }}</td>
                         <td v-else class="cor-erro">{{ index + 1 }}</td>
 
                         <td v-if="item.acerto==='Sim'" class="cor-acerto">{{ this.getHabilidadeDescricao(item.habilidade) }}</td>
@@ -190,6 +189,8 @@
       return {
         qtdTestes : 1,
         tab: 'teste1',
+        tooltip1 : '- Aluno acertou a questão.',
+        tooltip2 : '- Aluno errou a questão.',
 
         
         testes_org:[],
@@ -289,6 +290,18 @@
     background-color: #fce78f; 
     color: black;
     font-weight: 500;
+}
+
+.info-btn {
+  font-size: 1.1rem;
+  font-weight: bold;
+  background-color: #1E3892;
+  color: #fff;
+  margin-left: 25vw !important;
+  
+}
+.t-text{
+  font-size: 1rem;
 }
  
 </style>
