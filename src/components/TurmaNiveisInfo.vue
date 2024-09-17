@@ -71,6 +71,13 @@
                       <tr class="tread1">
                         <th class="table-text">Habilidade</th>
                         <th class="table-text">Descrição</th>
+                        <th class="table-text">
+                          <v-tooltip text="Placeholder" location="start" class="info-tooltip">
+                            <template v-slot:activator="{ props }">
+                              <v-btn v-bind="props" class="info-btn">Info</v-btn>
+                            </template>
+                          </v-tooltip>
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
@@ -166,8 +173,9 @@ export default {
           desc: 'PLACEHOLDER',
           colorClass : '',
         },
-      ]
-
+      ],
+      tooltipInfo : ''
+        
     };
   },
 
@@ -583,6 +591,14 @@ export default {
 .desc-hab{
   font-size: 1rem !important;
 }
+
+.info-btn{
+  font-size: 0.9
+  rem;
+  font-weight: bold;
+}
+
+
 
 .tent0{
   background-color: #fff !important;
