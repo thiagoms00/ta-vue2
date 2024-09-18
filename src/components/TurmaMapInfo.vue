@@ -36,7 +36,7 @@
                     <v-divider vertical></v-divider>
 
                     <div class="text-center text-overline" style="width: 100%;">
-                      Percurso {{ i-aux_estrato }}
+                      Percurso {{ i-aux_estrato+1 }}
                     </div>
                   </v-col>
                 </v-row>

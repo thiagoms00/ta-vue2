@@ -24,13 +24,17 @@
                         class="main-tooltip">
 
                         <p class="tooltip-hab t-text">
-                            <spam class="t-text" :style="{ color: '#1a7a11' }">VERDE</spam> {{ tooltip1 }}
-                        </p>
+<!--                             <spam class="t-text" :style="{ color: '#1a7a11' }">Verde</spam> {{ tooltip1 }}
+ -->                        </p>
                         <p class="tooltip-hab t-text">
-                            <spam class="t-text" :style="{ color: '#fce78f' }">Amarelo</spam> {{ tooltip2 }}
-                        </p>
+<!--                             <spam class="t-text" :style="{ color: '#ef2d2d' }">Vermelho</spam> {{ tooltip2 }}
+ -->                        </p>
                        
                     </v-tooltip>
+                    </th>
+                    <th class="text-left">
+                    Percurso
+                    
                     </th>
                     <th class="text-left">
                     Habilidade
@@ -45,10 +49,11 @@
                         :key="item.estrato"
                     >
                         
-                        <td v-if="item.acerto==='Sim'" class="cor-acerto">
+                       <!--  <td v-if="item.acerto==='Sim'" class="cor-acerto">
                             {{ index + 1 }}</td>
-                        <td v-else class="cor-erro">{{ index + 1 }}</td>
-
+                        <td v-else class="cor-erro">{{ index + 1 }}</td> -->
+                        <td class="cor-padrao">{{ index + 1 }}</td>
+                        <td class="cor-padrao">{{ item.estrato+1 }}</td>
                         <td v-if="item.acerto==='Sim'" class="cor-acerto">{{ this.getHabilidadeDescricao(item.habilidade) }}</td>
                         <td v-else class="cor-erro">{{ this.getHabilidadeDescricao(item.habilidade) }}</td>
 
@@ -58,7 +63,7 @@
 
             
         </v-window-item>
-        <v-window-item value="teste2">
+        <!-- <v-window-item value="teste2">
             <v-table v-if="this.testes_org.length>=2">
                 <thead>
                 <tr>
@@ -169,7 +174,7 @@
                     </tr>
                 </tbody>
          </v-table>
-        </v-window-item>
+        </v-window-item> -->
     </v-window>
 
     </v-container>
@@ -277,18 +282,26 @@
 
 .text-left{
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: bold !important;
+}
+
+.cor-padrao{
+    color: black;
+    font-size: 1rem;
+    font-weight: 500;
 }
 
 .cor-acerto{
-    background-color: #7df76d;
-    color: black;
+    color: #1a7a11;
+    font-size: 1rem;
+
     font-weight: 500;
 }
 
 .cor-erro{
-    background-color: #fce78f; 
-    color: black;
+    color: #ef2d2d;
+    font-size: 1rem;
+
     font-weight: 500;
 }
 

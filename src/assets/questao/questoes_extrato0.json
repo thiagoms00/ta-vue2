@@ -225,29 +225,7 @@
             
 
         },
-        {
-            "id" : "LP_H06_01_013",                             
-            "layout" : "m3",
-            "type" : "Lingua portuguesa",
-            "textTitle":"",
-            "qText":"",
-            "img1":"url(/src/assets/imgs/extrato0/LP_H07_01_013_M.png)",
-            "img2":"",
-            "text": "O que está sendo anunciado?",
-            "audio1": "/src/assets/audios/extrato0/LP_H07_01_013_M.mp3",
-            "audio2": "",
-            "alt1": "A reforma de uma casa.",
-            "alt2": "A venda de uma casa.",
-            "alt3": "Um escritório.",
-            "alt4": "Um telefone.",
-            "answer" : "A venda de uma casa.",
-            "fonte" : "www.olx.com.br.(Fragmento adaptado)",
-            "tempo": 0,
-            "tentativas": 0,
-            "acertos": 0,
-            "ensino" : "geral"
-            
-        },
+       
         {
             "id" : "LP_H01_11_001",                             
             "layout" : "m5",

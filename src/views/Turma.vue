@@ -57,12 +57,14 @@
                   class="custom-switch mt-4 elevation-2 d-flex justify-center align-center"
                   rounded="lg"
                 >
+                
                   <v-tabs
                     v-model="tab"
                     color="primary"
                     direction="vertical"
                     style="width: 100%"
                   >
+                  
                     <v-tab
                       value="option-1"
                       class="pl-4 d-flex justify-start"
@@ -70,7 +72,6 @@
                       text="Níveis de aprendizado"
                     >
                     </v-tab>
-
                     <v-tab
                       prepend-icon="mdi-compass-outline"
                       text="Sequência na avaliação"
@@ -84,7 +85,7 @@
                       value="option-3"
                       class="pl-4 d-flex justify-start"
                     ></v-tab>
-
+                    <v-divider :thickness="5" color="#4f5263" class="border-opacity-25"></v-divider>
                     <v-tab
                       prepend-icon="mdi-chart-bar"
                       text="Geral"
