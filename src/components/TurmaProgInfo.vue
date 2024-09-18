@@ -24,11 +24,11 @@
                         class="main-tooltip">
 
                         <p class="tooltip-hab t-text">
-<!--                             <spam class="t-text" :style="{ color: '#1a7a11' }">Verde</spam> {{ tooltip1 }}
- -->                        </p>
+                            <span class="t-text" :style="{ color: '#1a7a11' }">Verde</span> {{ tooltip1 }}
+                         </p>
                         <p class="tooltip-hab t-text">
-<!--                             <spam class="t-text" :style="{ color: '#ef2d2d' }">Vermelho</spam> {{ tooltip2 }}
- -->                        </p>
+                            <span class="t-text" :style="{ color: '#ef2d2d' }">Vermelho</span> {{ tooltip2 }}
+                         </p>
                        
                     </v-tooltip>
                     </th>

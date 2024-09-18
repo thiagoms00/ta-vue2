@@ -75,13 +75,13 @@
                             class="main-tooltip">
 
                             <p class="tooltip-hab t-text">
-                              <spam class="t-text" :style="{ color: '#1a7a11' }">VERDE</spam> {{ tooltip1 }}
+                              <span class="t-text" :style="{ color: '#1a7a11' }">VERDE</span> {{ tooltip1 }}
                             </p>
                             <p class="tooltip-hab t-text">
-                              <spam class="t-text" :style="{ color: '#ee7b1d' }">LARANJA</spam> {{ tooltip2 }}
+                              <span class="t-text" :style="{ color: '#ee7b1d' }">LARANJA</span> {{ tooltip2 }}
                             </p>
                             <p class="tooltip-hab t-text">
-                              <spam class="t-text" :style="{ color: '#ef2d2d' }">VERMELHO</spam> {{ tooltip3 }}
+                              <span class="t-text" :style="{ color: '#ef2d2d' }">VERMELHO</span> {{ tooltip3 }}
                             </p>
                           </v-tooltip>
                         </th>
@@ -100,6 +100,31 @@
                       </tr>
                     </tbody>
                   </v-table>
+
+                  <v-divider :thickness="10" color="grey"></v-divider>
+                  <v-table>
+                    <thead>
+                      <tr class="tread1">
+                        <th class="table-text">Cor
+                        </th>
+                        <th class="table-text">Significado</th>
+
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      <tr v-for="(item, index) in info" :key="item.nome">
+                        <td class="text-left text-h" :class="info[index].colorClass">{{ item.nome }} 
+                          
+                        </td>
+                        <td class="desc-hab">
+                          {{ item.desc }}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </v-table>
+                  <v-divider :thickness="10" color="grey"></v-divider>
+                  
                 </v-expansion-panel-text>
               </v-expansion-panel>
 
@@ -130,6 +155,25 @@ export default {
       isOpen: false,
       oldIndex: 99,
       descColor: '',
+      info : [
+        {
+          nome : 'Verde',
+          desc : 'Taxa de acerto de 100% na habilidade.',
+          colorClass : 'hab100'
+        },
+        {
+          nome : 'Laranja',
+          desc : 'Taxa de acerto inferior à 100% na habilidade.',
+          colorClass : 'hab50'
+
+        },
+        {
+          nome : 'Vermelho',
+          desc : 'Nenhum acerto na habilidade.',
+          colorClass : 'hab0'
+
+        }
+      ],
       habilidades: [
         {
           nome: 'H01',
