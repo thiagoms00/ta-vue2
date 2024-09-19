@@ -107,7 +107,6 @@ export default {
             tooltip: {
               callbacks: {
                 label: function (tooltipItem) {
-                  console.log(tooltipItem);
                   const posi = tooltipItem.dataIndex
                   // Obtém o valor da faixa e a faixa correspondente
                   const datasetIndex = tooltipItem.datasetIndex;
@@ -116,7 +115,7 @@ export default {
                   const label = tooltipItem.label;
 
                   // Formata a tooltip para mostrar a quantidade de alunos
-                  return `${datasetLabel}: ${dataValue} alunos em ${label}`;
+                  return `${datasetLabel}: ${dataValue} alunos`;
                 },
                 title: function (tooltipItems) {
                   return tooltipItems[0].label;

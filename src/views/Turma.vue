@@ -409,7 +409,6 @@ export default {
           }
         }
       }
-      console.log(listaHabilidades);
       return listaHabilidades;
     },
 
@@ -443,7 +442,6 @@ export default {
           this.anoTurma = response.data.anoTurma;
           this.estratoInicial = response.data.estratoInicial;
           this.habilidadesTurmaAtual = response.data.habTurma;
-          console.log(this.habilidadesTurmaAtual)
           //criando lista com os ultimos elementos.
           for (let i = 0; i < this.listaTurma.length; i++) {
             if (
