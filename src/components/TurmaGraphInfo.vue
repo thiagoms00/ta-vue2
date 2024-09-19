@@ -36,6 +36,8 @@
               class="pa-1 d-flex justify-center"
               style="width: 50%"
             ></v-tab>
+
+            
           </v-tabs>
         </v-sheet>
 
@@ -124,9 +126,9 @@ export default {
       default: () => [],
     },
     habilidadesTurma: {
-      type: Array,
+      type: Object,
       required: true,
-      default: () => [],
+      default: {},
     },
     nomeTurma: {
       type: String,

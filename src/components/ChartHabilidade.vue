@@ -1,7 +1,7 @@
 <template>
   <div v-if="data" class="d-flex justify-center">
     <v-row class="d-flex justify-center">
-      <v-col cols="10" >
+      <v-col cols="10">
         <canvas ref="chart"></canvas>
       </v-col>
     </v-row>
@@ -16,7 +16,7 @@ export default {
   name: "ChartHabilidade",
   props: {
     data: {
-      type: Array,
+      type: Object,
       required: true,
     },
   },
@@ -27,29 +27,75 @@ export default {
     renderChart() {
       const ctx = this.$refs.chart.getContext("2d");
 
-      const labels = [
-        "Habilidade 1", "Habilidade 2", "Habilidade 3", "Habilidade 4",
-        "Habilidade 5", "Habilidade 6", "Habilidade 7", "Habilidade 8",
-        "Habilidade 9", "Habilidade 10", "Habilidade 11"
-      ];
+      // Extraindo as labels das habilidades
+      const labels = Object.keys(this.data);
 
+      // Calculando o número de alunos em cada faixa
+      const faixa0_30 = labels.map((label) => this.data[label]["0-30%"] || 0);
+      const faixa30_60 = labels.map((label) => this.data[label]["30-60%"] || 0);
+      const faixa60_90 = labels.map((label) => this.data[label]["60-90%"] || 0);
+      const faixa90_100 = labels.map(
+        (label) => this.data[label]["90-100%"] || 0
+      );
+
+      // Calculando o total de alunos para cada habilidade
+      const totals = labels.map(
+        (label) =>
+          faixa0_30[labels.indexOf(label)] +
+          faixa30_60[labels.indexOf(label)] +
+          faixa60_90[labels.indexOf(label)] +
+          faixa90_100[labels.indexOf(label)]
+      );
+
+      // Calculando a porcentagem de cada faixa
+      const faixa0_30_percent = faixa0_30.map(
+        (value, index) => (value / totals[index]) * 100
+      );
+      const faixa30_60_percent = faixa30_60.map(
+        (value, index) => (value / totals[index]) * 100
+      );
+      const faixa60_90_percent = faixa60_90.map(
+        (value, index) => (value / totals[index]) * 100
+      );
+      const faixa90_100_percent = faixa90_100.map(
+        (value, index) => (value / totals[index]) * 100
+      );
+
+      // Configurando o gráfico
       this.chart = new Chart(ctx, {
         type: "bar",
         data: {
           labels: labels,
           datasets: [
             {
-              label: "Desempenho da Turma",
-              data: this.data,
-              backgroundColor: "rgba(54, 162, 235, 0.2)",
-              borderColor: "rgba(54, 162, 235, 1)",
-              borderWidth: 1,
+              label: "0-30%",
+              data: faixa0_30_percent,
+              backgroundColor: "rgba(255, 159, 64, 0.5)",
+              dataNominal: faixa0_30, // Armazena os valores nominais
+            },
+            {
+              label: "30-60%",
+              data: faixa30_60_percent,
+              backgroundColor: "rgba(255, 206, 86, 0.5)",
+              dataNominal: faixa30_60,
+            },
+            {
+              label: "60-90%",
+              data: faixa60_90_percent,
+              backgroundColor: "rgba(144, 238, 144, 0.5)",
+              dataNominal: faixa60_90,
+            },
+            {
+              label: "90-100%",
+              data: faixa90_100_percent,
+              backgroundColor: "rgba(0, 128, 0, 0.5)",
+              dataNominal: faixa90_100,
             },
           ],
         },
         options: {
           responsive: true,
-          maintainAspectRatio: false, // Permite controlar altura/largura
+          maintainAspectRatio: false,
           plugins: {
             legend: {
               position: "top",
@@ -61,8 +107,16 @@ export default {
             tooltip: {
               callbacks: {
                 label: function (tooltipItem) {
-                  const value = tooltipItem.raw;
-                  return `Acertos: ${value}%`;
+                  console.log(tooltipItem);
+                  const posi = tooltipItem.dataIndex
+                  // Obtém o valor da faixa e a faixa correspondente
+                  const datasetIndex = tooltipItem.datasetIndex;
+                  const datasetLabel = tooltipItem.dataset.label;
+                  const dataValue = tooltipItem.dataset.dataNominal[posi]; // Número de alunos
+                  const label = tooltipItem.label;
+
+                  // Formata a tooltip para mostrar a quantidade de alunos
+                  return `${datasetLabel}: ${dataValue} alunos em ${label}`;
                 },
                 title: function (tooltipItems) {
                   return tooltipItems[0].label;
@@ -77,11 +131,17 @@ export default {
           },
           scales: {
             x: {
-              beginAtZero: true,
+              stacked: true, // Empilhar as colunas no eixo X
             },
             y: {
               beginAtZero: true,
-              max: 100, // Percentual máximo
+              stacked: true, // Empilhar as colunas no eixo Y
+              max: 100, // As colunas sempre somam até 100%
+              ticks: {
+                callback: function (value) {
+                  return value + "%";
+                },
+              },
             },
           },
         },
@@ -90,7 +150,43 @@ export default {
   },
   watch: {
     data(newData) {
-      this.chart.data.datasets[0].data = newData;
+      const labels = Object.keys(newData);
+
+      // Atualizar dados com base nos novos dados
+      const faixa0_30 = labels.map((label) => newData[label]["0-30%"] || 0);
+      const faixa30_60 = labels.map((label) => newData[label]["30-60%"] || 0);
+      const faixa60_90 = labels.map((label) => newData[label]["60-90%"] || 0);
+      const faixa90_100 = labels.map((label) => newData[label]["90-100%"] || 0);
+
+      // Calculando o total de alunos para cada habilidade
+      const totals = labels.map(
+        (label) =>
+          faixa0_30[labels.indexOf(label)] +
+          faixa30_60[labels.indexOf(label)] +
+          faixa60_90[labels.indexOf(label)] +
+          faixa90_100[labels.indexOf(label)]
+      );
+
+      // Calculando a porcentagem de cada faixa
+      const faixa0_30_percent = faixa0_30.map(
+        (value, index) => (value / totals[index]) * 100
+      );
+      const faixa30_60_percent = faixa30_60.map(
+        (value, index) => (value / totals[index]) * 100
+      );
+      const faixa60_90_percent = faixa60_90.map(
+        (value, index) => (value / totals[index]) * 100
+      );
+      const faixa90_100_percent = faixa90_100.map(
+        (value, index) => (value / totals[index]) * 100
+      );
+
+      this.chart.data.labels = labels;
+      this.chart.data.datasets[0].data = faixa0_30_percent;
+      this.chart.data.datasets[1].data = faixa30_60_percent;
+      this.chart.data.datasets[2].data = faixa60_90_percent;
+      this.chart.data.datasets[3].data = faixa90_100_percent;
+
       this.chart.update();
     },
   },
@@ -101,7 +197,3 @@ export default {
   },
 };
 </script>
-
-<style>
-
-</style>

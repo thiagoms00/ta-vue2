@@ -178,11 +178,6 @@ export default {
   },
 
   props: {
-    listaDeAlunos: {
-      type: Array,
-      required: true,
-      default: () => [],
-    },
     estratoInicial: {
       type: Number,
       required: true,
