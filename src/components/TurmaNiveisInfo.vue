@@ -102,7 +102,7 @@
                   </v-table>
 
                   <v-divider :thickness="10" color="grey"></v-divider>
-                  <v-table>
+<!--                   <v-table>
                     <thead>
                       <tr class="tread1">
                         <th class="table-text">Cor
@@ -122,7 +122,7 @@
                         </td>
                       </tr>
                     </tbody>
-                  </v-table>
+                  </v-table> -->
                   <v-divider :thickness="10" color="grey"></v-divider>
                   
                 </v-expansion-panel-text>
