@@ -70,25 +70,25 @@ export default {
             {
               label: "0-30%",
               data: faixa0_30_percent,
-              backgroundColor: "rgba(255, 159, 64, 0.8)",
+              backgroundColor: "rgba(255, 159, 64, 0.5)",
               dataNominal: faixa0_30, // Armazena os valores nominais
             },
             {
               label: "30-60%",
               data: faixa30_60_percent,
-              backgroundColor: "rgba(255, 206, 86, 0.8)",
+              backgroundColor: "rgba(255, 206, 86, 0.5)",
               dataNominal: faixa30_60,
             },
             {
               label: "60-90%",
               data: faixa60_90_percent,
-              backgroundColor: "rgba(144, 238, 144, 0.8)",
+              backgroundColor: "rgba(144, 238, 144, 0.5)",
               dataNominal: faixa60_90,
             },
             {
               label: "90-100%",
               data: faixa90_100_percent,
-              backgroundColor: "rgba(0, 128, 0, 0.8)",
+              backgroundColor: "rgba(0, 128, 0, 0.5)",
               dataNominal: faixa90_100,
             },
           ],
