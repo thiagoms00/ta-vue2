@@ -116,8 +116,8 @@
                     <span class="tooltipText">Escutar</span>
                 </div>
 
-                <img src="" alt="" class="question-img img-m3" id="imgM3" 
-                    :style="{ content: questionImg1 }" v-if="questionStatement == ''">
+                <img src="" alt="" class="question-img img-m3" id="imgM3" :style="{ content: questionImg1 }"
+                    v-if="questionStatement == ''">
                 <div class="questionText-div" id="questionDiv" v-else>
                     <span class="text-title" v-if="questionTextTitle != ''">{{ questionTextTitle }}<br></span>
                     <h2 class="question-statement" id="questionStatement" :style="{ marginTop: stMargin, }">
@@ -264,7 +264,7 @@
 
 
 
-                <v-toolbar color="#2e2f36">
+                <v-toolbar color="#202124">
                     <!--                     <v-app-bar-nav-icon></v-app-bar-nav-icon>
  -->
                     <v-toolbar-title class="ml-5">Selecione um item</v-toolbar-title>
@@ -272,10 +272,10 @@
                     <v-spacer></v-spacer>
 
 
-                    <v-btn icon="mdi-dots-vertical"></v-btn>
+                    <v-btn icon="mdi-dots-vertical" @click="infoDialog = true"></v-btn>
 
                     <template v-slot:extension>
-                        <v-tabs v-model="tab" bg-color="#2e2f36">
+                        <v-tabs v-model="tab" bg-color="#202124">
                             <v-tab value="p1" class="tab-name" @click="selectedTab(0)">Percurso 1</v-tab>
                             <v-tab value="p2" class="tab-name" @click="selectedTab(1)">Percurso 2</v-tab>
                             <v-tab value="p3" class="tab-name" @click="selectedTab(2)">Percurso 3</v-tab>
@@ -292,31 +292,28 @@
                         <div class="itens itens-p1 ml-4 mt-2">
                             <!--                             <h3 v-for="(item,index) in itens_p1.questoes" class="item-text">{{ index+1 + ' - ' + item.id }}</h3>
  -->
-                            <v-btn v-for="(item, index) in itens_p1.questoes" variant="outlined" class="item-text" 
-                            @click="changeQuestionAlt(0,index)"
-                            >{{
-                                index + 1 + ' - ' + item.id }}</v-btn>
+                            <v-btn v-for="(item, index) in itens_p1.questoes" variant="outlined" class="item-text"
+                                @click="changeQuestionAlt(0, index)">{{
+                                    index + 1 + ' - ' + item.id }}</v-btn>
                         </div>
 
                     </v-window-item>
 
                     <v-window-item value="p2">
                         <div class="itens itens-p1 ml-4 mt-2 d-grid">
-                            <v-btn v-for="(item, index) in itens_p2.questoes" variant="outlined" class="item-text" 
-                            @click="changeQuestionAlt(1,index)"
-                            >
-                                {{index + 1 + ' - ' +item.id }}</v-btn>
+                            <v-btn v-for="(item, index) in itens_p2.questoes" variant="outlined" class="item-text"
+                                @click="changeQuestionAlt(1, index)">
+                                {{ index + 1 + ' - ' + item.id }}</v-btn>
                         </div>
 
                     </v-window-item>
 
                     <v-window-item value="p3">
                         <div class="itens itens-p1 ml-4 mt-2 d-grid">
-                            <v-btn v-for="(item, index) in itens_p3.questoes" variant="outlined" class="item-text" 
-                            @click="changeQuestionAlt(2,index)"
-                            >{{
-                                index + 1 + ' - ' +
-                                item.id }}</v-btn>
+                            <v-btn v-for="(item, index) in itens_p3.questoes" variant="outlined" class="item-text"
+                                @click="changeQuestionAlt(2, index)">{{
+                                    index + 1 + ' - ' +
+                                    item.id }}</v-btn>
                         </div>
 
                     </v-window-item>
@@ -324,10 +321,9 @@
                     <v-window-item value="p4">
                         <div class="itens itens-p1 ml-4 mt-2 d-grid">
                             <v-btn v-for="(item, index) in itens_p4.questoes" variant="outlined" class="item-text"
-                            @click="changeQuestionAlt(3,index)"
-                            >{{
-                                index+1 + ' - ' +
-                                item.id }}</v-btn>
+                                @click="changeQuestionAlt(3, index)">{{
+                                    index + 1 + ' - ' +
+                                    item.id }}</v-btn>
                         </div>
 
                     </v-window-item>
@@ -335,6 +331,49 @@
 
                 <template v-slot:actions>
                     <v-btn class="ms-auto dialog-button" text="Fechar" @click="imgDialog = false"></v-btn>
+                </template>
+            </v-card>
+        </v-dialog>
+
+        <v-dialog v-model="infoDialog" width="auto">
+            <v-card min-width="500">
+
+                <v-toolbar color="#2e2f36">
+                
+                    <v-toolbar-title class="ml-5">Informações adicionais</v-toolbar-title>
+
+                    <v-spacer></v-spacer>
+
+                </v-toolbar>
+                <v-table class="mt-2">
+                        <tbody>
+                            <tr>
+                                <td class="td-left">ID</td>
+                                <td class="td-right">{{ this.questionId}}</td>
+                            </tr>
+                            <tr>
+                                <td class="td-left">Percurso</td>
+                                <td class="td-right">{{ this.tabNumber+1}}</td>
+                            </tr>
+                            <tr>
+                                <td class="td-left">Resposta</td>
+                                <td class="td-right">{{ this.questionAnswer}}</td>
+                            </tr>
+                            <tr>
+                              <td class="td-left" >Fonte</td>
+                                <td class="td-right" >{{ this.fonte }}</td>
+                            </tr>
+                            <tr>
+                                <td class="td-left">Layout</td>
+                                <td class="td-right">{{ this.layoutCheck}}</td>
+                            </tr>
+                        </tbody>
+                </v-table>
+
+
+
+                <template v-slot:actions>
+                    <v-btn class="ms-auto dialog-button" text="Fechar" @click="infoDialog = false"></v-btn>
                 </template>
             </v-card>
         </v-dialog>
@@ -462,6 +501,7 @@ export default {
             acertosFinal: 0,        //Total de acertos do ultimo estrato.
 
             imgDialog: false,
+            infoDialog : false,
             tab: null,
             itens_p1: [],
             itens_p2: [],
@@ -502,6 +542,7 @@ export default {
         this.questionAnswer = this.jsonData.questoes[this.questionNumber].answer;
         this.fonte = this.jsonData.questoes[this.questionNumber].fonte;
 
+       
 
 
         if (this.questionTextTitle == '') {
@@ -554,8 +595,8 @@ export default {
     },
 
     mounted() {                          //Chamado após os componentes carregarem.
-        this.playAudio(1);
-        this.changeByID();
+        //this.playAudio(1);
+         this.changeByID();
     },
 
     methods: {
@@ -567,8 +608,14 @@ export default {
 
         openDialog() {
             this.imgDialog = true;
-            console.log('x')
         },
+
+        openInfo(){
+            this.infoDialog = true;
+        },
+
+
+
 
         resetStyle() {         //Chamado sempre que um item novo é exibido na tela.
             let aux;
@@ -619,7 +666,11 @@ export default {
 
 
 
-        changeByID() {                                          //Muda detalhes com base no ID do item
+        async changeByID() {                                          //Muda detalhes com base no ID do item
+
+
+            
+
 
 
             let aux, aux2;
@@ -653,6 +704,7 @@ export default {
                     aux.style.marginLeft = '4vw';
                     break;
                 case 'LP_H07_03_013':
+                case 'LP_H05_00_001':
                     aux = document.getElementById("imgM3");
                     aux.style.width = '38vw';
                     aux.style.marginLeft = '2vw';
@@ -739,7 +791,7 @@ export default {
                 case 'LP_H04_02_013':
                 case 'LP_H01_00_010':
                 case 'LP_H02_01_009':
-
+                    console.log('teste!');
                     aux = document.getElementById("img-m4");
                     aux.style.display = 'none';
 
@@ -1226,7 +1278,7 @@ export default {
             this.questionAlt4 = this.jsonData.questoes[this.questionNumber].alt4;
             this.questionAnswer = this.jsonData.questoes[this.questionNumber].answer;
             this.fonte = this.jsonData.questoes[this.questionNumber].fonte;
-
+            
 
 
             console.log("Código : " + this.questionId);
@@ -1240,6 +1292,7 @@ export default {
             else {
                 this.stMargin = '2vh';
             }
+
 
             switch (this.jsonData.questoes[this.questionNumber].layout) {
                 case 'm1':
@@ -1273,28 +1326,28 @@ export default {
 
 
             }
-            this.changeByID();
+            await this.changeByID();
 
         },
 
         async changeQuestionAlt(percurso, indice) {
 
-           
+
 
             this.questionNumber = this.ordem[percurso][indice];
 
-            if(percurso === 0){
+            if (percurso === 0) {
                 this.jsonData = jsonDataQuestoes0;
             }
-            else  if(percurso === 1){
+            else if (percurso === 1) {
                 this.jsonData = jsonDataQuestoes1;
             }
-            else  if(percurso === 2){  
+            else if (percurso === 2) {
                 this.jsonData = jsonDataQuestoes2;
 
-            } 
-            
-            else if(percurso === 3){
+            }
+
+            else if (percurso === 3) {
                 this.jsonData = jsonDataQuestoes3;
 
             }
@@ -1303,7 +1356,6 @@ export default {
             }
 
 
-            console.log(this.jsonData)
 
             this.questionId = this.jsonData.questoes[this.questionNumber].id
             this.questionText = this.jsonData.questoes[this.questionNumber].text;
@@ -1322,9 +1374,13 @@ export default {
             this.fonte = this.jsonData.questoes[this.questionNumber].fonte;
 
 
+            await this.changeLayout();
+            await this.changeByID();
+            
 
+        },
 
-
+        async changeLayout(){
 
             if (this.questionTextTitle == '') {
                 this.stMargin = '0';
@@ -1365,16 +1421,10 @@ export default {
 
 
             }
-            this.changeByID();
 
         },
 
-
-        resetMegafone() {            //Utilizar esta função sempre que trocar de item.
-            this.megafoneDisable = false;
-        },
-
-
+   
 
 
 
@@ -1653,6 +1703,15 @@ export default {
 .item-text:hover {
     color: #2546c9 !important;
 
+}
+
+.td-left{
+    font-size: 1.1rem !important;
+    font-weight: bold;
+}
+
+.td-right{
+    font-size: 1.1rem !important;
 }
 
 /* Layout 2 */
