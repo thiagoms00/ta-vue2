@@ -1,6 +1,5 @@
 <template>
     <div class="mainDiv">
-        <PopupTeste ref="PopupTeste" :extratoCounter="nestr" />
         <FlexBar :fonte="fonte" />
         <div class="conteudo" v-if="layoutCheck == 'm1'">
             <div class="pergunta">
@@ -53,17 +52,7 @@
 
                 </form>
 
-                <ContButton class="button-m1" id="buttonM1" @click="checkAnswer" />
-
-                <v-dialog v-model="imgDialog" width="auto">
-                    <v-card max-width="400" prepend-icon="mdi-update"
-                        text="Your application will relaunch automatically after the update is complete."
-                        title="Update in progress">
-                        <template v-slot:actions>
-                            <v-btn class="ms-auto" text="Ok" @click="imgDialog = false"></v-btn>
-                        </template>
-                    </v-card>
-                </v-dialog>
+                <ContButton class="button-m1" id="buttonM1" @click="openDialog" />
 
             </div>
         </div>
@@ -114,7 +103,7 @@
 
                 </form>
 
-                <button class="question-button button-m2" @click="checkAnswer">Continuar</button>
+                <button class="question-button button-m2" @click="openDialog">Continuar</button>
 
             </div>
 
@@ -127,8 +116,8 @@
                     <span class="tooltipText">Escutar</span>
                 </div>
 
-                <img src="" alt="" class="question-img img-m3" id="imgM3" @click="openDialog" :style="{ content: questionImg1 } "
-                    v-if="questionStatement == ''">
+                <img src="" alt="" class="question-img img-m3" id="imgM3" 
+                    :style="{ content: questionImg1 }" v-if="questionStatement == ''">
                 <div class="questionText-div" id="questionDiv" v-else>
                     <span class="text-title" v-if="questionTextTitle != ''">{{ questionTextTitle }}<br></span>
                     <h2 class="question-statement" id="questionStatement" :style="{ marginTop: stMargin, }">
@@ -169,7 +158,10 @@
 
                 </form>
 
-                <ContButton id="buttonM3" class="button-m3" @click="checkAnswer()" />
+                <ContButton id="buttonM3" class="button-m3" @click="openDialog" />
+
+
+
 
             </div>
         </div>
@@ -210,7 +202,7 @@
                 </div>
             </div>
 
-            <ContButton class="button-m4" id="buttonM4" @click="checkAnswer()" />
+            <ContButton class="button-m4" id="buttonM4" @click="openDialog" />
 
 
         </div>
@@ -259,11 +251,93 @@
 
             </div>
 
-            <ContButton class="question-button button-m5" @click="checkAnswer" />
+            <ContButton class="question-button button-m5" @click="openDialog" />
 
 
 
         </div>
+        <!-- Dialog com o seletor de itens -->
+
+        <v-dialog v-model="imgDialog" width="auto">
+            <v-card min-width="1000">
+
+
+
+
+                <v-toolbar color="#2e2f36">
+                    <!--                     <v-app-bar-nav-icon></v-app-bar-nav-icon>
+ -->
+                    <v-toolbar-title class="ml-5">Selecione um item</v-toolbar-title>
+
+                    <v-spacer></v-spacer>
+
+
+                    <v-btn icon="mdi-dots-vertical"></v-btn>
+
+                    <template v-slot:extension>
+                        <v-tabs v-model="tab" bg-color="#2e2f36">
+                            <v-tab value="p1" class="tab-name" @click="selectedTab(0)">Percurso 1</v-tab>
+                            <v-tab value="p2" class="tab-name" @click="selectedTab(1)">Percurso 2</v-tab>
+                            <v-tab value="p3" class="tab-name" @click="selectedTab(2)">Percurso 3</v-tab>
+                            <v-tab value="p4" class="tab-name" @click="selectedTab(3)">Percurso 4</v-tab>
+                        </v-tabs>
+                    </template>
+                </v-toolbar>
+
+
+
+                <v-window v-model="tab">
+                    <v-window-item value="p1">
+
+                        <div class="itens itens-p1 ml-4 mt-2">
+                            <!--                             <h3 v-for="(item,index) in itens_p1.questoes" class="item-text">{{ index+1 + ' - ' + item.id }}</h3>
+ -->
+                            <v-btn v-for="(item, index) in itens_p1.questoes" variant="outlined" class="item-text" 
+                            @click="changeQuestionAlt(0,index)"
+                            >{{
+                                index + 1 + ' - ' + item.id }}</v-btn>
+                        </div>
+
+                    </v-window-item>
+
+                    <v-window-item value="p2">
+                        <div class="itens itens-p1 ml-4 mt-2 d-grid">
+                            <v-btn v-for="(item, index) in itens_p2.questoes" variant="outlined" class="item-text" 
+                            @click="changeQuestionAlt(1,index)"
+                            >
+                                {{index + 1 + ' - ' +item.id }}</v-btn>
+                        </div>
+
+                    </v-window-item>
+
+                    <v-window-item value="p3">
+                        <div class="itens itens-p1 ml-4 mt-2 d-grid">
+                            <v-btn v-for="(item, index) in itens_p3.questoes" variant="outlined" class="item-text" 
+                            @click="changeQuestionAlt(2,index)"
+                            >{{
+                                index + 1 + ' - ' +
+                                item.id }}</v-btn>
+                        </div>
+
+                    </v-window-item>
+
+                    <v-window-item value="p4">
+                        <div class="itens itens-p1 ml-4 mt-2 d-grid">
+                            <v-btn v-for="(item, index) in itens_p4.questoes" variant="outlined" class="item-text"
+                            @click="changeQuestionAlt(3,index)"
+                            >{{
+                                index+1 + ' - ' +
+                                item.id }}</v-btn>
+                        </div>
+
+                    </v-window-item>
+                </v-window>
+
+                <template v-slot:actions>
+                    <v-btn class="ms-auto dialog-button" text="Fechar" @click="imgDialog = false"></v-btn>
+                </template>
+            </v-card>
+        </v-dialog>
     </div>
 </template>
 
@@ -287,8 +361,6 @@ import jsonData3 from '../assets/extratos/extrato3.json';
 import jsonData2Nt from '../assets/extratos/extrato2nt.json'
 
 import FlexBar from '@/components/FlexBar.vue';
-import PopupTeste from './PopupTeste.vue'
-import PopupIntervalo from './PopupIntervalo.vue';
 
 
 
@@ -297,12 +369,11 @@ export default {
     components: {
         ContButton,       //Botão azul presente em todos itens.
         FlexBar,          //Barra azul superior, contem o botão com a fonte. 
-        PopupTeste,
-        PopupIntervalo
     },
 
     data() {
         return {
+
 
             /* Parte visual */
             imgSrc: '../assets/imgs/Logo-Impacto-removebg.png',
@@ -391,13 +462,22 @@ export default {
             acertosFinal: 0,        //Total de acertos do ultimo estrato.
 
             imgDialog: false,
-
+            tab: null,
+            itens_p1: [],
+            itens_p2: [],
+            itens_p3: [],
+            itens_p4: [],
+            tabNumber: 1,
         }
     },
 
     created() {  //Sempre é chamado quando a pagina é carregada
 
 
+        this.itens_p1 = jsonDataQuestoes0;
+        this.itens_p2 = jsonDataQuestoes1;
+        this.itens_p3 = jsonDataQuestoes2;
+        this.itens_p4 = jsonDataQuestoes3;
 
 
         this.startTest();
@@ -480,7 +560,12 @@ export default {
 
     methods: {
 
-        openDialog(){
+        /* Define o numero da última TAB que foi selecionada */
+        selectedTab(tabNum) {
+            this.tabNumber = tabNum;
+        },
+
+        openDialog() {
             this.imgDialog = true;
             console.log('x')
         },
@@ -1073,7 +1158,6 @@ export default {
                 nestr = 1 : Estrato inicial (n).
                 nestr = 2 : Estrato inicial (n+1).
                 nestr = 3 : Estrato inicial (n+2).
-
             */
             console.log(nestr)
             switch (nestr) {
@@ -1148,6 +1232,98 @@ export default {
             console.log("Código : " + this.questionId);
             console.log("Indice : " + this.ind_questao);
             console.log("Layout : " + this.jsonData.questoes[this.questionNumber].layout);
+
+
+            if (this.questionTextTitle == '') {
+                this.stMargin = '0';
+            }
+            else {
+                this.stMargin = '2vh';
+            }
+
+            switch (this.jsonData.questoes[this.questionNumber].layout) {
+                case 'm1':
+                    this.layoutCheck = 'm1';
+                    /*  if(this.questionId=='LP_H03_00_014_F'){
+                         this.changeByID('LP_H03_00_014_F');
+                     } */
+                    break;
+                case 'm2':
+                    this.layoutCheck = 'm2';
+                    //document.getElementById("layout1").style.height = "92vh";  //Muda o tamanho da main-div
+                    break;
+                case 'm3':
+                    this.layoutCheck = 'm3';
+                    break;
+                case 'm4':
+                    this.layoutCheck = 'm4';
+                    this.alt1Img = this.jsonData.questoes[this.questionNumber].alt1Img;
+                    this.alt2Img = this.jsonData.questoes[this.questionNumber].alt2Img;
+                    this.alt3Img = this.jsonData.questoes[this.questionNumber].alt3Img;
+                    this.alt4Img = this.jsonData.questoes[this.questionNumber].alt4Img;
+
+                    break;
+                case 'm5':
+                    this.layoutCheck = 'm5';
+                    break;
+
+                default:
+
+                    break
+
+
+            }
+            this.changeByID();
+
+        },
+
+        async changeQuestionAlt(percurso, indice) {
+
+           
+
+            this.questionNumber = this.ordem[percurso][indice];
+
+            if(percurso === 0){
+                this.jsonData = jsonDataQuestoes0;
+            }
+            else  if(percurso === 1){
+                this.jsonData = jsonDataQuestoes1;
+            }
+            else  if(percurso === 2){  
+                this.jsonData = jsonDataQuestoes2;
+
+            } 
+            
+            else if(percurso === 3){
+                this.jsonData = jsonDataQuestoes3;
+
+            }
+            else {
+                this.jsonData = jsonDataQuestoes0;
+            }
+
+
+            console.log(this.jsonData)
+
+            this.questionId = this.jsonData.questoes[this.questionNumber].id
+            this.questionText = this.jsonData.questoes[this.questionNumber].text;
+            this.questionTextTitle = this.jsonData.questoes[this.questionNumber].textTitle;
+            this.questionStatement = this.jsonData.questoes[this.questionNumber].qText;
+            this.questionAudio1 = this.jsonData.questoes[this.questionNumber].audio1;
+            this.questionAudio2 = this.jsonData.questoes[this.questionNumber].audio2;
+            this.questionType = this.jsonData.questoes[this.questionNumber].type;
+            this.questionImg1 = this.jsonData.questoes[this.questionNumber].img1;
+            this.questionImg2 = this.jsonData.questoes[this.questionNumber].img2;
+            this.questionAlt1 = this.jsonData.questoes[this.questionNumber].alt1;
+            this.questionAlt2 = this.jsonData.questoes[this.questionNumber].alt2;
+            this.questionAlt3 = this.jsonData.questoes[this.questionNumber].alt3;
+            this.questionAlt4 = this.jsonData.questoes[this.questionNumber].alt4;
+            this.questionAnswer = this.jsonData.questoes[this.questionNumber].answer;
+            this.fonte = this.jsonData.questoes[this.questionNumber].fonte;
+
+
+
+
 
 
             if (this.questionTextTitle == '') {
@@ -1452,6 +1628,33 @@ export default {
     transition: color 0.2s;
 }
 
+.itens {
+    display: grid !important;
+    grid-template-columns: 23% 23% 23% 23% !important;
+    gap: 1vw;
+    row-gap: 1vh;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2vh !important;
+}
+
+.item-text {
+    font-weight: 600 !important;
+    border: 0.12rem solid rgb(56, 56, 56);
+    cursor: pointer;
+    padding-left: 1.1vw !important;
+    border-radius: 0.15rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition: color 0.4s ease-in;
+    font-size: 1rem !important;
+
+}
+
+.item-text:hover {
+    color: #2546c9 !important;
+
+}
+
 /* Layout 2 */
 
 .main-m2 {
@@ -1620,16 +1823,14 @@ export default {
     position: relative;
 }
 
-.sub-title {
-    font-family: Manrope-Light;
-}
-
 .time-popup {
     position: absolute;
     top: 33%;
     left: 39%;
     z-index: 2;
 }
+
+
 
 @media (max-width: 1550px) {
     .icon-mega {
