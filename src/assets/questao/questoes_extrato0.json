@@ -1,7 +1,7 @@
 {
     "questoes" : [                                                    
         {
-            "id" : "LP_H05_00_001",                             
+            "id" : "LP_H05_00_005",                             
             "layout" : "m3",
             "type" : "Lingua portuguesa",
             "textTitle":"",
@@ -48,7 +48,7 @@
             
         },
         {
-            "id" : "LP_H05_00_009",                             
+            "id" : "LP_H05.1_00_009",                             
             "layout" : "m3",
             "type" : "Lingua portuguesa",
             "textTitle":"",
@@ -73,7 +73,7 @@
 
         },
         {
-            "id" : "LP_H02_01_009",                             
+            "id" : "LP_H03_01_009",                             
             "layout" : "m4",
             "type" : "Lingua portuguesa",
             "textTitle":"",
@@ -151,7 +151,7 @@
 
         },
         {
-            "id" : "LP_H05_00_003",                             
+            "id" : "LP_H05.1_00_003",                             
             "layout" : "m3",
             "type" : "Lingua portuguesa",
             "textTitle":"",
@@ -176,7 +176,7 @@
 
         },
         {
-            "id" : "LP_H02_01_004",                             
+            "id" : "LP_H03_01_004",                             
             "layout" : "m3",
             "type" : "Lingua portuguesa",
             "textTitle":"",
@@ -201,7 +201,7 @@
         },
        
         {
-            "id" : "LP_H03_00_008",                             
+            "id" : "LP_H02.1_00_008",                             
             "layout" : "m3",
             "type" : "Lingua portuguesa",
             "textTitle":"",

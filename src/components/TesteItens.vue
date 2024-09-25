@@ -704,7 +704,7 @@ export default {
                     aux.style.marginLeft = '4vw';
                     break;
                 case 'LP_H07_03_013':
-                case 'LP_H05_00_001':
+                case 'LP_H05_00_005':
                     aux = document.getElementById("imgM3");
                     aux.style.width = '38vw';
                     aux.style.marginLeft = '2vw';
@@ -790,7 +790,7 @@ export default {
 
                 case 'LP_H04_02_013':
                 case 'LP_H01_00_010':
-                case 'LP_H02_01_009':
+                case 'LP_H03_01_009':
                     console.log('teste!');
                     aux = document.getElementById("img-m4");
                     aux.style.display = 'none';
