@@ -57,41 +57,82 @@
                   class="custom-switch mt-4 elevation-2 d-flex justify-center align-center"
                   rounded="lg"
                 >
-                
                   <v-tabs
                     v-model="tab"
                     color="primary"
                     direction="vertical"
                     style="width: 100%"
                   >
-                  
                     <v-tab
                       value="option-1"
                       class="pl-4 d-flex justify-start"
                       prepend-icon="mdi-menu"
-                      text="Níveis de aprendizado"
                     >
+                      <span>Níveis de aprendizado</span>
+                      <v-tooltip
+                        activator="parent"
+                        :open-delay="0"
+                        :close-delay="0"
+                        transition="fade-transition"
+                      >
+                        Níveis individual de cada aluno
+                      </v-tooltip>
                     </v-tab>
+
                     <v-tab
                       prepend-icon="mdi-compass-outline"
-                      text="Sequência na avaliação"
                       value="option-2"
                       class="pl-4 d-flex justify-start"
-                    ></v-tab>
+                    >
+                      <span>Sequência na avaliação</span>
+                      <v-tooltip
+                        activator="parent"
+                        :open-delay="0"
+                        :close-delay="0"
+                        transition="fade-transition"
+                      >
+                        Trajeto de habilidades do aluno no último teste
+                      </v-tooltip>
+                    </v-tab>
 
                     <v-tab
                       prepend-icon="mdi-checkbox-outline"
-                      text="Dados gerais"
                       value="option-3"
                       class="pl-4 d-flex justify-start"
-                    ></v-tab>
-                    <v-divider :thickness="5" color="#4f5263" class="border-opacity-25"></v-divider>
+                    >
+                      <span>Dados gerais</span>
+                      <v-tooltip
+                        activator="parent"
+                        :open-delay="0"
+                        :close-delay="0"
+                        transition="fade-transition"
+                      >
+                        Dados individuais de cada aluno
+                      </v-tooltip>
+                    </v-tab>
+
+                    <v-divider
+                      :thickness="5"
+                      color="#4f5263"
+                      class="border-opacity-25"
+                    ></v-divider>
+
                     <v-tab
                       prepend-icon="mdi-chart-bar"
-                      text="Geral"
                       value="option-4"
                       class="pl-4 d-flex justify-start"
-                    ></v-tab>
+                    >
+                      <span>Geral</span>
+                      <v-tooltip
+                        activator="parent"
+                        :open-delay="0"
+                        :close-delay="0"
+                        transition="fade-transition"
+                      >
+                        Um resumo que enfatiza uma visão geral e integrada da
+                        turma
+                      </v-tooltip>
+                    </v-tab>
                     <!-- <v-tab
                   prepend-icon="mdi-remote-desktop"
                   text="Compara"
@@ -100,10 +141,19 @@
                 ></v-tab> -->
                     <v-tab
                       prepend-icon="mdi-cog"
-                      text="Configurações"
                       value="option-6"
                       class="pl-4 d-flex justify-start"
-                    ></v-tab>
+                    >
+                      <span>Configurações</span>
+                      <v-tooltip
+                        activator="parent"
+                        :open-delay="0"
+                        :close-delay="0"
+                        transition="fade-transition"
+                      >
+                        Configurações da turma
+                      </v-tooltip>
+                    </v-tab>
                   </v-tabs>
                 </v-sheet>
 
