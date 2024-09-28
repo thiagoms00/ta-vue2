@@ -16,7 +16,7 @@
         <div class="text-button mr-2">{{ this.nomeTurma }}</div>
       </v-sheet>
 
-      <v-sheet>
+      <v-sheet class="rounded-b-lg elevation-2">
         <v-table>
           <thead>
             <tr>
@@ -49,68 +49,35 @@
                 :key="i"
                 style="width: calc(80% / 3); border-left: 1px solid #ccc"
               >
-                <div>
-                  <!-- Primeira linha de 6 chips -->
-                  <div class="d-flex flex-wrap">
-                    <v-chip
-                      v-for="(itemListQuest, index) in getChipsForEstrato(
-                        i,
-                        item.listaDeTestes?.[item.listaDeTestes.length - 1]
-                          ?.listaQuest
-                      ).slice(0, 6)"
-                      :key="index"
-                      :color="getColor(itemListQuest.acertou)"
-                      size="x-small"
-                      label
-                      class="ml-1 mb-1"
+                <div class="d-flex flex-wrap">
+                  <v-chip
+                    v-for="(itemListQuest, index) in getChipsForEstrato(
+                      i,
+                      item.listaDeTestes?.[item.listaDeTestes.length - 1]
+                        ?.listaQuest
+                    )"
+                    :key="index"
+                    :color="getColor(itemListQuest.acertou)"
+                    size="x-small"
+                    label
+                    class="ml-1 mb-1"
+                  >
+                    <v-tooltip
+                      activator="parent"
+                      location="top"
+                      :open-delay="0"
+                      :close-delay="0"
+                      transition="fade-transition"
                     >
-                      <v-tooltip
-                        activator="parent"
-                        location="top"
-                        :open-delay="0"
-                        :close-delay="0"
-                        transition="fade-transition"
-                      >
-                        {{
-                          getHabilidadeDescricao(
-                            extractDigitsFromId(itemListQuest.id)
-                          )
-                        }}
-                      </v-tooltip>
-                      <span>{{ extractDigitsFromId(itemListQuest.id) }}</span>
-                    </v-chip>
-                  </div>
+                      {{
+                        getHabilidadeDescricao(
+                          extractDigitsFromId(itemListQuest.id)
+                        )
+                      }}
+                    </v-tooltip>
 
-                  <!-- Segunda linha de 6 chips -->
-                  <div class="d-flex flex-wrap mt-1">
-                    <v-chip
-                      v-for="(itemListQuest, index) in getChipsForEstrato(
-                        i,
-                        item.listaDeTestes?.[item.listaDeTestes.length - 1]
-                          ?.listaQuest
-                      ).slice(6, 12)"
-                      :key="index"
-                      :color="getColor(itemListQuest.acertou)"
-                      size="x-small"
-                      label
-                      class="ml-1 mb-1"
-                    >
-                      <v-tooltip
-                        activator="parent"
-                        location="top"
-                        :open-delay="0"
-                        :close-delay="0"
-                        transition="fade-transition"
-                      >
-                        {{
-                          getHabilidadeDescricao(
-                            extractDigitsFromId(itemListQuest.id)
-                          )
-                        }}
-                      </v-tooltip>
-                      <span>{{ extractDigitsFromId(itemListQuest.id) }}</span>
-                    </v-chip>
-                  </div>
+                    <span>{{ extractDigitsFromId(itemListQuest.id) }}</span>
+                  </v-chip>
                 </div>
               </td>
             </tr>
@@ -119,143 +86,6 @@
       </v-sheet>
 
       <!-- MUDANÇAS ----------------------------------------------------- -->
-
-      <v-sheet
-        class="mt-10 rounded-t-lg elevation-2 pa-2 d-flex align-center justify-space-between"
-        color="#1E3892"
-        height="48"
-      >
-        <div class="d-flex align-center">
-          <v-icon icon="mdi-ballot"> </v-icon>
-          <div class="text-button ml-2">Mapa de habilidade</div>
-        </div>
-
-        <div class="text-button mr-2">{{ this.nomeTurma }}</div>
-      </v-sheet>
-
-      <v-sheet>
-        <v-table>
-          <thead>
-            <tr>
-              <th class="pa-0" style="width: 20%">
-                <div class="text-center text-overline">Nome</div>
-              </th>
-
-              <th class="pa-0" style="width: 80%">
-                <v-row style="height: 100%">
-                  <v-col
-                    v-for="i in 3"
-                    :key="i"
-                    cols="4"
-                    class="d-flex pa-0 d-flex align-center"
-                    style="height: 100%"
-                  >
-                    <v-divider vertical></v-divider>
-
-                    <div class="text-center text-overline" style="width: 100%">
-                      Percurso {{ i - aux_estrato + 1 }}
-                    </div>
-                  </v-col>
-                </v-row>
-              </th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr v-for="item in listaTurma" :key="item.name">
-              <td class="pa-0" style="width: 20%">
-                <div class="text-center">
-                  {{ item.user["nome"] }}
-                </div>
-              </td>
-
-              <td style="width: 80%" class="pa-0">
-                <v-row style="height: 100%">
-                  <v-col
-                    v-for="i in 3"
-                    :key="i"
-                    cols="4"
-                    class="d-flex pa-0 d-flex align-center"
-                  >
-                    <v-divider vertical></v-divider>
-                    <div class="d-flex flex-column w-100">
-                      <!-- Primeira linha de 6 chips -->
-                      <v-row class="ma-0 d-flex justify-start">
-                        <v-chip
-                          v-for="(itemListQuest, index) in getChipsForEstrato(
-                            i,
-                            item.listaDeTestes?.[item.listaDeTestes.length - 1]
-                              ?.listaQuest
-                          ).slice(0, 6)"
-                          :key="index"
-                          :color="getColor(itemListQuest.acertou)"
-                          size="x-small"
-                          label
-                          class="ml-1"
-                        >
-                          <v-tooltip
-                            text=""
-                            activator="parent"
-                            location="top"
-                            :open-delay="0"
-                            :close-delay="0"
-                            transition="fade-transition"
-                          >
-                            {{
-                              getHabilidadeDescricao(
-                                extractDigitsFromId(itemListQuest.id)
-                              )
-                            }}
-                          </v-tooltip>
-
-                          <span>{{
-                            extractDigitsFromId(itemListQuest.id)
-                          }}</span>
-                        </v-chip>
-                      </v-row>
-
-                      <div class="mt-1"></div>
-
-                      <!-- Segunda linha de 6 chips -->
-                      <v-row class="ma-0 d-flex justify-start">
-                        <v-chip
-                          v-for="(itemListQuest, index) in getChipsForEstrato(
-                            i,
-                            item.listaDeTestes?.[item.listaDeTestes.length - 1]
-                              ?.listaQuest
-                          ).slice(6, 12)"
-                          :key="index"
-                          class="ml-1"
-                          :color="getColor(itemListQuest.acertou)"
-                          size="x-small"
-                          label
-                        >
-                          <v-tooltip
-                            activator="parent"
-                            location="top"
-                            :open-delay="0"
-                            :close-delay="0"
-                            transition="fade-transition"
-                          >
-                            {{
-                              getHabilidadeDescricao(
-                                extractDigitsFromId(itemListQuest.id)
-                              )
-                            }}
-                          </v-tooltip>
-                          <span>{{
-                            extractDigitsFromId(itemListQuest.id)
-                          }}</span>
-                        </v-chip>
-                      </v-row>
-                    </div>
-                  </v-col>
-                </v-row>
-              </td>
-            </tr>
-          </tbody>
-        </v-table>
-      </v-sheet>
     </v-col>
   </v-row>
 </template>
