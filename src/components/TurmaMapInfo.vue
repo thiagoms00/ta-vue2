@@ -8,12 +8,129 @@
         color="#1E3892"
         height="48"
       >
-      <div class="d-flex align-center" >
-        <v-icon icon="mdi-ballot"> </v-icon>
-        <div class="text-button ml-2">Mapa de habilidade</div>
-      </div>
-        
-        <div class="text-button mr-2"> {{ this.nomeTurma }} </div>
+        <div class="d-flex align-center">
+          <v-icon icon="mdi-ballot"> </v-icon>
+          <div class="text-button ml-2">Mapa de habilidade</div>
+        </div>
+
+        <div class="text-button mr-2">{{ this.nomeTurma }}</div>
+      </v-sheet>
+
+      <v-sheet>
+        <v-table>
+          <thead>
+            <tr>
+              <!-- Coluna para Nome -->
+              <th style="width: 20%">
+                <div class="text-center text-overline">Nome</div>
+              </th>
+
+              <!-- Percurso colunas com `v-for` -->
+              <th
+                v-for="i in 3"
+                :key="i"
+                style="width: calc(80% / 3); border-left: 1px solid #ccc"
+              >
+                <div class="text-center text-overline">
+                  Percurso {{ i - aux_estrato + 1 }}
+                </div>
+              </th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr v-for="item in listaTurma" :key="item.name" class="pa-6">
+              <td style="width: 20%" class="px-4 py-2">
+                <div>{{ item.user["nome"] }}</div>
+              </td>
+
+              <td
+                v-for="i in 3"
+                :key="i"
+                style="width: calc(80% / 3); border-left: 1px solid #ccc"
+              >
+                <div>
+                  <!-- Primeira linha de 6 chips -->
+                  <div class="d-flex flex-wrap">
+                    <v-chip
+                      v-for="(itemListQuest, index) in getChipsForEstrato(
+                        i,
+                        item.listaDeTestes?.[item.listaDeTestes.length - 1]
+                          ?.listaQuest
+                      ).slice(0, 6)"
+                      :key="index"
+                      :color="getColor(itemListQuest.acertou)"
+                      size="x-small"
+                      label
+                      class="ml-1 mb-1"
+                    >
+                      <v-tooltip
+                        activator="parent"
+                        location="top"
+                        :open-delay="0"
+                        :close-delay="0"
+                        transition="fade-transition"
+                      >
+                        {{
+                          getHabilidadeDescricao(
+                            extractDigitsFromId(itemListQuest.id)
+                          )
+                        }}
+                      </v-tooltip>
+                      <span>{{ extractDigitsFromId(itemListQuest.id) }}</span>
+                    </v-chip>
+                  </div>
+
+                  <!-- Segunda linha de 6 chips -->
+                  <div class="d-flex flex-wrap mt-1">
+                    <v-chip
+                      v-for="(itemListQuest, index) in getChipsForEstrato(
+                        i,
+                        item.listaDeTestes?.[item.listaDeTestes.length - 1]
+                          ?.listaQuest
+                      ).slice(6, 12)"
+                      :key="index"
+                      :color="getColor(itemListQuest.acertou)"
+                      size="x-small"
+                      label
+                      class="ml-1 mb-1"
+                    >
+                      <v-tooltip
+                        activator="parent"
+                        location="top"
+                        :open-delay="0"
+                        :close-delay="0"
+                        transition="fade-transition"
+                      >
+                        {{
+                          getHabilidadeDescricao(
+                            extractDigitsFromId(itemListQuest.id)
+                          )
+                        }}
+                      </v-tooltip>
+                      <span>{{ extractDigitsFromId(itemListQuest.id) }}</span>
+                    </v-chip>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </v-table>
+      </v-sheet>
+
+      <!-- MUDANÇAS ----------------------------------------------------- -->
+
+      <v-sheet
+        class="mt-10 rounded-t-lg elevation-2 pa-2 d-flex align-center justify-space-between"
+        color="#1E3892"
+        height="48"
+      >
+        <div class="d-flex align-center">
+          <v-icon icon="mdi-ballot"> </v-icon>
+          <div class="text-button ml-2">Mapa de habilidade</div>
+        </div>
+
+        <div class="text-button mr-2">{{ this.nomeTurma }}</div>
       </v-sheet>
 
       <v-sheet>
@@ -35,8 +152,8 @@
                   >
                     <v-divider vertical></v-divider>
 
-                    <div class="text-center text-overline" style="width: 100%;">
-                      Percurso {{ i-aux_estrato+1 }}
+                    <div class="text-center text-overline" style="width: 100%">
+                      Percurso {{ i - aux_estrato + 1 }}
                     </div>
                   </v-col>
                 </v-row>
@@ -46,7 +163,7 @@
 
           <tbody>
             <tr v-for="item in listaTurma" :key="item.name">
-              <td class="pa-0" style="width: 20%; ">
+              <td class="pa-0" style="width: 20%">
                 <div class="text-center">
                   {{ item.user["nome"] }}
                 </div>
@@ -76,7 +193,14 @@
                           label
                           class="ml-1"
                         >
-                          <v-tooltip text="" activator="parent" location="top" :open-delay="0" :close-delay="0" transition="fade-transition">
+                          <v-tooltip
+                            text=""
+                            activator="parent"
+                            location="top"
+                            :open-delay="0"
+                            :close-delay="0"
+                            transition="fade-transition"
+                          >
                             {{
                               getHabilidadeDescricao(
                                 extractDigitsFromId(itemListQuest.id)
@@ -106,7 +230,13 @@
                           size="x-small"
                           label
                         >
-                          <v-tooltip activator="parent" location="top" :open-delay="0" :close-delay="0" transition="fade-transition">
+                          <v-tooltip
+                            activator="parent"
+                            location="top"
+                            :open-delay="0"
+                            :close-delay="0"
+                            transition="fade-transition"
+                          >
                             {{
                               getHabilidadeDescricao(
                                 extractDigitsFromId(itemListQuest.id)
@@ -151,7 +281,6 @@ export default {
       e2: 1,
       e3: 2,
       aux_estrato: 0,
-
     };
   },
 
@@ -161,9 +290,9 @@ export default {
       required: true,
       default: () => [],
     },
-    anoTurma : {
-      type : Number,
-      required : true,
+    anoTurma: {
+      type: Number,
+      required: true,
       default: 1,
     },
     nomeTurma: {
@@ -174,41 +303,36 @@ export default {
   },
 
   created() {
-    if(this.anoTurma<=3){
-       this.aux_estrato=1;
-      }
-      else{
-        this.aux_estrato=0;
-      }
+    if (this.anoTurma <= 3) {
+      this.aux_estrato = 1;
+    } else {
+      this.aux_estrato = 0;
+    }
   },
 
   watch: {
     // Observa mudanças em `listaDeAlunos`
     listaDeAlunos(newVal) {
       this.listaTurma = newVal;
-      if(this.anoTurma<=3){
-        this.aux_estrato=1;
+      if (this.anoTurma <= 3) {
+        this.aux_estrato = 1;
+      } else {
+        this.aux_estrato = 0;
       }
-      else{
-        this.aux_estrato=0;
-      }
-
     },
   },
 
   mounted() {
     this.listaTurma = this.listaDeAlunos;
-
   },
 
   methods: {
-
     getColor(acertou) {
       return acertou ? "green-darken-3" : "deep-orange-darken-2";
     },
 
     getChipsForEstrato(estratoIndex, listaQuest) {
-      estratoIndex = estratoIndex-this.aux_estrato;
+      estratoIndex = estratoIndex - this.aux_estrato;
       if (!Array.isArray(listaQuest)) return [];
       return listaQuest.filter((item) => item.estrato == estratoIndex);
     },
@@ -239,6 +363,4 @@ export default {
 };
 </script>
 
-<style> 
-
-</style>
+<style></style>
