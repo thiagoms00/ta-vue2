@@ -704,7 +704,7 @@ export default {
                     aux.style.marginLeft = '4vw';
                     break;
                 case 'LP_H07_03_013':
-                case 'LP_H05_00_005':
+                case 'LP_H05_01_005':
                     aux = document.getElementById("imgM3");
                     aux.style.width = '38vw';
                     aux.style.marginLeft = '2vw';
