@@ -22,7 +22,7 @@
             <tr>
               <!-- Coluna para Nome -->
               <th style="width: 20%">
-                <div class="text-center text-overline">Nome</div>
+                <div class="text-center text-overline">Aluno</div>
               </th>
 
               <!-- Percurso colunas com `v-for` -->
