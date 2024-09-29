@@ -471,11 +471,10 @@ export default {
         idTurma: turmaValue.id,
         idProfessor: localStorage.getItem("idProf"),
       };
-
       const type = localStorage.getItem("type");
       let urlAdd = "";
       if (type === "coord") {
-        urlAdd = "https://ta-back.onrender.com/coordenadores/dadosTurma";
+        urlAdd = "https://ta-back.onrender.com/coordenadores/dadosTurma"; 
       } else if (type === "dir") {
         urlAdd = "https://ta-back.onrender.com/diretores/dadosTurma";
       } else {
