@@ -36,6 +36,29 @@
             "alt4": "PLANETA",
             "answer" : "PLANTA",
             "fonte": ""
+        },
+        {
+            "id" : "LP_H09_02_002",                             
+            "layout" : "m3",
+            "type" : "Lingua portuguesa",
+            "textTitle":"",
+            "qText":"",
+            "img1":"url(/src/assets/imgs/extrato1/LP_H09_02_002_M.jpg)",
+            "img2":"",
+            "text": "Esse texto foi escrito para",
+            "audio1": "/src/assets/audios/extrato1/LP_H09_02_002_M.mp3",
+            "audio2": "",
+            "alt1": "alertar as pessoas.",
+            "alt2": "divertir os leitores.",
+            "alt3": "incentivar o lazer.",
+            "alt4": "impedir o trânsito.",
+            "answer" : "alertar as pessoas.",
+            "fonte": "https://drogasportalprofessor.wordpress.com/conteudos-multimidia/.",
+            "tempo": 0,
+            "tentativas": 0,
+            "acertos": 0,
+            "ensino" : "geral",
+            "audio_text": "Leia o texto e responda à questão." 
         }
 
      

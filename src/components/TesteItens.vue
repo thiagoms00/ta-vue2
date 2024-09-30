@@ -698,7 +698,7 @@ export default {
                     aux.style.width = 'auto';
                     break;
                 case 'LP_H07_02_019':
-                case 'LP_H05_11_006':
+                case 'LP_H05.1_11_006':
                     aux = document.getElementById("imgM3");
                     aux.style.width = '35vw';
                     aux.style.marginLeft = '4vw';
@@ -969,19 +969,19 @@ export default {
 
                     break;
 
-                case 'LP_H03_00_013':
+                case 'LP_H02.1_00_013':
                     aux = document.getElementById("imgM3");
                     aux.style.width = '45vw';
                     aux.style.marginTop = '3vh';
                     break;
 
                 case 'LP_H2_01_005':
-                case 'LP_H05_00_006':
+                case 'LP_H05.1_00_006':
                     aux = document.getElementById("imgM3");
                     aux.style.width = '33vw';
                     aux.style.marginLeft = '7vw';
                     break;
-                case 'LP_H02_01_012':
+                case 'LP_H03_01_012':
                     aux = document.getElementById("imgM3");
                     aux.style.width = '33vw';
                     aux.style.marginLeft = '7vw';

@@ -1,7 +1,7 @@
 {
     "questoes" : [                                                    
         {
-            "id" : "LP_H02_01_007",                             
+            "id" : "LP_H03_01_007",                             
             "layout" : "m5",
             "type" : "Lingua portuguesa",
             "textTitle":"",
@@ -24,7 +24,7 @@
             "audio_text": "Quantas sílabas ou pedaços tem a palavra CROCODILO?" 
         },
         {
-            "id" : "LP_H05_00_006",                             
+            "id" : "LP_H05.1_00_006",                             
             "layout" : "m3",
             "type" : "Lingua portuguesa",
             "textTitle":"",
@@ -120,7 +120,7 @@
             "audio_text": "Leia o texto e responda à pergunta" 
         },
         {
-            "id" : "LP_H02_01_011",                             
+            "id" : "LP_H03_01_011",                             
             "layout" : "m5",
             "type" : "Lingua portuguesa",
             "textTitle":"",
@@ -190,7 +190,7 @@
         },
        
         {
-            "id" : "LP_H03_00_013",                             
+            "id" : "LP_H02.1_00_013",                             
             "layout" : "m5",
             "type" : "Lingua portuguesa",
             "textTitle":"",
@@ -235,31 +235,9 @@
             "ensino" : "geral",
             "audio_text": "Leia o texto e responda à pergunta. O que não será mais permitido?" 
         },
+       
         {
-            "id" : "LP_H09_02_002",                             
-            "layout" : "m3",
-            "type" : "Lingua portuguesa",
-            "textTitle":"",
-            "qText":"",
-            "img1":"url(/src/assets/imgs/extrato1/LP_H09_02_002_M.jpg)",
-            "img2":"",
-            "text": "Esse texto foi escrito para",
-            "audio1": "/src/assets/audios/extrato1/LP_H09_02_002_M.mp3",
-            "audio2": "",
-            "alt1": "alertar as pessoas.",
-            "alt2": "divertir os leitores.",
-            "alt3": "incentivar o lazer.",
-            "alt4": "impedir o trânsito.",
-            "answer" : "alertar as pessoas.",
-            "fonte": "https://drogasportalprofessor.wordpress.com/conteudos-multimidia/.",
-            "tempo": 0,
-            "tentativas": 0,
-            "acertos": 0,
-            "ensino" : "geral",
-            "audio_text": "Leia o texto e responda à questão." 
-        },
-        {
-            "id" : "LP_H02_01_012",                             
+            "id" : "LP_H03_01_012",                             
             "layout" : "m3",
             "type" : "Lingua portuguesa",
             "textTitle":"",
@@ -305,7 +283,7 @@
             "audio_text": "Marque a alternativa onde está escrita a palavra sapo." 
         },
         {
-            "id" : "LP_H02_11_001",                             
+            "id" : "LP_H03_11_001",                             
             "layout" : "m5",
             "type" : "Lingua portuguesa",
             "textTitle":"",
@@ -328,7 +306,7 @@
             "audio_text": "Marque a opção que mostra o número de sílabas (ou pedaços) da palavra dedo." 
         },
         {
-            "id" : "LP_H02_11_002",                             
+            "id" : "LP_H03_11_002",                             
             "layout" : "m5",
             "type" : "Lingua portuguesa",
             "textTitle":"",
@@ -374,7 +352,7 @@
             "audio_text": "Marque a alternativa onde está escrita a palavra fogo." 
         },
         {
-            "id" : "LP_H05_11_002",                             
+            "id" : "LP_H05.1_11_002",                             
             "layout" : "m3",
             "type" : "Lingua portuguesa",
             "textTitle":"",
@@ -397,7 +375,7 @@
             "audio_text": "Marque a opção onde está escrita a palavra escada." 
         },
         {
-            "id" : "LP_H05_11_004",                             
+            "id" : "LP_H05.1_11_004",                             
             "layout" : "m3",
             "type" : "Lingua portuguesa",
             "textTitle":"",
@@ -420,7 +398,7 @@
             "audio_text": "Marque a alternativa onde está escrita a palavra caminhão." 
         },
         {
-            "id" : "LP_H05_11_005",                             
+            "id" : "LP_H05.1_11_005",                             
             "layout" : "m3",
             "type" : "Lingua portuguesa",
             "textTitle":"",
@@ -443,7 +421,7 @@
             "audio_text": "Marque a alternativa onde está escrita a palavra morango." 
         },
         {
-            "id" : "LP_H05_11_006",                             
+            "id" : "LP_H05.1_11_006",                             
             "layout" : "m3",
             "type" : "Lingua portuguesa",
             "textTitle":"",
@@ -489,7 +467,7 @@
             "audio_text": "Marque a opção onde está escrita a palavra banana." 
         },
         {
-            "id" : "LP_H05_11_008",                             
+            "id" : "LP_H05.1_11_008",                             
             "layout" : "m5",
             "type" : "Lingua portuguesa",
             "textTitle":"",
@@ -512,7 +490,7 @@
             "audio_text": "Marque a opção onde está escrita a palavra secador." 
         },
         {
-            "id" : "LP_H05_11_009",                             
+            "id" : "LP_H05.1_11_009",                             
             "layout" : "m5",
             "type" : "Lingua portuguesa",
             "textTitle":"",
