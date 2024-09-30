@@ -1,22 +1,207 @@
 <template>
-  <v-row class="main-row">
-    <v-col cols="12" class="main-col">
+  <v-row>
+    <v-col cols="12">
       <!-- Mensagem de Seleção de Turma -->
+      <v-row>
+        <v-col>
+          <v-sheet
+            class="rounded-t-lg pa-2 d-flex align-center justify-space-between"
+            color="#1E3892"
+            height="48"
+          >
+            <div class="d-flex align-center">
+              <v-icon icon="mdi-ballot"> </v-icon>
+              <div class="text-button ml-2">Níveis de Aprendizado</div>
+            </div>
 
-      <v-sheet
-        class="rounded-t-lg elevation-2 pa-2 d-flex align-center justify-space-between"
-        color="#1E3892"
-        height="48"
-      >
-        <div class="d-flex align-center">
-          <v-icon icon="mdi-ballot"> </v-icon>
-          <div class="text-button ml-2">Níveis de Aprendizado</div>
-        </div>
-
-        <div class="text-button mr-2">{{ this.nomeTurma }}</div>
-      </v-sheet>
+            <div class="text-button mr-2">{{ this.nomeTurma }}</div>
+          </v-sheet>
+        </v-col>
+      </v-row>
 
       <v-sheet>
+        <v-expansion-panels :readonly="true">
+          <v-expansion-panel>
+            <v-expansion-panel-title style="height: 6vh" disable-icon>
+              <template v-slot:actions>
+                <!-- Só pra retirar o ícone. -->
+              </template>
+              <v-row class="align-center">
+                <v-col class="pa-0" cols="3">
+                  <div class="text-overline">Aluno</div>
+                </v-col>
+
+                <v-col class="pa-0" cols="1">
+                  <div class="text-center main-text">
+                    <div class="text-overline">Nível</div>
+                  </div>
+                </v-col>
+
+                <v-col class="pa-0" cols="8">
+                  <div class="text-overline text-center">Descrição</div>
+                </v-col>
+              </v-row>
+            </v-expansion-panel-title>
+          </v-expansion-panel>
+        </v-expansion-panels>
+
+        <v-expansion-panels variant="accordion">
+          <v-expansion-panel
+            v-for="(item, index) in listaTurma"
+            :key="item.name"
+            ref="panels"
+            class=""
+            @click="geraDescricaoHab(index)"
+          >
+            <v-expansion-panel-title style="height: 6vh">
+              <v-row class="align-center">
+                <v-col class="pa-0" cols="3">
+                  <div>
+                    {{ item.user["nome"] }}
+                  </div>
+                </v-col>
+
+                <v-col class="pa-0" cols="1">
+                  <div class="text-center">
+                    <p v-if="getResultadoFinal(item)">
+                      {{ getResultadoFinal(item) }}
+                    </p>
+                  </div>
+                </v-col>
+
+                <v-col class="pa-0" cols="8">
+                  <div class="px-2">
+                    <p class="text-left" style="font-weight: normal !important;">
+                      {{ getDescricaoResultadoFinal(item) }}
+                    </p>
+                  </div>
+                </v-col>
+              </v-row>
+            </v-expansion-panel-title>
+            <v-expansion-panel-text>
+              <v-table>
+                <thead>
+                  <tr class="tread1">
+                    <th class="table-text">
+                      Habilidade
+                      <v-tooltip
+                        activator="parent"
+                        location="end"
+                        class="main-tooltip"
+                      >
+                        <p class="tooltip-hab t-text">
+                          <span class="t-text" :style="{ color: '#1a7a11' }"
+                            >VERDE</span
+                          >
+                          {{ tooltip1 }}
+                        </p>
+                        <p class="tooltip-hab t-text">
+                          <span class="t-text" :style="{ color: '#ee7b1d' }"
+                            >LARANJA</span
+                          >
+                          {{ tooltip2 }}
+                        </p>
+                        <p class="tooltip-hab t-text">
+                          <span class="t-text" :style="{ color: '#ef2d2d' }"
+                            >VERMELHO</span
+                          >
+                          {{ tooltip3 }}
+                        </p>
+                      </v-tooltip>
+                    </th>
+                    <th>
+                      <div class="table-text d-flex justify-space-between">
+                        Descrição
+                        <div>
+                          <v-icon icon="mdi-information-outline" size="large">
+                          </v-icon>
+                          <v-tooltip
+                            activator="parent"
+                            location="end"
+                            class="main-tooltip"
+                          >
+                            <!-- Conteúdo da Tooltip com Quebra de Linha -->
+                            <div>
+                              <v-chip
+                                color="green lighten-1"
+                                dark
+                                small
+                                class="mr-2"
+                              >
+                                VERDE
+                              </v-chip>
+                              {{ tooltip1 }}
+                            </div>
+
+                            <div class="my-2">
+                              <v-chip
+                                color="orange darken-1"
+                                dark
+                                small
+                                class="mr-2"
+                              >
+                                LARANJA
+                              </v-chip>
+                              {{ tooltip2 }}
+                            </div>
+
+                            <div>
+                              <v-chip
+                                color="red darken-2"
+                                dark
+                                small
+                                class="mr-2"
+                              >
+                                VERMELHO
+                              </v-chip>
+                              {{ tooltip3 }}
+                            </div>
+                          </v-tooltip>
+                        </div>
+                      </div>
+                    </th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr v-for="(item, index) in habilidades" :key="item.nome">
+                    <td class="text-left text-h">{{ item.nome }}</td>
+                    <td class="desc-hab" :class="habilidades[index].colorClass">
+                      {{ item.desc }}
+                    </td>
+                  </tr>
+                </tbody>
+              </v-table>
+
+              <v-divider :thickness="10" color="grey"></v-divider>
+              <!--                   <v-table>
+                    <thead>
+                      <tr class="tread1">
+                        <th class="table-text">Cor
+                        </th>
+                        <th class="table-text">Significado</th>
+
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      <tr v-for="(item, index) in info" :key="item.nome">
+                        <td class="text-left text-h" :class="info[index].colorClass">{{ item.nome }} 
+                          
+                        </td>
+                        <td class="desc-hab">
+                          {{ item.desc }}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </v-table> -->
+              <v-divider :thickness="10" color="grey"></v-divider>
+            </v-expansion-panel-text>
+          </v-expansion-panel>
+        </v-expansion-panels>
+      </v-sheet>
+
+      <v-sheet class="my-10">
         <v-sheet class="d-flex flex-column rounded-t-lg">
           <v-container class="d-flex flex-row rounded-b-lg title-container">
             <v-row>
