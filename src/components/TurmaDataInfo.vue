@@ -207,10 +207,10 @@
                   Progressão
                 </v-tab>
 
-                <v-tab value="provisorio">
+               <!--  <v-tab value="provisorio">
                   <v-icon icon="mdi-chart-bubble"></v-icon>
                   Nova Aba
-                </v-tab>
+                </v-tab> -->
               </v-tabs>
 
               <v-window v-model="tab">

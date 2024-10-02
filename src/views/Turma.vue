@@ -139,7 +139,7 @@
                   value="option-5"
                   class="pa-1 d-flex justify-center"
                 ></v-tab> -->
-                    <v-tab
+                    <!-- <v-tab
                       prepend-icon="mdi-cog"
                       value="option-6"
                       class="pl-4 d-flex justify-start"
@@ -153,7 +153,7 @@
                       >
                         Configurações da turma
                       </v-tooltip>
-                    </v-tab>
+                    </v-tab> -->
                   </v-tabs>
                 </v-sheet>
 
@@ -771,9 +771,15 @@ export default {
 </script>
 
 <style>
+
+
+
+
 .name-turma {
   font-size: 1.1rem !important;
 }
+
+
 
 .custom-switch .v-input--density-default {
   --v-input-control-height: 43 px;
