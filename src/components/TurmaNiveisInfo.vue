@@ -254,9 +254,9 @@ export default {
           colorClass: "",
         },
       ],
-      tooltip1: " Taxa de acerto de 100% na habilidade.",
-      tooltip2: " Taxa de acerto inferior à 100% na habilidade.",
-      tooltip3: " Nenhum acerto na habilidade.",
+      tooltip1: " Habilidade consolidada.",
+      tooltip2: " Habilidade em desenvolvimento.",
+      tooltip3: " Habilidade Inicial.",
     };
   },
 
