@@ -15,19 +15,31 @@
                         class="rounded-lg"
                         v-ripple
                         style="height: 4vh"
+                        :disabled="loading"
                       >
                         <div
                           class="d-flex justify-center align-center h-100 w-100"
                         >
-                          <v-icon icon="mdi-school-outline"> </v-icon>
-                          <div class="text-button pl-2">TURMAS</div>
+                          <v-progress-circular
+                            v-if="loading"
+                            indeterminate
+                            size="24"
+                            color="white"
+                          />
+                          <template v-else>
+                            <v-icon icon="mdi-school-outline"></v-icon>
+                            <div class="text-button pl-2">TURMAS</div>
+                          </template>
                         </div>
                       </v-expansion-panel-title>
 
                       <v-divider></v-divider>
 
                       <!-- Expansion Panel com as turmas de um professor -->
-                      <v-expansion-panel-text class="rounded-lg">
+                      <v-expansion-panel-text
+                        v-if="!loading"
+                        class="rounded-lg"
+                      >
                         <v-list class="pa-0 rounded-b-lg">
                           <v-list-item
                             v-for="(item, index) in listaNomeTurma"
@@ -311,6 +323,7 @@ export default {
     turmaSelecionada: "",
     nomeTurmaSelecionada: "",
     controlOptions: false,
+    loading: true,
   }),
 
   created() {
@@ -363,52 +376,35 @@ export default {
 
     returnTurmas() {
       const type = localStorage.getItem("type");
-
       const data = {
         tokenProf: localStorage.getItem("tokenProf"),
       };
 
+      this.loading = true; // Inicia o carregamento
+
+      let url = "";
       if (type === "coord") {
-        axios({
-          url: "https://ta-back.onrender.com/coordenadores/retorna_turmas",
-          data,
-          method: "POST",
-        })
-          .then((response) => {
-            this.listaNomeTurma = response.data.listaTurmas;
-          })
-          .catch((error) => {
-            // Tratar erros aqui
-            console.error(error);
-          });
+        url = "https://ta-back.onrender.com/coordenadores/retorna_turmas";
       } else if (type === "dir") {
-        axios({
-          url: "https://ta-back.onrender.com/diretores/retorna_turmas",
-          data,
-          method: "POST",
-        })
-          .then((response) => {
-            this.listaNomeTurma = response.data.listaTurmas;
-            console.log(this.listaNomeTurma);
-          })
-          .catch((error) => {
-            // Tratar erros aqui
-            console.error(error);
-          });
+        url = "https://ta-back.onrender.com/diretores/retorna_turmas";
       } else {
-        axios({
-          url: "https://ta-back.onrender.com/professores/returnTurmas",
-          data,
-          method: "POST",
-        })
-          .then((response) => {
-            this.listaNomeTurma = response.data.listaTurmas;
-          })
-          .catch((error) => {
-            // Tratar erros aqui
-            console.error(error);
-          });
+        url = "https://ta-back.onrender.com/professores/returnTurmas";
       }
+
+      axios({
+        url,
+        data,
+        method: "POST",
+      })
+        .then((response) => {
+          this.listaNomeTurma = response.data.listaTurmas;
+        })
+        .catch((error) => {
+          console.error(error);
+        })
+        .finally(() => {
+          this.loading = false; // Finaliza o carregamento
+        });
     },
 
     getColor(chipValue) {
@@ -474,7 +470,7 @@ export default {
       const type = localStorage.getItem("type");
       let urlAdd = "";
       if (type === "coord") {
-        urlAdd = "https://ta-back.onrender.com/coordenadores/dadosTurma"; 
+        urlAdd = "https://ta-back.onrender.com/coordenadores/dadosTurma";
       } else if (type === "dir") {
         urlAdd = "https://ta-back.onrender.com/diretores/dadosTurma";
       } else {
@@ -771,15 +767,9 @@ export default {
 </script>
 
 <style>
-
-
-
-
 .name-turma {
   font-size: 1.1rem !important;
 }
-
-
 
 .custom-switch .v-input--density-default {
   --v-input-control-height: 43 px;
