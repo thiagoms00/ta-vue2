@@ -47,6 +47,7 @@
                             density="compact"
                             class="d-flex justify-center text-subtitle-2"
                             @click="selecionaTurma(item, index)"
+                            :disabled="loadingGlobal || loadingStatesTurmas[index]"
                           >
                             <v-list-item-title
                               class="name-turma"
@@ -324,6 +325,7 @@ export default {
     nomeTurmaSelecionada: "",
     controlOptions: false,
     loading: true,
+    loadingGlobal: false,
   }),
 
   created() {
@@ -459,8 +461,12 @@ export default {
     },
 
     selecionaTurma(turmaValue, index) {
+      if (this.loadingGlobal) {
+      return; // Impede que outra busca seja feita
+      }
       this.nomeTurmaSelecionada = turmaValue.nome;
       this.loadingStatesTurmas[index] = true;
+      this.loadingGlobal = true;
       this.turmaSelecionada = turmaValue.id;
       const data = {
         token: localStorage.getItem("tokenProf"),
@@ -514,6 +520,7 @@ export default {
           this.ativarAnimacaoLista();
           console.log(this.listaTurma);
           this.loadingStatesTurmas[index] = false;
+          this.loadingGlobal = false;
           this.controlOptions = true;
         });
     },
