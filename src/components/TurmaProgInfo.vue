@@ -212,8 +212,8 @@ export default {
         return {
             qtdTestes: 1,
             tab: 'teste1',
-            tooltip1: '- Aluno acertou a questão.',
-            tooltip2: '- Aluno errou a questão.',
+            tooltip1: ' Aluno acertou a questão.',
+            tooltip2: ' Aluno errou a questão.',
 
 
             testes_org: [],
