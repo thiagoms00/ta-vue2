@@ -4,7 +4,11 @@
       <!-- Mensagem de Seleção de Turma -->
       <v-row>
         <v-col>
-          <v-sheet class="rounded-t-lg pa-2 d-flex align-center justify-space-between" color="#1E3892" height="48">
+          <v-sheet
+            class="rounded-t-lg pa-2 d-flex align-center justify-space-between"
+            color="#1E3892"
+            height="48"
+          >
             <div class="d-flex align-center">
               <v-icon icon="mdi-ballot"> </v-icon>
               <div class="text-button ml-2">Níveis de Aprendizado</div>
@@ -17,7 +21,7 @@
 
       <v-sheet>
         <v-expansion-panels :readonly="true">
-          <v-expansion-panel style="border-radius: 0;">
+          <v-expansion-panel style="border-radius: 0;"> 
             <v-expansion-panel-title style="height: 6vh" disable-icon>
               <template v-slot:actions>
                 <!-- Só pra retirar o ícone. -->
@@ -43,12 +47,17 @@
         <v-divider></v-divider>
 
         <v-expansion-panels variant="accordion">
-          <v-expansion-panel v-for="(item, index) in listaTurma" :key="item.name" ref="panels" class=""
-            @click="geraDescricaoHab(index)">
+          <v-expansion-panel
+            v-for="(item, index) in listaTurma"
+            :key="item.name"
+            ref="panels"
+            style="border-radius: 0;"
+            @click="geraDescricaoHab(index)"
+          >
             <v-expansion-panel-title style="height: 6vh">
               <v-row class="align-center">
                 <v-col class="pa-2" cols="3">
-                  <div>
+                  <div class="nome-aluno">
                     {{ item.user["nome"] }}
                   </div>
                 </v-col>
@@ -75,56 +84,51 @@
                 <thead>
                   <tr class="tread1">
                     <th class="table-text">
-                      <v-tooltip activator="parent" location="end" class="main-tooltip">
-                        <!-- Conteúdo da Tooltip com Quebra de Linha -->
-                        <div>
-                          <v-chip color="green lighten-1" dark small class="mr-2">
-                            VERDE
-                          </v-chip>
-                          {{ tooltip1 }}
-                        </div>
-
-                        <div class="my-2">
-                          <v-chip color="orange darken-1" dark small class="mr-2">
-                            LARANJA
-                          </v-chip>
-                          {{ tooltip2 }}
-                        </div>
-
-                        <div>
-                          <v-chip color="red darken-2" dark small class="mr-2">
-                            VERMELHO
-                          </v-chip>
-                          {{ tooltip3 }}
-                        </div>
-                      </v-tooltip>
                       Habilidade
                     </th>
                     <th>
                       <div class="table-text d-flex justify-space-between">
                         Descrição
                         <div>
-                          <!-- <v-icon icon="mdi-information-outline" size="large">
-                          </v-icon> -->
-                          <v-tooltip activator="parent" location="end" class="main-tooltip" :open-delay="0"
-                            :close-delay="0" transition="fade-transition">
+                          <v-icon icon="mdi-information-outline" size="large">
+                          </v-icon>
+                          <v-tooltip
+                            activator="parent"
+                            location="end"
+                            class="main-tooltip"
+                          >
                             <!-- Conteúdo da Tooltip com Quebra de Linha -->
                             <div>
-                              <v-chip color="green lighten-1" dark small class="mr-2">
+                              <v-chip
+                                color="green lighten-1"
+                                dark
+                                small
+                                class="mr-2"
+                              >
                                 VERDE
                               </v-chip>
                               {{ tooltip1 }}
                             </div>
 
                             <div class="my-2">
-                              <v-chip color="orange darken-1" dark small class="mr-2">
+                              <v-chip
+                                color="orange darken-1"
+                                dark
+                                small
+                                class="mr-2"
+                              >
                                 LARANJA
                               </v-chip>
                               {{ tooltip2 }}
                             </div>
 
                             <div>
-                              <v-chip color="red darken-2" dark small class="mr-2">
+                              <v-chip
+                                color="red darken-2"
+                                dark
+                                small
+                                class="mr-2"
+                              >
                                 VERMELHO
                               </v-chip>
                               {{ tooltip3 }}
@@ -146,9 +150,9 @@
                 </tbody>
               </v-table>
 
-              <v-divider :thickness="10" color="grey"></v-divider>
-
-
+              <v-divider :thickness="10" color="grey"></v-divider>        
+              
+              
             </v-expansion-panel-text>
           </v-expansion-panel>
         </v-expansion-panels>
@@ -280,7 +284,7 @@ export default {
     this.listaTurma = this.listaDeAlunos;
   },
 
-  mounted() { },
+  mounted() {},
 
   methods: {
     generateTurmasPDf() {
@@ -593,6 +597,13 @@ export default {
 </script>
 
 <style>
+.nome-aluno {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%; /* Você pode ajustar o valor conforme necessário */
+}
+
 .title-column {
   font-weight: bold !important;
   font-size: 0.91rem !important;
@@ -653,5 +664,6 @@ export default {
   color: #ef2d2d !important;
 }
 
-@media (max-width: 1800px) {}
+@media (max-width: 1800px) {
+}
 </style>

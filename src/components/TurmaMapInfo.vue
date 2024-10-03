@@ -41,7 +41,7 @@
           <tbody>
             <tr v-for="item in listaTurma" :key="item.name" class="pa-6">
               <td style="width: 20%" class="px-4 py-2">
-                <div>{{ item.user["nome"] }}</div>
+                <div >{{ item.user["nome"] }}</div>
               </td>
 
               <td

@@ -10,7 +10,6 @@
           <template v-slot:actions>
             <!-- Só pra retirar o ícone. -->
           </template>
-          <!-- Teste -->
 
           <v-row class="dflex align-center">
             <v-col cols="2" class="d-flex justify-center">

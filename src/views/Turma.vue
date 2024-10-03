@@ -122,7 +122,7 @@
                       value="option-4"
                       class="pl-4 d-flex justify-start"
                     >
-                      <span>Geral</span>
+                      <span>Panorama Geral</span>
                       <v-tooltip
                         activator="parent"
                         :open-delay="0"
