@@ -4,11 +4,7 @@
       <!-- Mensagem de Seleção de Turma -->
       <v-row>
         <v-col>
-          <v-sheet
-            class="rounded-t-lg pa-2 d-flex align-center justify-space-between"
-            color="#1E3892"
-            height="48"
-          >
+          <v-sheet class="rounded-t-lg pa-2 d-flex align-center justify-space-between" color="#1E3892" height="48">
             <div class="d-flex align-center">
               <v-icon icon="mdi-ballot"> </v-icon>
               <div class="text-button ml-2">Níveis de Aprendizado</div>
@@ -21,7 +17,7 @@
 
       <v-sheet>
         <v-expansion-panels :readonly="true">
-          <v-expansion-panel style="border-radius: 0;"> 
+          <v-expansion-panel style="border-radius: 0;">
             <v-expansion-panel-title style="height: 6vh" disable-icon>
               <template v-slot:actions>
                 <!-- Só pra retirar o ícone. -->
@@ -47,13 +43,8 @@
         <v-divider></v-divider>
 
         <v-expansion-panels variant="accordion">
-          <v-expansion-panel
-            v-for="(item, index) in listaTurma"
-            :key="item.name"
-            ref="panels"
-            style="border-radius: 0;"
-            @click="geraDescricaoHab(index)"
-          >
+          <v-expansion-panel v-for="(item, index) in listaTurma" :key="item.name" ref="panels" style="border-radius: 0;"
+            @click="geraDescricaoHab(index)">
             <v-expansion-panel-title style="height: 6vh">
               <v-row class="align-center">
                 <v-col class="pa-2" cols="3">
@@ -90,50 +81,7 @@
                       <div class="table-text d-flex justify-space-between">
                         Descrição
                         <div>
-                          <v-icon icon="mdi-information-outline" size="large">
-                          </v-icon>
-                          <v-tooltip
-                            activator="parent"
-                            location="end"
-                            class="main-tooltip"
-                          >
-                            <!-- Conteúdo da Tooltip com Quebra de Linha -->
-                            <div>
-                              <v-chip
-                                color="green lighten-1"
-                                dark
-                                small
-                                class="mr-2"
-                              >
-                                VERDE
-                              </v-chip>
-                              {{ tooltip1 }}
-                            </div>
 
-                            <div class="my-2">
-                              <v-chip
-                                color="orange darken-1"
-                                dark
-                                small
-                                class="mr-2"
-                              >
-                                LARANJA
-                              </v-chip>
-                              {{ tooltip2 }}
-                            </div>
-
-                            <div>
-                              <v-chip
-                                color="red darken-2"
-                                dark
-                                small
-                                class="mr-2"
-                              >
-                                VERMELHO
-                              </v-chip>
-                              {{ tooltip3 }}
-                            </div>
-                          </v-tooltip>
                         </div>
                       </div>
                     </th>
@@ -145,14 +93,54 @@
                     <td class="text-left text-h">{{ item.nome }}</td>
                     <td class="desc-hab" :class="habilidades[index].colorClass">
                       {{ item.desc }}
+
+                      <!-- Início da Tooltip -->
+                      <v-tooltip activator="parent" location="top left" class="main-tooltip" :open-delay="0"
+                        :close-delay="0" transition="fade-transition" v-if="habilidades[index].colorClass == 'hab100'
+                          || habilidades[index].colorClass == 'hab50' || habilidades[index].colorClass == 'hab0'">
+                        <!-- Conteúdo da Tooltip com Quebra de Linha -->
+
+                        <div v-if="habilidades[index].colorClass === 'hab100'">
+                          <div>
+                            <v-chip color="green lighten-1" dark small class="mr-2">
+                              VERDE
+                            </v-chip>
+                            {{ tooltip1 }}
+                          </div>
+
+                        </div>
+                        <div v-if="habilidades[index].colorClass === 'hab50'">
+                          <div class="my-2">
+                            <v-chip color="orange darken-1" dark small class="mr-2">
+                              LARANJA
+                            </v-chip>
+                            {{ tooltip2 }}
+                          </div>
+                        </div>
+                        <div v-if="habilidades[index].colorClass === 'hab0'">
+                          <div>
+                            <v-chip color="red darken-2" dark small class="mr-2">
+                              VERMELHO
+                            </v-chip>
+                            {{ tooltip3 }}
+                          </div>
+                        </div>
+                        <div v-else>
+
+                        </div>
+
+                      </v-tooltip>
+                      <!-- Fim da Tooltip -->
+
+
                     </td>
                   </tr>
                 </tbody>
               </v-table>
 
-              <v-divider :thickness="10" color="grey"></v-divider>        
-              
-              
+              <v-divider :thickness="10" color="grey"></v-divider>
+
+
             </v-expansion-panel-text>
           </v-expansion-panel>
         </v-expansion-panels>
@@ -160,6 +148,12 @@
 
     </v-col>
   </v-row>
+
+
+  <!-- 
+ 
+ 
+ -->
 </template>
 
 <script>
@@ -185,16 +179,22 @@ export default {
           nome: "Verde",
           desc: "Taxa de acerto de 100% na habilidade.",
           colorClass: "hab100",
+          chipColor: 'Verde'
+
         },
         {
           nome: "Laranja",
           desc: "Taxa de acerto inferior à 100% na habilidade.",
           colorClass: "hab50",
+          chipColor: 'Laranja'
+
         },
         {
           nome: "Vermelho",
           desc: "Nenhum acerto na habilidade.",
           colorClass: "hab0",
+          chipColor: 'Vermelho'
+
         },
       ],
       habilidades: [
@@ -254,9 +254,9 @@ export default {
           colorClass: "",
         },
       ],
-      tooltip1: " -  Taxa de acerto de 100% na habilidade.",
-      tooltip2: " - Taxa de acerto inferior à 100% na habilidade.",
-      tooltip3: " - Nenhum acerto na habilidade.",
+      tooltip1: " Taxa de acerto de 100% na habilidade.",
+      tooltip2: " Taxa de acerto inferior à 100% na habilidade.",
+      tooltip3: " Nenhum acerto na habilidade.",
     };
   },
 
@@ -284,7 +284,7 @@ export default {
     this.listaTurma = this.listaDeAlunos;
   },
 
-  mounted() {},
+  mounted() { },
 
   methods: {
     generateTurmasPDf() {
@@ -445,15 +445,14 @@ export default {
             return "O aluno não respondeu uma questão com essa habilidade";
           } else if (tentativas >= 1 && acertos === 100) {
             this.habilidades[numHab - 1].colorClass = "hab100";
-            return "Identificou o número de sílabas de uma palavra.";
+            return "Reconheceu letra(s) reproduzida(s) com fontes ou formatos distintos.";
           } else if (tentativas >= 1 && acertos > 0 && acertos < 100) {
             this.habilidades[numHab - 1].colorClass = "hab50";
-            return "Não identificou o número de sílabas de uma palavra.";
+            return "O reconhecimento de letra(s) reproduzida(s) com diferentes fontes e formatos ora é realizado, ora não, o que indicia que essa habilidade está em desenvolvimento.";
           } else if (tentativas >= 1 && acertos === 0) {
             this.habilidades[numHab - 1].colorClass = "hab0";
-            return "A oscilação entre erros e acertos sugere que a habilidade de reconhecer o número de sílabas de uma palavra está em desenvolvimento.";
+            return "Não reconheceu letra(s) reproduzida(s) com diferentes formatos ou fontes.";
           }
-
           break;
         case 3:
           if (tentativas === 0) {
@@ -461,13 +460,13 @@ export default {
             return "O aluno não respondeu uma questão com essa habilidade";
           } else if (tentativas >= 1 && acertos === 100) {
             this.habilidades[numHab - 1].colorClass = "hab100";
-            return "Reconheceu uma mesma letra escrita com fontes e formatos distintos.";
+            return "Identificou o número de sílabas de uma palavra. ";
           } else if (tentativas >= 1 && acertos > 0 && acertos < 100) {
             this.habilidades[numHab - 1].colorClass = "hab50";
-            return "O reconhecimento de uma mesma letra reproduzida com diferentes fontes e formatos ora é realizado, ora não, o que indicia que essa habilidade está em desenvolvimento.";
+            return "As oscilações entre erros e acertos sugerem que a habilidade de reconhecer o número de sílabas de uma palavra está em desenvolvimento.";
           } else if (tentativas >= 1 && acertos === 0) {
             this.habilidades[numHab - 1].colorClass = "hab0";
-            return "Não reconheceu uma mesma letra reproduzida com diferentes fontes e formatos.";
+            return "Não identificou o número de sílabas de uma palavra.";
           }
           break;
         case 4:
@@ -491,13 +490,13 @@ export default {
             return "O aluno não respondeu uma questão com essa habilidade";
           } else if (tentativas >= 1 && acertos === 100) {
             this.habilidades[numHab - 1].colorClass = "hab100";
-            return "Decodificou uma palavra.";
+            return "Decodificou uma palavra composta por sílaba canônica CV (consoante/vogal).";
           } else if (tentativas >= 1 && acertos > 0 && acertos < 100) {
             this.habilidades[numHab - 1].colorClass = "hab50";
-            return "A decodificação de palavras oscila entre acertos e erros, o que pode indicar que essa habilidade está em desenvolvimento";
+            return "A decodificação de palavra composta por sílaba canônica CV (consoante/vogal). Oscila entre acertos e erros, o que parece indicar que essa habilidade está em desenvolvimento.";
           } else if (tentativas >= 1 && acertos === 0) {
             this.habilidades[numHab - 1].colorClass = "hab0";
-            return "Não decodificou uma palavra.";
+            return "Não decodificou uma palavra composta por sílaba canônica CV (consoante/vogal).";
           }
           break;
         case 6:
@@ -601,7 +600,8 @@ export default {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 100%; /* Você pode ajustar o valor conforme necessário */
+  max-width: 100%;
+  /* Você pode ajustar o valor conforme necessário */
 }
 
 .title-column {
@@ -664,6 +664,5 @@ export default {
   color: #ef2d2d !important;
 }
 
-@media (max-width: 1800px) {
-}
+@media (max-width: 1800px) {}
 </style>

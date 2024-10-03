@@ -20,36 +20,6 @@
 
                             <th class="text-left">
                                 Questão
-                                <!--  <v-tooltip activator="parent" location="end"
-                        class="main-tooltip">
-
-                        <p class="tooltip-hab t-text">
-                            <span class="t-text" :style="{ color: '#1a7a11' }">Verde</span> {{ tooltip1 }}
-                         </p>
-                        <p class="tooltip-hab t-text">
-                            <span class="t-text" :style="{ color: '#ef2d2d' }">Vermelho</span> {{ tooltip2 }}
-                         </p>
-                       
-                    </v-tooltip> -->
-                                <v-tooltip activator="parent" location="end" class="main-tooltip" :open-delay="0"
-                                    :close-delay="0" transition="fade-transition">
-                                    <!-- Conteúdo da Tooltip com Quebra de Linha -->
-                                    <div>
-                                        <v-chip color="green lighten-1" dark small class="mr-2">
-                                            VERDE
-                                        </v-chip>
-                                        {{ tooltip1 }}
-                                    </div>
-
-                                    <div class="my-2">
-                                        <v-chip color="red darken-2" dark small class="mr-2">
-                                            VERMELHO
-                                        </v-chip>
-                                        {{ tooltip2 }}
-                                    </div>
-
-
-                                </v-tooltip>
                             </th>
                             <th class="text-left">
                                 Percurso
@@ -71,8 +41,39 @@
                             <td class="cor-padrao">{{ index + 1 }}</td>
                             <td class="cor-padrao">{{ item.estrato + 1 }}</td>
                             <td v-if="item.acerto === 'Sim'" class="cor-acerto">{{
-                                this.getHabilidadeDescricao(item.habilidade) }}</td>
-                            <td v-else class="cor-erro">{{ this.getHabilidadeDescricao(item.habilidade) }}</td>
+                                this.getHabilidadeDescricao(item.habilidade)
+
+
+
+                            }}
+                                <v-tooltip activator="parent" location="top left" class="main-tooltip" :open-delay="0"
+                                    :close-delay="0" transition="fade-transition">
+                                    <!-- Conteúdo da Tooltip com Quebra de Linha -->
+                                    <div>
+                                        <v-chip color="green lighten-1" dark small class="mr-2">
+                                            VERDE
+                                        </v-chip>
+                                        {{ tooltip1 }}
+                                    </div>
+
+                                </v-tooltip>
+                            </td>
+                            <td v-else class="cor-erro">
+                                {{ this.getHabilidadeDescricao(item.habilidade) }}
+                                <v-tooltip activator="parent" location="top left" class="main-tooltip" :open-delay="0"
+                                    :close-delay="0" transition="fade-transition">
+                                    <!-- Conteúdo da Tooltip com Quebra de Linha -->
+
+                                    <div class="my-2">
+                                        <v-chip color="red darken-2" dark small class="mr-2">
+                                            VERMELHO
+                                        </v-chip>
+                                        {{ tooltip2 }}
+                                    </div>
+
+
+                                </v-tooltip>
+                            </td>
 
                         </tr>
                     </tbody>
