@@ -4,7 +4,7 @@
       <v-row class="d-flex justify-center">
         <v-col cols="11" class="d-flex align-center justify-center">
           <v-avatar class="me-4" color="blue-lighten-4" size="32"></v-avatar>
-          <h1 class="menu-title">Dashboard</h1>
+          <h1 class="menu-title">Plano A</h1>
 
           <!-- <v-btn
             v-for="link in links"
