@@ -135,7 +135,7 @@
                       value="option-4"
                       class="pl-4 d-flex justify-start"
                     >
-                      <span>Panorama Geral</span>
+                      <span>Panorama da Turma</span>
                       <v-tooltip
                         activator="parent"
                         :open-delay="0"

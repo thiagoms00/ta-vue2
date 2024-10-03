@@ -207,7 +207,7 @@
                   Progressão
                 </v-tab>
 
-               <!--  <v-tab value="provisorio">
+                <!--  <v-tab value="provisorio">
                   <v-icon icon="mdi-chart-bubble"></v-icon>
                   Nova Aba
                 </v-tab> -->
@@ -218,13 +218,15 @@
                 <v-window-item value="dados">
                   <v-container>
                     <v-row>
-                      <span class="font-weight-bold">
-                        {{ item.user["nome"] }}&nbsp;
-                      </span>
-                      <span> em seu último teste: </span>
+                      <v-col>
+                        <span class="font-weight-bold">
+                          {{ item.user["nome"] }}&nbsp;
+                        </span>
+                        <span> em seu último teste: </span>
+                      </v-col>
                     </v-row>
 
-                    <v-row class="mt-4">
+                    <v-row class="my-4">
                       <v-row>
                         <v-col
                           v-for="(habilidade, index) in item.listaDeHab[
@@ -235,17 +237,25 @@
                           sm="4"
                           class="py-1"
                         >
-                          <v-list-item >
+                          <v-list-item>
                             <v-chip
                               :color="
-                                getChipColor(habilidade.porcentagemAcertos, habilidade.tentativas)
+                                getChipColor(
+                                  habilidade.porcentagemAcertos,
+                                  habilidade.tentativas
+                                )
                               "
                             >
                               H{{ habilidade.habilidade }}
                             </v-chip>
 
-                            <span class="text-caption">
-                              {{ habilidade.tentativas == 0 ? 'Nenhuma tentativa registrada' : habilidade.porcentagemAcertos + '% de taxa de acertos' }}
+                            <span class="text-caption ml-2">
+                              {{
+                                habilidade.tentativas == 0
+                                  ? "Nenhuma tentativa registrada"
+                                  : habilidade.porcentagemAcertos +
+                                    "% de taxa de acertos"
+                              }}
                             </span>
                           </v-list-item>
                         </v-col>
@@ -422,7 +432,7 @@ export default {
       if (porcentagem === 100) {
         return "green darken-3"; // Verde escuro para 100%
       } else if (tentativas === 0) {
-        return "blue lighten-3"
+        return "blue lighten-3";
       } else if (porcentagem >= 75 && porcentagem < 100) {
         return "green lighten-3"; // Verde claro para 75% - 99%
       } else if (porcentagem >= 50 && porcentagem < 75) {
