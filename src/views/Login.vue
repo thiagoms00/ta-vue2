@@ -58,15 +58,6 @@ export default {
 
 </script>
 
-<!-- <style scoped>
-.bg {
-  background: url('../assets/imgs/homeBackground.jpg');
-  background-size: cover;
-  height: 100vh;
-  background-position: center;
-}
-</style> -->
-
 <style>
 .main-div {
   display: flex;

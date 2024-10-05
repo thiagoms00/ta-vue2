@@ -28,7 +28,6 @@
           </v-btn>
 
           <v-alert v-if="error" type="error" class="mt-4">{{ error }}</v-alert>
-
         </v-form>
 
 
