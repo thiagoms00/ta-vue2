@@ -130,36 +130,30 @@ export default {
 
   methods: {
     verificaLogin() {
-      const dataToken = localStorage.getItem("token");
+  const dataToken = localStorage.getItem("token");
 
-      if (dataToken === null || dataToken === undefined) {
-        console.log(
-          'O localStorage está vazio ou o item "token" não está definido.'
-        );
-      } else {
-        const data = {
-          token: dataToken,
-        };
-        axios({
-          url: "https://ta-back.onrender.com/alunos/verificaToken",
-          data,
-          method: "POST",
-        })
-          .then((response) => {
-            console.log(response.status);
-            if (response.status === 200) {
-              // Token é válido
-              this.$router.push("/welcome");
-            }
-          })
-          .catch((error) => {
-            // Tratar erros aqui
-            localStorage.removeItem("token");
-            this.$router.push("/login");
-            console.error(error);
-          });
+  if (!dataToken) {
+    console.log('O localStorage está vazio ou o item "token" não está definido.');
+    this.$router.push("/login");
+    return;
+  }
+
+  const data = { token: dataToken };
+
+  axios.post("https://ta-back.onrender.com/alunos/verificaToken", data)
+    .then((response) => {
+      if (response.status === 200) {
+        // Token é válido
+        this.$router.push("/welcome");
       }
-    },
+    })
+    .catch((error) => {
+      console.error('Erro na verificação do token:', error.response?.status || error.message);
+      localStorage.removeItem("token");
+      this.$router.push("/login");
+    });
+}
+,
 
     submitForm() {
       this.buttonText = "Carregando...";
