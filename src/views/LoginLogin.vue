@@ -128,6 +128,7 @@ export default {
 
   mounted() {
     // this.verificaLogin();
+    // this.verificaLogin();
   },
 
   methods: {
