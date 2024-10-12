@@ -508,24 +508,29 @@ export default {
             itens_p3: [],
             itens_p4: [],
             tabNumber: 1,
+            paramItem : {},
         }
     },
 
     created() {  //Sempre é chamado quando a pagina é carregada
-
-
+        if (this.$route.query.data) {
+            // Parse the object from the query string (optional, based on how it's passed)
+            this.paramItem = JSON.parse(this.$route.query.data);
+        }
+        console.log(this.paramItem)
         this.itens_p1 = jsonDataQuestoes0;
         this.itens_p2 = jsonDataQuestoes1;
         this.itens_p3 = jsonDataQuestoes2;
         this.itens_p4 = jsonDataQuestoes3;
-
+        
 
         this.startTest();
 
+        console.log(this.paramItem.percurso)
 
-
+      
         /* Propriedades do item à ser respondido. */
-        this.questionNumber = this.ordem[this.nestr][this.ind_questao];
+        this.questionNumber = this.ordem[this.paramItem.percurso-1][this.paramItem.index];
         this.questionId = this.jsonData.questoes[this.questionNumber].id;
         this.questionText = this.jsonData.questoes[this.questionNumber].text;
         this.questionTextTitle = this.jsonData.questoes[this.questionNumber].textTitle;
@@ -614,6 +619,9 @@ export default {
             this.infoDialog = true;
         },
 
+        openItem(){
+
+        },
 
 
 
@@ -1039,7 +1047,7 @@ export default {
            'ordem': Matriz com a ordem de questões, separadas por extrato,a questão na posição [0] do estrato 1, é a primeira questão apresentada.
         */
 
-        startTest() {
+        async startTest() {
             /* Iniciando o Algoritmo, armazenando o tamanho total de cada array que contem os dados dos extratos.*/
 
             const nq0 = jsonData0.extrato.length;
@@ -1188,7 +1196,7 @@ export default {
             this.ordem = [ordem_0, ordem_1, ordem_2, ordem_3];
 
 
-            this.resetaExtrato(this.nestr, this.jquest);
+            this.resetaExtrato(this.paramItem.percurso-1, this.jquest);
 
         },
 
@@ -1215,7 +1223,6 @@ export default {
             switch (nestr) {
                 case 0:
                     this.jsonData = jsonDataQuestoes0;
-
                     break;
                 case 1:
 
@@ -1228,8 +1235,8 @@ export default {
 
                     break;
                 case 3:
-
                     this.jsonData = jsonDataQuestoes3;
+
 
                     break;
             }

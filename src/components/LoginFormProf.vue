@@ -102,11 +102,17 @@ export default {
           const tokenProf = response.data.tokenProf;
           const idProf = response.data.idProf;
           const type = response.data.type
+          const admin = response.data.admin
 
           localStorage.setItem('tokenProf', tokenProf);
           localStorage.setItem('idProf', idProf);
           localStorage.setItem('type', type);
-
+          if(admin){
+            localStorage.setItem('admin', true);
+          }
+          else{
+            localStorage.setItem('admin', false);
+          }
           axios.defaults.headers.common['Authorization'] = tokenProf;
 
           console.log('Login bem-sucedido');
