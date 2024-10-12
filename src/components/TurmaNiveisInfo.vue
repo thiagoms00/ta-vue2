@@ -95,13 +95,13 @@
                       {{ item.desc }}
 
                       <!-- Início da Tooltip -->
-                      <v-tooltip activator="parent" location="top left" class="main-tooltip" :open-delay="0"
+                      <v-tooltip activator="parent" location="left" class="main-tooltip" :open-delay="0"
                         :close-delay="0" transition="fade-transition" v-if="habilidades[index].colorClass == 'hab100'
                           || habilidades[index].colorClass == 'hab50' || habilidades[index].colorClass == 'hab0'">
                         <!-- Conteúdo da Tooltip com Quebra de Linha -->
 
                         <div v-if="habilidades[index].colorClass === 'hab100'">
-                          <div>
+                          <div class="tooltip1Teste">
                             <v-chip color="green lighten-1" dark small class="mr-2">
                               VERDE
                             </v-chip>
@@ -110,7 +110,7 @@
 
                         </div>
                         <div v-if="habilidades[index].colorClass === 'hab50'">
-                          <div class="my-2">
+                          <div class="my-2 tooltip1Teste">
                             <v-chip color="orange darken-1" dark small class="mr-2">
                               LARANJA
                             </v-chip>
@@ -118,7 +118,7 @@
                           </div>
                         </div>
                         <div v-if="habilidades[index].colorClass === 'hab0'">
-                          <div>
+                          <div class="tooltip1Teste">
                             <v-chip color="red darken-2" dark small class="mr-2">
                               VERMELHO
                             </v-chip>
@@ -337,13 +337,13 @@ export default {
 
     getDescricaoResultadoFinal(item) {
       if (item.listaDeTestes.length === 0) {
-        return "-";
+        return "Aluno ausente.";
       }
 
       const ultimoTeste = item.listaDeTestes[item.listaDeTestes.length - 1];
 
       if (ultimoTeste.status !== "Finalizado") {
-        return "-";
+        return "Aluno ausente.";
       }
 
       switch (ultimoTeste.resultado_final) {
@@ -360,9 +360,9 @@ export default {
         case "2 - Aprovado":
         case "3 - Reprovado":
         case "3 - Indefinido":
-          return "Lê pequenos textos, recuperando informações explícitas e começa a identificar seu tema ou assunto principal";
+          return "Lê pequenos textos, recuperando informações explícitas e começa a identificar seu tema ou assunto principal.";
         case "3 - Aprovado":
-          return "Alfabetização Consolidada";
+          return "Alfabetização Consolidada.";
         default:
           return "-";
       }
@@ -427,7 +427,7 @@ export default {
         case 1:
           if (tentativas === 0) {
             this.habilidades[numHab - 1].colorClass = "tent0";
-            return "O aluno não respondeu uma questão com essa habilidade";
+            return "O aluno não respondeu uma questão com essa habilidade.";
           } else if (tentativas >= 1 && acertos === 100) {
             this.habilidades[numHab - 1].colorClass = "hab100";
             return "Reconheceu uma letra do alfabeto.";
@@ -442,7 +442,7 @@ export default {
         case 2:
           if (tentativas === 0) {
             this.habilidades[numHab - 1].colorClass = "tent0";
-            return "O aluno não respondeu uma questão com essa habilidade";
+            return "O aluno não respondeu uma questão com essa habilidade.";
           } else if (tentativas >= 1 && acertos === 100) {
             this.habilidades[numHab - 1].colorClass = "hab100";
             return "Reconheceu letra(s) reproduzida(s) com fontes ou formatos distintos.";
@@ -457,7 +457,7 @@ export default {
         case 3:
           if (tentativas === 0) {
             this.habilidades[numHab - 1].colorClass = "tent0";
-            return "O aluno não respondeu uma questão com essa habilidade";
+            return "O aluno não respondeu uma questão com essa habilidade.";
           } else if (tentativas >= 1 && acertos === 100) {
             this.habilidades[numHab - 1].colorClass = "hab100";
             return "Identificou o número de sílabas de uma palavra. ";
@@ -472,7 +472,7 @@ export default {
         case 4:
           if (tentativas === 0) {
             this.habilidades[numHab - 1].colorClass = "tent0";
-            return "O aluno não respondeu uma questão com essa habilidade";
+            return "O aluno não respondeu uma questão com essa habilidade.";
           } else if (tentativas >= 1 && acertos === 100) {
             this.habilidades[numHab - 1].colorClass = "hab100";
             return "Reconheceu um elemento sonoro específico em uma palavra.";
@@ -487,7 +487,7 @@ export default {
         case 5:
           if (tentativas === 0) {
             this.habilidades[numHab - 1].colorClass = "tent0";
-            return "O aluno não respondeu uma questão com essa habilidade";
+            return "O aluno não respondeu uma questão com essa habilidade.";
           } else if (tentativas >= 1 && acertos === 100) {
             this.habilidades[numHab - 1].colorClass = "hab100";
             return "Decodificou uma palavra composta por sílaba canônica CV (consoante/vogal).";
@@ -502,7 +502,7 @@ export default {
         case 6:
           if (tentativas === 0) {
             this.habilidades[numHab - 1].colorClass = "tent0";
-            return "O aluno não respondeu uma questão com essa habilidade";
+            return "O aluno não respondeu uma questão com essa habilidade.";
           } else if (tentativas >= 1 && acertos === 100) {
             this.habilidades[numHab - 1].colorClass = "hab100";
             return "Reconheceu uma informação explícita em um texto.";
@@ -517,7 +517,7 @@ export default {
         case 7:
           if (tentativas === 0) {
             this.habilidades[numHab - 1].colorClass = "tent0";
-            return "O aluno não respondeu uma questão com essa habilidade";
+            return "O aluno não respondeu uma questão com essa habilidade.";
           } else if (tentativas >= 1 && acertos === 100) {
             this.habilidades[numHab - 1].colorClass = "hab100";
             return "Reconheceu uma informação em um texto que articula linguagem verbal e não verbal.";
@@ -532,7 +532,7 @@ export default {
         case 8:
           if (tentativas === 0) {
             this.habilidades[numHab - 1].colorClass = "tent0";
-            return "O aluno não respondeu uma questão com essa habilidade";
+            return "O aluno não respondeu uma questão com essa habilidade.";
           } else if (tentativas >= 1 && acertos === 100) {
             this.habilidades[numHab - 1].colorClass = "hab100";
             return "Identificou o tema ou o assunto principal de um texto.";
@@ -547,7 +547,7 @@ export default {
         case 9:
           if (tentativas === 0) {
             this.habilidades[numHab - 1].colorClass = "tent0";
-            return "O aluno não respondeu uma questão com essa habilidade";
+            return "O aluno não respondeu uma questão com essa habilidade.";
           } else if (tentativas >= 1 && acertos === 100) {
             this.habilidades[numHab - 1].colorClass = "hab100";
             return "Identificou a finalidade ou o objetivo de um texto.";
@@ -562,7 +562,7 @@ export default {
         case 10:
           if (tentativas === 0) {
             this.habilidades[numHab - 1].colorClass = "tent0";
-            return "O aluno não respondeu uma questão com essa habilidade";
+            return "O aluno não respondeu uma questão com essa habilidade.";
           } else if (tentativas >= 1 && acertos === 100) {
             this.habilidades[numHab - 1].colorClass = "hab100";
             return "Inferiu uma informação implícita em um texto.";
@@ -577,7 +577,7 @@ export default {
         case 11:
           if (tentativas === 0) {
             this.habilidades[numHab - 1].colorClass = "tent0";
-            return "O aluno não respondeu uma questão com essa habilidade";
+            return "O aluno não respondeu uma questão com essa habilidade.";
           } else if (tentativas >= 1 && acertos === 100) {
             this.habilidades[numHab - 1].colorClass = "hab100";
             return "Estabeleceu relação de causa e consequência em um texto.";
@@ -662,6 +662,10 @@ export default {
 
 .hab0 {
   color: #ef2d2d !important;
+}
+
+.tooltip1Teste{
+  color: #fff;
 }
 
 @media (max-width: 1800px) {}

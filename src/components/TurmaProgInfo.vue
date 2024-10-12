@@ -46,10 +46,10 @@
 
 
                             }}
-                                <v-tooltip activator="parent" location="top left" class="main-tooltip" :open-delay="0"
+                                <v-tooltip activator="parent" location="left" class="main-tooltip" :open-delay="0"
                                     :close-delay="0" transition="fade-transition">
                                     <!-- Conteúdo da Tooltip com Quebra de Linha -->
-                                    <div>
+                                    <div class="tooltip1Teste">
                                         <v-chip color="green lighten-1" dark small class="mr-2">
                                             VERDE
                                         </v-chip>
@@ -60,11 +60,11 @@
                             </td>
                             <td v-else class="cor-erro">
                                 {{ this.getHabilidadeDescricao(item.habilidade) }}
-                                <v-tooltip activator="parent" location="top left" class="main-tooltip" :open-delay="0"
+                                <v-tooltip activator="parent" location="left" class="main-tooltip" :open-delay="0"
                                     :close-delay="0" transition="fade-transition">
                                     <!-- Conteúdo da Tooltip com Quebra de Linha -->
 
-                                    <div class="my-2">
+                                    <div class="my-2 tooltip1Teste">
                                         <v-chip color="red darken-2" dark small class="mr-2">
                                             VERMELHO
                                         </v-chip>
@@ -333,4 +333,9 @@ export default {
 .t-text {
     font-size: 1rem;
 }
+
+.tooltip1Teste{
+    color: #fff !important;
+}
+
 </style>
