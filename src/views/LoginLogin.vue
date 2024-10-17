@@ -93,7 +93,6 @@
 <script>
 import LogoImpacto from "@/components/LogoImpacto.vue";
 import axios from "axios";
-import { mapActions } from 'vuex'
 
 export default {
   name: "LoginLogin",
@@ -133,10 +132,6 @@ export default {
 
   methods: {
 
-    ...mapActions([
-      'login'
-    ]),
-
     verificaLogin() {
       const dataToken = localStorage.getItem("token");
 
@@ -167,6 +162,7 @@ export default {
           this.$router.push("/login");
         });
     },
+
     submitForm() {
       this.setLoadingState(true, "Carregando...");
       this.clearError();
@@ -176,13 +172,70 @@ export default {
         senha: this.senha,
       };
 
-      this.login(userData)
-        .then(() => {
-          console.log("Login bem-sucedido");
-          this.$router.push("/welcome");
+      axios({
+        url: "https://ta-back.onrender.com/generalMethods/login",
+        data: userData,
+        method: "POST",
+      })
+        .then((response) => {
+
+          const type = response.data.type;
+          
+          if (type === "aluno"){
+            const token = response.data.token;
+            const id = response.data.id;
+            const anoAtual = response.data.anoAtual;
+            const idTurma = response.data.idTurma;
+            const estratoInicial = response.data.estratoInicial;
+
+            localStorage.setItem("token", token);
+            localStorage.setItem("id", id);
+            localStorage.setItem("anoAtual", anoAtual);
+            localStorage.setItem("idTurma", idTurma);
+            localStorage.setItem("estratoInicial", estratoInicial);
+            localStorage.setItem("type", type);
+
+            this.$router.push("/welcome");
+          }
+
+          if(type === "prof"){
+            const tokenProf = response.data.tokenProf;
+            const idProf = response.data.idProf;
+            const type = response.data.type
+            const admin = response.data.admin
+
+            localStorage.setItem('tokenProf', tokenProf);
+            localStorage.setItem('idProf', idProf);
+            localStorage.setItem('type', type);
+
+            this.$router.push("/turma");
+
+          }
+
+          if(type === "dir"){
+            localStorage.setItem('type', type);
+
+            this.$router.push("/turma");
+          }
+
+          if(type === "coord"){
+            localStorage.setItem('type', type);
+
+            this.$router.push("/turma");
+          }
+
+          if(type === "admin"){
+            localStorage.setItem('type', type);
+
+            this.$router.push("/turma");
+          }
+ 
+          resolve(response);
         })
         .catch((error) => {
-          this.handleLoginError(error);
+          localStorage.removeItem("token");
+          reject(error);
+          this.$router.push('/loginlogin')
         });
     },
 

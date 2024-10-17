@@ -1,8 +1,8 @@
 <template>
 
 
-  <v-sheet rounded="lg" :class="{ 'fade-in': animacaoListaAtiva }">
-    <v-tabs v-model="tab" bg-color="#1E3892">
+  <v-sheet class="rounded-t-lg" :class="{ 'fade-in': animacaoListaAtiva }">
+    <v-tabs v-model="tab" bg-color="#1E3892" class="rounded-t-lg">
       <v-tab value="p1" class="tab-name" @click="selectedTab(1)">Percurso 1</v-tab>
       <v-tab value="p2" class="tab-name" @click="selectedTab(2)">Percurso 2</v-tab>
       <v-tab value="p3" class="tab-name" @click="selectedTab(3)">Percurso 3</v-tab>
