@@ -26,7 +26,6 @@
                 <v-text-field
                   v-model="email"
                   :rules="emailRules"
-                  label="Aluno"
                   variant="outlined"
                   bg-color="white"
                   color="#1E3892"
@@ -37,13 +36,16 @@
                 <v-text-field
                   v-model="senha"
                   :rules="senhaRules"
-                  label="Senha"
                   variant="outlined"
                   bg-color="white"
                   color="#1E3892"
                   prepend-inner-icon="mdi-lock-outline"
-                  type="password"
+                  :type="showPassword ? 'text' : 'password'"
+                  :append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
+                  @click:append-inner="togglePasswordVisibility"
+                  
                 >
+                  
                 </v-text-field>
 
                 <div class="d-flex justify-center">
@@ -105,6 +107,7 @@ export default {
     valid: false,
     email: "",
     senha: "",
+    showPassword: false,
 
     emailRules: [
       (value) => {
@@ -123,6 +126,11 @@ export default {
   }),
 
   methods: {
+    // Alterna entre mostrar e ocultar a senha
+    togglePasswordVisibility() {
+      this.showPassword = !this.showPassword;
+    },
+
     verificaLogin() {
       const dataToken = localStorage.getItem("token");
 
@@ -198,7 +206,7 @@ export default {
             localStorage.setItem("idProf", idProf);
             localStorage.setItem("type", type);
 
-            this.clearError(); 
+            this.clearError();
             this.$router.push("/turma");
           }
 
