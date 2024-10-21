@@ -1,72 +1,70 @@
 <template>
-  <v-container class="main-div" fluid>
-    <v-row class="full-height d-flex justify-center align-center">
-      <v-col cols="3" sm="2" md="3" class="text-center"> </v-col>
+  <v-container class="main-div fill-height" fluid>
+    <v-row class="fill-height d-flex justify-center align-center">
+      <!-- Coluna invisível -->
+      <v-col cols="3" sm="2" md="3"> </v-col>
 
-      <v-col cols="6" sm="8" md="6" class="text-center">
-        <v-sheet class="rounded-lg elevation-2 pb-14">
-          <!-- Parte da Logo do planoA -->
+      <!-- Coluna de conteudo -->
+      <v-col cols="8" sm="8" md="6">
+        <v-sheet class="rounded-lg elevation-4 pa-4 pb-10">
           <v-row class="d-flex justify-center">
-            <v-col cols="8" sm="6" md="4" xs="3">
-              <img
-                src="../assets/imgs/Logo-PlanoA-removebg.png"
-                alt="Logo Plano A"
-                class="logo-image-planoa"
-              />
-            </v-col>
-          </v-row>
+            <v-col cols="10" md="8" sm="9">
+              <div class="d-flex justify-center">
+                <v-img
+                  src="../assets/imgs/Logo-PlanoA-removebg.png"
+                  contain
+                  max-width="250"
+                  aspect-ratio="16/9"
+                ></v-img>
+              </div>
 
-          <!-- Parte do formulário de login. -->
-          <v-row class="d-flex justify-center">
-            <v-col cols="8">
-              <div class="text-h2 text-md-h2 text-sm-h4 text-xs-h5 d-flex px-4">
+              <div class="text-h2 text-md-h4 text-sm-h4 text-xs-h5 d-flex mb-2">
                 Login
               </div>
-              <div>
-                <v-form v-model="valid" @submit.prevent="submitForm">
-                  <v-container class="">
-                    <v-text-field
-                      class="form-field aluno-field"
-                      v-model="email"
-                      :rules="emailRules"
-                      label="Aluno"
-                      variant="outlined"
-                      bg-color="white"
-                      color="#1E3892"
-                      prepend-inner-icon="mdi-account"
-                    >
-                    </v-text-field>
 
-                    <v-text-field
-                      class="form-field senha-field"
-                      v-model="senha"
-                      :rules="senhaRules"
-                      label="Senha"
-                      variant="outlined"
-                      bg-color="white"
-                      color="#1E3892"
-                      prepend-inner-icon="mdi-lock-outline"
-                      type="password"
-                    >
-                    </v-text-field>
-                  </v-container>
+              <v-form v-model="valid" @submit.prevent="submitForm">
+                <v-text-field
+                  v-model="email"
+                  :rules="emailRules"
+                  label="Aluno"
+                  variant="outlined"
+                  bg-color="white"
+                  color="#1E3892"
+                  prepend-inner-icon="mdi-account"
+                >
+                </v-text-field>
+
+                <v-text-field
+                  v-model="senha"
+                  :rules="senhaRules"
+                  label="Senha"
+                  variant="outlined"
+                  bg-color="white"
+                  color="#1E3892"
+                  prepend-inner-icon="mdi-lock-outline"
+                  type="password"
+                >
+                </v-text-field>
+
+                <div class="d-flex justify-center">
                   <v-btn
-                    class="btnTeste"
-                    size="large"
                     type="submit"
                     variant="flat"
                     color="#1E3892"
-                    elevation-15
                     :loading="loading"
+                    elevation="2"
+                    width="200"
+                    max-width="200"
+                    size="large"
                   >
                     {{ buttonText }}
                   </v-btn>
+                </div>
 
-                  <v-alert v-if="error" type="error" class="mt-4">{{
-                    error
-                  }}</v-alert>
-                </v-form>
-              </div>
+                <v-alert v-if="error" type="error" class="mt-4">{{
+                  error
+                }}</v-alert>
+              </v-form>
             </v-col>
           </v-row>
         </v-sheet>
@@ -76,10 +74,9 @@
         cols="3"
         sm="2"
         md="3"
-        class="full-height d-flex justify-end align-end"
+        class="fill-height d-flex justify-end align-end"
       >
         <v-img
-          class="logo-imp"
           src="../assets/imgs/Logo-Impacto-removebg.png"
           contain
           :max-width="300"
@@ -125,13 +122,7 @@ export default {
     ],
   }),
 
-  mounted() {
-    // this.verificaLogin();
-    // this.verificaLogin();
-  },
-
   methods: {
-
     verificaLogin() {
       const dataToken = localStorage.getItem("token");
 
@@ -165,7 +156,7 @@ export default {
 
     submitForm() {
       this.setLoadingState(true, "Carregando...");
-      this.clearError();
+      this.clearError(); // Limpa a mensagem de erro ao iniciar o login
 
       const userData = {
         id: this.email,
@@ -178,10 +169,9 @@ export default {
         method: "POST",
       })
         .then((response) => {
-
           const type = response.data.type;
-          
-          if (type === "aluno"){
+
+          if (type === "aluno") {
             const token = response.data.token;
             const id = response.data.id;
             const anoAtual = response.data.anoAtual;
@@ -195,47 +185,41 @@ export default {
             localStorage.setItem("estratoInicial", estratoInicial);
             localStorage.setItem("type", type);
 
+            this.clearError();
             this.$router.push("/welcome");
           }
 
-          if(type === "prof"){
+          if (type === "prof") {
             const tokenProf = response.data.tokenProf;
             const idProf = response.data.idProf;
-            const type = response.data.type
-            const admin = response.data.admin
+            const admin = response.data.admin;
 
-            localStorage.setItem('tokenProf', tokenProf);
-            localStorage.setItem('idProf', idProf);
-            localStorage.setItem('type', type);
+            localStorage.setItem("tokenProf", tokenProf);
+            localStorage.setItem("idProf", idProf);
+            localStorage.setItem("type", type);
 
-            this.$router.push("/turma");
-
-          }
-
-          if(type === "dir"){
-            localStorage.setItem('type', type);
-
+            this.clearError(); 
             this.$router.push("/turma");
           }
 
-          if(type === "coord"){
-            localStorage.setItem('type', type);
+          if (type === "dir" || type === "coord" || type === "admin") {
+            localStorage.setItem("type", type);
 
+            this.clearError();
             this.$router.push("/turma");
           }
-
-          if(type === "admin"){
-            localStorage.setItem('type', type);
-
-            this.$router.push("/turma");
-          }
- 
-          resolve(response);
         })
         .catch((error) => {
           localStorage.removeItem("token");
-          reject(error);
-          this.$router.push('/loginlogin')
+          console.error("Erro no login:", error);
+          this.error =
+            "Usuário ou senha incorretos. Por favor, tente novamente.";
+        })
+        .finally(() => {
+          this.loading = false;
+          this.buttonText = "Entrar";
+
+          // Não há necessidade de setTimeout para limpar a mensagem de erro aqui
         });
     },
 
@@ -264,21 +248,7 @@ export default {
 
 <style scoped>
 .main-div {
-  width: 100%;
-  height: 100vh; /* Use 100vh para garantir que cubra toda a altura da janela */
-  align-items: center;
-  justify-content: center; /* Centraliza o conteúdo verticalmente */
   background: url("../assets/imgs/homeBackground.jpg") no-repeat center center;
   background-size: cover;
-}
-
-.logo-image-planoa {
-  max-width: 200px;
-  width: 100%;
-  height: auto;
-}
-
-.full-height {
-  height: 100vh; /* Ocupa toda a altura da tela */
 }
 </style>
