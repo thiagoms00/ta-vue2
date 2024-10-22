@@ -241,7 +241,6 @@ export default {
   created() {
     
     verificaLogin(this.$router, this.$route);
-    // this.$store.dispatch("verificarTokenProfs", { router: this.$router });
     this.listaNomeTurma = this.returnTurmas();
     let flag = false;
     const adminToken = localStorage.getItem('admin');
