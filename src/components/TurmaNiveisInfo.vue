@@ -95,7 +95,7 @@
                       {{ item.desc }}
 
                       <!-- Início da Tooltip -->
-                      <v-tooltip activator="parent" location="left" class="main-tooltip" :open-delay="0"
+                      <v-tooltip activator="parent" location="top left" class="main-tooltip" :open-delay="0"
                         :close-delay="0" transition="fade-transition" v-if="habilidades[index].colorClass == 'hab100'
                           || habilidades[index].colorClass == 'hab50' || habilidades[index].colorClass == 'hab0'">
                         <!-- Conteúdo da Tooltip com Quebra de Linha -->
@@ -337,7 +337,7 @@ export default {
 
     getDescricaoResultadoFinal(item) {
       if (item.listaDeTestes.length === 0) {
-        return "Aluno ausente.";
+        return "Ausente.";
       }
 
       const ultimoTeste = item.listaDeTestes[item.listaDeTestes.length - 1];

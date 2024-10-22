@@ -46,7 +46,7 @@
 
 
                             }}
-                                <v-tooltip activator="parent" location="left" class="main-tooltip" :open-delay="0"
+                                <v-tooltip activator="parent" location="top left" class="main-tooltip" :open-delay="0"
                                     :close-delay="0" transition="fade-transition">
                                     <!-- Conteúdo da Tooltip com Quebra de Linha -->
                                     <div class="tooltip1Teste">
@@ -60,7 +60,7 @@
                             </td>
                             <td v-else class="cor-erro">
                                 {{ this.getHabilidadeDescricao(item.habilidade) }}
-                                <v-tooltip activator="parent" location="left" class="main-tooltip" :open-delay="0"
+                                <v-tooltip activator="parent" location="top left" class="main-tooltip" :open-delay="0"
                                     :close-delay="0" transition="fade-transition">
                                     <!-- Conteúdo da Tooltip com Quebra de Linha -->
 
