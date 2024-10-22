@@ -189,6 +189,7 @@ import TurmaGraphInfo from "@/components/TurmaGraphInfo.vue";
 import TurmaConfig from "@/components/TurmaConfig.vue";
 import TurmaCompara from "@/components/TurmaCompara.vue";
 import TurmaItensInfo from "@/components/TurmaItensInfo.vue";
+import { verificaLogin } from "@/utils/helpers";
 
 export default {
   name: "Turma",
@@ -238,7 +239,9 @@ export default {
   }),
 
   created() {
-    this.$store.dispatch("verificarTokenProfs", { router: this.$router });
+    
+    verificaLogin(this.$router, this.$route);
+    // this.$store.dispatch("verificarTokenProfs", { router: this.$router });
     this.listaNomeTurma = this.returnTurmas();
     let flag = false;
     const adminToken = localStorage.getItem('admin');
@@ -300,7 +303,7 @@ export default {
     returnTurmas() {
       const type = localStorage.getItem("type");
       const data = {
-        tokenProf: localStorage.getItem("tokenProf"),
+        tokenProf: localStorage.getItem("token"),
       };
 
       this.loading = true; // Inicia o carregamento
@@ -390,7 +393,7 @@ export default {
       this.loadingGlobal = true;
       this.turmaSelecionada = turmaValue.id;
       const data = {
-        token: localStorage.getItem("tokenProf"),
+        token: localStorage.getItem("token"),
         idTurma: turmaValue.id,
         idProfessor: localStorage.getItem("idProf"),
       };

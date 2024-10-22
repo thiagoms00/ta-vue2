@@ -43,9 +43,7 @@
                   :type="showPassword ? 'text' : 'password'"
                   :append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
                   @click:append-inner="togglePasswordVisibility"
-                  
                 >
-                  
                 </v-text-field>
 
                 <div class="d-flex justify-center">
@@ -92,6 +90,7 @@
 <script>
 import LogoImpacto from "@/components/LogoImpacto.vue";
 import axios from "axios";
+import { verificaLogin } from "@/utils/helpers";
 
 export default {
   name: "LoginLogin",
@@ -125,43 +124,17 @@ export default {
     ],
   }),
 
+ created() {
+    verificaLogin(this.$router, this.$route);
+  },
+
   methods: {
     // Alterna entre mostrar e ocultar a senha
     togglePasswordVisibility() {
       this.showPassword = !this.showPassword;
     },
 
-    verificaLogin() {
-      const dataToken = localStorage.getItem("token");
-
-      if (!dataToken) {
-        console.log(
-          'O localStorage está vazio ou o item "token" não está definido.'
-        );
-        this.$router.push("/login");
-        return;
-      }
-
-      const data = { token: dataToken };
-
-      axios
-        .post("https://ta-back.onrender.com/alunos/verificaToken", data)
-        .then((response) => {
-          if (response.status === 200) {
-            // Token é válido
-            this.$router.push("/welcome");
-          }
-        })
-        .catch((error) => {
-          console.error(
-            "Erro na verificação do token:",
-            error.response?.status || error.message
-          );
-          localStorage.removeItem("token");
-          this.$router.push("/login");
-        });
-    },
-
+    // Envia os dados para o login
     submitForm() {
       this.setLoadingState(true, "Carregando...");
       this.clearError(); // Limpa a mensagem de erro ao iniciar o login
@@ -202,9 +175,10 @@ export default {
             const idProf = response.data.idProf;
             const admin = response.data.admin;
 
-            localStorage.setItem("tokenProf", tokenProf);
+            localStorage.setItem("token", tokenProf);
             localStorage.setItem("idProf", idProf);
             localStorage.setItem("type", type);
+            localStorage.setItem("admin", admin)
 
             this.clearError();
             this.$router.push("/turma");
@@ -231,15 +205,18 @@ export default {
         });
     },
 
+    // Método auxiliar de login, muda a animação de botão
     setLoadingState(isLoading, buttonText) {
       this.loading = isLoading;
       this.buttonText = buttonText;
     },
 
+    // Método auxiliar de login, muda a animação de botão
     clearError() {
       this.error = "";
     },
 
+    // Método auxiliar de login, muda a animação de botão
     handleLoginError(error) {
       console.error("Erro no login:", error);
       this.error = "Usuário ou senha incorretos. Por favor, tente novamente.";

@@ -11,6 +11,7 @@
 <script>
 
 import MessageWelcome from '@/components/MessageWelcome.vue'
+import { verificaLogin } from '@/utils/helpers';
 // import LogoImpacto from '@/components/LogoImpacto.vue'
 // import { mapActions } from 'vuex'
 
@@ -24,8 +25,7 @@ export default{
     
     },
     created(){
-      // this.verificarToken();
-      this.$store.dispatch('verificarToken', { router: this.$router });
+      verificaLogin(this.$router, this.$route);
 
     }
 }
