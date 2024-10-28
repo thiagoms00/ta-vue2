@@ -20,11 +20,11 @@
           <v-btn class="title-btn" block :append-icon="icon[1]" :ripple="false" variant="text">Habilidade</v-btn>
         </v-col>
 
-        <v-col cols="3" class="d-flex justify-center pr-13">
-          <v-btn class="title-btn" block :append-icon="icon[2]" :ripple="false" variant="text">Acertos</v-btn>
+        <v-col cols="3" class="d-flex justify-center pr-9">
+          <v-btn class="title-btn" block :append-icon="icon[2]" :ripple="false" variant="text">Aprendizagem</v-btn>
         </v-col>
         <v-col cols="3" class="d-flex justify-center pr-15">
-          <v-btn class="title-btn" block :append-icon="icon[3]" :ripple="false" variant="text">Tempo(segundos)</v-btn>
+          <v-btn class="title-btn pr-11" block :append-icon="icon[3]" :ripple="false" variant="text">Disciplina</v-btn>
         </v-col>
 
 
@@ -47,13 +47,13 @@
                     {{ item.habilidade }}
                   </v-col>
 
-                  <v-col cols="3" class="d-flex justify-center">
-                    {{ item.acertos }} %
+                   <v-col cols="3" class="d-flex justify-center">
+                    Geral
                   </v-col>
 
                   <v-col cols="3" class="d-flex justify-center">
-                    {{ formatTime(item.tempo) }}
-                  </v-col>
+                    Português
+                  </v-col> 
                 </v-row>
 
               </v-expansion-panel-title>
@@ -436,7 +436,6 @@ export default {
     this.itemSelected.fonte = this.questoesP1[0].fonte;
 
     console.log(this.itemSelected)
-    console.log('x')
 
 
   },
