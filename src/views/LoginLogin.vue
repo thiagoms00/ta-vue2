@@ -61,9 +61,17 @@
                   </v-btn>
                 </div>
 
-                <v-alert v-if="error" type="error" class="mt-4">{{
-                  error
-                }}</v-alert>
+                <v-alert v-if="showAlert" type="error" class="mt-4">
+                  {{ error }}
+                </v-alert>
+
+                <v-progress-linear
+                  v-if="showAlert"
+                  :model-value="progress"
+                  height="3"
+                  color="red"
+                  class="mt-2"
+                ></v-progress-linear>
               </v-form>
             </v-col>
           </v-row>
@@ -107,6 +115,8 @@ export default {
     email: "",
     senha: "",
     showPassword: false,
+    showAlert: false,
+    progress: 100,
 
     emailRules: [
       (value) => {
@@ -124,7 +134,7 @@ export default {
     ],
   }),
 
- created() {
+  created() {
     verificaLogin(this.$router, this.$route);
   },
 
@@ -178,7 +188,7 @@ export default {
             localStorage.setItem("token", tokenProf);
             localStorage.setItem("idProf", idProf);
             localStorage.setItem("type", type);
-            localStorage.setItem("admin", admin)
+            localStorage.setItem("admin", admin);
 
             this.clearError();
             this.$router.push("/turma");
@@ -196,6 +206,7 @@ export default {
           console.error("Erro no login:", error);
           this.error =
             "Usuário ou senha incorretos. Por favor, tente novamente.";
+          this.showErrorAlert();
         })
         .finally(() => {
           this.loading = false;
@@ -225,6 +236,26 @@ export default {
       setTimeout(() => {
         this.clearError();
         // Adicionar lógica adicional para tratar a resposta do backend aqui
+      }, 5000);
+    },
+
+    showErrorAlert() {
+      // Mostrar o alerta e iniciar a barra de progresso reversa
+      this.showAlert = true;
+      this.progress = 100;
+
+      // Diminuir progressivamente a barra de progresso
+      let interval = setInterval(() => {
+        if (this.progress > 0) {
+          this.progress -= 2; // Ajustar a velocidade de diminuição da barra
+        } else {
+          clearInterval(interval);
+        }
+      }, 100);
+
+      // Ocultar o alerta após 5 segundos
+      setTimeout(() => {
+        this.showAlert = false;
       }, 5000);
     },
   },
