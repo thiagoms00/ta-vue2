@@ -126,11 +126,11 @@
                   </v-col>
 
                   <v-col cols="3" class="d-flex justify-center">
-                    {{ item.acertos }} %
+                    Geral
                   </v-col>
 
                   <v-col cols="3" class="d-flex justify-center">
-                    {{ formatTime(item.tempo) }}
+                    Português
                   </v-col>
                 </v-row>
 
@@ -209,11 +209,11 @@
                   </v-col>
 
                   <v-col cols="3" class="d-flex justify-center">
-                    {{ item.acertos }} %
+                    Geral
                   </v-col>
 
                   <v-col cols="3" class="d-flex justify-center">
-                    {{ formatTime(item.tempo) }}
+                    Português
                   </v-col>
                 </v-row>
 
@@ -288,11 +288,11 @@
                   </v-col>
 
                   <v-col cols="3" class="d-flex justify-center">
-                    {{ item.acertos }} %
+                    Geral
                   </v-col>
 
                   <v-col cols="3" class="d-flex justify-center">
-                    {{ formatTime(item.tempo) }}
+                    Português
                   </v-col>
                 </v-row>
 
