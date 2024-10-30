@@ -1,6 +1,6 @@
 <template>
   <v-app id="inspire">
-    <NavBar />
+    <NavBar :admin="adminVer"/>
 
     <v-main class="bg-blue-grey-lighten-5">
       <v-container fluid>
@@ -72,13 +72,13 @@
                   class="custom-switch mt-4 elevation-2 d-flex justify-center align-center"
                   rounded="lg"
                 >
-                  <v-tabs
+                  <v-tabs 
                     v-model="tab"
                     color="primary"
                     direction="vertical"
                     style="width: 100%"
                   >
-                    <v-tab
+                    <v-tab @click="changeItens(false)"
                       value="option-1"
                       class="pl-4 d-flex justify-start"
                       prepend-icon="mdi-menu"
@@ -94,7 +94,7 @@
                       </v-tooltip>
                     </v-tab>
 
-                    <v-tab
+                    <v-tab @click="changeItens(false)"
                       prepend-icon="mdi-compass-outline"
                       value="option-2"
                       class="pl-4 d-flex justify-start"
@@ -110,7 +110,7 @@
                       </v-tooltip>
                     </v-tab>
 
-                    <v-tab
+                    <v-tab @click="changeItens(false)"
                       prepend-icon="mdi-checkbox-outline"
                       value="option-3"
                       class="pl-4 d-flex justify-start"
@@ -132,7 +132,7 @@
                       class="border-opacity-25"
                     ></v-divider>
 
-                    <v-tab
+                    <v-tab @click="changeItens(false)"
                       prepend-icon="mdi-chart-bar"
                       value="option-4"
                       class="pl-4 d-flex justify-start"
@@ -169,7 +169,7 @@
                         Configurações da turma
                       </v-tooltip>
                     </v-tab> -->
-                    <v-tab
+                    <v-tab @click="changeItens(true)"
                       v-if="adminVer"
                       prepend-icon="mdi-database-outline"
                       value="option-7"
@@ -204,7 +204,7 @@
               <v-col>
                 <!-- MENSAGEM DE SELEÇÂO DE TURMA -->
                 <v-sheet
-                  v-if="!controlOptions"
+                  v-if="!controlOptions && !controlItens"
                   class="d-flex justify-center align-center rounded-lg"
                   height="250"
                   color="grey-lighten-5"
@@ -222,9 +222,9 @@
                   </p>
                 </v-sheet>
 
-                <v-window v-model="tab" v-if="controlOptions">
+                <v-window v-model="tab">
                   <!-- Janela de Dados 1 -->
-                  <v-window-item value="option-1">
+                  <v-window-item value="option-1" v-if="controlOptions">
                     <TurmaNiveisInfo
                       :listaDeAlunos="listaFiltrada"
                       :nomeTurma="nomeTurmaSelecionada"
@@ -233,7 +233,7 @@
                   </v-window-item>
 
                   <!-- Janela de Dados 2 -->
-                  <v-window-item value="option-2">
+                  <v-window-item value="option-2" v-if="controlOptions">
                     <TurmaMapInfo
                       :listaDeAlunos="listaFiltrada"
                       :anoTurma="anoTurma"
@@ -244,7 +244,7 @@
 
                   <!-- Janela de Dados 3 -->
 
-                  <v-window-item value="option-3">
+                  <v-window-item value="option-3" v-if="controlOptions">
                     <TurmaDataInfo
                       :listaDeAlunos="listaFiltrada"
                       ref="turmaDataInfo"
@@ -253,7 +253,7 @@
                   </v-window-item>
 
                   <!-- Janela de Dados 4 -->
-                  <v-window-item value="option-4">
+                  <v-window-item value="option-4" v-if="controlOptions">
                     <TurmaGraphInfo
                       :listaDeAlunos="listaFiltrada"
                       :habilidadesTurma="habilidadesTurmaAtual"
@@ -262,7 +262,7 @@
                   </v-window-item>
 
                   <!-- Janela de Dados 4 -->
-                  <v-window-item value="option-5">
+                  <v-window-item value="option-5" v-if="controlOptions">
                     <TurmaCompara
                       :listaDeAlunos="listaFiltrada"
                       :iDsTurma="listaNomeTurma"
@@ -270,7 +270,7 @@
                     />
                   </v-window-item>
 
-                  <v-window-item value="option-6">
+                  <v-window-item value="option-6" v-if="controlOptions">
                     <TurmaConfig
                       :estratoInicial="estratoInicial"
                       :turmaSelecionada="turmaSelecionada"
@@ -278,7 +278,7 @@
                     ></TurmaConfig>
                   </v-window-item>
 
-                  <v-window-item value="option-7">
+                  <v-window-item value="option-7" v-if="controlItens">
                     <TurmaItensInfo
                       :listaDeAlunos="listaFiltrada"
                       ref="turmaDataInfo"
@@ -357,6 +357,7 @@ export default {
     loadingGlobal: false,
     adminVer: false,
     newVar: false,
+    controlItens : false,
   }),
 
   created() {
@@ -369,6 +370,13 @@ export default {
   },
 
   methods: {
+
+
+    changeItens(value){
+      this.controlItens = value;
+    },
+
+    
     excluirTeste(data) {
       const indexAluno = data.indexAluno;
       const indexTeste = data.indexTeste;
@@ -559,6 +567,7 @@ export default {
           this.loadingStatesTurmas[index] = false;
           this.loadingGlobal = false;
           this.controlOptions = true;
+          this.tab = 'option-1'
         });
     },
 

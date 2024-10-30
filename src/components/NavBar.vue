@@ -12,9 +12,10 @@
             :text="link"
             variant="text"
           ></v-btn> -->
+          
           <v-spacer></v-spacer>
 
-          <v-btn dark @click="logout" prepend-icon="mdi-logout-variant">
+          <v-btn  @click="logout" prepend-icon="mdi-logout-variant">
             SAIR
           </v-btn>
         </v-col>
@@ -31,6 +32,20 @@
 <script>
 export default {
   name: "NavBar",
+  data (){
+    return {
+      
+    }
+  },
+  props : {
+    admin : {
+      type: Boolean,
+      required: false,
+      default: () => false,
+    }
+  },
+  created () {
+  },
   methods: {
     logout() {
       localStorage.clear();
