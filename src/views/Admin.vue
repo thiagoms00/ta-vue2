@@ -9,7 +9,9 @@
             <v-row>
               <v-col cols="2" style="min-width: 270px">
                 <div>
-                  <v-sheet class="elevation-2 rounded-lg d-flex flex-column py-4">
+                  <v-sheet
+                    class="elevation-2 rounded-lg d-flex flex-column py-4"
+                  >
                     <!-- AVATAR -->
                     <div class="d-flex justify-center">
                       <v-avatar color="grey" rounded="0" size="100">
@@ -20,19 +22,13 @@
                       </v-avatar>
                     </div>
 
-                    <div class="d-flex justify-center"> 
-                      <p class="font-weight-bold" > 
-                        Nome Sobrenome
-                      </p> 
-
+                    <div class="d-flex justify-center">
+                      <p class="font-weight-bold">Nome Sobrenome</p>
                     </div>
 
-                    <div class="d-flex justify-center"> 
-                      <p class="font-weight-medium" > ADMIN</p> 
-
+                    <div class="d-flex justify-center">
+                      <p class="font-weight-medium">ADMIN</p>
                     </div>
-                    
-                    
                   </v-sheet>
                 </div>
 
@@ -57,17 +53,12 @@
 
                     <v-tab
                       @click="changeItens(true)"
-                      v-if="adminVer"
                       prepend-icon="mdi-database-outline"
                       value="option-7"
                       class="pl-4 d-flex justify-start"
                     >
                       <span>Banco de Itens</span>
-                      
                     </v-tab>
-                
-
-                    
 
                     <v-tab
                       @click="changeItens(false)"
@@ -76,7 +67,6 @@
                       class="pl-4 d-flex justify-start"
                     >
                       <span>Logs de Login</span>
-                      
                     </v-tab>
                     <!-- <v-tab
                   prepend-icon="mdi-remote-desktop"
@@ -99,34 +89,59 @@
                         Configurações da turma
                       </v-tooltip>
                     </v-tab> -->
-                    
                   </v-tabs>
                 </v-sheet>
                 <!-- Campo de busca de aluno -->
-
-                
               </v-col>
 
               <v-col>
                 <!-- MENSAGEM DE SELEÇÂO DE TURMA -->
-                <v-sheet
-                  v-if="!controlOptions && !controlItens"
-                  class="d-flex justify-center align-center rounded-lg"
-                  height="250"
-                  color="grey-lighten-5"
-                  border="md"
-                >
-                  <p
-                    class="text-overline"
-                    style="
-                      color: #cfd8dc;
-                      font-size: 3rem !important;
-                      text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
-                    "
+                <div>
+                  <v-sheet
+                    v-if="!controlOptions && !controlItens"
+                    class="rounded-lg d-flex pa-4 elevation-4"
+                    color="grey-lighten-5"
+                    height="500"
                   >
-                    Selecione uma turma
-                  </p>
-                </v-sheet>
+                    <div class="d-flex flex-column w-100" >
+                      <p
+                        class="text-overline mt-16 d-flex justify-center"
+                        style="
+                          color: #cfd8dc;
+                          font-size: 3rem !important;
+                          text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+                        "
+                      >
+                        Selecione uma escola
+                      </p>
+
+                      <div class="mt-16">
+                        <v-row>
+                          <v-col
+                            v-for="(escola, index) in escolas"
+                            :key="index"
+                            cols="12"
+                            sm="6"
+                            md="4"
+                            lg="3"
+                          >
+                            <v-sheet
+                              elevation="3"
+                              rounded="lg"
+                              class="pa-4 d-flex flex-column align-center 
+                              borda-diagonal degrade"
+                            >
+                              <v-avatar size="64" class="mb-2">
+                                <v-icon large>mdi-school</v-icon>
+                              </v-avatar>
+                              <div class="text-center">{{ escola.nome }}</div>
+                            </v-sheet>
+                          </v-col>
+                        </v-row>
+                      </div>
+                    </div>
+                  </v-sheet>
+                </div>
 
                 <v-window v-model="tab">
                   <!-- Janela de Dados 1 -->
@@ -156,41 +171,6 @@
                       ref="turmaDataInfo"
                       @eventDeleteTest="excluirTeste"
                     />
-                  </v-window-item>
-
-                  <!-- Janela de Dados 4 -->
-                  <v-window-item value="option-4" v-if="controlOptions">
-                    <TurmaGraphInfo
-                      :listaDeAlunos="listaFiltrada"
-                      :habilidadesTurma="habilidadesTurmaAtual"
-                      :nomeTurma="nomeTurmaSelecionada"
-                    />
-                  </v-window-item>
-
-                  <!-- Janela de Dados 4 -->
-                  <v-window-item value="option-5" v-if="controlOptions">
-                    <TurmaCompara
-                      :listaDeAlunos="listaFiltrada"
-                      :iDsTurma="listaNomeTurma"
-                      :turmaAtual="turmaSelecionada"
-                    />
-                  </v-window-item>
-
-                  <v-window-item value="option-6" v-if="controlOptions">
-                    <TurmaConfig
-                      :estratoInicial="estratoInicial"
-                      :turmaSelecionada="turmaSelecionada"
-                      :nomeTurma="nomeTurmaSelecionada"
-                    ></TurmaConfig>
-                  </v-window-item>
-
-                  <v-window-item value="option-7" v-if="controlItens">
-                    <TurmaItensInfo
-                      :listaDeAlunos="listaFiltrada"
-                      ref="turmaDataInfo"
-                      @eventDeleteTest="excluirTeste"
-                    >
-                    </TurmaItensInfo>
                   </v-window-item>
                 </v-window>
               </v-col>
@@ -235,580 +215,35 @@ export default {
   },
 
   data: () => ({
-    listaTurma: [],
-    ultimosTestes: [],
-    testesVazios: [],
-    carregandoTurmas: true,
-    chipValue: "",
-    toggle: undefined,
-    toggleTurma: undefined,
-    animacaoListaAtiva: false,
-    textFilter: undefined,
-    icon: ["", "", "", "", "", ""],
-    lastClicked: -1,
-    sortOrder: true,
-    listaNomeTurma: [],
-    loadingStatesTurmas: [],
-    animateCarregandoTurmas: false,
-    textoPlanilha: false, //Flag pro hover do botão da planilha.
-    search: "",
     tab: "option-1",
-    anoTurma: 1,
-    estratoInicial: 1,
     habilidadesTurmaAtual: {},
-    turmaSelecionada: "",
-    nomeTurmaSelecionada: "",
-    controlOptions: false,
-    loading: true,
-    loadingGlobal: false,
-    adminVer: false,
-    newVar: false,
-    controlItens: false,
+    escolas: [
+      { nome: "Escola A" },
+      { nome: "Escola B" },
+      { nome: "Escola C" },
+      { nome: "Escola D" },
+    ],
   }),
 
-  created() {
-    // verificaLogin(this.$router, this.$route);
-    this.$store.dispatch("verificarTokenProfs", { router: this.$router });
-    this.listaNomeTurma = this.returnTurmas();
-    let flag = false;
-    const adminToken = localStorage.getItem("admin");
-    this.adminVer = adminToken === "true"; //garantindo que o resultado seja um boolean true e não uma string.
-  },
+  created() {},
 
-  methods: {
-    changeItens(value) {
-      this.controlItens = value;
-    },
-
-    excluirTeste(data) {
-      const indexAluno = data.indexAluno;
-      const indexTeste = data.indexTeste;
-
-      this.listaTurma[indexAluno].listaDeTestes.splice(indexTeste, 1);
-
-      axios({
-        url: "https://ta-back.onrender.com/professores/excluirTesteAluno",
-        data,
-        method: "POST",
-      })
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          // Tratar erros aqui
-          console.error(error);
-        });
-    },
-
-    getTableValue(teste, key, isPercentage = false, isTime = false) {
-      if (teste.status !== "Finalizado") {
-        return "-";
-      }
-      let value = teste[key];
-      if (isPercentage) {
-        return (value || 0).toFixed(2).replace(".", ",");
-      }
-      if (isTime) {
-        return this.formatTime(value);
-      }
-      return value !== undefined ? value : "-";
-    },
-
-    formatTime(seconds) {
-      const roundedSeconds = Math.round(seconds);
-      const minutes = Math.floor(roundedSeconds / 60);
-      const remainingSeconds = roundedSeconds % 60;
-      return minutes > 0
-        ? `${minutes}m ${remainingSeconds}s`
-        : `${remainingSeconds}s`;
-    },
-
-    returnTurmas() {
-      const type = localStorage.getItem("type");
-      const data = {
-        // tokenProf: localStorage.getItem("token"),
-        tokenProf: localStorage.getItem("tokenProf"),
-      };
-
-      this.loading = true; // Inicia o carregamento
-
-      let url = "";
-      if (type === "coord") {
-        url = "https://ta-back.onrender.com/coordenadores/retorna_turmas";
-      } else if (type === "dir") {
-        url = "https://ta-back.onrender.com/diretores/retorna_turmas";
-      } else {
-        url = "https://ta-back.onrender.com/professores/returnTurmas";
-      }
-
-      axios({
-        url,
-        data,
-        method: "POST",
-      })
-        .then((response) => {
-          this.listaNomeTurma = response.data.listaTurmas;
-        })
-        .catch((error) => {
-          console.error(error);
-        })
-        .finally(() => {
-          this.loading = false; // Finaliza o carregamento
-        });
-    },
-
-    getColor(chipValue) {
-      // Lógica para determinar a cor com base no valor de chipValue
-      if (chipValue === "Não Iniciado") {
-        return ""; // Default
-      } else if (chipValue === "Iniciado") {
-        return "orange"; // Verde
-      } else if (chipValue === "Finalizado") {
-        return "green"; // Vermelho (ou qualquer outra cor padrão)
-      }
-    },
-
-    getIcon(chipValue) {
-      if (chipValue === "Não Iniciado") {
-        return "mdi-cancel"; // Default
-      } else if (chipValue === "Iniciado") {
-        return "mdi-minus-circle"; // Verde
-      } else if (chipValue === "Finalizado") {
-        return "mdi-checkbox-marked-circle"; // Vermelho (ou qualquer outra cor padrão)
-      }
-    },
-
-    getDefaultData(chipValue) {
-      if (chipValue === "Não Iniciado") {
-        return "mdi-cancel"; // Default
-      } else if (chipValue === "Iniciado") {
-        return "mdi-minus-circle"; // Verde
-      } else if (chipValue === "Finalizado") {
-        return "mdi-checkbox-marked-circle"; // Vermelho (ou qualquer outra cor padrão)
-      }
-    },
-
-    verificaHabilidades(objeto, teste_t) {
-      const listaHabilidades = Array(11).fill(0);
-
-      for (let i = 0; i < objeto.listaQuest.length; i++) {
-        const elemento = objeto.listaQuest[i];
-        if (elemento.acertou === teste_t) {
-          const habilidade = elemento.id.split("_")[1]; // Obtém o número da habilidade após o "H"
-          const numeroHabilidade = parseInt(habilidade.slice(1)); // Extrai o número da habilidade
-          if (
-            !isNaN(numeroHabilidade) &&
-            numeroHabilidade >= 1 &&
-            numeroHabilidade <= 12
-          ) {
-            listaHabilidades[numeroHabilidade]++; // Incrementa a contagem da habilidade correspondente
-          }
-        }
-      }
-      return listaHabilidades;
-    },
-
-    selecionaTurma(turmaValue, index) {
-      if (this.loadingGlobal) {
-        return; // Impede que outra busca seja feita
-      }
-      this.nomeTurmaSelecionada = turmaValue.nome;
-      this.loadingStatesTurmas[index] = true;
-      this.loadingGlobal = true;
-      this.turmaSelecionada = turmaValue.id;
-      const data = {
-        token: localStorage.getItem("tokenProf"),
-        idTurma: turmaValue.id,
-        idProfessor: localStorage.getItem("idProf"),
-      };
-      const type = localStorage.getItem("type");
-      let urlAdd = "";
-      if (type === "coord") {
-        urlAdd = "https://ta-back.onrender.com/coordenadores/dadosTurma";
-      } else if (type === "dir") {
-        urlAdd = "https://ta-back.onrender.com/diretores/dadosTurma";
-      } else {
-        urlAdd = "https://ta-back.onrender.com/professores/dadosTurma";
-      }
-
-      axios({
-        url: urlAdd,
-        data,
-        method: "POST",
-      })
-        .then((response) => {
-          this.listaTurma = response.data.turma;
-          this.anoTurma = response.data.anoTurma;
-          this.estratoInicial = response.data.estratoInicial;
-          this.habilidadesTurmaAtual = response.data.habTurma;
-          //criando lista com os ultimos elementos.
-          for (let i = 0; i < this.listaTurma.length; i++) {
-            if (
-              this.listaTurma[i].listaDeTestes[
-                this.listaTurma[i].listaDeTestes.length - 1
-              ]
-            ) {
-              this.ultimosTestes.push(
-                this.listaTurma[i].listaDeTestes[
-                  this.listaTurma[i].listaDeTestes.length - 1
-                ]
-              );
-            } else {
-              this.testesVazios.push();
-            }
-          }
-          this.sortOrder = true;
-        })
-        .catch((error) => {
-          // Tratar erros aqui
-          console.error(error);
-        })
-        .finally(() => {
-          this.carregandoTurmas = false;
-          this.ativarAnimacaoLista();
-          console.log(this.listaTurma);
-          this.loadingStatesTurmas[index] = false;
-          this.loadingGlobal = false;
-          this.controlOptions = true;
-          this.tab = "option-1";
-        });
-    },
-
-    ativarAnimacaoLista() {
-      this.animacaoListaAtiva = true;
-      // Após um certo tempo, desativar a animação
-      setTimeout(() => {
-        this.animacaoListaAtiva = false;
-      }, 500); // Tempo correspondente à duração da animação em milissegundos
-    },
-
-    listaTurmaOrdenada(order) {
-      if (this.toggle === "nome") {
-        this.listaTurma = this.listaTurma
-          .slice()
-          .sort((a, b) => a.user["nome"].localeCompare(b.user["nome"]));
-      } else if (this.toggle === "extrato") {
-        const alunosComExtrato = this.listaTurma.filter((aluno) => {
-          return (
-            aluno.listaDeTestes.length > 0 &&
-            typeof aluno.listaDeTestes[aluno.listaDeTestes.length - 1]
-              .extratoFinal === "number"
-          );
-        });
-
-        alunosComExtrato.sort((a, b) => {
-          const extratoA =
-            a.listaDeTestes[a.listaDeTestes.length - 1].extratoFinal;
-          const extratoB =
-            b.listaDeTestes[b.listaDeTestes.length - 1].extratoFinal;
-          return extratoA - extratoB;
-        });
-
-        const alunosSemExtrato = this.listaTurma.filter((aluno) => {
-          return (
-            aluno.listaDeTestes.length === 0 ||
-            typeof aluno.listaDeTestes[aluno.listaDeTestes.length - 1]
-              .extratoFinal !== "number"
-          );
-        });
-
-        const listaOrdenada = [...alunosSemExtrato, ...alunosComExtrato];
-
-        this.listaTurma = listaOrdenada;
-      } else if (this.toggle === "nQuestoes") {
-        const alunosQuestoes = this.listaTurma.filter((aluno) => {
-          return (
-            aluno.listaDeTestes.length > 0 &&
-            typeof aluno.listaDeTestes[aluno.listaDeTestes.length - 1]
-              .numero_questoes_feitas === "number"
-          );
-        });
-
-        alunosQuestoes.sort((a, b) => {
-          const extratoA =
-            a.listaDeTestes[a.listaDeTestes.length - 1].numero_questoes_feitas;
-          const extratoB =
-            b.listaDeTestes[b.listaDeTestes.length - 1].numero_questoes_feitas;
-          return extratoA - extratoB;
-        });
-
-        const alunosSemQuestoes = this.listaTurma.filter((aluno) => {
-          return (
-            aluno.listaDeTestes.length === 0 ||
-            typeof aluno.listaDeTestes[aluno.listaDeTestes.length - 1]
-              .numero_questoes_feitas !== "number"
-          );
-        });
-
-        const listaOrdenada = [...alunosSemQuestoes, ...alunosQuestoes];
-
-        this.listaTurma = listaOrdenada;
-      } else if (this.toggle === "percentTeste") {
-        const alunosPorcentagem = this.listaTurma.filter((aluno) => {
-          const temPorcentagem =
-            aluno.listaDeTestes.length > 0 &&
-            typeof aluno.listaDeTestes[aluno.listaDeTestes.length - 1]
-              .porcentagem_questoes === "number";
-          return temPorcentagem;
-        });
-
-        alunosPorcentagem.sort((a, b) => {
-          const extratoA =
-            a.listaDeTestes[a.listaDeTestes.length - 1].porcentagem_questoes;
-          const extratoB =
-            b.listaDeTestes[b.listaDeTestes.length - 1].porcentagem_questoes;
-          return extratoA - extratoB;
-        });
-
-        const alunosSemPorcentagem = this.listaTurma.filter((aluno) => {
-          const semPorcentagem =
-            aluno.listaDeTestes.length === 0 ||
-            typeof aluno.listaDeTestes[aluno.listaDeTestes.length - 1]
-              .porcentagem_questoes !== "number";
-          return semPorcentagem;
-        });
-
-        const listaOrdenada = [...alunosSemPorcentagem, ...alunosPorcentagem];
-        this.listaTurma = listaOrdenada;
-      } else if (this.toggle === "tempo") {
-        const alunosTempo = this.listaTurma.filter((aluno) => {
-          const temPorcentagem =
-            aluno.listaDeTestes.length > 0 &&
-            typeof aluno.listaDeTestes[aluno.listaDeTestes.length - 1]
-              .tempoDoTeste === "number";
-          return temPorcentagem;
-        });
-
-        alunosTempo.sort((a, b) => {
-          const extratoA =
-            a.listaDeTestes[a.listaDeTestes.length - 1].tempoDoTeste;
-          const extratoB =
-            b.listaDeTestes[b.listaDeTestes.length - 1].tempoDoTeste;
-          return extratoA - extratoB;
-        });
-
-        const alunosSemTempo = this.listaTurma.filter((aluno) => {
-          const semPorcentagem =
-            aluno.listaDeTestes.length === 0 ||
-            typeof aluno.listaDeTestes[aluno.listaDeTestes.length - 1]
-              .tempoDoTeste !== "number";
-          return semPorcentagem;
-        });
-
-        const listaOrdenada = [...alunosSemTempo, ...alunosTempo];
-        this.listaTurma = listaOrdenada;
-      } else if (this.toggle === "status") {
-        const getStatus = (aluno) => {
-          if (aluno.listaDeTestes.length > 0) {
-            return (
-              aluno.listaDeTestes[aluno.listaDeTestes.length - 1].status ||
-              "Não Iniciado"
-            );
-          }
-          return "Sem Status"; // Retorna 'Sem Status' se o aluno não tiver testes
-        };
-
-        // Função de comparação personalizada para ordenar os status
-        const statusOrder = {
-          Finalizado: 0,
-          Iniciado: 1,
-          "Não Iniciado": 2,
-          "Sem Status": 3,
-        };
-
-        // Recriar a lista de alunos ordenada com base no status
-        const listaOrdenada = this.listaTurma.slice().sort((a, b) => {
-          const statusA = getStatus(a);
-          const statusB = getStatus(b);
-          return statusOrder[statusA] - statusOrder[statusB];
-        });
-
-        // Atribuir a lista ordenada de volta a this.listaTurma
-        this.listaTurma = listaOrdenada;
-      }
-
-      if (order) {
-        return this.listaTurma;
-      } else {
-        return this.listaTurma.reverse();
-      }
-    },
-
-    geraXlsx(planilha, nome) {
-      console.log(planilha);
-      let data = [
-        [
-          "TESTE",
-          "Percurso",
-          "Habilidade",
-          "Item",
-          "Gabarito",
-          "Resposta",
-          "Acerto",
-          "Tempo Gasto(s)",
-          "Tipo",
-          "Resultado",
-        ],
-      ];
-      planilha.forEach((item) => {
-        data.push([
-          item.questaoNum,
-          item.estrato,
-          item.habilidade,
-          item.id_item,
-          item.gabarito.toLowerCase(),
-          item.resposta,
-          item.acerto,
-          item.tempo_gasto,
-          item.tipo,
-          item.resultado,
-        ]);
-      });
-      // Criar uma nova planilha
-      let ws = XLSX.utils.aoa_to_sheet(data);
-
-      // Criar um novo workbook
-      let wb = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws, "Planilha");
-
-      // Gerar arquivo Excel e fazer o download
-      for (let col = 0; col < data[0].length; col++) {
-        const cellAddress = XLSX.utils.encode_cell({ r: 0, c: col });
-        if (ws[cellAddress]) {
-          ws[cellAddress].s = {
-            font: {
-              bold: true,
-              sz: 14,
-              color: { rgb: "000000" }, // cor preta
-            },
-            alignment: {
-              vertical: "center",
-              horizontal: "center",
-            },
-          };
-        }
-      }
-      XLSX.writeFile(wb, `${nome}_planilha.xlsx`);
-    },
-  },
+  methods: {},
   // FIM DO METHODSSSSSSS
 
-  computed: {
-    ordemTurma() {
-      console.log(this.sortOrder);
-      if (this.sortOrder) {
-        this.sortOrder = !this.sortOrder;
-      } else {
-        this.sortOrder = !this.sortOrder;
-        this.listaTurma.reverse();
-      }
-
-      return this.listaTurma;
-    },
-
-    listaFiltrada() {
-      let result = Array.isArray(this.listaTurma) ? this.listaTurma : [];
-
-      // Filtro de busca por nome
-      if (this.search) {
-        result = result.filter((item) =>
-          item.user["nome"].toLowerCase().includes(this.search.toLowerCase())
-        );
-      }
-
-      return result;
-    },
-  },
+  computed: {},
 };
 </script>
 
 <style>
-.name-turma {
-  font-size: 1.1rem !important;
+.borda-diagonal {
+  border-radius: 16px 0 16px 0 !important; /* Bordas diagonais arredondadas */
 }
 
-.custom-switch .v-input--density-default {
-  --v-input-control-height: 43 px;
-}
-
-.custom-switch .v-switch__thumb {
-  height: 20px;
-  /* Ajusta a altura do thumb */
-  width: 20px;
-  /* Ajusta a largura do thumb */
-}
-
-.custom-switch .v-input__details {
-  min-height: 0;
-  padding-top: 0;
-}
-
-.custom-border .v-input__control {
-  border-radius: 10px;
-  border: 2px solid #dcdcdc;
-}
-
-.optionButton {
-  width: 5px !important;
-  min-width: 35px !important;
-}
-
-.custom-panel-text {
-  padding: 0;
-  margin: 0;
-}
-
-.v-expansion-panel-text__wrapper {
-  padding: 0 !important;
-}
-
-.fade-in {
-  -webkit-animation: fade-in 1.2s cubic-bezier(0.39, 0.575, 0.565, 1) both;
-  animation: fade-in 1.2s cubic-bezier(0.39, 0.575, 0.565, 1) both;
-}
-
-@-webkit-keyframes fade-in {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes fade-in {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
-}
-
-.color-painel.v-expansion-panel-title--active {
-  border-top: 2px solid orange;
-  box-shadow: inset 0 0 -5 -5 10px rgba(0, 0, 0, 0.5);
-  background-color: rgba(255, 165, 0, 0.4);
-  /* Laranja com 40% de Opacidade */
-}
-
-.border-bottom-orange {
-  border-bottom: 2px solid orange;
-}
-
-@media (max-width: 1600px) {
-  .buscar-field .v-input__control {
-    /* width: 12.5vw !important; */
-    font-size: 1px;
-  }
-}
-
-@media (max-width: 1200px) {
-  .buscar-field .v-input__control {
-    /* width: 13vw !important; */
-    font-size: 1px;
-  }
+.degrade {
+  background: linear-gradient(
+    to bottom right,
+    #e3f2fd,   /* Azul bem claro no canto superior esquerdo */
+    #cfd8dc    /* Cinza claro no canto inferior direito */
+  );
 }
 </style>
