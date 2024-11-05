@@ -7,24 +7,26 @@
       <v-tab value="p2" class="tab-name" @click="selectedTab(2)">Percurso 2</v-tab>
       <v-tab value="p3" class="tab-name" @click="selectedTab(3)">Percurso 3</v-tab>
       <v-tab value="p4" class="tab-name" @click="selectedTab(4)">Percurso 4</v-tab>
+      <v-tab value="p5" class="tab-name" @click="selectedTab(5)">Reportados</v-tab>
+
     </v-tabs>
 
     <v-window v-model="tab">
       <v-row class="dflex align-center title-row">
 
         <v-col cols="3" class="d-flex justify-center">
-          <v-btn class="title-btn" block :ripple="false" variant="text">Código</v-btn>
+          <v-btn class="title-btn" block :ripple="false" variant="text">{{colmunTitles[0]}}</v-btn>
         </v-col>
 
         <v-col cols="3" class="d-flex justify-center">
-          <v-btn class="title-btn" block :append-icon="icon[1]" :ripple="false" variant="text">Habilidade</v-btn>
+          <v-btn class="title-btn" block :append-icon="icon[1]" :ripple="false" variant="text">{{colmunTitles[1]}}</v-btn>
         </v-col>
 
         <v-col cols="3" class="d-flex justify-center pr-9">
-          <v-btn class="title-btn" block :append-icon="icon[2]" :ripple="false" variant="text">Aprendizagem</v-btn>
+          <v-btn class="title-btn" block :append-icon="icon[2]" :ripple="false" variant="text">{{colmunTitles[2]}}</v-btn>
         </v-col>
         <v-col cols="3" class="d-flex justify-center pr-15">
-          <v-btn class="title-btn pr-11" block :append-icon="icon[3]" :ripple="false" variant="text">Disciplina</v-btn>
+          <v-btn class="title-btn pr-11" block :append-icon="icon[3]" :ripple="false" variant="text">{{colmunTitles[3]}}</v-btn>
         </v-col>
 
 
@@ -34,7 +36,7 @@
         <v-sheet rounded="lg" class="" :class="{ 'fade-in': animacaoListaAtiva }">
           <v-expansion-panels variant="accordion" class="" v-model="expansionPanelModel[0]">
             <v-expansion-panel v-for="(item, index) in listaItens0" :key="item.id" ref="panels" class="rounded-b-lg"
-              style="border-radius: 0px;" >
+              style="border-radius: 0px;">
               <v-expansion-panel-title style="height: 5vh;" class="color-painel"
                 @click="changeItem(index, this.tabNumber)">
                 <v-row class="d-flex align-center">
@@ -47,13 +49,13 @@
                     {{ item.habilidade }}
                   </v-col>
 
-                   <v-col cols="3" class="d-flex justify-center">
+                  <v-col cols="3" class="d-flex justify-center">
                     Geral
                   </v-col>
 
                   <v-col cols="3" class="d-flex justify-center">
-                    Português
-                  </v-col> 
+                    Disponível
+                  </v-col>
                 </v-row>
 
               </v-expansion-panel-title>
@@ -70,7 +72,7 @@
                           </tr>
                           <tr>
                             <td class="td-left">Percurso</td>
-                            <td class="td-right">{{ this.tabNumber}}</td>
+                            <td class="td-right">{{ this.tabNumber }}</td>
                           </tr>
                           <tr>
                             <td class="td-left">Resposta</td>
@@ -90,14 +92,51 @@
                   </v-row>
                 </v-sheet>
 
-                <v-divider :thickness="4"></v-divider>
+                <v-divider :thickness="2"></v-divider>
                 <div class="btn-area">
                   <v-btn variant="outlined" class="item-btn" @click="openItem(index)">
-                  Ver item</v-btn>
+                    Ver item
+                  </v-btn>
+
+                  <v-btn variant="outlined" class="item-btn" @click="reportDialog = true">
+                    Reportar erro
+                  </v-btn>
                 </div>
 
-                 <v-divider :thickness="4"></v-divider>
                 
+
+
+                <v-dialog v-model="reportDialog" width="auto">
+                  <v-card min-width="700">
+
+                    <v-toolbar color="#1E3892" density="comfortable">
+                      <v-icon icon="mdi-alert-circle-outline" class="ml-5" ></v-icon>
+                      <v-toolbar-title class="ml-2 toolbar-title">Reportar Item</v-toolbar-title>
+
+                      <v-spacer></v-spacer>
+
+
+
+                     
+                    </v-toolbar>
+
+
+                    <template v-slot:actions class="">
+                      <div class="d-flex flex-column report-area pa-5">
+                        <h4 class="ml-2 report-id">{{this.itemSelected.id}}</h4>
+                        <v-text-field clearable label="Erro" variant="outlined" class="mt-5"></v-text-field>
+                        <div class="report-buttons d-flex mt-5">
+                        <v-btn variant="outlined" class="mx-auto report-button" text="Reportar" @click="reportDialog = false"></v-btn>
+                        <v-btn variant="outlined" class="mx-auto report-button" text="Voltar" @click="reportDialog = false"></v-btn>
+                      </div>
+                      </div>
+                    
+                     
+                    </template>
+                  </v-card>
+                </v-dialog>
+                <v-divider :thickness="8" color="info"></v-divider>
+
 
               </v-expansion-panel-text>
 
@@ -110,11 +149,11 @@
       <v-window-item value="p2">
         <v-sheet rounded="lg" class="" :class="{ 'fade-in': animacaoListaAtiva }">
           <v-expansion-panels variant="accordion" class="" v-model="expansionPanelModel[1]">
-            <v-expansion-panel v-for="(item,index) in listaItens1" :key="item.id" ref="panels" class="rounded-b-lg"
-              style="border-radius: 0px;" >
-            
+            <v-expansion-panel v-for="(item, index) in listaItens1" :key="item.id" ref="panels" class="rounded-b-lg"
+              style="border-radius: 0px;">
+
               <v-expansion-panel-title style="height: 5vh;" class="color-painel"
-              @click="changeItem(index, this.tabNumber)">
+                @click="changeItem(index, this.tabNumber)">
                 <v-row class="d-flex align-center">
 
                   <v-col cols="3" class="d-flex justify-center">
@@ -148,7 +187,7 @@
                           </tr>
                           <tr>
                             <td class="td-left">Percurso</td>
-                            <td class="td-right">{{ this.tabNumber}}</td>
+                            <td class="td-right">{{ this.tabNumber }}</td>
                           </tr>
                           <tr>
                             <td class="td-left">Resposta</td>
@@ -171,15 +210,15 @@
                 <v-divider :thickness="4"></v-divider>
                 <div class="btn-area">
                   <v-btn variant="outlined" class="item-btn" @click="openItem(index)">
-                  Ver item</v-btn>
+                    Ver item</v-btn>
                 </div>
 
-                 <v-divider :thickness="4"></v-divider>
-                
+                <v-divider :thickness="4"></v-divider>
+
 
               </v-expansion-panel-text>
 
-             
+
             </v-expansion-panel>
 
 
@@ -193,11 +232,11 @@
       <v-window-item value="p3">
         <v-sheet rounded="lg" class="" :class="{ 'fade-in': animacaoListaAtiva }">
           <v-expansion-panels variant="accordion" class="" v-model="expansionPanelModel[2]">
-            <v-expansion-panel v-for="(item,index) in listaItens2" :key="item.id" ref="panels" class="rounded-b-lg"
+            <v-expansion-panel v-for="(item, index) in listaItens2" :key="item.id" ref="panels" class="rounded-b-lg"
               style="border-radius: 0px;">
 
               <v-expansion-panel-title style="height: 5vh;" class="color-painel"
-              @click="changeItem(index, this.tabNumber)">
+                @click="changeItem(index, this.tabNumber)">
                 <v-row class="d-flex align-center">
 
                   <v-col cols="3" class="d-flex justify-center">
@@ -232,7 +271,7 @@
                           </tr>
                           <tr>
                             <td class="td-left">Percurso</td>
-                            <td class="td-right">{{ this.tabNumber}}</td>
+                            <td class="td-right">{{ this.tabNumber }}</td>
                           </tr>
                           <tr>
                             <td class="td-left">Resposta</td>
@@ -255,11 +294,11 @@
                 <v-divider :thickness="4"></v-divider>
                 <div class="btn-area">
                   <v-btn variant="outlined" class="item-btn" @click="openItem(index)">
-                  Ver item</v-btn>
+                    Ver item</v-btn>
                 </div>
 
-                 <v-divider :thickness="4"></v-divider>
-                
+                <v-divider :thickness="4"></v-divider>
+
 
               </v-expansion-panel-text>
 
@@ -272,11 +311,11 @@
       <v-window-item value="p4">
         <v-sheet rounded="lg" class="" :class="{ 'fade-in': animacaoListaAtiva }">
           <v-expansion-panels variant="accordion" class="" v-model="expansionPanelModel[3]">
-            <v-expansion-panel v-for="(item,index) in listaItens3" :key="item.id" ref="panels" class="rounded-b-lg"
+            <v-expansion-panel v-for="(item, index) in listaItens3" :key="item.id" ref="panels" class="rounded-b-lg"
               style="border-radius: 0px;">
 
               <v-expansion-panel-title style="height: 5vh;" class="color-painel"
-              @click="changeItem(index, this.tabNumber)">
+                @click="changeItem(index, this.tabNumber)">
                 <v-row class="d-flex align-center">
 
                   <v-col cols="3" class="d-flex justify-center">
@@ -310,7 +349,7 @@
                           </tr>
                           <tr>
                             <td class="td-left">Percurso</td>
-                            <td class="td-right">{{ this.tabNumber}}</td>
+                            <td class="td-right">{{ this.tabNumber }}</td>
                           </tr>
                           <tr>
                             <td class="td-left">Resposta</td>
@@ -333,11 +372,87 @@
                 <v-divider :thickness="4"></v-divider>
                 <div class="btn-area">
                   <v-btn variant="outlined" class="item-btn" @click="openItem(index)">
-                  Ver item</v-btn>
+                    Ver item</v-btn>
                 </div>
 
-                 <v-divider :thickness="4"></v-divider>
-                
+                <v-divider :thickness="4"></v-divider>
+
+
+              </v-expansion-panel-text>
+
+            </v-expansion-panel>
+          </v-expansion-panels>
+        </v-sheet>
+
+      </v-window-item>
+
+      <!-- Janela dos itens reportados -->
+      <v-window-item value="p5">
+        <v-sheet rounded="lg" class="" :class="{ 'fade-in': animacaoListaAtiva }">
+          <v-expansion-panels variant="accordion" class="" v-model="expansionPanelModel[3]">
+            <v-expansion-panel v-for="(item, index) in listaItensReportados" :key="item.id" ref="panels" class="rounded-b-lg"
+              style="border-radius: 0px;">
+
+              <v-expansion-panel-title style="height: 5vh;" class="color-painel"
+                @click="changeItem(index, this.tabNumber)">
+                <v-row class="d-flex align-center">
+
+                  <v-col cols="3" class="d-flex justify-center">
+                    {{ item.idItem }}
+                  </v-col>
+
+                  <v-col cols="3" class="d-flex justify-center">
+                    {{ item.percurso }}
+                  </v-col>
+
+                  <v-col cols="3" class="d-flex justify-center">
+                    {{ item.emailAdmin }}
+                  </v-col>
+
+                  <v-col cols="3" class="d-flex justify-center">
+                    {{item.dataErro}}
+                  </v-col>
+                </v-row>
+
+              </v-expansion-panel-title>
+
+              <v-expansion-panel-text>
+                <v-sheet>
+                  <v-row>
+                    <v-col>
+                      <v-table class="mt-2">
+                        <tbody>
+                          <tr>
+                            <td class="td-left">ID</td>
+                            <td class="td-right">{{ item.idItem}}</td>
+                          </tr>
+                          <tr>
+                            <td class="td-left">Percurso</td>
+                            <td class="td-right">{{ item.percurso }}</td>
+                          </tr>
+                          <tr>
+                            <td class="td-left">Administrador</td>
+                            <td class="td-right">{{ item.emailAdmin }}</td>
+                          </tr>
+                          <tr>
+                            <td class="td-left">Erro</td>
+                            <td class="td-right">{{ item.msgErro }}</td>
+                          </tr>
+                         
+                        </tbody>
+                      </v-table>
+                    </v-col>
+                  </v-row>
+                </v-sheet>
+
+               <!-- <v-divider :thickness="4"></v-divider>
+                <div class="btn-area">
+                   <v-btn variant="outlined" class="item-btn" @click="openItem(index)">
+                    Ver item</v-btn> 
+                </div> -->
+
+                <v-divider :thickness="4"></v-divider>
+
 
               </v-expansion-panel-text>
 
@@ -378,11 +493,12 @@ export default {
     animacaoListaAtiva: false,
     icon: ["", "", "", "", "", ""],
     tab: null,
-    listaTurma: [],
-    listaItens0: [],
-    listaItens1: [],
-    listaItens2: [],
-    listaItens3: [],
+    listaTurma: [],   //Lista com os alunos.
+    listaItens0: [],  //Lista de Itens do percurso 1
+    listaItens1: [],  //Lista de Itens do percurso 2
+    listaItens2: [],  //Lista de Itens do percurso 3
+    listaItens3: [],  //Lista de Itens do percurso 4
+    listaItensReportados : [], //Lista com os itens reportados
 
     listaItens: [], //Itens sendo exibidos, começando pelo estrato 1.
 
@@ -399,8 +515,10 @@ export default {
     questoesP3: [],
     questoesP4: [],
     tabNumber: 1,
-    lastIndex : 0,
+    lastIndex: 0,
     expansionPanelModel: [null, null, null, null],
+    reportDialog: false,
+    colmunTitles : ['Código', 'Habilidade' , 'Aprendizagem', 'Status'] //Títulos que aparecem nas colunas.
 
 
   }),
@@ -422,6 +540,7 @@ export default {
 
   created() {
     this.returnItens();
+    this.returnItensReportados();
 
     this.questoesP1 = jsonDataQuestoes0.questoes;
     this.questoesP2 = jsonDataQuestoes1.questoes;
@@ -452,16 +571,22 @@ export default {
     selectedTab(tabNum) {
       this.tabNumber = tabNum;
       this.expansionPanelModel = [null, null, null, null];
+      if(tabNum === 5){
+        this.colmunTitles = ['Código', 'Percurso' , 'Administrador' , 'Data']
+      }
+      else {
+        this.colmunTitles = ['Código', 'Habilidade' , 'Aprendizagem' , 'Status']
+      }
 
     },
 
-    openItem(index){
+    openItem(index) {
       let dadosItem = {
-        index : index,
+        index: index,
         percurso: this.tabNumber
       }
       const routeData = this.$router.resolve({
-        name: 'Itens',  
+        name: 'Itens',
         query: { data: JSON.stringify(dadosItem) }
       });
 
@@ -484,7 +609,7 @@ export default {
           this.itemSelected.layout = this.questoesP2[index].layout;
           this.itemSelected.percurso = 2;
           this.itemSelected.resposta = this.questoesP2[index].answer;
-          this.itemSelected.fonte = this.questoesP2[index].fonte; 
+          this.itemSelected.fonte = this.questoesP2[index].fonte;
 
           break;
         case 3:
@@ -506,22 +631,34 @@ export default {
       }
     },
 
-    
+
 
     returnItens() {
 
       axios({ url: 'https://ta-back.onrender.com/professores/dadosItens', method: 'POST' })
         .then((response) => {
-          this.listaItens = response.data.itens.listaItens1
-          this.listaItens0 = response.data.itens.listaItens0
-          this.listaItens1 = response.data.itens.listaItens1
-          this.listaItens2 = response.data.itens.listaItens2
-          this.listaItens3 = response.data.itens.listaItens3
-          /* Indo do percurso 1 ao 4 */
-          console.log(this.listaItens0)
-          console.log(this.listaItens1)
-          console.log(this.listaItens2)
-          console.log(this.listaItens3)
+          this.listaItens = response.data.itens.listaItens1;
+          this.listaItens0 = response.data.itens.listaItens0;
+          this.listaItens1 = response.data.itens.listaItens1;
+          this.listaItens2 = response.data.itens.listaItens2;
+          this.listaItens3 = response.data.itens.listaItens3;
+      
+
+
+
+        })
+
+        .catch((error) => {
+          // Tratar erros aqui
+          console.error(error);
+        });
+    },
+
+    returnItensReportados(){
+      axios({ url: 'http://localhost:5000/admin/returnReported', method: 'POST' })
+        .then((response) => {
+          this.listaItensReportados = response.data.itens_reportados;
+          console.log(this.listaItensReportados);
 
 
 
@@ -604,11 +741,16 @@ export default {
 
 <style scoped>
 
-
-.item-btn{
+@font-face {
+  font-family: 'Poppins';
+  src: url(../assets/fonts/Poppins/Poppins-Regular.ttf);
+}
+.item-btn {
   font-size: 0.9rem;
   margin-left: 1vw;
   font-weight: 600;
+  font-family: 'Urbanist-Regular';
+
 }
 
 .title-btn {
@@ -628,7 +770,7 @@ export default {
 
 }
 
-.btn-area{
+.btn-area {
   display: flex;
   flex-direction: row;
   height: 7vh;
@@ -636,4 +778,35 @@ export default {
   padding-left: 2vh;
 }
 
+.report-card {
+  width: 500px;
+  height: 25vh;
+
+}
+
+.toolbar-title{
+  font-family: 'Urbanist-Regular';
+  font-size: 1.3rem;
+
+}
+
+.report-area{
+  width: 100%;
+}
+
+.report-buttons{
+  width: 100%;
+}
+
+.report-id{
+  font-size: 1.05rem;
+}
+
+.report-button{
+  width: 10vw;
+  height: 4vh;
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: 'Urbanist-Regular';
+}
 </style>
