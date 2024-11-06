@@ -560,18 +560,14 @@ export default {
   }),
 
   props: {
-    listaDeAlunos: {
-      type: Array,
-      required: true,
-      default: () => [],
-    },
+   
   },
 
   watch: {
     // Observa mudanças em `listaDeAlunos`
-    listaDeAlunos(newVal) {
+    /* listaDeAlunos(newVal) {
       this.listaTurma = newVal;
-    },
+    }, */
   },
 
   created() {

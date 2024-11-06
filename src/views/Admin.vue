@@ -1,6 +1,6 @@
 <template>
   <v-app id="inspire">
-    <NavBar :admin="adminVer" />
+    <NavBar />
 
     <v-main class="bg-blue-grey-lighten-5">
       <v-container fluid>
@@ -9,16 +9,13 @@
             <v-row>
               <v-col cols="2" style="min-width: 270px">
                 <div>
-                  <v-sheet
-                    class="elevation-2 rounded-lg d-flex flex-column py-4"
-                  >
+                  <v-sheet class="elevation-2 rounded-lg d-flex flex-column py-4">
                     <!-- AVATAR -->
                     <div class="d-flex justify-center">
                       <v-avatar color="grey" rounded="0" size="100">
                         <v-img
                           src="https://thumbs.dreamstime.com/b/light-blue-outline-user-avatar-flat-icon-light-blue-outline-user-avatar-flat-icon-isolated-white-background-vector-illustration-250739962.jpg"
-                          cover
-                        ></v-img>
+                          cover></v-img>
                       </v-avatar>
                     </div>
 
@@ -32,37 +29,21 @@
                   </v-sheet>
                 </div>
 
-                <v-sheet
-                  class="custom-switch mt-4 elevation-2 d-flex justify-center align-center"
-                  rounded="lg"
-                >
-                  <v-tabs
-                    v-model="tab"
-                    color="primary"
-                    direction="vertical"
-                    style="width: 100%"
-                  >
-                    <v-tab
-                      value="option-1"
-                      class="pl-4 d-flex justify-start"
-                      prepend-icon="mdi-town-hall"
-                    >
+                <v-sheet class="custom-switch mt-4 elevation-2 d-flex justify-center align-center" rounded="lg">
+                  <v-tabs v-model="tab" color="primary" direction="vertical" style="width: 100%">
+                    <v-tab value="option-1" class="pl-4 d-flex justify-start" prepend-icon="mdi-town-hall">
                       <span>Escolas</span>
                     </v-tab>
 
-                    <v-tab
-                      prepend-icon="mdi-database-outline"
-                      value="option-2"
-                      class="pl-4 d-flex justify-start"
-                    >
+                    <v-tab prepend-icon="mdi-database-outline" value="option-2" class="pl-4 d-flex justify-start">
                       <span>Banco de Itens</span>
                     </v-tab>
 
-                    <v-tab
-                      prepend-icon="mdi-account-clock-outline"
-                      value="option-3"
-                      class="pl-4 d-flex justify-start"
-                    >
+                    <v-tab prepend-icon="mdi-note-plus-outline" value="option-4" class="pl-4 d-flex justify-start">
+                      <span>Adicionar Itens</span>
+                    </v-tab>
+
+                    <v-tab prepend-icon="mdi-account-clock-outline" value="option-3" class="pl-4 d-flex justify-start">
                       <span>Logs de Login</span>
                     </v-tab>
                     <!-- <v-tab
@@ -93,20 +74,17 @@
               <v-col>
                 <!-- MENSAGEM DE SELEÇÂO DE TURMA -->
                 <div>
-                  <v-sheet
-                    class="rounded-lg d-flex pa-4 elevation-4"
-                    color="grey-lighten-5"
-                    min-height="500"
-                  >
+                  <v-sheet class="rounded-lg d-flex  elevation-4" color="grey-lighten-5" min-height="500">
                     <v-window v-model="tab" class="w-100">
                       <!-- Janela de Dados 1 -->
                       <v-window-item value="option-1">
-                        <Escolas/>
+                        <Escolas />
                       </v-window-item>
 
                       <!-- Janela de Dados 2 -->
                       <v-window-item value="option-2">
-                        TELA 2
+                        <TurmaItensInfo ref="turmaDataInfo">
+                        </TurmaItensInfo>
                       </v-window-item>
 
                       <!-- Janela de Dados 3 -->
@@ -132,18 +110,23 @@ import axios from "axios";
 import NavBar from "@/components/NavBar.vue";
 import * as XLSX from "xlsx";
 import Escolas from "@/components/Escolas.vue";
+import TurmaItensInfo from "@/components/TurmaItensInfo.vue";
+
 
 export default {
   name: "Turma",
   components: {
-    Escolas
+    Escolas,
+    TurmaItensInfo,
+    NavBar,
+
   },
 
   data: () => ({
     tab: "option-1",
   }),
 
-  created() {},
+  created() { },
 
   methods: {},
   // FIM DO METHODSSSSSSS
@@ -154,15 +137,16 @@ export default {
 
 <style>
 .borda-diagonal {
-  border-radius: 16px 0 16px 0 !important; /* Bordas diagonais arredondadas */
+  border-radius: 16px 0 16px 0 !important;
+  /* Bordas diagonais arredondadas */
 }
 
 .degrade {
-  background: linear-gradient(
-    to bottom right,
-    #e3f2fd,
-    /* Azul bem claro no canto superior esquerdo */ #cfd8dc
+  background: linear-gradient(to bottom right,
+      #e3f2fd,
+      /* Azul bem claro no canto superior esquerdo */
+      #cfd8dc
       /* Cinza claro no canto inferior direito */
-  );
+    );
 }
 </style>

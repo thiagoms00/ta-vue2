@@ -12,7 +12,7 @@
     </p>
 
     <div class="mt-16">
-      <v-row>
+      <v-row class="pa-8">
         <v-col
           v-for="(escola, index) in escolas"
           :key="index"
