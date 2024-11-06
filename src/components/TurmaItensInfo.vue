@@ -15,18 +15,21 @@
       <v-row class="dflex align-center title-row">
 
         <v-col cols="3" class="d-flex justify-center">
-          <v-btn class="title-btn" block :ripple="false" variant="text">{{colmunTitles[0]}}</v-btn>
+          <v-btn class="title-btn" block :ripple="false" variant="text">{{ colmunTitles[0] }}</v-btn>
         </v-col>
 
         <v-col cols="3" class="d-flex justify-center">
-          <v-btn class="title-btn" block :append-icon="icon[1]" :ripple="false" variant="text">{{colmunTitles[1]}}</v-btn>
+          <v-btn class="title-btn" block :append-icon="icon[1]" :ripple="false"
+            variant="text">{{ colmunTitles[1] }}</v-btn>
         </v-col>
 
         <v-col cols="3" class="d-flex justify-center pr-9">
-          <v-btn class="title-btn" block :append-icon="icon[2]" :ripple="false" variant="text">{{colmunTitles[2]}}</v-btn>
+          <v-btn class="title-btn" block :append-icon="icon[2]" :ripple="false"
+            variant="text">{{ colmunTitles[2] }}</v-btn>
         </v-col>
         <v-col cols="3" class="d-flex justify-center pr-15">
-          <v-btn class="title-btn pr-11" block :append-icon="icon[3]" :ripple="false" variant="text">{{colmunTitles[3]}}</v-btn>
+          <v-btn class="title-btn pr-11" block :append-icon="icon[3]" :ripple="false"
+            variant="text">{{ colmunTitles[3] }}</v-btn>
         </v-col>
 
 
@@ -92,50 +95,23 @@
                   </v-row>
                 </v-sheet>
 
-                <v-divider :thickness="2"></v-divider>
+                <v-divider :thickness="1"></v-divider>
                 <div class="btn-area">
                   <v-btn variant="outlined" class="item-btn" @click="openItem(index)">
                     Ver item
                   </v-btn>
 
                   <v-btn variant="outlined" class="item-btn" @click="reportDialog = true">
-                    Reportar erro
+                    Reportar item
                   </v-btn>
                 </div>
+
+
 
                 
 
 
-                <v-dialog v-model="reportDialog" width="auto">
-                  <v-card min-width="700">
-
-                    <v-toolbar color="#1E3892" density="comfortable">
-                      <v-icon icon="mdi-alert-circle-outline" class="ml-5" ></v-icon>
-                      <v-toolbar-title class="ml-2 toolbar-title">Reportar Item</v-toolbar-title>
-
-                      <v-spacer></v-spacer>
-
-
-
-                     
-                    </v-toolbar>
-
-
-                    <template v-slot:actions class="">
-                      <div class="d-flex flex-column report-area pa-5">
-                        <h4 class="ml-2 report-id">{{this.itemSelected.id}}</h4>
-                        <v-text-field clearable label="Erro" variant="outlined" class="mt-5"></v-text-field>
-                        <div class="report-buttons d-flex mt-5">
-                        <v-btn variant="outlined" class="mx-auto report-button" text="Reportar" @click="reportDialog = false"></v-btn>
-                        <v-btn variant="outlined" class="mx-auto report-button" text="Voltar" @click="reportDialog = false"></v-btn>
-                      </div>
-                      </div>
-                    
-                     
-                    </template>
-                  </v-card>
-                </v-dialog>
-                <v-divider :thickness="8" color="info"></v-divider>
+                <v-divider :thickness="5" color="blue"></v-divider>
 
 
               </v-expansion-panel-text>
@@ -211,6 +187,9 @@
                 <div class="btn-area">
                   <v-btn variant="outlined" class="item-btn" @click="openItem(index)">
                     Ver item</v-btn>
+                    <v-btn variant="outlined" class="item-btn" @click="reportDialog = true, console.log(reportDialog)">
+                    Reportar item
+                  </v-btn>
                 </div>
 
                 <v-divider :thickness="4"></v-divider>
@@ -295,6 +274,9 @@
                 <div class="btn-area">
                   <v-btn variant="outlined" class="item-btn" @click="openItem(index)">
                     Ver item</v-btn>
+                    <v-btn variant="outlined" class="item-btn" @click="reportDialog = true">
+                    Reportar item
+                  </v-btn>
                 </div>
 
                 <v-divider :thickness="4"></v-divider>
@@ -373,6 +355,9 @@
                 <div class="btn-area">
                   <v-btn variant="outlined" class="item-btn" @click="openItem(index)">
                     Ver item</v-btn>
+                    <v-btn variant="outlined" class="item-btn" @click="reportDialog = true">
+                    Reportar item
+                  </v-btn>
                 </div>
 
                 <v-divider :thickness="4"></v-divider>
@@ -390,8 +375,8 @@
       <v-window-item value="p5">
         <v-sheet rounded="lg" class="" :class="{ 'fade-in': animacaoListaAtiva }">
           <v-expansion-panels variant="accordion" class="" v-model="expansionPanelModel[3]">
-            <v-expansion-panel v-for="(item, index) in listaItensReportados" :key="item.id" ref="panels" class="rounded-b-lg"
-              style="border-radius: 0px;">
+            <v-expansion-panel v-for="(item, index) in listaItensReportados" :key="item.id" ref="panels"
+              class="rounded-b-lg" style="border-radius: 0px;">
 
               <v-expansion-panel-title style="height: 5vh;" class="color-painel"
                 @click="changeItem(index, this.tabNumber)">
@@ -410,7 +395,7 @@
                   </v-col>
 
                   <v-col cols="3" class="d-flex justify-center">
-                    {{item.dataErro}}
+                    {{ item.dataErro }}
                   </v-col>
                 </v-row>
 
@@ -424,7 +409,7 @@
                         <tbody>
                           <tr>
                             <td class="td-left">ID</td>
-                            <td class="td-right">{{ item.idItem}}</td>
+                            <td class="td-right">{{ item.idItem }}</td>
                           </tr>
                           <tr>
                             <td class="td-left">Percurso</td>
@@ -438,14 +423,14 @@
                             <td class="td-left">Erro</td>
                             <td class="td-right">{{ item.msgErro }}</td>
                           </tr>
-                         
+
                         </tbody>
                       </v-table>
                     </v-col>
                   </v-row>
                 </v-sheet>
 
-               <!-- <v-divider :thickness="4"></v-divider>
+                <!-- <v-divider :thickness="4"></v-divider>
                 <div class="btn-area">
                    <v-btn variant="outlined" class="item-btn" @click="openItem(index)">
                     Ver item</v-btn> 
@@ -462,6 +447,55 @@
 
       </v-window-item>
     </v-window>
+    <!-- Dialog de report -->
+    <v-dialog v-model="reportDialog" width="auto">
+                  <v-card min-width="700">
+
+                    <v-toolbar color="#1E3892" density="comfortable">
+                      <v-icon icon="mdi-alert-circle-outline" class="ml-5"></v-icon>
+                      <v-toolbar-title class="ml-2 toolbar-title">Reportar Item</v-toolbar-title>
+                      <v-spacer></v-spacer>
+                    </v-toolbar>
+
+                    <template v-slot:actions class="">
+                      <div class="d-flex flex-column report-area pa-5">
+                        <h4 class="ml-2 report-id">{{ this.itemSelected.id }}</h4>
+                        <v-text-field clearable label="Erro" variant="outlined" class="mt-5" v-model="errorModel"></v-text-field>
+                        <div class="report-buttons d-flex mt-5">
+                          <v-btn variant="outlined" class="mx-auto report-button" text="Reportar"
+                            @click="reportDialog = false , reportaItem(this.itemSelected), reportSuccess = true"></v-btn> 
+                          <v-btn variant="outlined" class="mx-auto report-button" text="Voltar"
+                            @click="reportDialog = false, clearErrorField()"></v-btn>
+                        </div>
+                      </div>
+
+                    </template>
+                  </v-card>
+                </v-dialog>
+
+                <!-- Dialog de report bem sucedido-->
+
+                <v-dialog v-model="reportSuccess" width="auto">
+                  <v-card min-width="500">
+
+                    <v-toolbar color="#1E3892" density="comfortable">
+                      <v-icon icon="mdi-alert-circle-outline" class="ml-5"></v-icon>
+                      <v-toolbar-title class="ml-2 toolbar-title">Reportar Item</v-toolbar-title>
+                      <v-spacer></v-spacer>
+                    </v-toolbar>
+
+                    <template v-slot:actions class="">
+                      <div class="d-flex flex-column report-area pa-5">
+                        <h4 class="mx-auto report-success-text">O Item foi reportado com sucesso!!</h4>
+                        <div class="report-buttons d-flex mt-5">
+                          <v-btn variant="outlined" class="mx-auto report-button" text="Fechar"
+                            @click="reportSuccess = false, clearErrorField()"></v-btn>
+                        </div>
+                      </div>
+
+                    </template>
+                  </v-card>
+                </v-dialog>
 
 
 
@@ -498,7 +532,7 @@ export default {
     listaItens1: [],  //Lista de Itens do percurso 2
     listaItens2: [],  //Lista de Itens do percurso 3
     listaItens3: [],  //Lista de Itens do percurso 4
-    listaItensReportados : [], //Lista com os itens reportados
+    listaItensReportados: [], //Lista com os itens reportados
 
     listaItens: [], //Itens sendo exibidos, começando pelo estrato 1.
 
@@ -517,8 +551,10 @@ export default {
     tabNumber: 1,
     lastIndex: 0,
     expansionPanelModel: [null, null, null, null],
-    reportDialog: false,
-    colmunTitles : ['Código', 'Habilidade' , 'Aprendizagem', 'Status'] //Títulos que aparecem nas colunas.
+    reportDialog: false,  // Variavel de controle do dialog de report.
+    reportSuccess: false, // Variavel de controle do dialog de report bem sucedido.
+    errorModel : '', //Model do text-field de erro.
+    colmunTitles: ['Código', 'Habilidade', 'Aprendizagem', 'Status'] //Títulos que aparecem nas colunas.
 
 
   }),
@@ -568,14 +604,47 @@ export default {
 
   methods: {
 
+    //Função que envia um item reportado para o back-end.
+    reportaItem(item){
+      const currentDate = new Date();
+      const formattedDate = currentDate.toLocaleDateString('pt-BR');
+      const itemReportado = {
+        idItem : item.id,
+        idAdmin : localStorage.getItem('idProf'),
+        msgErro : this.errorModel,
+        percurso : this.tabNumber,
+        dataErro :  formattedDate,
+      }
+      console.log(`Item reportado: ${JSON.stringify(itemReportado)}`);
+      const data = itemReportado;
+
+      axios({ url: 'https://ta-back.onrender.com/admin/reportItens',data, method: 'POST' })
+        .then((response) => {
+          console.log(`Status da resposta do servidor: ${response.status} \n`);
+          console.log(`Mensagem do servidor: ${response.data.message}`);
+          
+        })
+
+        .catch((error) => {
+          // Tratar erros aqui
+          console.error(error);
+        });
+        this.returnItensReportados();
+    },
+
+    //Função que limpa o text field do erro de item reportado.
+    clearErrorField(){
+      this.errorModel = '';
+    },
+
     selectedTab(tabNum) {
       this.tabNumber = tabNum;
       this.expansionPanelModel = [null, null, null, null];
-      if(tabNum === 5){
-        this.colmunTitles = ['Código', 'Percurso' , 'Administrador' , 'Data']
+      if (tabNum === 5) {
+        this.colmunTitles = ['Código', 'Percurso', 'Administrador', 'Data']
       }
       else {
-        this.colmunTitles = ['Código', 'Habilidade' , 'Aprendizagem' , 'Status']
+        this.colmunTitles = ['Código', 'Habilidade', 'Aprendizagem', 'Status']
       }
 
     },
@@ -593,6 +662,7 @@ export default {
       window.open(routeData.href, '_blank');
     },
 
+    //Muda o item selecionado na tabela.
     changeItem(index, percurso) {
       this.newIndex = index; //para o changeItem do changeTab
       switch (percurso) {
@@ -604,7 +674,6 @@ export default {
           this.itemSelected.fonte = this.questoesP1[index].fonte;
           break;
         case 2:
-          console.log(index)
           this.itemSelected.id = this.questoesP2[index].id;
           this.itemSelected.layout = this.questoesP2[index].layout;
           this.itemSelected.percurso = 2;
@@ -642,9 +711,6 @@ export default {
           this.listaItens1 = response.data.itens.listaItens1;
           this.listaItens2 = response.data.itens.listaItens2;
           this.listaItens3 = response.data.itens.listaItens3;
-      
-
-
 
         })
 
@@ -654,13 +720,11 @@ export default {
         });
     },
 
-    returnItensReportados(){
+    returnItensReportados() {
       axios({ url: 'https://ta-back.onrender.com/admin/returnReported', method: 'POST' })
         .then((response) => {
           this.listaItensReportados = response.data.itens_reportados;
           console.log(this.listaItensReportados);
-
-
 
         })
 
@@ -740,11 +804,11 @@ export default {
 </script>
 
 <style scoped>
-
 @font-face {
-  font-family: 'Poppins';
-  src: url(../assets/fonts/Poppins/Poppins-Regular.ttf);
+  font-family: 'Urbanist-SB';
+  src: url(../assets/fonts/Urbanist/static/Urbanist-SemiBold.ttf);
 }
+
 .item-btn {
   font-size: 0.9rem;
   margin-left: 1vw;
@@ -784,29 +848,35 @@ export default {
 
 }
 
-.toolbar-title{
+.toolbar-title {
   font-family: 'Urbanist-Regular';
   font-size: 1.3rem;
 
 }
 
-.report-area{
+.report-area {
   width: 100%;
 }
 
-.report-buttons{
+.report-buttons {
   width: 100%;
 }
 
-.report-id{
+.report-id {
   font-size: 1.05rem;
 }
 
-.report-button{
+.report-button {
   width: 10vw;
   height: 4vh;
-  font-size: 0.95rem;
-  font-weight: 600;
+  font-size: 1rem;
+  font-weight: bold;
   font-family: 'Urbanist-Regular';
 }
+
+.report-success-text{
+  font-size: 1.5rem;
+  font-family: 'Urbanist-Regular';
+}
+
 </style>
