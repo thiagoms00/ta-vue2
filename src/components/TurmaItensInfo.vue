@@ -655,7 +655,7 @@ export default {
     },
 
     returnItensReportados(){
-      axios({ url: 'http://localhost:5000/admin/returnReported', method: 'POST' })
+      axios({ url: 'https://ta-back.onrender.com/admin/returnReported', method: 'POST' })
         .then((response) => {
           this.listaItensReportados = response.data.itens_reportados;
           console.log(this.listaItensReportados);
