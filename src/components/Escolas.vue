@@ -1,51 +1,50 @@
 <template>
-  <div class="d-flex flex-column w-100">
-    <p
-      class="text-overline mt-16 d-flex justify-center"
-      style="
-        color: #cfd8dc;
-        font-size: 3rem !important;
-        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
-      "
-    >
-      Selecione uma escola
-    </p>
-
-    <div class="mt-16">
-      <v-row class="pa-8">
-        <v-col
-          v-for="(escola, index) in escolas"
-          :key="index"
-          cols="12"
-          sm="6"
-          md="4"
-          lg="3"
-        >
-          <v-sheet
-            elevation="3"
-            rounded="lg"
-            class="pa-4 d-flex flex-column align-center borda-diagonal degrade"
-          >
-            <v-avatar size="64" class="mb-2">
-              <v-icon large>mdi-school</v-icon>
-            </v-avatar>
-            <div class="text-center">{{ escola.nome }}</div>
-          </v-sheet>
-        </v-col>
-      </v-row>
+  <!-- SHEET DE TITULO -->
+  <v-sheet
+    class="rounded-t-lg elevation-2 pa-2 d-flex align-center justify-space-between"
+    color="#1E3892"
+    height="48"
+  >
+    <div class="d-flex align-center">
+      <v-icon icon="mdi-ballot"> </v-icon>
+      <div class="text-button ml-2">Selecione uma escola</div>
     </div>
-  </div>
+
+    <v-icon
+      v-if="level !== 'escola'"
+      @click="voltar"
+      style="cursor: pointer; margin-left: 10px"
+      color="white"
+    >
+      mdi-arrow-left
+    </v-icon>
+  </v-sheet>
+
+  <!-- CONTEÙDO -->
+  <ListadeEscolas
+    v-if="level === 'escola'"
+    :escolas="escolas"
+    @changeLevel="updateLevel"
+  />
+
+  <ListadeTurmas v-if="level === 'turmas'" :turmas="turmas" />
 </template>
 
 <script>
+import axios from "axios";
+import ListadeEscolas from "./ListadeEscolas.vue";
+import ListadeTurmas from "./ListadeTurmas.vue";
 
 export default {
   name: "Escolas",
   components: {
-
+    ListadeEscolas,
+    ListadeTurmas,
   },
 
   data: () => ({
+    level: "escola",
+    turmas: [],
     tab: "option-1",
     habilidadesTurmaAtual: {},
     escolas: [
@@ -58,9 +57,46 @@ export default {
 
   created() {},
 
-  methods: {},
+  methods: {
+    updateLevel(newLevel, turmas) {
+      this.level = newLevel;
+      if (turmas) {
+        this.turmas = turmas; // Armazena as turmas recebidas
+      }
+    },
+
+    voltar() {
+      if (this.level === "turmas") {
+        this.level = "escola";
+        this.turmasData = [];
+      } else if (this.level === "turmaselecionado") {
+        this.level = "turmas";
+      }
+    },
+  },
+
   // FIM DO METHODSSSSSSS
 
   computed: {},
 };
 </script>
+
+<style>
+.borda-diagonal {
+  border-radius: 16px 0 16px 0 !important;
+  /* Bordas diagonais arredondadas */
+}
+
+.degrade {
+  background: linear-gradient(to bottom right, #97c1e4, #bbdefb) !important;
+}
+
+.clickable-item {
+  transition: transform 0.2s, box-shadow 0.3s;
+}
+
+.clickable-item:hover {
+  transform: scale(1.05); /* Leve aumento no tamanho do item */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra para dar sensação de elevação */
+}
+</style>

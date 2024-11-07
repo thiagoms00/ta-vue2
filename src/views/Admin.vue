@@ -134,19 +134,3 @@ export default {
   computed: {},
 };
 </script>
-
-<style>
-.borda-diagonal {
-  border-radius: 16px 0 16px 0 !important;
-  /* Bordas diagonais arredondadas */
-}
-
-.degrade {
-  background: linear-gradient(to bottom right,
-      #e3f2fd,
-      /* Azul bem claro no canto superior esquerdo */
-      #cfd8dc
-      /* Cinza claro no canto inferior direito */
-    );
-}
-</style>
