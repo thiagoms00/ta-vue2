@@ -6,12 +6,13 @@
           <v-avatar class="me-4" color="blue-lighten-4" size="32"></v-avatar>
           <h1 class="menu-title">Plano A</h1>
 
-          <!-- <v-btn
+         <!--   <v-btn
             v-for="link in links"
             :key="link"
             :text="link"
             variant="text"
-          ></v-btn> -->
+          ></v-btn> 
+           -->
           
           <v-spacer></v-spacer>
 

@@ -21,7 +21,8 @@
             "tempo": 0,
             "tentativas": 0,
             "acertos": 0,
-            "ensino" : "geral" 
+            "ensino" : "geral",
+            "percurso" : 4 
         },
         {
             "id" : "LP_H06_03_014",                             
@@ -43,7 +44,8 @@
             "tempo": 0,
             "tentativas": 0,
             "acertos": 0,
-            "ensino" : "geral" 
+            "ensino" : "geral",
+            "percurso" : 4 
         },
         {
             "id" : "LP_H07_03_014",                             
@@ -65,7 +67,8 @@
             "tempo": 0,
             "tentativas": 0,
             "acertos": 0,
-            "ensino" : "geral" 
+            "ensino" : "geral",
+            "percurso" : 4 
         },
         
         
@@ -89,7 +92,8 @@
             "tempo": 0,
             "tentativas": 0,
             "acertos": 0,
-            "ensino" : "geral" 
+            "ensino" : "geral",
+            "percurso" : 4 
         },
        
         {
@@ -112,7 +116,8 @@
             "tempo": 0,
             "tentativas": 0,
             "acertos": 0,
-            "ensino" : "geral" 
+            "ensino" : "geral",
+            "percurso" : 4 
         },
         {
             "id" : "LP_H10_02_002",                             
@@ -134,7 +139,8 @@
             "tempo": 0,
             "tentativas": 0,
             "acertos": 0,
-            "ensino" : "geral" 
+            "ensino" : "geral",
+            "percurso" : 4 
         },
         {
             "id" : "LP_H07_03_016",                             
@@ -156,7 +162,8 @@
             "tempo": 0,
             "tentativas": 0,
             "acertos": 0,
-            "ensino" : "geral" 
+            "ensino" : "geral",
+            "percurso" : 4 
         },
         {
             "id" : "LP_H08_03_009",                             
@@ -178,7 +185,8 @@
             "tempo": 0,
             "tentativas": 0,
             "acertos": 0,
-            "ensino" : "geral" 
+            "ensino" : "geral",
+            "percurso" : 4 
         },
         {
             "id" : "LP_H06_03_015",                             
@@ -200,7 +208,8 @@
             "tempo": 0,
             "tentativas": 0,
             "acertos": 0,
-            "ensino" : "geral" 
+            "ensino" : "geral",
+            "percurso" : 4 
         },
         {
             "id" : "LP_H08_02_004",                             
@@ -223,7 +232,8 @@
             "tempo": 0,
             "tentativas": 0,
             "acertos": 0,
-            "ensino" : "geral" 
+            "ensino" : "geral",
+            "percurso" : 4 
         },
         {
             "id" : "LP_H08_02_011",                             
@@ -245,7 +255,8 @@
             "tempo": 0,
             "tentativas": 0,
             "acertos": 0,
-            "ensino" : "geral" 
+            "ensino" : "geral",
+            "percurso" : 4 
         },
         {
             "id" : "LP_H09_01_005",                             
@@ -267,7 +278,8 @@
             "tempo": 0,
             "tentativas": 0,
             "acertos": 0,
-            "ensino" : "geral" 
+            "ensino" : "geral",
+            "percurso" : 4 
         },
         {
             "id" : "LP_H06_01_019",                             
@@ -289,7 +301,8 @@
             "tempo": 0,
             "tentativas": 0,
             "acertos": 0,
-            "ensino" : "geral" 
+            "ensino" : "geral",
+            "percurso" : 4 
         },
         {
             "id" : "LP_H09_02_001",                             
@@ -311,7 +324,8 @@
             "tempo": 0,
             "tentativas": 0,
             "acertos": 0,
-            "ensino" : "geral" 
+            "ensino" : "geral",
+            "percurso" : 4 
         },
         {
             "id" : "LP_H09_03_002",                             
@@ -333,7 +347,8 @@
             "tempo": 0,
             "tentativas": 0,
             "acertos": 0,
-            "ensino" : "geral" 
+            "ensino" : "geral",
+            "percurso" : 4 
         },
         {
             "id" : "LP_H08_03_005",                             
@@ -355,7 +370,8 @@
             "tempo": 0,
             "tentativas": 0,
             "acertos": 0,
-            "ensino" : "geral" 
+            "ensino" : "geral",
+            "percurso" : 4 
         },
         {
             "id" : "LP_H10_01_008",                             
@@ -377,7 +393,8 @@
             "tempo": 0,
             "tentativas": 0,
             "acertos": 0,
-            "ensino" : "geral" 
+            "ensino" : "geral",
+            "percurso" : 4 
         },
         {
             "id" : "LP_H06_00_004",                             
@@ -399,7 +416,8 @@
             "tempo": 0,
             "tentativas": 0,
             "acertos": 0,
-            "ensino" : "geral" 
+            "ensino" : "geral",
+            "percurso" : 4 
         },
         {
             "id" : "LP_H06_02_017",                             
@@ -421,7 +439,8 @@
             "tempo": 0,
             "tentativas": 0,
             "acertos": 0,
-            "ensino" : "geral" 
+            "ensino" : "geral",
+            "percurso" : 4 
         },
         {
             "id" : "LP_H06_01_003",                             
@@ -443,7 +462,8 @@
             "tempo": 0,
             "tentativas": 0,
             "acertos": 0,
-            "ensino" : "geral" 
+            "ensino" : "geral",
+            "percurso" : 4 
         },
         {
             "id" : "LP_H09_01_003",                             
@@ -465,7 +485,8 @@
             "tempo": 0,
             "tentativas": 0,
             "acertos": 0,
-            "ensino" : "geral" 
+            "ensino" : "geral",
+            "percurso" : 4 
         },
         {
             "id" : "LP_H07_02_013",                             
@@ -487,7 +508,8 @@
             "tempo": 0,
             "tentativas": 0,
             "acertos": 0,
-            "ensino" : "geral" 
+            "ensino" : "geral",
+            "percurso" : 4 
         },
         {
             "id" : "LP_H08_02_002",                             
@@ -509,7 +531,8 @@
             "tempo": 0,
             "tentativas": 0,
             "acertos": 0,
-            "ensino" : "geral" 
+            "ensino" : "geral",
+            "percurso" : 4 
         },
         {
             "id" : "LP_H09_02_003",                             
@@ -531,7 +554,8 @@
             "tempo": 0,
             "tentativas": 0,
             "acertos": 0,
-            "ensino" : "geral" 
+            "ensino" : "geral",
+            "percurso" : 4 
         }
     
         

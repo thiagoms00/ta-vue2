@@ -20,11 +20,11 @@
                     </div>
 
                     <div class="d-flex justify-center">
-                      <p class="font-weight-bold">Nome Sobrenome</p>
+                      <p class="text-profile text-name">Nome Sobrenome</p>
                     </div>
 
                     <div class="d-flex justify-center">
-                      <p class="font-weight-medium">ADMIN</p>
+                      <p class="text-profile text-function">ADMIN</p>
                     </div>
                   </v-sheet>
                 </div>
@@ -35,17 +35,23 @@
                       <span>Escolas</span>
                     </v-tab>
 
-                    <v-tab prepend-icon="mdi-database-outline" value="option-2" class="pl-4 d-flex justify-start">
-                      <span>Banco de Itens</span>
-                    </v-tab>
-
-                    <v-tab prepend-icon="mdi-note-plus-outline" value="option-4" class="pl-4 d-flex justify-start">
-                      <span>Adicionar Itens</span>
-                    </v-tab>
-
                     <v-tab prepend-icon="mdi-account-clock-outline" value="option-3" class="pl-4 d-flex justify-start">
                       <span>Logs de Login</span>
                     </v-tab>
+                    <v-divider :thickness="8" color="blue"></v-divider>
+
+                    <v-tab
+                      prepend-icon="mdi-database-outline" value="option-2" class="pl-4 d-flex justify-start">
+                      <span>Itens (percurso)</span>
+                    </v-tab>
+                    <v-tab
+                      prepend-icon="mdi-database-outline" value="option-4" class="pl-4 d-flex justify-start">
+                      <span>Itens (habilidades)</span>
+                    </v-tab>
+                    <v-tab prepend-icon="mdi-note-plus-outline" value="option-5" class="pl-4 d-flex justify-start">
+                      <span>Adicionar Itens</span>
+                    </v-tab>
+
                     <!-- <v-tab
                   prepend-icon="mdi-remote-desktop"
                   text="Compara"
@@ -67,8 +73,11 @@
                         Configurações da turma
                       </v-tooltip>
                     </v-tab> -->
+
                   </v-tabs>
+                  
                 </v-sheet>
+
               </v-col>
 
               <v-col>
@@ -83,7 +92,7 @@
 
                       <!-- Janela de Dados 2 -->
                       <v-window-item value="option-2">
-                        <TurmaItensInfo ref="turmaDataInfo">
+                        <TurmaItensInfo ref="turmaItensInfo">
                         </TurmaItensInfo>
                       </v-window-item>
 
@@ -91,6 +100,14 @@
 
                       <v-window-item value="option-3">
                         TELA 3
+                      </v-window-item>
+
+                        <!-- Janela de Dados 4 -->
+
+                        <v-window-item value="option-4">
+                        <TurmaItensHab ref="turmaHabInfo">
+
+                        </TurmaItensHab>
                       </v-window-item>
                     </v-window>
 
@@ -111,6 +128,7 @@ import NavBar from "@/components/NavBar.vue";
 import * as XLSX from "xlsx";
 import Escolas from "@/components/Escolas.vue";
 import TurmaItensInfo from "@/components/TurmaItensInfo.vue";
+import TurmaItensHab from "@/components/TurmaItensHab.vue";
 
 
 export default {
@@ -119,11 +137,13 @@ export default {
     Escolas,
     TurmaItensInfo,
     NavBar,
+    TurmaItensHab,
 
   },
 
   data: () => ({
     tab: "option-1",
+    menuBanco : ['Percursos', 'Habilidades'],
   }),
 
   created() { },
@@ -134,3 +154,36 @@ export default {
   computed: {},
 };
 </script>
+<<<<<<< Updated upstream
+=======
+
+<style>
+.borda-diagonal {
+  border-radius: 16px 0 16px 0 !important;
+  /* Bordas diagonais arredondadas */
+}
+
+.degrade {
+  background: linear-gradient(to bottom right,
+      #e3f2fd,
+      /* Azul bem claro no canto superior esquerdo */
+      #cfd8dc
+      /* Cinza claro no canto inferior direito */
+    );
+}
+
+.text-profile{
+  font-family: 'Urbanist-Regular'
+}
+
+.text-name{
+  font-size: 1.2rem;
+  font-weight:600;
+  margin-top: 1vh;
+}
+
+.text-profile{
+  font-size: 1.1rem;
+}
+</style>
+>>>>>>> Stashed changes

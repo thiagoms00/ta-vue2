@@ -20,7 +20,8 @@
             "tempo": 0,
             "tentativas": 0,
             "acertos": 0,
-            "ensino" : "geral"
+            "ensino" : "geral",
+            "percurso" : 1
             
             
         },
@@ -44,7 +45,8 @@
             "tempo": 0,
             "tentativas": 0,
             "acertos": 0,
-            "ensino" : "geral"
+            "ensino" : "geral",
+            "percurso" : 1
             
         },
         {
@@ -67,7 +69,8 @@
             "tempo": 0,
             "tentativas": 0,
             "acertos": 0,
-            "ensino" : "geral"
+            "ensino" : "geral",
+            "percurso" : 1
             
             
 
@@ -96,7 +99,8 @@
             "tempo": 0,
             "tentativas": 0,
             "acertos": 0,
-            "ensino" : "geral"
+            "ensino" : "geral",
+            "percurso" : 1
             
         
         },
@@ -120,7 +124,8 @@
             "tempo": 0,
             "tentativas": 0,
             "acertos": 0,
-            "ensino" : "geral"
+            "ensino" : "geral",
+            "percurso" : 1
             
             
 
@@ -145,7 +150,8 @@
             "tempo": 0,
             "tentativas": 0,
             "acertos": 0,
-            "ensino" : "geral"
+            "ensino" : "geral",
+            "percurso" : 1
             
             
 
@@ -170,7 +176,8 @@
             "tempo": 0,
             "tentativas": 0,
             "acertos": 0,
-            "ensino" : "geral"
+            "ensino" : "geral",
+            "percurso" : 1
             
             
 
@@ -195,7 +202,8 @@
             "tempo": 0,
             "tentativas": 0,
             "acertos": 0,
-            "ensino" : "geral"
+            "ensino" : "geral",
+            "percurso" : 1
             
 
         },
@@ -220,7 +228,8 @@
             "tempo": 0,
             "tentativas": 0,
             "acertos": 0,
-            "ensino" : "geral"
+            "ensino" : "geral",
+            "percurso" : 1
             
             
 
@@ -246,7 +255,8 @@
             "tempo": 0,
             "tentativas": 0,
             "acertos": 0,
-            "ensino" : "geral"
+            "ensino" : "geral",
+            "percurso" : 1
             
         },
         {
@@ -269,7 +279,8 @@
             "tempo": 0,
             "tentativas": 0,
             "acertos": 0,
-            "ensino" : "geral"
+            "ensino" : "geral",
+            "percurso" : 1
             
         },
         {
@@ -292,7 +303,8 @@
             "tempo": 0,
             "tentativas": 0,
             "acertos": 0,
-            "ensino" : "geral"
+            "ensino" : "geral",
+            "percurso" : 1
             
         },
         {
@@ -315,7 +327,8 @@
             "tempo": 0,
             "tentativas": 0,
             "acertos": 0,
-            "ensino" : "geral"
+            "ensino" : "geral",
+            "percurso" : 1
             
         },
         {
@@ -338,7 +351,8 @@
             "tempo": 0,
             "tentativas": 0,
             "acertos": 0,
-            "ensino" : "geral"
+            "ensino" : "geral",
+            "percurso" : 1
             
         },
         {
@@ -361,7 +375,8 @@
             "tempo": 0,
             "tentativas": 0,
             "acertos": 0,
-            "ensino" : "geral"
+            "ensino" : "geral",
+            "percurso" : 1
             
         },
         {
@@ -384,7 +399,8 @@
             "tempo": 0,
             "tentativas": 0,
             "acertos": 0,
-            "ensino" : "geral"
+            "ensino" : "geral",
+            "percurso" : 1
             
         },
         {
@@ -407,7 +423,8 @@
             "tempo": 0,
             "tentativas": 0,
             "acertos": 0,
-            "ensino" : "geral"
+            "ensino" : "geral",
+            "percurso" : 1
             
         },
         {
@@ -430,7 +447,8 @@
             "tempo": 0,
             "tentativas": 0,
             "acertos": 0,
-            "ensino" : "geral"
+            "ensino" : "geral",
+            "percurso" : 1
             
         }
 

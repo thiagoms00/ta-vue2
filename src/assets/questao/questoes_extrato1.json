@@ -21,6 +21,7 @@
             "tentativas": 0,
             "acertos": 0,
             "ensino" : "geral",
+            "percurso" : 2,
             "audio_text": "Quantas sílabas ou pedaços tem a palavra CROCODILO?" 
         },
         {
@@ -44,6 +45,7 @@
             "tentativas": 0,
             "acertos": 0,
             "ensino" : "geral",
+            "percurso" : 2,
             "audio_text": "Marque a alternativa em que está escrita a palavra trator" 
         },
         {
@@ -71,6 +73,7 @@
             "tentativas": 0,
             "acertos": 0,
             "ensino" : "geral",
+            "percurso" : 2,
             "audio_text": "Marque a alternativa com a imagem que apresenta um nome que começa com a sílaba “LA”" 
         },
         {
@@ -94,6 +97,7 @@
             "tentativas": 0,
             "acertos": 0,
             "ensino" : "geral",
+            "percurso" : 2,
             "audio_text": "Marque a opção que apresenta a letra H." 
         },
         {
@@ -117,6 +121,7 @@
             "tentativas": 0,
             "acertos": 0,
             "ensino" : "geral",
+            "percurso" : 2,
             "audio_text": "Leia o texto e responda à pergunta" 
         },
         {
@@ -140,6 +145,7 @@
             "tentativas": 0,
             "acertos": 0,
             "ensino" : "geral",
+            "percurso" : 2,
             "audio_text": "O número de sílabas da palavra APARTAMENTO é" 
         },
         {
@@ -163,6 +169,7 @@
             "tentativas": 0,
             "acertos": 0,
             "ensino" : "geral",
+            "percurso" : 2,
             "audio_text": "Leia o texto e responda à questão" 
         },
         {
@@ -186,6 +193,7 @@
             "tentativas": 0,
             "acertos": 0,
             "ensino" : "geral",
+            "percurso" : 2,
             "audio_text": "Leia o texto e responda à questão" 
         },
        
@@ -210,6 +218,7 @@
             "tentativas": 0,
             "acertos": 0,
             "ensino" : "geral",
+            "percurso" : 2,
             "audio_text": "A letra destacada na frase é" 
         },
         {
@@ -233,6 +242,7 @@
             "tentativas": 0,
             "acertos": 0,
             "ensino" : "geral",
+            "percurso" : 2,
             "audio_text": "Leia o texto e responda à pergunta. O que não será mais permitido?" 
         },
        
@@ -257,6 +267,7 @@
             "tentativas": 0,
             "acertos": 0,
             "ensino" : "geral",
+            "percurso" : 2,
             "audio_text": "Observe a imagem: coração. O nome da imagem tem quantas sílabas ou pedaços?" 
         },
         {
@@ -280,6 +291,7 @@
             "tentativas": 0,
             "acertos": 0,
             "ensino" : "geral",
+            "percurso" : 2,
             "audio_text": "Marque a alternativa onde está escrita a palavra sapo." 
         },
         {
@@ -303,6 +315,7 @@
             "tentativas": 0,
             "acertos": 0,
             "ensino" : "geral",
+            "percurso" : 2,
             "audio_text": "Marque a opção que mostra o número de sílabas (ou pedaços) da palavra dedo." 
         },
         {
@@ -326,6 +339,7 @@
             "tentativas": 0,
             "acertos": 0,
             "ensino" : "geral",
+            "percurso" : 2,
             "audio_text": "Marque a alternativa que mostra o número de sílabas (ou pedaços) da palavra mão." 
         },
         {
@@ -349,6 +363,7 @@
             "tentativas": 0,
             "acertos": 0,
             "ensino" : "geral",
+            "percurso" : 2,
             "audio_text": "Marque a alternativa onde está escrita a palavra fogo." 
         },
         {
@@ -372,6 +387,7 @@
             "tentativas": 0,
             "acertos": 0,
             "ensino" : "geral",
+            "percurso" : 2,
             "audio_text": "Marque a opção onde está escrita a palavra escada." 
         },
         {
@@ -395,6 +411,7 @@
             "tentativas": 0,
             "acertos": 0,
             "ensino" : "geral",
+            "percurso" : 2,
             "audio_text": "Marque a alternativa onde está escrita a palavra caminhão." 
         },
         {
@@ -418,6 +435,7 @@
             "tentativas": 0,
             "acertos": 0,
             "ensino" : "geral",
+            "percurso" : 2,
             "audio_text": "Marque a alternativa onde está escrita a palavra morango." 
         },
         {
@@ -441,6 +459,7 @@
             "tentativas": 0,
             "acertos": 0,
             "ensino" : "geral",
+            "percurso" : 2,
             "audio_text": "Marque a opção onde está escrita a palavra leão." 
         },
         {
@@ -464,6 +483,7 @@
             "tentativas": 0,
             "acertos": 0,
             "ensino" : "geral",
+            "percurso" : 2,
             "audio_text": "Marque a opção onde está escrita a palavra banana." 
         },
         {
@@ -487,6 +507,7 @@
             "tentativas": 0,
             "acertos": 0,
             "ensino" : "geral",
+            "percurso" : 2,
             "audio_text": "Marque a opção onde está escrita a palavra secador." 
         },
         {
@@ -510,6 +531,7 @@
             "tentativas": 0,
             "acertos": 0,
             "ensino" : "geral",
+            "percurso" : 2,
             "audio_text": "Marque a alternativa onde está escrita a palavra escova." 
         },
 
