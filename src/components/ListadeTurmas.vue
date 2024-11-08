@@ -7,13 +7,13 @@
             elevation="3"
             rounded="lg"
             class="pa-4 d-flex align-center borda-diagonal degrade clickable-item"
-            @click="fetchTurma(turma._id)"
+            @click="selecionaTurma(turma._id)"
             style="cursor: pointer"
           >
             <v-avatar size="50" color="white" class="mr-4">
               <v-icon size="large" color="primary">mdi-account-group</v-icon>
             </v-avatar>
-            <div>
+            <div class="mx-2">
               <div>
                 Nome: <span class="font-weight-bold">{{ turma.nome }}</span>
               </div>
@@ -22,18 +22,16 @@
                 <span class="font-weight-bold">{{ turma.numero_alunos }}</span>
               </div>
             </div>
-            <div>
+            <div class="ml-5">
               <div>
                 Professores:
-                <ul class="pl-3">
-                  <li
-                    v-for="(professor, profIndex) in turma.listaDeProfs"
+              </div>
+              <div>
+                <span v-for="(professor, profIndex) in turma.listaDeProfs"
                     :key="profIndex"
-                    class="font-weight-bold"
-                  >
+                    class="font-weight-bold">
                     {{ professor }}
-                  </li>
-                </ul>
+                </span>
               </div>
             </div>
           </v-sheet>
@@ -47,7 +45,9 @@
 export default {
   name: "ListadeTurmas",
 
-  data: () => ({}),
+  data: () => ({
+    turmaAtual: []
+  }),
 
   props: {
     turmas: {
@@ -55,6 +55,52 @@ export default {
       required: true,
     },
   },
-  methods: {},
+  methods: {
+    selecionaTurma(turmaValue) {
+
+      const data = {
+        idTurma: turmaValue.id, 
+      };
+
+      let urlAdd = "https://ta-back.onrender.com/admin/dadosTurma";
+
+      axios({
+        url: urlAdd,
+        data,
+        method: "POST",
+      })
+        .then((response) => {
+          console.log(response)
+          // this.turmaAtual = response.data.turma;
+          // this.anoTurma = response.data.anoTurma;
+          // this.estratoInicial = response.data.estratoInicial;
+          // this.habilidadesTurmaAtual = response.data.habTurma;
+          // //criando lista com os ultimos elementos.
+          // for (let i = 0; i < this.listaTurma.length; i++) {
+          //   if (
+          //     this.listaTurma[i].listaDeTestes[
+          //       this.listaTurma[i].listaDeTestes.length - 1
+          //     ]
+          //   ) {
+          //     this.ultimosTestes.push(
+          //       this.listaTurma[i].listaDeTestes[
+          //         this.listaTurma[i].listaDeTestes.length - 1
+          //       ]
+          //     );
+          //   } else {
+          //     this.testesVazios.push();
+          //   }
+          // }
+          // this.sortOrder = true;
+        })
+        .catch((error) => {
+          // Tratar erros aqui
+          console.error(error);
+        })
+        .finally(() => {
+
+        });
+    },
+  },
 };
 </script>
