@@ -83,7 +83,7 @@
               <v-col>
                 <!-- MENSAGEM DE SELEÇÂO DE TURMA -->
                 <div>
-                  <v-sheet class="rounded-lg d-flex  elevation-4" color="grey-lighten-5" min-height="500">
+                  <v-sheet class="rounded-lg d-flex  elevation-4" color="grey-lighten-5">
                     <v-window v-model="tab" class="w-100">
                       <!-- Janela de Dados 1 -->
                       <v-window-item value="option-1">
