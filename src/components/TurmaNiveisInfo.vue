@@ -268,7 +268,6 @@ export default {
     },
     nomeTurma: {
       type: String,
-      required: true,
       default: "",
     },
   },

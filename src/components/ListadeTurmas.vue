@@ -42,11 +42,13 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "ListadeTurmas",
 
   data: () => ({
-    turmaAtual: []
+    dadosTurma: {}
   }),
 
   props: {
@@ -59,7 +61,7 @@ export default {
     selecionaTurma(turmaValue) {
 
       const data = {
-        idTurma: turmaValue.id, 
+        idTurma: turmaValue, 
       };
 
       let urlAdd = "https://ta-back.onrender.com/admin/dadosTurma";
@@ -71,6 +73,9 @@ export default {
       })
         .then((response) => {
           console.log(response)
+          this.dadosTurma = response.data;
+          this.$emit("changeLevel", "turmaselecionado", this.dadosTurma);
+
           // this.turmaAtual = response.data.turma;
           // this.anoTurma = response.data.anoTurma;
           // this.estratoInicial = response.data.estratoInicial;

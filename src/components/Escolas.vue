@@ -27,24 +27,41 @@
     @changeLevel="updateLevel"
   />
 
-  <ListadeTurmas v-if="level === 'turmas'" :turmas="turmas" />
+  <ListadeTurmas
+    v-if="level === 'turmas'"
+    :turmas="turmas"
+    @changeLevel="updateTurma"
+  />
+
+  <TurmaSelecionada
+    v-if="level === 'turmaselecionado'"
+    :dadosTurma="dadosTurma"
+    :tab_turma="tab_turma"
+    :search="search"
+  />
+
+
 </template>
 
 <script>
 import axios from "axios";
 import ListadeEscolas from "./ListadeEscolas.vue";
 import ListadeTurmas from "./ListadeTurmas.vue";
+import TurmaSelecionada from "./TurmaSelecionada.vue";
 
 export default {
   name: "Escolas",
   components: {
     ListadeEscolas,
     ListadeTurmas,
+    TurmaSelecionada
   },
+  emits: ["levelAplicationValue"],
 
   data: () => ({
     level: "escola",
     turmas: [],
+    dadosTurma : {},
     tab: "option-1",
     habilidadesTurmaAtual: {},
     escolas: [
@@ -55,9 +72,26 @@ export default {
     ],
   }),
 
+  props: {
+    tab_turma: {
+      type: String,
+      required: true,
+    },
+    search:{
+      type: String,
+    }
+  },
+
   created() {},
 
   methods: {
+    
+
+    updateTurma(newLevel, dadosTurma) {
+      this.level = newLevel;
+      this.dadosTurma = dadosTurma;
+    },
+
     updateLevel(newLevel, turmas) {
       this.level = newLevel;
       if (turmas) {
@@ -78,6 +112,17 @@ export default {
   // FIM DO METHODSSSSSSS
 
   computed: {},
+  
+  watch: {
+  level(newVal) {
+    if (newVal === "turmaselecionado") {
+      this.$emit("levelAplicationValue", true);
+    } else {
+      this.$emit("levelAplicationValue", false);
+    }
+  }
+}
+
 };
 </script>
 

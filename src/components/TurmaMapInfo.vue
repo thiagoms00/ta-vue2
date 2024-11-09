@@ -122,12 +122,10 @@ export default {
     },
     anoTurma: {
       type: Number,
-      required: true,
       default: 1,
     },
     nomeTurma: {
       type: String,
-      required: true,
       default: "",
     },
   },

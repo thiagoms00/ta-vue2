@@ -59,7 +59,6 @@ export default {
           if (response.status === 200) {
             // Armazena as turmas retornadas na variável `turmas`
             this.turmas = response.data.turmas;
-            console.log(this.turmas);
             this.$emit("changeLevel", "turmas", this.turmas);
           }
         })
