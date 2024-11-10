@@ -39,8 +39,6 @@
     :tab_turma="tab_turma"
     :search="search"
   />
-
-
 </template>
 
 <script>
@@ -54,14 +52,14 @@ export default {
   components: {
     ListadeEscolas,
     ListadeTurmas,
-    TurmaSelecionada
+    TurmaSelecionada,
   },
   emits: ["levelAplicationValue"],
 
   data: () => ({
     level: "escola",
     turmas: [],
-    dadosTurma : {},
+    dadosTurma: {},
     tab: "option-1",
     habilidadesTurmaAtual: {},
     escolas: [
@@ -77,16 +75,14 @@ export default {
       type: String,
       required: true,
     },
-    search:{
+    search: {
       type: String,
-    }
+    },
   },
 
   created() {},
 
   methods: {
-    
-
     updateTurma(newLevel, dadosTurma) {
       this.level = newLevel;
       this.dadosTurma = dadosTurma;
@@ -112,17 +108,12 @@ export default {
   // FIM DO METHODSSSSSSS
 
   computed: {},
-  
-  watch: {
-  level(newVal) {
-    if (newVal === "turmaselecionado") {
-      this.$emit("levelAplicationValue", true);
-    } else {
-      this.$emit("levelAplicationValue", false);
-    }
-  }
-}
 
+  watch: {
+    level(newVal) {
+      this.$emit("levelAplicationValue", newVal);
+    },
+  },
 };
 </script>
 

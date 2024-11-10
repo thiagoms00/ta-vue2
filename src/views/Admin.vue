@@ -35,6 +35,7 @@
                 <v-sheet
                   class="custom-switch mt-4 elevation-2 d-flex justify-center align-center"
                   rounded="lg"
+                  v-if="layer!='turmaselecionado'"
                 >
                   <v-tabs
                     v-model="tab"
@@ -84,7 +85,7 @@
                 </v-sheet>
 
                 <!-- DIV DE SUBMENU DE UMA TURMA -->
-                <div v-if="layer">
+                <div v-if="layer=='turmaselecionado'">
                   <v-sheet
                     class="custom-switch mt-4 elevation-2 d-flex justify-center align-center"
                     rounded="lg"
@@ -254,6 +255,7 @@ export default {
   methods: {
     levelAplicationValue(layer) {
       this.layer = layer;
+      console.log(this.layer)
     },
   },
   // FIM DO METHODSSSSSSS
