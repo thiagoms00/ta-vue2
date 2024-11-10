@@ -1,6 +1,23 @@
 <template>
   <div class="d-flex flex-column w-100">
     <v-row>
+      <v-col cols="12" sm="6" md="4" lg="3" class="pa-8 d-flex align-center justify-center">
+        <!-- Avatar de adicionar nova escola -->
+        <div class="d-flex flex-column align-center ">
+          <v-avatar
+            size="70"
+            class="mb-3 degrade clickable-item"
+            @click=""
+            style="cursor: pointer"
+          >
+            <v-icon size="x-large" color="white">mdi-plus</v-icon>
+            <!-- Ícone de adicionar -->
+          </v-avatar>
+          <div class="text-center">Adicionar Nova Escola</div>
+        </div>
+      </v-col>
+
+      <!-- Iteração das escolas existentes -->
       <v-col
         v-for="(escola, index) in escolas"
         :key="index"
@@ -14,13 +31,16 @@
           elevation="3"
           rounded="lg"
           class="pa-4 d-flex flex-column align-center borda-diagonal degrade clickable-item"
-          @click="fetchTurmas(escola._id)"
+          @click="fetchTurmas(escola.id_escola)"
           style="cursor: pointer"
         >
           <v-avatar size="70" color="white" class="mb-3">
             <v-icon size="x-large" color="primary">mdi-school</v-icon>
           </v-avatar>
-          <div class="text-center">{{ escola.nome }}</div>
+          <div class="text-center text-body-2">{{ escola.nome_escola }}</div>
+          <div class="text-center text-subtitle-2 mt-2">
+            {{ escola.diretor_nome }}
+          </div>
         </v-sheet>
       </v-col>
     </v-row>
@@ -35,7 +55,6 @@ export default {
 
   data: () => ({
     turmas: [],
-    escolaId: "66c5d8d672360c41d2e1ba0f",
   }),
 
   props: {
@@ -45,9 +64,9 @@ export default {
     },
   },
   methods: {
-    fetchTurmas() {
+    fetchTurmas(id) {
       const data = {
-        escola_id: this.escolaId,
+        escola_id: id,
       };
 
       axios({

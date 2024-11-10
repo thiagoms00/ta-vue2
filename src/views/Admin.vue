@@ -250,7 +250,9 @@ export default {
     search: "",
   }),
 
-  created() {},
+  created() {
+
+  },
 
   methods: {
     levelAplicationValue(layer) {

@@ -62,12 +62,7 @@ export default {
     dadosTurma: {},
     tab: "option-1",
     habilidadesTurmaAtual: {},
-    escolas: [
-      { nome: "Escola A" },
-      { nome: "Escola B" },
-      { nome: "Escola C" },
-      { nome: "Escola D" },
-    ],
+    escolas: [ ],
   }),
 
   props: {
@@ -80,9 +75,24 @@ export default {
     },
   },
 
-  created() {},
+  created() {
+    this.getEscolas();
+  },
 
   methods: {
+    getEscolas(){
+      let url = "https://ta-back.onrender.com/admin/getEscolas"
+      
+      axios({
+        url: url,
+        method: "POST",
+      })
+        .then((response) => {
+          console.log(response)
+          this.escolas = response.data;
+        })
+    },
+
     updateTurma(newLevel, dadosTurma) {
       this.level = newLevel;
       this.dadosTurma = dadosTurma;
