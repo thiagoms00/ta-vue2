@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols="12" sm="6" md="4" lg="3" class="pa-8 d-flex align-center justify-center">
         <!-- Avatar de adicionar nova escola -->
-        <div class="d-flex flex-column align-center ">
+        <div class="d-flex flex-column align-center">
           <v-avatar
             size="70"
             class="mb-3 degrade clickable-item"
@@ -11,14 +11,33 @@
             style="cursor: pointer"
           >
             <v-icon size="x-large" color="white">mdi-plus</v-icon>
-            <!-- Ícone de adicionar -->
           </v-avatar>
           <div class="text-center">Adicionar Nova Escola</div>
         </div>
       </v-col>
 
-      <!-- Iteração das escolas existentes -->
+      <!-- Skeleton Loader enquanto os dados estão carregando -->
       <v-col
+        v-if="isLoading"
+        v-for="n in 3"
+        :key="n"
+        cols="12"
+        sm="6"
+        md="4"
+        lg="3"
+        class="pa-8"
+      >
+      <v-skeleton-loader
+          class="mx-auto border"
+          elevation="2"
+          max-width="300"
+          type="card, divider"
+        ></v-skeleton-loader>
+      </v-col>
+
+      <!-- Iteração das escolas existentes quando carregadas -->
+      <v-col
+        v-if="!isLoading"
         v-for="(escola, index) in escolas"
         :key="index"
         cols="12"
@@ -55,6 +74,7 @@ export default {
 
   data: () => ({
     turmas: [],
+    isLoading: true, // Indicador de carregamento
   }),
 
   props: {
@@ -63,6 +83,15 @@ export default {
       required: true,
     },
   },
+
+  watch: {
+    escolas(newVal) {
+      if (newVal && newVal.length) {
+        this.isLoading = false; // Desativa o skeleton quando os dados estão carregados
+      }
+    },
+  },
+
   methods: {
     fetchTurmas(id) {
       const data = {
@@ -76,7 +105,6 @@ export default {
       })
         .then((response) => {
           if (response.status === 200) {
-            // Armazena as turmas retornadas na variável `turmas`
             this.turmas = response.data.turmas;
             this.$emit("changeLevel", "turmas", this.turmas);
           }
