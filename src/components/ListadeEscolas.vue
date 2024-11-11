@@ -6,20 +6,27 @@
         sm="6"
         md="4"
         lg="3"
-        class="pa-8 d-flex align-center justify-center"
+        class="pt-8 pb-8 pl-8 d-flex align-center justify-center"
       >
         <!-- Avatar de adicionar nova escola -->
-        <div class="d-flex flex-column align-center">
-          <v-avatar
-            size="70"
-            class="mb-3 degrade clickable-item"
-            @click=""
-            style="cursor: pointer"
+        <v-sheet height="200" width="300"
+          elevation="2"
+          rounded="lg"
+          class="pa-4 d-flex flex-column align-center borda-diagonal 
+          clickable-item position-relative justify-center degrade"
+          
           >
-            <v-icon size="x-large" color="white">mdi-plus</v-icon>
-          </v-avatar>
-          <div class="text-center">Adicionar Nova Escola</div>
-        </div>
+          <div class="d-flex flex-column align-center">
+            <v-avatar
+              size="70"
+              class="mb-3"
+              color="white"
+            >
+              <v-icon size="x-large" color="primary">mdi-plus</v-icon>
+            </v-avatar>
+            <div class="text-center text-body-2">Adicionar Nova Escola</div>
+          </div>
+        </v-sheet>
       </v-col>
 
       <!-- Skeleton Loader enquanto os dados estão carregando -->
@@ -54,7 +61,7 @@
       >
         <v-sheet
           elevation="2"
-          height="200"
+          height="200" width="300"
           rounded="lg"
           class="pa-4 d-flex flex-column align-center borda-diagonal degrade clickable-item position-relative justify-center"
           @click="fetchTurmas(index, escola.id_escola)"
@@ -64,11 +71,7 @@
           <div
             v-if="isCardLoading[index]"
             class="d-flex align-center justify-center degrade borda-diagonal"
-            style="
-              position: absolute;
-              inset: 0;
-              z-index: 1;
-            "
+            style="position: absolute; inset: 0; z-index: 1"
           >
             <v-progress-circular
               indeterminate
@@ -113,11 +116,17 @@ export default {
   },
 
   watch: {
-    escolas(newVal) {
-      if (newVal && newVal.length) {
-        this.isLoading = false; // Desativa o skeleton quando os dados estão carregados
-        this.isCardLoading = newVal.map(() => false); // Inicializa o array com 'false' para cada card
-      }
+    escolas: {
+      handler(newVal) {
+        // Verifica se `escolas` não está vazio
+        this.isLoading = newVal.length === 0;
+
+        // Inicializa o array `isCardLoading` com 'false' para cada card apenas se `escolas` não estiver vazio
+        if (newVal.length > 0) {
+          this.isCardLoading = newVal.map(() => false);
+        }
+      },
+      immediate: true, // Executa o watch imediatamente ao carregar o componente
     },
   },
 
