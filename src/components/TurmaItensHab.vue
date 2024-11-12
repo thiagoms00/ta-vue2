@@ -16,7 +16,7 @@
       <v-tab value="p9" class="tab-name" @click="selectedTab(4)">H09</v-tab>
       <v-tab value="p10" class="tab-name" @click="selectedTab(5)">H10</v-tab>
       <v-tab value="p11" class="tab-name" @click="selectedTab(5)">H11</v-tab>
-      <v-tab value="p12" class="tab-name" @click="selectedTab(5)">Reportados</v-tab>
+      <v-tab value="p12" class="tab-name" @click="selectedTab(6)">Reportados</v-tab>
 
 
 
@@ -76,7 +76,12 @@
                   </v-col>
 
                   <v-col cols="3" class="d-flex justify-center">
-                    Disponível
+                    <span v-if="item.status === 'Disponivel'" class="color-disponivel">
+                       {{ item.status }}
+                    </span>
+                    <span v-if="item.status === 'Em revisão'" class="color-revisao">
+                       {{ item.status }}
+                    </span>
                   </v-col>
                 </v-row>
 
@@ -448,6 +453,7 @@ export default {
           console.log(`Status da resposta do servidor: ${response.status} \n`);
           console.log(`Mensagem do servidor: ${response.data.message}`);
           this.returnItensReportados();
+          this.returnItensHab();
 
         })
 
@@ -465,12 +471,12 @@ export default {
     selectedTab(tabNum) {
       this.tabNumber = tabNum;
       this.expansionPanelModel = [null, null, null, null];
-      /*  if (tabNum === 5) {
+      if (tabNum === 6) {
          this.colmunTitles = ['Código', 'Percurso', 'Administrador', 'Data']
        }
        else {
          this.colmunTitles = ['Código', 'Habilidade', 'Aprendizagem', 'Status']
-       } */
+       } 
 
     },
 
@@ -844,4 +850,17 @@ export default {
   margin-top: 0.6vh;
   margin-right: 0.4vw;
 }
+
+.color-disponivel {
+  color: #34a52a !important;
+  font-weight: 600;
+}
+
+.color-revisao {
+  color: #ee4e4e !important;
+  font-weight: 600;
+  
+
+}
+
 </style>

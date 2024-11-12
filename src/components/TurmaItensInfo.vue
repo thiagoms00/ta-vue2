@@ -62,7 +62,10 @@
                   </v-col>
 
                   <v-col cols="3" class="d-flex justify-center">
-                    Disponível
+                    
+                    <span v-if="item.status === 'Disponivel'" class="color-disponivel">{{item.status}}</span>
+                    <span v-if="item.status === 'Em revisão'" class="color-revisao">{{item.status}}</span>
+
                   </v-col>
                 </v-row>
 
@@ -145,7 +148,8 @@
                   </v-col>
 
                   <v-col cols="3" class="d-flex justify-center">
-                    Português
+                    <span v-if="item.status === 'Disponivel'" class="color-disponivel">{{item.status}}</span>
+                    <span v-if="item.status === 'Em revisão'" class="color-revisao">{{item.status}}</span>
                   </v-col>
                 </v-row>
 
@@ -231,7 +235,8 @@
                   </v-col>
 
                   <v-col cols="3" class="d-flex justify-center">
-                    Português
+                    <span v-if="item.status === 'Disponivel'" class="color-disponivel">{{item.status}}</span>
+                    <span v-if="item.status === 'Em revisão'" class="color-revisao">{{item.status}}</span>
                   </v-col>
                 </v-row>
 
@@ -313,7 +318,8 @@
                   </v-col>
 
                   <v-col cols="3" class="d-flex justify-center">
-                    Português
+                    <span v-if="item.status === 'Disponivel'" class="color-disponivel">{{item.status}}</span>
+                    <span v-if="item.status === 'Em revisão'" class="color-revisao">{{item.status}}</span>
                   </v-col>
                 </v-row>
 
@@ -631,7 +637,7 @@ export default {
           console.log(`Status da resposta do servidor: ${response.status} \n`);
           console.log(`Mensagem do servidor: ${response.data.message}`);
           this.returnItensReportados();
-
+          this.returnItens();
         })
 
         .catch((error) => {
@@ -907,5 +913,21 @@ export default {
   font-weight: bold;
   margin-top: 0.6vh;
   margin-right: 0.4vw;
+}
+
+.color-disponivel {
+  color: #34a52a !important;
+  font-weight: 600;
+}
+
+.color-revisao {
+  color: #ee4e4e !important;
+  font-weight: 600;
+  
+
+}
+
+.tooltip1Teste{
+  color: #fff;
 }
 </style>
