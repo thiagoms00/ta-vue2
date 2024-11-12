@@ -131,15 +131,25 @@
 
                       </v-tooltip>
                       <!-- Fim da Tooltip -->
-
+                      
 
                     </td>
                   </tr>
+                  <!-- Jogar um V-for aqui quando tiver as listas de sub-habilidades. -->
+                  <tr>
+                    <td class="text-left text-h subHab">H2.1</td>
+                    <td class="desc-hab">O aluno não respondeu uma questão com essa habilidade.</td>
+                  </tr>
+                  <tr>
+                    <td class="text-left text-h subHab">H5.1</td>
+                    <td class="desc-hab">O aluno não respondeu uma questão com essa habilidade.</td>
+                  </tr>
+                  
                 </tbody>
               </v-table>
 
-              <v-divider :thickness="10" color="grey"></v-divider>
-
+              <v-divider :thickness="5" color="blue"></v-divider>
+             
 
             </v-expansion-panel-text>
           </v-expansion-panel>
@@ -404,7 +414,6 @@ export default {
         console.log(index);
         this.oldIndex = index;
 
-        //Alterando habilidade 01:
         for (let i = 0; i <= 10; i++) {
           const hab = this.listaTurma[index].listaDeHab["Lingua Portuguesa"][i];
           console.log(hab);
@@ -665,6 +674,10 @@ export default {
 
 .tooltip1Teste{
   color: #fff;
+}
+
+.subHab{
+  font-style: italic;
 }
 
 @media (max-width: 1800px) {}

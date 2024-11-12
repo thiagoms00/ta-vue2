@@ -213,6 +213,12 @@
                       <v-window-item value="option-4">
                         <TurmaItensHab ref="turmaHabInfo"> </TurmaItensHab>
                       </v-window-item>
+
+                      <!-- Janela de Dados 5 -->
+
+                      <v-window-item value="option-5">
+                        <AdminAddItem ref="AdminAddItem"></AdminAddItem>
+                      </v-window-item>
                     </v-window>
                   </v-sheet>
                 </div>
@@ -232,6 +238,7 @@ import * as XLSX from "xlsx";
 import Escolas from "@/components/Escolas.vue";
 import TurmaItensInfo from "@/components/TurmaItensInfo.vue";
 import TurmaItensHab from "@/components/TurmaItensHab.vue";
+import AdminAddItem from "@/components/AdminAddItem.vue";
 
 export default {
   name: "Turma",
@@ -240,6 +247,7 @@ export default {
     TurmaItensInfo,
     NavBar,
     TurmaItensHab,
+    AdminAddItem,
   },
 
   data: () => ({
