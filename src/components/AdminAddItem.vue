@@ -1,7 +1,7 @@
 <template>
 
     <v-sheet class="rounded-t-lg elevation-2 pa-2 d-flex align-center justify-space-between" color="#1E3892"
-        height="52">
+        height="50">
 
         <div class="d-flex align-center">
             <div class="ml-2 tab-name">Adicionar items</div>
@@ -173,7 +173,7 @@ export default {
 
 .tab-name {
     font-family: 'Urbanist-Regular';
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     font-weight: bold;
 }
 

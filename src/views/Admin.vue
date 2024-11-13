@@ -10,34 +10,38 @@
               <v-col cols="2" style="min-width: 270px">
                 <div>
                   <v-sheet
-                    class="elevation-2 rounded-lg d-flex flex-column py-4"
+                    class="elevation-2 rounded-lg d-flex flex-column pb-4"
                   >
                     <!-- AVATAR -->
                     <div class="d-flex justify-center">
-                      <v-avatar color="grey" rounded="0" size="100">
-                        <v-img
+                      <div class="avatar-color d-flex align-center justify-center">
+                        <v-avatar color="grey" size="75" class="elevation-2 admin-avatar">
+                         <v-img 
                           src="https://thumbs.dreamstime.com/b/light-blue-outline-user-avatar-flat-icon-light-blue-outline-user-avatar-flat-icon-isolated-white-background-vector-illustration-250739962.jpg"
                           cover
-                        ></v-img>
+                        ></v-img> 
+
                       </v-avatar>
+                      </div>
+                      
                     </div>
 
                     <div class="d-flex justify-center">
-                      <p class="text-profile text-name">Nome Sobrenome</p>
+                      <p class="text-profile text-name">João da Silva</p>
                     </div>
 
                     <div class="d-flex justify-center">
-                      <p class="text-profile text-function">ADMIN</p>
+                      <p class="text-profile text-function">Administrador</p>
                     </div>
                   </v-sheet>
                 </div>
 
                 <v-sheet
-                  class="custom-switch mt-4 elevation-2 d-flex justify-center align-center"
+                  class="custom-switch mt-5 elevation-2 d-flex justify-center align-center"
                   rounded="lg"
                   v-if="layer!='turmaselecionado'"
                 >
-                  <v-tabs
+                  <v-tabs class="py-2"
                     v-model="tab"
                     color="primary"
                     direction="vertical"
@@ -45,41 +49,41 @@
                   >
                     <v-tab
                       value="option-1"
-                      class="pl-4 d-flex justify-start"
+                      class="pl-5 d-flex justify-start"
                       prepend-icon="mdi-town-hall"
                     >
-                      <span>Escolas</span>
+                      <span class="menu-option">Escolas</span>
                     </v-tab>
 
                     <v-tab
                       prepend-icon="mdi-account-clock-outline"
                       value="option-3"
-                      class="pl-4 d-flex justify-start"
+                      class="pl-5 d-flex justify-start"
                     >
-                      <span>Logs de Login</span>
+                      <span class="menu-option">Logs de Login</span>
                     </v-tab>
                     <v-divider :thickness="8" color="blue"></v-divider>
 
                     <v-tab
                       prepend-icon="mdi-database-outline"
                       value="option-2"
-                      class="pl-4 d-flex justify-start"
+                      class="pl-5 d-flex justify-start"
                     >
-                      <span>Itens (percurso)</span>
+                      <span class="menu-option">Itens (percurso)</span>
                     </v-tab>
                     <v-tab
                       prepend-icon="mdi-database-outline"
                       value="option-4"
-                      class="pl-4 d-flex justify-start"
+                      class="pl-5 d-flex justify-start"
                     >
-                      <span>Itens (habilidades)</span>
+                      <span class="menu-option">Itens (habilidades)</span>
                     </v-tab>
                     <v-tab
                       prepend-icon="mdi-note-plus-outline"
                       value="option-5"
-                      class="pl-4 d-flex justify-start"
+                      class="pl-5 d-flex justify-start"
                     >
-                      <span>Adicionar Itens</span>
+                      <span class="menu-option">Adicionar Itens</span>
                     </v-tab>
                   </v-tabs>
                 </v-sheet>
@@ -293,13 +297,32 @@ export default {
   font-family: "Urbanist-Regular";
 }
 
+.avatar-color{
+  width: 100%;
+  align-items: center;
+  overflow: hidden;
+  height: 11vh;
+  background: linear-gradient(to bottom, #1E3892 63%, transparent 50%);
+}
+
+.admin-avatar{
+  margin-top: 1vh;
+}
+
 .text-name {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-weight: 600;
   margin-top: 1vh;
 }
 
 .text-profile {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
 }
+
+.text-function{
+  font-size: 0.93rem;
+}
+
+
+
 </style>
