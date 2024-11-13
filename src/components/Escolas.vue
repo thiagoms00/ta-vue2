@@ -3,11 +3,12 @@
   <v-sheet
     class="rounded-t-lg elevation-2 pa-2 d-flex align-center justify-space-between"
     color="#1E3892"
-    height="48"
+    height="50"
   >
     <div class="d-flex align-center">
-      <v-icon icon="mdi-ballot"> </v-icon>
-      <div class="text-button ml-2">Selecione uma escola</div>
+<!--       <v-icon icon="mdi-ballot"> </v-icon>
+ -->      
+    <div class="text-button ml-4 mt-1 tab-name-escola">Selecione uma escola</div>
     </div>
 
     <v-icon
@@ -145,4 +146,11 @@ export default {
   transform: scale(1.05); /* Leve aumento no tamanho do item */
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra para dar sensação de elevação */
 }
+
+.tab-name-escola{
+  font-family: 'Urbanist-SB';
+  font-size: 0.95rem !important;
+   
+}
+
 </style>

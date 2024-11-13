@@ -4,56 +4,79 @@
         height="50">
 
         <div class="d-flex align-center">
-            <div class="ml-2 tab-name">Adicionar items</div>
+            <div class="ml-3 mt-1 tab-name-admin">Adicionar items</div>
         </div>
 
     </v-sheet>
-    <v-row cols=12>
+    <v-row cols=12 class="main-row">
         <v-col cols="6" class="">
-            <v-sheet class="mx-auto main-sheet" width="550">
+            <v-sheet class="mx-auto main-sheet left-sheet">
                 <div class="custom-form">
 
                     <h3 class="label-form">Código:</h3>
-                    <v-text-field label="" variant="outlined" density="compact" class="message-field" ></v-text-field>
+                    <v-text-field label="" variant="outlined" density="compact" class="message-field"
+                        v-model="codModel"></v-text-field>
 
                     <h3 class="label-form">Habilidade:</h3>
-                    <v-select v-model="selectHab" :items="opcoesHab" density="compact"
-                        :rules="[v => !!v || 'Item is required']" label="" variant="outlined" class="message-field"
-                        required></v-select>
+                    <v-select v-model="selectHab" :items="opcoesHab" density="compact" label="" variant="outlined"
+                        class="message-field"></v-select>
 
                     <h3 class="label-form">Percurso:</h3>
-                    <v-select v-model="selectPercurso" :items="opcoesPercurso" density="compact"
-                        :rules="[v => !!v || 'Item is required']" label="" variant="outlined" class="message-field"
-                        required></v-select>
+                    <v-select v-model="selectPercurso" :items="opcoesPercurso" density="compact" label=""
+                        variant="outlined" class="message-field"></v-select>
 
                     <h3 class="label-form">Alternativa 1</h3>
-                    <v-text-field label="" variant="outlined" density="compact" class="message-field"></v-text-field>
+                    <v-text-field label="" variant="outlined" density="compact" class="message-field"
+                        v-model="alt1Model"></v-text-field>
 
                     <h3 class="label-form">Alternativa 2</h3>
-                    <v-text-field label="" variant="outlined" density="compact" class="message-field"></v-text-field>
+                    <v-text-field label="" variant="outlined" density="compact" class="message-field"
+                        v-model="alt2Model"></v-text-field>
 
                     <h3 class="label-form">Alternativa 3</h3>
-                    <v-text-field label="" variant="outlined" density="compact" class="message-field"></v-text-field>
+                    <v-text-field label="" variant="outlined" density="compact" class="message-field"
+                        v-model="alt3Model"></v-text-field>
 
                     <h3 class="label-form">Alternativa 4</h3>
-                    <v-text-field label="" variant="outlined" density="compact" class="message-field"></v-text-field>
+                    <v-text-field label="" variant="outlined" density="compact" class="message-field"
+                        v-model="alt4Model"></v-text-field>
 
-                   
+
+
                 </div>
 
             </v-sheet>
         </v-col>
         <v-col cols="">
-            <v-sheet class="mx-auto main-sheet" width="550">
+            <v-sheet class="mx-auto main-sheet rigth-sheet" width="">
                 <div class=custom-form>
-                   
+
+                    <h3 class="label-form">Comando:</h3>
+                    <v-text-field label="" class="message-field" variant="outlined" density="compact"
+                        v-model="comandoModel"></v-text-field>
+
+                    <h3 class="label-form">Áudio:</h3>
+                    <v-text-field label="" class="message-field" variant="outlined" density="compact"
+                        v-model="audioModel"></v-text-field>
+
                     <h3 class="label-form">Resposta:</h3>
-                    <v-text-field label="" class="message-field" variant="outlined" density="compact"></v-text-field>
+                    <v-text-field label="" class="message-field" variant="outlined" density="compact"
+                        v-model="respoModel"></v-text-field>
 
                     <h3 class="label-form">Fonte:</h3>
-                    <v-text-field label="" class="message-field" variant="outlined" density="compact"></v-text-field>
+                    <v-text-field label="" class="message-field" variant="outlined" density="compact"
+                        v-model="fonteModel"></v-text-field>
 
-                    <v-btn class="mt-5 submit-button mx-auto" type="submit" block>Enviar</v-btn>
+                    <h3 class="label-form">Imagem:</h3>
+
+
+                    <v-file-input accept="image/*" variant="outlined" density="compact" class="message-field"
+                        v-model="image1Model"></v-file-input>
+
+
+
+                    <v-btn class="mt-5 submit-button mx-auto" type="submit" block
+                        @click="sugereItem()">Enviar</v-btn>
                 </div>
             </v-sheet>
         </v-col>
@@ -117,6 +140,18 @@ export default {
         selectPercurso: '',
         selectHab: '',
 
+        codModel: '',
+        alt1Model: '',
+        alt2Model: '',
+        alt3Model: '',
+        alt4Model: '',
+        respoModel: '',
+        fonteModel: '',
+        audioModel: '',
+        comandoModel: '',
+        image1Model: '',
+
+
         expansionPanelModel: [null, null, null, null],
         reportDialog: false,  // Variavel de controle do dialog de report.
         reportSuccess: false, // Variavel de controle do dialog de report bem sucedido.
@@ -152,6 +187,45 @@ export default {
 
     methods: {
 
+        sendCustomForm() {
+            console.log(`Código : ${this.codModel}\n Habilidade : ${this.selectHab} \n Percurso : ${this.selectPercurso}`);
+
+        },
+        sugereItem() {
+            console.log(this.image1Model)
+            const currentDate = new Date();
+            const formattedDate = currentDate.toLocaleDateString('pt-BR');
+            const itemSugerido = {
+                id: this.codModel,
+                hab: this.selectHab,
+                perc: this.selectPercurso,
+                alt1 : this.alt1Model,
+                alt2: this.alt2Model,
+                alt3: this.alt3Model,
+                alt4 : this.alt4Model,
+                comando: this.comandoModel,
+                audio : this.audioModel,
+                resposta : this.respoModel,
+                fonte :  this.fonteModel,
+                imagem : this.image1Model,
+                data: formattedDate,
+                
+            }
+            console.log(`Item sugerido: ${JSON.stringify(itemSugerido)}`);
+            const data = itemSugerido;
+
+           /*  axios({ url: 'https://ta-back.onrender.com/admin/addItem', data, method: 'POST' })
+                .then((response) => {
+                    console.log(`Status da resposta do servidor: ${response.status} \n`);
+                    console.log(`Mensagem do servidor: ${response.data.message}`);
+                  
+                })
+
+                .catch((error) => {
+                    // Tratar erros aqui
+                    console.error(error);
+                }); */
+        },
 
     },
 };
@@ -164,17 +238,27 @@ export default {
 }
 
 .main-sheet {
-    height: 80vh;
+    padding-bottom: 5vh;
 }
 
 .custom-form {
     margin-top: 5vh;
+    background-color: #fafafa;
+
 }
 
-.tab-name {
-    font-family: 'Urbanist-Regular';
-    font-size: 1.2rem;
-    font-weight: bold;
+.tab-name-admin {
+    font-family: 'Urbanist-SB';
+    font-size: 1.2rem !important;
+
+}
+
+.left-sheet {
+    width: 25vw;
+}
+
+.rigth-sheet {
+    width: 25vw;
 }
 
 .right-col {
@@ -188,7 +272,9 @@ export default {
 }
 
 .message-field {
-    margin-top: 1.3vh;
+    margin-top: 1vh;
+    background-color: #fff;
+
 }
 
 .submit-button {
@@ -204,4 +290,10 @@ export default {
 
 
 
+@media (max-width: 1400px) {
+    .submit-button {
+        height: 6vh !important;
+        width: 17vw !important;
+    }
+}
 </style>

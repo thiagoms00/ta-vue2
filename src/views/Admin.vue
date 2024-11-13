@@ -302,17 +302,18 @@ export default {
   align-items: center;
   overflow: hidden;
   height: 11vh;
-  background: linear-gradient(to bottom, #1E3892 63%, transparent 50%);
+  background: linear-gradient(to bottom, #1E3892 56%, transparent 50%);
 }
 
 .admin-avatar{
   margin-top: 1vh;
+  border: 1px solid #fff;
 }
 
 .text-name {
   font-size: 1.3rem;
   font-weight: 600;
-  margin-top: 1vh;
+  margin-top: 1.2vh;
 }
 
 .text-profile {
