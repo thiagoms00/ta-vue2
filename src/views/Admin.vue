@@ -14,7 +14,7 @@
                   >
                     <!-- AVATAR -->
                     <div class="d-flex justify-center">
-                      <div class="avatar-color d-flex align-center justify-center">
+                      <div class="avatar-color d-flex align-center justify-center rounded-t-lg">
                         <v-avatar color="grey" size="75" class="elevation-2 admin-avatar">
                          <v-img 
                           src="https://thumbs.dreamstime.com/b/light-blue-outline-user-avatar-flat-icon-light-blue-outline-user-avatar-flat-icon-isolated-white-background-vector-illustration-250739962.jpg"
