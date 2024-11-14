@@ -82,10 +82,17 @@ export default {
 
   methods: {
     getEscolas(){
+      
+      const data = {
+        token: localStorage.getItem("token"),
+        id: localStorage.getItem("id"),
+      };
+
       let url = "https://ta-back.onrender.com/admin/getEscolas"
       
       axios({
         url: url,
+        data,
         method: "POST",
       })
         .then((response) => {
