@@ -624,8 +624,8 @@ export default {
       const formattedDate = currentDate.toLocaleDateString('pt-BR');
       const itemReportado = {
         idItem: item.id,
-        idAdmin: localStorage.getItem('id'),
-        token: localStorage.getItem('token'),
+        idAdmin: localStorage.getItem('idAdmin'),
+        tokenAdmin: localStorage.getItem('tokenAdmin'),
         msgErro: this.errorModel,
         percurso: this.tabNumber,
         dataErro: formattedDate,
@@ -715,8 +715,6 @@ export default {
       }
     },
 
-
-
     returnItens() {
 
       axios({ url: 'https://ta-back.onrender.com/professores/dadosItens', method: 'POST' })
@@ -736,7 +734,13 @@ export default {
     },
 
     returnItensReportados() {
-      axios({ url: 'https://ta-back.onrender.com/admin/returnReported', method: 'POST' })
+    const data = {
+      idAdmin: localStorage.getItem('idAdmin'),
+      tokenAdmin: localStorage.getItem('tokenAdmin'),
+    }
+      axios({ url: 'https://ta-back.onrender.com/admin/returnReported', 
+      data,
+      method: 'POST' })
         .then((response) => {
           this.listaItensReportados = response.data.itens_reportados;
           console.log(this.listaItensReportados);
@@ -748,9 +752,6 @@ export default {
           console.error(error);
         });
     },
-
-
-
 
     toggleIcon(index, value) {
       // Reset all icons
