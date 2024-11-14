@@ -18,11 +18,6 @@
       <v-tab value="p11" class="tab-name" @click="selectedTab(5)">H11</v-tab>
       <v-tab value="p12" class="tab-name" @click="selectedTab(6)">Reportados</v-tab>
 
-
-
-
-
-
       <v-spacer></v-spacer>
 
     </v-tabs>
@@ -390,8 +385,6 @@ export default {
 
   methods: {
 
-
-
     obtemDadosItem(id, percurso) {
       let item;
       switch (percurso) {
@@ -440,7 +433,8 @@ export default {
       const formattedDate = currentDate.toLocaleDateString('pt-BR');
       const itemReportado = {
         idItem: item.id,
-        idAdmin: localStorage.getItem('idProf'),
+        idAdmin: localStorage.getItem('idAdmin'),
+        tokenAdmin: localStorage.getItem('tokenAdmin'),
         msgErro: this.errorModel,
         percurso: this.itemSelected.percurso,
         dataErro: formattedDate,
@@ -617,7 +611,13 @@ export default {
 
     //Retorna um objeto com os itens separados por habilidade.
     returnItensHab() {
-      axios({ url: 'https://ta-back.onrender.com/admin/dadosItensHab', method: 'POST' })
+      data = {
+        idAdmin: localStorage.getItem('idAdmin'),
+        tokenAdmin: localStorage.getItem('tokenAdmin'),
+      }
+      axios({ url: 'https://ta-back.onrender.com/admin/dadosItensHab',
+      data, 
+      method: 'POST' })
         .then((response) => {
 
 
@@ -671,7 +671,13 @@ export default {
     },
 
     returnItensReportados() {
-      axios({ url: 'https://ta-back.onrender.com/admin/returnReported', method: 'POST' })
+      const data = {
+        idAdmin: localStorage.getItem('idAdmin'),
+        tokenAdmin: localStorage.getItem('tokenAdmin'),
+      }
+      axios({ url: 'https://ta-back.onrender.com/admin/returnReported', 
+      data,
+      method: 'POST' })
         .then((response) => {
           this.listaItensReportados = response.data.itens_reportados;
           console.log(this.listaItensReportados);
