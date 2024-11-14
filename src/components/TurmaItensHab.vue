@@ -372,8 +372,6 @@ export default {
     this.itemSelected.resposta = this.questoesP1[0].answer;
     this.itemSelected.fonte = this.questoesP1[0].fonte;
 
-
-
   },
 
   mounted() {
@@ -611,7 +609,8 @@ export default {
 
     //Retorna um objeto com os itens separados por habilidade.
     returnItensHab() {
-      data = {
+
+      const data = {
         idAdmin: localStorage.getItem('idAdmin'),
         tokenAdmin: localStorage.getItem('tokenAdmin'),
       }
@@ -654,7 +653,8 @@ export default {
 
     returnItens() {
 
-      axios({ url: 'https://ta-back.onrender.com/professores/dadosItens', method: 'POST' })
+      axios({ url: 'https://ta-back.onrender.com/professores/dadosItens', 
+      method: 'POST' })
         .then((response) => {
           this.listaItens = response.data.itens.listaItens1;
           this.listaItens0 = response.data.itens.listaItens0;
@@ -689,9 +689,6 @@ export default {
           console.error(error);
         });
     },
-
-
-
 
     toggleIcon(index, value) {
       // Reset all icons
