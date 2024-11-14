@@ -624,7 +624,8 @@ export default {
       const formattedDate = currentDate.toLocaleDateString('pt-BR');
       const itemReportado = {
         idItem: item.id,
-        idAdmin: localStorage.getItem('idProf'),
+        idAdmin: localStorage.getItem('id'),
+        token: localStorage.getItem('token'),
         msgErro: this.errorModel,
         percurso: this.tabNumber,
         dataErro: formattedDate,
