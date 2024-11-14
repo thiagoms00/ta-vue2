@@ -89,7 +89,6 @@ export default {
         method: "POST",
       })
         .then((response) => {
-          console.log(response)
           this.escolas = response.data;
         })
     },

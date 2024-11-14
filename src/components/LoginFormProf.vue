@@ -122,22 +122,25 @@ export default {
         method: "POST",
       })
         .then((response) => {
+          
+          const token = response.data.token;
+          const id = response.data.id;
           const tokenProf = response.data.tokenProf;
           const idProf = response.data.idProf;
           const type = response.data.type;
-          const admin = response.data.admin;
 
           if (type == "admin") {
-            localStorage.setItem("tokenProf", tokenProf);
-            localStorage.setItem("idProf", idProf);
+
+            localStorage.setItem("tokenAdmin", token);
+            localStorage.setItem("idAdmin", id);
             localStorage.setItem("type", type);
 
-            axios.defaults.headers.common["Authorization"] = tokenProf;
-
+            axios.defaults.headers.common["Authorization"] = token;
             console.log("Login de admin bem-sucedido");
             this.$router.push("/admin");
 
           } else {
+
             localStorage.setItem("tokenProf", tokenProf);
             localStorage.setItem("idProf", idProf);
             localStorage.setItem("type", type);
