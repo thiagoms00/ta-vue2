@@ -84,8 +84,8 @@ export default {
     getEscolas(){
       
       const data = {
-        token: localStorage.getItem("tokenAdmin"),
-        id: localStorage.getItem("idAdmin"),
+        tokenAdmin: localStorage.getItem("tokenAdmin"),
+        idAdmin: localStorage.getItem("idAdmin"),
       };
 
       let url = "https://ta-back.onrender.com/admin/getEscolas"

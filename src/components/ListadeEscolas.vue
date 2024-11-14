@@ -92,8 +92,8 @@ export default {
 
       const data = {
         escola_id: id,
-        token: localStorage.getItem("token"),
-        id: localStorage.getItem("id"),
+        tokenAdmin: localStorage.getItem("tokenAdmin"),
+        idAdmin: localStorage.getItem("idAdmin"),
       };
 
       axios({
