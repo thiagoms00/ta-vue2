@@ -112,6 +112,8 @@ export default {
 
       const data = {
         idTurma: turmaId,
+        token: localStorage.getItem("token"),
+        id: localStorage.getItem("id"),
       };
 
       axios({
