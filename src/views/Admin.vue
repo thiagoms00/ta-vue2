@@ -5,9 +5,9 @@
     <v-main class="bg-blue-grey-lighten-5">
       <v-container fluid>
         <v-row class="d-flex justify-center">
-          <v-col cols="11">
+          <v-col cols="12">
             <v-row>
-              <v-col cols="2" style="min-width: 270px">
+              <v-col cols="2" style="min-width: 270px" class="ml-10">
                 <div>
                   <v-sheet
                     class="elevation-2 rounded-lg d-flex flex-column pb-4"
@@ -188,7 +188,7 @@
                 </div>
               </v-col>
 
-              <v-col>
+              <v-col cols="9">
                 <!-- MENSAGEM DE SELEÇÂO DE TURMA -->
                 <div>
                   <v-sheet
@@ -302,7 +302,7 @@ export default {
   align-items: center;
   overflow: hidden;
   height: 11vh;
-  background: linear-gradient(to bottom, #1E3892 56%, transparent 50%);
+  background: linear-gradient(to bottom, #1E3892 58%, transparent 50%);
 }
 
 .admin-avatar{
@@ -311,17 +311,18 @@ export default {
 }
 
 .text-name {
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   font-weight: 600;
   margin-top: 1.2vh;
 }
 
 .text-profile {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
 }
 
 .text-function{
-  font-size: 0.93rem;
+  font-size: 0.92rem;
+  font-style: italic;
 }
 
 

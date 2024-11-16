@@ -2,7 +2,7 @@
 
   <v-sheet class="rounded-t-lg" :class="{ 'fade-in': animacaoListaAtiva }">
 
-    <v-tabs v-model="tab" bg-color="#1E3892" class="rounded-t-lg pl-1 tab-toolbar">
+    <v-tabs v-model="tab" bg-color="#1E3892" class=" mx-auto rounded-t-lg tab-toolbar">
 
 
       <v-tab value="p1" class="tab-name" @click="selectedTab(1)">H01</v-tab>
@@ -956,7 +956,7 @@ export default {
 
 .tab-name {
   font-family: 'Urbanist-Regular';
-  font-size: 0.93rem;
+  font-size: 0.90rem;
   font-weight: bold;
 }
 

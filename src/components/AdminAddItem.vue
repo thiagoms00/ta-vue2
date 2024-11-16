@@ -13,15 +13,15 @@
             <v-sheet class="mx-auto main-sheet left-sheet">
                 <div class="custom-form">
 
-                    <h3 class="label-form">Código:</h3>
+                    <h3 class="label-form">Código</h3>
                     <v-text-field label="" variant="outlined" density="compact" class="message-field"
                         v-model="codModel"></v-text-field>
 
-                    <h3 class="label-form">Habilidade:</h3>
+                    <h3 class="label-form">Habilidade</h3>
                     <v-select v-model="selectHab" :items="opcoesHab" density="compact" label="" variant="outlined"
                         class="message-field"></v-select>
 
-                    <h3 class="label-form">Percurso:</h3>
+                    <h3 class="label-form">Percurso</h3>
                     <v-select v-model="selectPercurso" :items="opcoesPercurso" density="compact" label=""
                         variant="outlined" class="message-field"></v-select>
 
@@ -51,23 +51,23 @@
             <v-sheet class="mx-auto main-sheet rigth-sheet" width="">
                 <div class=custom-form>
 
-                    <h3 class="label-form">Comando:</h3>
+                    <h3 class="label-form">Comando</h3>
                     <v-text-field label="" class="message-field" variant="outlined" density="compact"
                         v-model="comandoModel"></v-text-field>
 
-                    <h3 class="label-form">Áudio:</h3>
+                    <h3 class="label-form">Áudio</h3>
                     <v-text-field label="" class="message-field" variant="outlined" density="compact"
                         v-model="audioModel"></v-text-field>
 
-                    <h3 class="label-form">Resposta:</h3>
+                    <h3 class="label-form">Resposta</h3>
                     <v-text-field label="" class="message-field" variant="outlined" density="compact"
                         v-model="respoModel"></v-text-field>
 
-                    <h3 class="label-form">Fonte:</h3>
+                    <h3 class="label-form">Fonte</h3>
                     <v-text-field label="" class="message-field" variant="outlined" density="compact"
                         v-model="fonteModel"></v-text-field>
 
-                    <h3 class="label-form">Imagem:</h3>
+                    <h3 class="label-form">Imagem</h3>
 
 
                     <v-file-input accept="image/*" variant="outlined" density="compact" class="message-field"
@@ -263,7 +263,7 @@ export default {
 }
 
 .main-sheet {
-    padding-bottom: 5vh;
+    padding-bottom: 7vh;
 }
 
 .custom-form {
