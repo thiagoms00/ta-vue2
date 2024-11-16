@@ -9,6 +9,8 @@
       <v-tab value="p3" class="tab-name" @click="selectedTab(3)">Percurso 3</v-tab>
       <v-tab value="p4" class="tab-name" @click="selectedTab(4)">Percurso 4</v-tab>
       <v-tab value="p5" class="tab-name" @click="selectedTab(5)">Reportados</v-tab>
+      <v-tab value="p6" class="tab-name" @click="selectedTab(6)">Pendentes</v-tab>
+
       <v-spacer></v-spacer>
      <!--  <v-btn variant="text" prepend-icon="mdi-swap-horizontal" class="change-exibition" @click="changeItemExibition()">
         {{itemExibition }}
@@ -435,13 +437,6 @@
                     </v-col>
                   </v-row>
                 </v-sheet>
-
-                <!-- <v-divider :thickness="4"></v-divider>
-                <div class="btn-area">
-                   <v-btn variant="outlined" class="item-btn" @click="openItem(index)">
-                    Ver item</v-btn> 
-                </div> -->
-
                 <v-divider :thickness="4"></v-divider>
 
 
@@ -452,6 +447,111 @@
         </v-sheet>
 
       </v-window-item>
+
+
+
+       <!-- Janela dos itens sugeridos -->
+       <v-window-item value="p6">
+        <v-sheet rounded="lg" class="" :class="{ 'fade-in': animacaoListaAtiva }">
+          <v-expansion-panels variant="accordion" class="" v-model="expansionPanelModel[3]">
+            <v-expansion-panel v-for="(item, index) in listaItensSugeridos" :key="item.id" ref="panels"
+              class="rounded-b-lg" style="border-radius: 0px;">
+
+              <v-expansion-panel-title style="height: 5vh;" class="color-painel"
+                @click="changeItem(index, this.tabNumber)">
+                <v-row class="d-flex align-center">
+
+                  <v-col cols="3" class="d-flex justify-center">
+                    {{ item.idItem }}
+                  </v-col>
+
+                  <v-col cols="3" class="d-flex justify-center">
+                    {{ item.percurso }}
+                  </v-col>
+
+                  <v-col cols="3" class="d-flex justify-center">
+                    {{ item.emailAdmin }}
+                  </v-col>
+
+                  <v-col cols="3" class="d-flex justify-center">
+                    {{ item.data }}
+                  </v-col>
+                </v-row>
+
+              </v-expansion-panel-title>
+
+              <v-expansion-panel-text>
+                <v-sheet>
+                  <v-row>
+                    <v-col>
+                      <v-table class="mt-2">
+                        <tbody>
+                          <tr>
+                            <td class="td-left">ID</td>
+                            <td class="td-right">{{ item.idItem }}</td>
+                          </tr>
+                          <tr>
+                            <td class="td-left">Habilidade</td>
+                            <td class="td-right">{{ item.hab }}</td>
+                          </tr>
+                          <tr>
+                            <td class="td-left">Percurso</td>
+                            <td class="td-right">{{ item.percurso }}</td>
+                          </tr>
+                          <tr>
+                            <td class="td-left">Administrador</td>
+                            <td class="td-right">{{ item.emailAdmin }}</td>
+                          </tr>
+                          <tr>
+                            <td class="td-left">Comando</td>
+                            <td class="td-right">{{ item.comando }}</td>
+                          </tr>
+                          <tr>
+                            <td class="td-left">Alternativa 1</td>
+                            <td class="td-right">{{ item.alt1 }}</td>
+                          </tr>
+                          <tr>
+                            <td class="td-left">Alternativa 2</td>
+                            <td class="td-right">{{ item.alt2 }}</td>
+                          </tr>
+                          <tr>
+                            <td class="td-left">Alternativa 3</td>
+                            <td class="td-right">{{ item.alt3 }}</td>
+                          </tr>
+                          <tr>
+                            <td class="td-left">Alternativa 4</td>
+                            <td class="td-right">{{ item.alt4 }}</td>
+                          </tr>
+                          <tr>
+                            <td class="td-left">Resposta</td>
+                            <td class="td-right">{{ item.resposta }}</td>
+                          </tr>
+                          <tr>
+                            <td class="td-left">Fonte</td>
+                            <td class="td-right">{{ item.fonte }}</td>
+                          </tr>
+                          
+
+                        </tbody>
+                      </v-table>
+                    </v-col>
+                  </v-row>
+                </v-sheet>
+                <v-divider :thickness="4"></v-divider>
+
+
+              </v-expansion-panel-text>
+
+            </v-expansion-panel>
+          </v-expansion-panels>
+        </v-sheet>
+
+      </v-window-item>
+
+
+
+
+
     </v-window>
     <!-- Dialog de report -->
     <v-dialog v-model="reportDialog" width="auto">
@@ -539,6 +639,7 @@ export default {
     listaItens2: [],  //Lista de Itens do percurso 3
     listaItens3: [],  //Lista de Itens do percurso 4
     listaItensReportados: [], //Lista com os itens reportados
+    listaItensSugeridos : [],
 
     listaItens: [], //Itens sendo exibidos, começando pelo estrato 1.
 
@@ -580,6 +681,7 @@ export default {
   created() {
     this.returnItens();
     this.returnItensReportados();
+    this.returnItensSugeridos();
 
     this.questoesP1 = jsonDataQuestoes0.questoes;
     this.questoesP2 = jsonDataQuestoes1.questoes;
@@ -655,7 +757,7 @@ export default {
     selectedTab(tabNum) {
       this.tabNumber = tabNum;
       this.expansionPanelModel = [null, null, null, null];
-      if (tabNum === 5) {
+      if (tabNum >= 5) {
         this.colmunTitles = ['Código', 'Percurso', 'Administrador', 'Data']
       }
       else {
@@ -743,12 +845,31 @@ export default {
       method: 'POST' })
         .then((response) => {
           this.listaItensReportados = response.data.itens_reportados;
-          console.log(this.listaItensReportados);
+          //console.log(this.listaItensReportados);
 
         })
 
         .catch((error) => {
           // Tratar erros aqui
+          console.error(error);
+        });
+    },
+
+    returnItensSugeridos() {
+    const data = {
+      idAdmin: localStorage.getItem('idAdmin'),
+      tokenAdmin: localStorage.getItem('tokenAdmin'),
+    }
+      axios({ url: 'https://ta-back.onrender.com/admin/returnSuggested', 
+      data,
+      method: 'POST' })
+        .then((response) => {
+          this.listaItensSugeridos = response.data.itens_sugeridos;
+          console.log(this.listaItensSugeridos);
+
+        })
+
+        .catch((error) => {
           console.error(error);
         });
     },

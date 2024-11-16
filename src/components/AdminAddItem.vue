@@ -76,11 +76,34 @@
 
 
                     <v-btn class="mt-5 submit-button mx-auto" type="submit" block
-                        @click="sugereItem()">Enviar</v-btn>
+                        @click="sugereItem(), sugestModel = true">Enviar</v-btn>
                 </div>
             </v-sheet>
         </v-col>
     </v-row>
+
+    <v-dialog v-model="sugestModel" width="auto">
+      <v-card min-width="250">
+
+        <v-toolbar color="#1E3892" density="comfortable">
+          <v-icon icon="mdi-alert-circle-outline" class="ml-5"></v-icon>
+          <v-toolbar-title class="ml-2 toolbar-title">Sugerir Item</v-toolbar-title>
+          <v-spacer></v-spacer>
+        </v-toolbar>
+
+        <template v-slot:actions class="">
+          <div class="d-flex flex-column report-area pa-5">
+            <h4 class="mx-auto report-success-text">O Item foi sugerido com sucesso!!</h4>
+            <div class="report-buttons d-flex mt-5">
+              <v-btn variant="outlined" class="mx-auto report-button" text="Fechar"
+                @click="sugestModel = false"></v-btn>
+            </div>
+          </div>
+
+        </template>
+      </v-card>
+    </v-dialog>
+
 
 </template>
 
@@ -116,10 +139,10 @@ export default {
         },
 
         opcoesPercurso: [
-            'Percurso 1',
-            'Percurso 2',
-            'Percurso 3',
-            'Percurso 4',
+            '1',
+            '2',
+            '3',
+            '4',
         ],
 
         opcoesHab: [
@@ -150,7 +173,7 @@ export default {
         audioModel: '',
         comandoModel: '',
         image1Model: '',
-
+        sugestModel: false,
 
         expansionPanelModel: [null, null, null, null],
         reportDialog: false,  // Variavel de controle do dialog de report.
@@ -198,7 +221,7 @@ export default {
             const itemSugerido = {
                 id: this.codModel,
                 hab: this.selectHab,
-                perc: this.selectPercurso,
+                percurso: this.selectPercurso,
                 alt1 : this.alt1Model,
                 alt2: this.alt2Model,
                 alt3: this.alt3Model,
@@ -209,12 +232,14 @@ export default {
                 fonte :  this.fonteModel,
                 imagem : this.image1Model,
                 data: formattedDate,
+                idAdmin : localStorage.getItem('idAdmin'),
+                tokenAdmin: localStorage.getItem('tokenAdmin'),
                 
             }
             console.log(`Item sugerido: ${JSON.stringify(itemSugerido)}`);
             const data = itemSugerido;
 
-           /*  axios({ url: 'https://ta-back.onrender.com/admin/addItem', data, method: 'POST' })
+             axios({ url: 'http://localhost:5000/admin/addItem', data, method: 'POST' })
                 .then((response) => {
                     console.log(`Status da resposta do servidor: ${response.status} \n`);
                     console.log(`Mensagem do servidor: ${response.data.message}`);
@@ -224,7 +249,7 @@ export default {
                 .catch((error) => {
                     // Tratar erros aqui
                     console.error(error);
-                }); */
+                }); 
         },
 
     },
@@ -286,6 +311,24 @@ export default {
     font-size: 0.8rem !important;
     font-weight: 600;
     font-family: 'Urbanist-Regular';
+}
+
+.report-area {
+  width: 100%;
+}
+
+.report-button {
+  width: 10vw;
+  height: 4vh;
+  font-size: 1rem;
+  font-weight: bold;
+  font-family: 'Urbanist-Regular';
+}
+
+
+.report-success-text {
+  font-size: 1.4rem;
+  font-family: 'Urbanist-Regular';
 }
 
 

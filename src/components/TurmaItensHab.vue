@@ -17,6 +17,7 @@
       <v-tab value="p10" class="tab-name" @click="selectedTab(5)">H10</v-tab>
       <v-tab value="p11" class="tab-name" @click="selectedTab(5)">H11</v-tab>
       <v-tab value="p12" class="tab-name" @click="selectedTab(6)">Reportados</v-tab>
+      <v-tab value="p13" class="tab-name" @click="selectedTab(6)">Sugeridos</v-tab>
 
       <v-spacer></v-spacer>
 
@@ -214,6 +215,105 @@
         </v-sheet>
 
       </v-window-item>
+
+       <!-- Janela dos itens sugeridos -->
+       <v-window-item value="p13">
+        <v-sheet rounded="lg" class="" :class="{ 'fade-in': animacaoListaAtiva }">
+          <v-expansion-panels variant="accordion" class="" v-model="expansionPanelModel[3]">
+            <v-expansion-panel v-for="(item, index) in listaItensSugeridos" :key="item.id" ref="panels"
+              class="rounded-b-lg" style="border-radius: 0px;">
+
+              <v-expansion-panel-title style="height: 5vh;" class="color-painel"
+                @click="changeItem(index, this.tabNumber)">
+                <v-row class="d-flex align-center">
+
+                  <v-col cols="3" class="d-flex justify-center">
+                    {{ item.idItem }}
+                  </v-col>
+
+                  <v-col cols="3" class="d-flex justify-center">
+                    {{ item.percurso }}
+                  </v-col>
+
+                  <v-col cols="3" class="d-flex justify-center">
+                    {{ item.emailAdmin }}
+                  </v-col>
+
+                  <v-col cols="3" class="d-flex justify-center">
+                    {{ item.data }}
+                  </v-col>
+                </v-row>
+
+              </v-expansion-panel-title>
+
+              <v-expansion-panel-text>
+                <v-sheet>
+                  <v-row>
+                    <v-col>
+                      <v-table class="mt-2">
+                        <tbody>
+                          <tr>
+                            <td class="td-left">ID</td>
+                            <td class="td-right">{{ item.idItem }}</td>
+                          </tr>
+                          <tr>
+                            <td class="td-left">Habilidade</td>
+                            <td class="td-right">{{ item.hab }}</td>
+                          </tr>
+                          <tr>
+                            <td class="td-left">Percurso</td>
+                            <td class="td-right">{{ item.percurso }}</td>
+                          </tr>
+                          <tr>
+                            <td class="td-left">Administrador</td>
+                            <td class="td-right">{{ item.emailAdmin }}</td>
+                          </tr>
+                          <tr>
+                            <td class="td-left">Comando</td>
+                            <td class="td-right">{{ item.comando }}</td>
+                          </tr>
+                          <tr>
+                            <td class="td-left">Alternativa 1</td>
+                            <td class="td-right">{{ item.alt1 }}</td>
+                          </tr>
+                          <tr>
+                            <td class="td-left">Alternativa 2</td>
+                            <td class="td-right">{{ item.alt2 }}</td>
+                          </tr>
+                          <tr>
+                            <td class="td-left">Alternativa 3</td>
+                            <td class="td-right">{{ item.alt3 }}</td>
+                          </tr>
+                          <tr>
+                            <td class="td-left">Alternativa 4</td>
+                            <td class="td-right">{{ item.alt4 }}</td>
+                          </tr>
+                          <tr>
+                            <td class="td-left">Resposta</td>
+                            <td class="td-right">{{ item.resposta }}</td>
+                          </tr>
+                          <tr>
+                            <td class="td-left">Fonte</td>
+                            <td class="td-right">{{ item.fonte }}</td>
+                          </tr>
+                        
+
+                        </tbody>
+                      </v-table>
+                    </v-col>
+                  </v-row>
+                </v-sheet>
+                <v-divider :thickness="4"></v-divider>
+
+
+              </v-expansion-panel-text>
+
+            </v-expansion-panel>
+          </v-expansion-panels>
+        </v-sheet>
+
+      </v-window-item>
+
     </v-window>
     <!-- Dialog de report -->
     <v-dialog v-model="reportDialog" width="auto">
@@ -340,6 +440,7 @@ export default {
     errorModel: '', //Model do text-field de erro.
     colmunTitles: ['Código', 'Percurso', 'Aprendizagem', 'Status'], //Títulos que aparecem nas colunas.
     itemExibition: 'habilidades',
+    listaItensSugeridos : [],
 
   }),
 
@@ -359,6 +460,8 @@ export default {
     this.returnItens();
     this.returnItensReportados();
     this.returnItensHab();
+    this.returnItensSugeridos();
+
 
     this.questoesP1 = jsonDataQuestoes0.questoes;
     this.questoesP2 = jsonDataQuestoes1.questoes;
@@ -686,6 +789,25 @@ export default {
 
         .catch((error) => {
           // Tratar erros aqui
+          console.error(error);
+        });
+    },
+
+    returnItensSugeridos() {
+    const data = {
+      idAdmin: localStorage.getItem('idAdmin'),
+      tokenAdmin: localStorage.getItem('tokenAdmin'),
+    }
+      axios({ url: 'https://ta-back.onrender.com/admin/returnSuggested', 
+      data,
+      method: 'POST' })
+        .then((response) => {
+          this.listaItensSugeridos = response.data.itens_sugeridos;
+          console.log(this.listaItensSugeridos);
+
+        })
+
+        .catch((error) => {
           console.error(error);
         });
     },
