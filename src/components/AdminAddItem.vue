@@ -102,6 +102,7 @@
             v-model="audioModel"
           ></v-text-field>
 
+<<<<<<< Updated upstream
           <h3 class="label-form">Resposta</h3>
           <v-text-field
             label=""
@@ -121,6 +122,19 @@
           ></v-text-field>
 
           <h3 class="label-form">Imagem</h3>
+=======
+                    <h3 class="label-form">Código *</h3>
+                    <v-text-field label="" variant="outlined" density="compact" class="message-field"
+                        v-model="codModel"></v-text-field>
+
+                    <h3 class="label-form">Habilidade *</h3>
+                    <v-select v-model="selectHab" :items="opcoesHab" density="compact" label="" variant="outlined"
+                        class="message-field"></v-select>
+
+                    <h3 class="label-form">Percurso *</h3>
+                    <v-select v-model="selectPercurso" :items="opcoesPercurso" density="compact" label=""
+                        variant="outlined" class="message-field"></v-select>
+>>>>>>> Stashed changes
 
           <v-file-input
             accept="image/*"
@@ -154,6 +168,7 @@
         <v-spacer></v-spacer>
       </v-toolbar>
 
+<<<<<<< Updated upstream
       <template v-slot:actions class="">
         <div class="d-flex flex-column report-area pa-5">
           <h4 class="mx-auto report-success-text">
@@ -171,6 +186,92 @@
       </template>
     </v-card>
   </v-dialog>
+=======
+                </div>
+
+            </v-sheet>
+        </v-col>
+        <v-col cols="">
+            <v-sheet class="mx-auto main-sheet rigth-sheet" width="">
+                <div class=custom-form>
+
+                    <h3 class="label-form">Comando</h3>
+                    <v-text-field label="" class="message-field" variant="outlined" density="compact"
+                        v-model="comandoModel"></v-text-field>
+
+                    <h3 class="label-form">Áudio</h3>
+                    <v-text-field label="" class="message-field" variant="outlined" density="compact"
+                        v-model="audioModel"></v-text-field>
+
+                    <h3 class="label-form">Resposta</h3>
+                    <v-text-field label="" class="message-field" variant="outlined" density="compact"
+                        v-model="respoModel"></v-text-field>
+
+                    <h3 class="label-form">Fonte</h3>
+                    <v-text-field label="" class="message-field" variant="outlined" density="compact"
+                        v-model="fonteModel"></v-text-field>
+
+                    <h3 class="label-form">Imagem</h3>
+
+
+                    <v-file-input accept="image/*" variant="outlined" density="compact" class="message-field"
+                        v-model="image1Model"></v-file-input>
+
+
+
+                    <v-btn class="mt-5 submit-button mx-auto" type="submit" block
+                        @click="verificaDadosForm()">Enviar</v-btn>
+                </div>
+            </v-sheet>
+        </v-col>
+    </v-row>
+
+    <!-- Pop-up de itens inseridos com sucesso -->
+    <v-dialog v-model="sugestModel" width="auto">
+      <v-card min-width="250">
+
+        <v-toolbar color="#1E3892" density="comfortable">
+          <v-icon icon="mdi-alert-circle-outline" class="ml-5"></v-icon>
+          <v-toolbar-title class="ml-2 toolbar-title">Adicionar Item</v-toolbar-title>
+          <v-spacer></v-spacer>
+        </v-toolbar>
+
+        <template v-slot:actions class="">
+          <div class="d-flex flex-column report-area pa-5">
+            <h4 class="mx-auto report-success-text">O Item foi adicionado com sucesso!!</h4>
+            <div class="report-buttons d-flex mt-5">
+              <v-btn variant="outlined" class="mx-auto report-button" text="Fechar"
+                @click="sugestModel = false"></v-btn>
+            </div>
+          </div>
+
+        </template>
+      </v-card>
+    </v-dialog>
+
+    <!-- Dados obrigatórios faltando -->
+    <v-dialog v-model="erroModel" width="auto">
+      <v-card min-width="250">
+
+        <v-toolbar color="#1E3892" density="comfortable">
+          <v-icon icon="mdi-alert-circle-outline" class="ml-5"></v-icon>
+          <v-toolbar-title class="ml-2 toolbar-title">Adicionar Item</v-toolbar-title>
+          <v-spacer></v-spacer>
+        </v-toolbar>
+
+        <template v-slot:actions class="">
+          <div class="d-flex flex-column report-area pa-5">
+            <h4 class="mx-auto report-success-text">Informe os dados obrigatórios antes de enviar</h4>
+            <div class="report-buttons d-flex mt-5">
+              <v-btn variant="outlined" class="mx-auto report-button" text="Fechar"
+                @click="erroModel = false"></v-btn>
+            </div>
+          </div>
+
+        </template>
+      </v-card>
+    </v-dialog>
+>>>>>>> Stashed changes
 
 </template>
 
@@ -245,9 +346,62 @@ export default {
 
   props: {},
 
+<<<<<<< Updated upstream
   watch: {
     // Observa mudanças em `listaDeAlunos`
     /* listaDeAlunos(newVal) {
+=======
+        opcoesHab: [
+            'H01',
+            'H02',
+            'H02.1',
+            'H03',
+            'H04',
+            'H05',
+            'H05.1',
+            'H06',
+            'H07',
+            'H08',
+            'H09',
+            'H10',
+            'H11'
+        ],
+        selectPercurso: '',
+        selectHab: '',
+
+        /* Models do form */
+        codModel: '',         
+        alt1Model: '',
+        alt2Model: '',
+        alt3Model: '',
+        alt4Model: '',
+        respoModel: '',
+        fonteModel: '',
+        audioModel: '',
+        comandoModel: '',
+        image1Model: '',
+
+        sugestModel: false, //Model do pop-up de sucesso.
+        erroModel : false,
+        
+
+        expansionPanelModel: [null, null, null, null],
+        reportDialog: false,  // Variavel de controle do dialog de report.
+        reportSuccess: false, // Variavel de controle do dialog de report bem sucedido.
+        errorModel: '', //Model do text-field de erro.
+        colmunTitles: ['Código', 'Habilidade', 'Aprendizagem', 'Status'], //Títulos que aparecem nas colunas.
+        itemExibition: 'habilidades',
+
+    }),
+
+    props: {
+
+    },
+
+    watch: {
+        // Observa mudanças em `listaDeAlunos`
+        /* listaDeAlunos(newVal) {
+>>>>>>> Stashed changes
           this.listaTurma = newVal;
         }, */
   },
@@ -288,6 +442,7 @@ export default {
       console.log(`Item sugerido: ${JSON.stringify(itemSugerido)}`);
       const data = itemSugerido;
 
+<<<<<<< Updated upstream
       axios({
         url: "https://ta-back.onrender.com/admin/addItem",
         data,
@@ -297,6 +452,73 @@ export default {
           console.log(`Status da resposta do servidor: ${response.status} \n`);
           console.log(`Mensagem do servidor: ${response.data.message}`);
         })
+=======
+    created() {
+
+
+
+    },
+
+    mounted() {
+    },
+
+
+    emits: ["eventDeleteTest"],
+
+    methods: {
+
+        verificaDadosForm() {
+            if (!this.codModel || !this.selectHab || !this.selectPercurso) {
+                this.erroModel = true;
+            }
+            else {
+                this.sugestModel = true;
+            }
+        },
+
+
+        sendCustomForm() {
+            console.log(`Código : ${this.codModel}\n Habilidade : ${this.selectHab} \n Percurso : ${this.selectPercurso}`);
+
+        },
+        sugereItem() {
+            console.log(this.image1Model)
+            const currentDate = new Date();
+            const formattedDate = currentDate.toLocaleDateString('pt-BR');
+            const itemSugerido = {
+                id: this.codModel,
+                hab: this.selectHab,
+                percurso: this.selectPercurso,
+                alt1 : this.alt1Model,
+                alt2: this.alt2Model,
+                alt3: this.alt3Model,
+                alt4 : this.alt4Model,
+                comando: this.comandoModel,
+                audio : this.audioModel,
+                resposta : this.respoModel,
+                fonte :  this.fonteModel,
+                imagem : this.image1Model,
+                data: formattedDate,
+                idAdmin : localStorage.getItem('idAdmin'),
+                tokenAdmin: localStorage.getItem('tokenAdmin'),
+                
+            }
+            console.log(`Item sugerido: ${JSON.stringify(itemSugerido)}`);
+            const data = itemSugerido;
+
+             /* axios({ url: 'https://ta-back.onrender.com/admin/addItem', data, method: 'POST' })
+                .then((response) => {
+                    console.log(`Status da resposta do servidor: ${response.status} \n`);
+                    console.log(`Mensagem do servidor: ${response.data.message}`);
+                  
+                })
+
+                .catch((error) => {
+                    // Tratar erros aqui
+                    console.error(error);
+                });  */
+        },
+>>>>>>> Stashed changes
 
         .catch((error) => {
           // Tratar erros aqui
@@ -370,14 +592,34 @@ export default {
   height: 4vh;
   font-size: 1rem;
   font-weight: bold;
+<<<<<<< Updated upstream
   font-family: "Urbanist-Regular";
+=======
+  font-family: 'Urbanist-Regular';
+  margin-top: 1vh;
+>>>>>>> Stashed changes
 }
 
 .report-success-text {
+<<<<<<< Updated upstream
   font-size: 1.4rem;
   font-family: "Urbanist-Regular";
 }
 
+=======
+  font-size: 1.34rem;
+  font-family: 'Urbanist-Regular';
+}
+
+.toolbar-title {
+  font-family: 'Urbanist-SB';
+  font-size: 1.3rem;
+
+}
+
+
+
+>>>>>>> Stashed changes
 @media (max-width: 1400px) {
   .submit-button {
     height: 6vh !important;
