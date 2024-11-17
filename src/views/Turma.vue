@@ -169,7 +169,7 @@
                         Configurações da turma
                       </v-tooltip>
                     </v-tab> -->
-                    <v-tab @click="changeItens(true)"
+                    <!-- <v-tab @click="changeItens(true)"
                       v-if="adminVer"
                       prepend-icon="mdi-database-outline"
                       value="option-7"
@@ -184,7 +184,7 @@
                       >
                         Informações sobre os itens do sistema
                       </v-tooltip>
-                    </v-tab>
+                    </v-tab> -->
                   </v-tabs>
                 </v-sheet>
                 <!-- Campo de busca de aluno -->

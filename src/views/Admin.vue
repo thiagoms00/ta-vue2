@@ -55,13 +55,13 @@
                       <span class="menu-option">Escolas</span>
                     </v-tab>
 
-                    <v-tab
+                   <!--  <v-tab
                       prepend-icon="mdi-account-clock-outline"
                       value="option-3"
                       class="pl-5 d-flex justify-start"
                     >
                       <span class="menu-option">Logs de Login</span>
-                    </v-tab>
+                    </v-tab> -->
                     <v-divider :thickness="8" color="blue"></v-divider>
 
                     <v-tab
