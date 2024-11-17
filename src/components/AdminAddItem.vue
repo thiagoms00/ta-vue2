@@ -8,124 +8,125 @@
         </div>
 
     </v-sheet>
-    <v-row cols=12 class="main-row">
-        <v-col cols="6" class="">
-            <v-sheet class="mx-auto main-sheet left-sheet">
-                <div class="custom-form">
+    <v-sheet class="rounded-lg d-flex elevation-4 aux-sheet" color="">
+        <v-row cols=12 class="main-row">
+            <v-col cols="6" class="">
+                <v-sheet class="mx-auto main-sheet left-sheet">
+                    <div class="custom-form">
 
-                    <h3 class="label-form">Código *</h3>
-                    <v-text-field label="" variant="outlined" density="compact" class="message-field"
-                        v-model="codModel"></v-text-field>
+                        <h3 class="label-form">Código *</h3>
+                        <v-text-field label="" variant="outlined" density="compact" class="message-field"
+                            v-model="codModel"></v-text-field>
 
-                    <h3 class="label-form">Habilidade *</h3>
-                    <v-select v-model="selectHab" :items="opcoesHab" density="compact" label="" variant="outlined"
-                        class="message-field"></v-select>
+                        <h3 class="label-form">Habilidade *</h3>
+                        <v-select v-model="selectHab" :items="opcoesHab" density="compact" label="" variant="outlined"
+                            class="message-field"></v-select>
 
-                    <h3 class="label-form">Percurso *</h3>
-                    <v-select v-model="selectPercurso" :items="opcoesPercurso" density="compact" label=""
-                        variant="outlined" class="message-field"></v-select>
+                        <h3 class="label-form">Percurso *</h3>
+                        <v-select v-model="selectPercurso" :items="opcoesPercurso" density="compact" label=""
+                            variant="outlined" class="message-field"></v-select>
 
-                    <h3 class="label-form">Alternativa 1</h3>
-                    <v-text-field label="" variant="outlined" density="compact" class="message-field"
-                        v-model="alt1Model"></v-text-field>
+                        <h3 class="label-form">Alternativa 1</h3>
+                        <v-text-field label="" variant="outlined" density="compact" class="message-field"
+                            v-model="alt1Model"></v-text-field>
 
-                    <h3 class="label-form">Alternativa 2</h3>
-                    <v-text-field label="" variant="outlined" density="compact" class="message-field"
-                        v-model="alt2Model"></v-text-field>
+                        <h3 class="label-form">Alternativa 2</h3>
+                        <v-text-field label="" variant="outlined" density="compact" class="message-field"
+                            v-model="alt2Model"></v-text-field>
 
-                    <h3 class="label-form">Alternativa 3</h3>
-                    <v-text-field label="" variant="outlined" density="compact" class="message-field"
-                        v-model="alt3Model"></v-text-field>
+                        <h3 class="label-form">Alternativa 3</h3>
+                        <v-text-field label="" variant="outlined" density="compact" class="message-field"
+                            v-model="alt3Model"></v-text-field>
 
-                    <h3 class="label-form">Alternativa 4</h3>
-                    <v-text-field label="" variant="outlined" density="compact" class="message-field"
-                        v-model="alt4Model"></v-text-field>
-
-
-
-                </div>
-
-            </v-sheet>
-        </v-col>
-        <v-col cols="">
-            <v-sheet class="mx-auto main-sheet rigth-sheet" width="">
-                <div class=custom-form>
-
-                    <h3 class="label-form">Comando</h3>
-                    <v-text-field label="" class="message-field" variant="outlined" density="compact"
-                        v-model="comandoModel"></v-text-field>
-
-                    <h3 class="label-form">Áudio</h3>
-                    <v-text-field label="" class="message-field" variant="outlined" density="compact"
-                        v-model="audioModel"></v-text-field>
-
-                    <h3 class="label-form">Resposta</h3>
-                    <v-text-field label="" class="message-field" variant="outlined" density="compact"
-                        v-model="respoModel"></v-text-field>
-
-                    <h3 class="label-form">Fonte</h3>
-                    <v-text-field label="" class="message-field" variant="outlined" density="compact"
-                        v-model="fonteModel"></v-text-field>
-
-                    <h3 class="label-form">Imagem</h3>
-
-
-                    <v-file-input accept="image/*" variant="outlined" density="compact" class="message-field"
-                        v-model="image1Model"></v-file-input>
+                        <h3 class="label-form">Alternativa 4</h3>
+                        <v-text-field label="" variant="outlined" density="compact" class="message-field"
+                            v-model="alt4Model"></v-text-field>
 
 
 
-                    <v-btn class="mt-5 submit-button mx-auto" type="submit" block
-                        @click="verificaDadosForm()">Enviar</v-btn>
-                </div>
-            </v-sheet>
-        </v-col>
-    </v-row>
+                    </div>
 
+                </v-sheet>
+            </v-col>
+            <v-col cols="">
+                <v-sheet class="mx-auto main-sheet rigth-sheet" width="">
+                    <div class=custom-form>
+
+                        <h3 class="label-form">Comando</h3>
+                        <v-text-field label="" class="message-field" variant="outlined" density="compact"
+                            v-model="comandoModel"></v-text-field>
+
+                        <h3 class="label-form">Áudio</h3>
+                        <v-text-field label="" class="message-field" variant="outlined" density="compact"
+                            v-model="audioModel"></v-text-field>
+
+                        <h3 class="label-form">Resposta</h3>
+                        <v-text-field label="" class="message-field" variant="outlined" density="compact"
+                            v-model="respoModel"></v-text-field>
+
+                        <h3 class="label-form">Fonte</h3>
+                        <v-text-field label="" class="message-field" variant="outlined" density="compact"
+                            v-model="fonteModel"></v-text-field>
+
+                        <h3 class="label-form">Imagem</h3>
+
+
+                        <v-file-input accept="image/*" variant="outlined" density="compact" class="message-field"
+                            v-model="image1Model"></v-file-input>
+
+
+
+                        <v-btn class="mt-5 submit-button mx-auto" type="submit" block
+                            @click="verificaDadosForm()">Enviar</v-btn>
+                    </div>
+                </v-sheet>
+            </v-col>
+        </v-row>
+    </v-sheet>
     <!-- Pop-up de itens inseridos com sucesso -->
     <v-dialog v-model="sugestModel" width="auto">
-      <v-card min-width="250">
+        <v-card min-width="250">
 
-        <v-toolbar color="#1E3892" density="comfortable">
-          <v-icon icon="mdi-alert-circle-outline" class="ml-5"></v-icon>
-          <v-toolbar-title class="ml-2 toolbar-title">Adicionar Item</v-toolbar-title>
-          <v-spacer></v-spacer>
-        </v-toolbar>
+            <v-toolbar color="#1E3892" density="comfortable">
+                <v-icon icon="mdi-alert-circle-outline" class="ml-5"></v-icon>
+                <v-toolbar-title class="ml-2 toolbar-title">Adicionar Item</v-toolbar-title>
+                <v-spacer></v-spacer>
+            </v-toolbar>
 
-        <template v-slot:actions class="">
-          <div class="d-flex flex-column report-area pa-5">
-            <h4 class="mx-auto report-success-text">O Item foi adicionado com sucesso!!</h4>
-            <div class="report-buttons d-flex mt-5">
-              <v-btn variant="outlined" class="mx-auto report-button" text="Fechar"
-                @click="sugestModel = false"></v-btn>
-            </div>
-          </div>
+            <template v-slot:actions class="">
+                <div class="d-flex flex-column report-area pa-5">
+                    <h4 class="mx-auto report-success-text">O Item foi adicionado com sucesso!!</h4>
+                    <div class="report-buttons d-flex mt-5">
+                        <v-btn variant="outlined" class="mx-auto report-button" text="Fechar"
+                            @click="sugestModel = false"></v-btn>
+                    </div>
+                </div>
 
-        </template>
-      </v-card>
+            </template>
+        </v-card>
     </v-dialog>
 
     <!-- Dados obrigatórios faltando -->
     <v-dialog v-model="erroModel" width="auto">
-      <v-card min-width="250">
+        <v-card min-width="250">
 
-        <v-toolbar color="#1E3892" density="comfortable">
-          <v-icon icon="mdi-alert-circle-outline" class="ml-5"></v-icon>
-          <v-toolbar-title class="ml-2 toolbar-title">Adicionar Item</v-toolbar-title>
-          <v-spacer></v-spacer>
-        </v-toolbar>
+            <v-toolbar color="#1E3892" density="comfortable">
+                <v-icon icon="mdi-alert-circle-outline" class="ml-5"></v-icon>
+                <v-toolbar-title class="ml-2 toolbar-title">Adicionar Item</v-toolbar-title>
+                <v-spacer></v-spacer>
+            </v-toolbar>
 
-        <template v-slot:actions class="">
-          <div class="d-flex flex-column report-area pa-5">
-            <h4 class="mx-auto report-success-text">Informe os dados obrigatórios antes de enviar</h4>
-            <div class="report-buttons d-flex mt-5">
-              <v-btn variant="outlined" class="mx-auto report-button" text="Fechar"
-                @click="erroModel = false"></v-btn>
-            </div>
-          </div>
+            <template v-slot:actions class="">
+                <div class="d-flex flex-column report-area pa-5">
+                    <h4 class="mx-auto report-success-text">Informe os dados obrigatórios antes de enviar</h4>
+                    <div class="report-buttons d-flex mt-5">
+                        <v-btn variant="outlined" class="mx-auto report-button" text="Fechar"
+                            @click="erroModel = false"></v-btn>
+                    </div>
+                </div>
 
-        </template>
-      </v-card>
+            </template>
+        </v-card>
     </v-dialog>
 
 </template>
@@ -187,7 +188,7 @@ export default {
         selectHab: '',
 
         /* Models do form */
-        codModel: '',         
+        codModel: '',
         alt1Model: '',
         alt2Model: '',
         alt3Model: '',
@@ -199,8 +200,8 @@ export default {
         image1Model: '',
 
         sugestModel: false, //Model do pop-up de sucesso.
-        erroModel : false,
-        
+        erroModel: false,
+
 
         expansionPanelModel: [null, null, null, null],
         reportDialog: false,  // Variavel de controle do dialog de report.
@@ -259,34 +260,34 @@ export default {
                 id: this.codModel,
                 hab: this.selectHab,
                 percurso: this.selectPercurso,
-                alt1 : this.alt1Model,
+                alt1: this.alt1Model,
                 alt2: this.alt2Model,
                 alt3: this.alt3Model,
-                alt4 : this.alt4Model,
+                alt4: this.alt4Model,
                 comando: this.comandoModel,
-                audio : this.audioModel,
-                resposta : this.respoModel,
-                fonte :  this.fonteModel,
-                imagem : this.image1Model,
+                audio: this.audioModel,
+                resposta: this.respoModel,
+                fonte: this.fonteModel,
+                imagem: this.image1Model,
                 data: formattedDate,
-                idAdmin : localStorage.getItem('idAdmin'),
+                idAdmin: localStorage.getItem('idAdmin'),
                 tokenAdmin: localStorage.getItem('tokenAdmin'),
-                
+
             }
             console.log(`Item sugerido: ${JSON.stringify(itemSugerido)}`);
             const data = itemSugerido;
 
-             /* axios({ url: 'https://ta-back.onrender.com/admin/addItem', data, method: 'POST' })
-                .then((response) => {
-                    console.log(`Status da resposta do servidor: ${response.status} \n`);
-                    console.log(`Mensagem do servidor: ${response.data.message}`);
-                  
-                })
+            /* axios({ url: 'https://ta-back.onrender.com/admin/addItem', data, method: 'POST' })
+               .then((response) => {
+                   console.log(`Status da resposta do servidor: ${response.status} \n`);
+                   console.log(`Mensagem do servidor: ${response.data.message}`);
+                 
+               })
 
-                .catch((error) => {
-                    // Tratar erros aqui
-                    console.error(error);
-                });  */
+               .catch((error) => {
+                   // Tratar erros aqui
+                   console.error(error);
+               });  */
         },
 
     },
@@ -299,16 +300,21 @@ export default {
     src: url(../assets/fonts/Urbanist/static/Urbanist-SemiBold.ttf);
 }
 
+.aux-sheet{
+    background-color: #fff !important;
+
+}
+
 .main-sheet {
     padding-bottom: 7vh;
     background-color: #fff;
 
-    
+
 }
 
 .custom-form {
     margin-top: 5vh;
-    background-color: #fff;
+    background-color: #fff !important;
 
 }
 
@@ -354,27 +360,27 @@ export default {
 }
 
 .report-area {
-  width: 100%;
+    width: 100%;
 }
 
 .report-button {
-  width: 10vw;
-  height: 4vh;
-  font-size: 1rem;
-  font-weight: bold;
-  font-family: 'Urbanist-Regular';
-  margin-top: 1vh;
+    width: 10vw;
+    height: 4vh;
+    font-size: 1rem;
+    font-weight: bold;
+    font-family: 'Urbanist-Regular';
+    margin-top: 1vh;
 }
 
 
 .report-success-text {
-  font-size: 1.34rem;
-  font-family: 'Urbanist-Regular';
+    font-size: 1.34rem;
+    font-family: 'Urbanist-Regular';
 }
 
 .toolbar-title {
-  font-family: 'Urbanist-SB';
-  font-size: 1.3rem;
+    font-family: 'Urbanist-SB';
+    font-size: 1.3rem;
 
 }
 
