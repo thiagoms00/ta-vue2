@@ -16,15 +16,15 @@
 
                         <h3 class="label-form">Código *</h3>
                         <v-text-field label="" variant="outlined" density="compact" class="message-field"
-                            v-model="codModel"></v-text-field>
+                            v-model="codModel" :rules="[rules.required]"></v-text-field>
 
                         <h3 class="label-form">Habilidade *</h3>
                         <v-select v-model="selectHab" :items="opcoesHab" density="compact" label="" variant="outlined"
-                            class="message-field"></v-select>
+                            class="message-field" :rules="[rules.required]"></v-select>
 
                         <h3 class="label-form">Percurso *</h3>
                         <v-select v-model="selectPercurso" :items="opcoesPercurso" density="compact" label=""
-                            variant="outlined" class="message-field"></v-select>
+                            variant="outlined" class="message-field" :rules="[rules.required]"></v-select>
 
                         <h3 class="label-form">Alternativa 1</h3>
                         <v-text-field label="" variant="outlined" density="compact" class="message-field"
@@ -209,6 +209,9 @@ export default {
         errorModel: '', //Model do text-field de erro.
         colmunTitles: ['Código', 'Habilidade', 'Aprendizagem', 'Status'], //Títulos que aparecem nas colunas.
         itemExibition: 'habilidades',
+        rules: {  //Objeto utilizado para verificar se um campo obrigatório foi preenchido.
+            required: value => !!value || 'Campo obrigatório',
+        },
 
     }),
 
@@ -300,7 +303,7 @@ export default {
     src: url(../assets/fonts/Urbanist/static/Urbanist-SemiBold.ttf);
 }
 
-.aux-sheet{
+.aux-sheet {
     background-color: #fff !important;
 
 }

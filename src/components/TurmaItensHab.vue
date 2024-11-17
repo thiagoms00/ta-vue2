@@ -328,10 +328,12 @@
         <template v-slot:actions class="">
           <div class="d-flex flex-column report-area pa-5">
             <h4 class="ml-2 report-id">{{ this.itemSelected.id }}</h4>
-            <v-text-field clearable label="Erro" variant="outlined" class="mt-5" v-model="errorModel"></v-text-field>
+            <v-text-field clearable label="Erro" variant="outlined" class="mt-5" v-model="errorModel"
+              :rules="[rules.required]">
+            </v-text-field>
             <div class="report-buttons d-flex mt-5">
               <v-btn variant="outlined" class="mx-auto report-button" text="Reportar"
-                @click="reportDialog = false, reportaItem(this.itemSelected), reportSuccess = true"></v-btn>
+                @click="reportaItem(this.itemSelected)"></v-btn>
               <v-btn variant="outlined" class="mx-auto report-button" text="Voltar"
                 @click="reportDialog = false, clearErrorField()"></v-btn>
             </div>
@@ -441,7 +443,9 @@ export default {
     colmunTitles: ['Código', 'Percurso', 'Aprendizagem', 'Status'], //Títulos que aparecem nas colunas.
     itemExibition: 'habilidades',
     listaItensSugeridos : [],
-
+    rules: {  //Objeto utilizado para verificar se um campo obrigatório foi preenchido.
+        required: value => !!value || 'Campo obrigatório',
+    },
   }),
 
   props: {
@@ -529,33 +533,36 @@ export default {
 
     //Função que envia um item reportado para o back-end.
     async reportaItem(item) {
-      console.log(this.itemSelected)
-      const currentDate = new Date();
-      const formattedDate = currentDate.toLocaleDateString('pt-BR');
-      const itemReportado = {
-        idItem: item.id,
-        idAdmin: localStorage.getItem('idAdmin'),
-        tokenAdmin: localStorage.getItem('tokenAdmin'),
-        msgErro: this.errorModel,
-        percurso: this.itemSelected.percurso,
-        dataErro: formattedDate,
+      if (this.errorModel != '') {
+        this.reportDialog = false;
+        this.reportSuccess = true;
+        const currentDate = new Date();
+        const formattedDate = currentDate.toLocaleDateString('pt-BR');
+        const itemReportado = {
+          idItem: item.id,
+          idAdmin: localStorage.getItem('idAdmin'),
+          tokenAdmin: localStorage.getItem('tokenAdmin'),
+          msgErro: this.errorModel,
+          percurso: this.tabNumber,
+          dataErro: formattedDate,
+        }
+        console.log(`Item reportado: ${JSON.stringify(itemReportado)}`);
+        const data = itemReportado;
+
+        axios({ url: 'https://ta-back.onrender.com/admin/reportItens', data, method: 'POST' })
+          .then((response) => {
+            console.log(`Status da resposta do servidor: ${response.status} \n`);
+            console.log(`Mensagem do servidor: ${response.data.message}`);
+            this.returnItensReportados();
+            this.returnItens();
+          })
+
+          .catch((error) => {
+            // Tratar erros aqui
+            console.error(error);
+          });
       }
-      console.log(`Item reportado: ${JSON.stringify(itemReportado)}`);
-      const data = itemReportado;
 
-      axios({ url: 'https://ta-back.onrender.com/admin/reportItens', data, method: 'POST' })
-        .then((response) => {
-          console.log(`Status da resposta do servidor: ${response.status} \n`);
-          console.log(`Mensagem do servidor: ${response.data.message}`);
-          this.returnItensReportados();
-          this.returnItensHab();
-
-        })
-
-        .catch((error) => {
-          // Tratar erros aqui
-          console.error(error);
-        });
     },
 
     //Função que limpa o text field do erro de item reportado.

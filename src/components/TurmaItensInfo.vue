@@ -12,7 +12,7 @@
       <v-tab value="p6" class="tab-name" @click="selectedTab(6)">Pendentes</v-tab>
 
       <v-spacer></v-spacer>
-     <!--  <v-btn variant="text" prepend-icon="mdi-swap-horizontal" class="change-exibition" @click="changeItemExibition()">
+      <!--  <v-btn variant="text" prepend-icon="mdi-swap-horizontal" class="change-exibition" @click="changeItemExibition()">
         {{itemExibition }}
       </v-btn>  -->
     </v-tabs>
@@ -64,9 +64,9 @@
                   </v-col>
 
                   <v-col cols="3" class="d-flex justify-center">
-                    
-                    <span v-if="item.status === 'Disponivel'" class="color-disponivel">{{item.status}}</span>
-                    <span v-if="item.status === 'Em revisão'" class="color-revisao">{{item.status}}</span>
+
+                    <span v-if="item.status === 'Disponivel'" class="color-disponivel">{{ item.status }}</span>
+                    <span v-if="item.status === 'Em revisão'" class="color-revisao">{{ item.status }}</span>
 
                   </v-col>
                 </v-row>
@@ -150,8 +150,8 @@
                   </v-col>
 
                   <v-col cols="3" class="d-flex justify-center">
-                    <span v-if="item.status === 'Disponivel'" class="color-disponivel">{{item.status}}</span>
-                    <span v-if="item.status === 'Em revisão'" class="color-revisao">{{item.status}}</span>
+                    <span v-if="item.status === 'Disponivel'" class="color-disponivel">{{ item.status }}</span>
+                    <span v-if="item.status === 'Em revisão'" class="color-revisao">{{ item.status }}</span>
                   </v-col>
                 </v-row>
 
@@ -237,8 +237,8 @@
                   </v-col>
 
                   <v-col cols="3" class="d-flex justify-center">
-                    <span v-if="item.status === 'Disponivel'" class="color-disponivel">{{item.status}}</span>
-                    <span v-if="item.status === 'Em revisão'" class="color-revisao">{{item.status}}</span>
+                    <span v-if="item.status === 'Disponivel'" class="color-disponivel">{{ item.status }}</span>
+                    <span v-if="item.status === 'Em revisão'" class="color-revisao">{{ item.status }}</span>
                   </v-col>
                 </v-row>
 
@@ -320,8 +320,8 @@
                   </v-col>
 
                   <v-col cols="3" class="d-flex justify-center">
-                    <span v-if="item.status === 'Disponivel'" class="color-disponivel">{{item.status}}</span>
-                    <span v-if="item.status === 'Em revisão'" class="color-revisao">{{item.status}}</span>
+                    <span v-if="item.status === 'Disponivel'" class="color-disponivel">{{ item.status }}</span>
+                    <span v-if="item.status === 'Em revisão'" class="color-revisao">{{ item.status }}</span>
                   </v-col>
                 </v-row>
 
@@ -450,8 +450,8 @@
 
 
 
-       <!-- Janela dos itens sugeridos -->
-       <v-window-item value="p6">
+      <!-- Janela dos itens sugeridos -->
+      <v-window-item value="p6">
         <v-sheet rounded="lg" class="" :class="{ 'fade-in': animacaoListaAtiva }">
           <v-expansion-panels variant="accordion" class="" v-model="expansionPanelModel[3]">
             <v-expansion-panel v-for="(item, index) in listaItensSugeridos" :key="item.id" ref="panels"
@@ -530,7 +530,7 @@
                             <td class="td-left">Fonte</td>
                             <td class="td-right">{{ item.fonte }}</td>
                           </tr>
-                          
+
 
                         </tbody>
                       </v-table>
@@ -566,10 +566,12 @@
         <template v-slot:actions class="">
           <div class="d-flex flex-column report-area pa-5">
             <h4 class="ml-2 report-id">{{ this.itemSelected.id }}</h4>
-            <v-text-field clearable label="Erro" variant="outlined" class="mt-5" v-model="errorModel"></v-text-field>
+            <v-text-field clearable label="Erro" variant="outlined" class="mt-5" v-model="errorModel"
+              :rules="[rules.required]">
+            </v-text-field>
             <div class="report-buttons d-flex mt-5">
               <v-btn variant="outlined" class="mx-auto report-button" text="Reportar"
-                @click="reportDialog = false, reportaItem(this.itemSelected), reportSuccess = true"></v-btn>
+                @click="reportaItem(this.itemSelected)"></v-btn>
               <v-btn variant="outlined" class="mx-auto report-button" text="Voltar"
                 @click="reportDialog = false, clearErrorField()"></v-btn>
             </div>
@@ -639,7 +641,7 @@ export default {
     listaItens2: [],  //Lista de Itens do percurso 3
     listaItens3: [],  //Lista de Itens do percurso 4
     listaItensReportados: [], //Lista com os itens reportados
-    listaItensSugeridos : [],
+    listaItensSugeridos: [],
 
     listaItens: [], //Itens sendo exibidos, começando pelo estrato 1.
 
@@ -662,8 +664,10 @@ export default {
     reportSuccess: false, // Variavel de controle do dialog de report bem sucedido.
     errorModel: '', //Model do text-field de erro.
     colmunTitles: ['Código', 'Habilidade', 'Aprendizagem', 'Status'], //Títulos que aparecem nas colunas.
-    itemExibition : 'habilidades',
-
+    itemExibition: 'habilidades',
+    rules: {  //Objeto utilizado para verificar se um campo obrigatório foi preenchido.
+        required: value => !!value || 'Campo obrigatório',
+    },
   }),
 
   props: {
@@ -709,12 +713,12 @@ export default {
 
   methods: {
     //Função que muda o modo de visualização dos itens.
-    changeItemExibition(){
-      if(this.itemExibition ==='habilidades'){
+    changeItemExibition() {
+      if (this.itemExibition === 'habilidades') {
         this.itemExibition = 'percursos'
 
       }
-      else if(this.itemExibition === 'percursos'){
+      else if (this.itemExibition === 'percursos') {
         this.itemExibition = 'habilidades'
 
       }
@@ -722,31 +726,36 @@ export default {
 
     //Função que envia um item reportado para o back-end.
     async reportaItem(item) {
-      const currentDate = new Date();
-      const formattedDate = currentDate.toLocaleDateString('pt-BR');
-      const itemReportado = {
-        idItem: item.id,
-        idAdmin: localStorage.getItem('idAdmin'),
-        tokenAdmin: localStorage.getItem('tokenAdmin'),
-        msgErro: this.errorModel,
-        percurso: this.tabNumber,
-        dataErro: formattedDate,
+      if (this.errorModel != '') {
+        this.reportDialog = false;
+        this.reportSuccess = true;
+        const currentDate = new Date();
+        const formattedDate = currentDate.toLocaleDateString('pt-BR');
+        const itemReportado = {
+          idItem: item.id,
+          idAdmin: localStorage.getItem('idAdmin'),
+          tokenAdmin: localStorage.getItem('tokenAdmin'),
+          msgErro: this.errorModel,
+          percurso: this.tabNumber,
+          dataErro: formattedDate,
+        }
+        console.log(`Item reportado: ${JSON.stringify(itemReportado)}`);
+        const data = itemReportado;
+
+        axios({ url: 'https://ta-back.onrender.com/admin/reportItens', data, method: 'POST' })
+          .then((response) => {
+            console.log(`Status da resposta do servidor: ${response.status} \n`);
+            console.log(`Mensagem do servidor: ${response.data.message}`);
+            this.returnItensReportados();
+            this.returnItens();
+          })
+
+          .catch((error) => {
+            // Tratar erros aqui
+            console.error(error);
+          });
       }
-      console.log(`Item reportado: ${JSON.stringify(itemReportado)}`);
-      const data = itemReportado;
 
-      axios({ url: 'https://ta-back.onrender.com/admin/reportItens', data, method: 'POST' })
-        .then((response) => {
-          console.log(`Status da resposta do servidor: ${response.status} \n`);
-          console.log(`Mensagem do servidor: ${response.data.message}`);
-          this.returnItensReportados();
-          this.returnItens();
-        })
-
-        .catch((error) => {
-          // Tratar erros aqui
-          console.error(error);
-        });
     },
 
     //Função que limpa o text field do erro de item reportado.
@@ -836,13 +845,15 @@ export default {
     },
 
     returnItensReportados() {
-    const data = {
-      idAdmin: localStorage.getItem('idAdmin'),
-      tokenAdmin: localStorage.getItem('tokenAdmin'),
-    }
-      axios({ url: 'https://ta-back.onrender.com/admin/returnReported', 
-      data,
-      method: 'POST' })
+      const data = {
+        idAdmin: localStorage.getItem('idAdmin'),
+        tokenAdmin: localStorage.getItem('tokenAdmin'),
+      }
+      axios({
+        url: 'https://ta-back.onrender.com/admin/returnReported',
+        data,
+        method: 'POST'
+      })
         .then((response) => {
           this.listaItensReportados = response.data.itens_reportados;
           //console.log(this.listaItensReportados);
@@ -856,13 +867,15 @@ export default {
     },
 
     returnItensSugeridos() {
-    const data = {
-      idAdmin: localStorage.getItem('idAdmin'),
-      tokenAdmin: localStorage.getItem('tokenAdmin'),
-    }
-      axios({ url: 'https://ta-back.onrender.com/admin/returnSuggested', 
-      data,
-      method: 'POST' })
+      const data = {
+        idAdmin: localStorage.getItem('idAdmin'),
+        tokenAdmin: localStorage.getItem('tokenAdmin'),
+      }
+      axios({
+        url: 'https://ta-back.onrender.com/admin/returnSuggested',
+        data,
+        method: 'POST'
+      })
         .then((response) => {
           this.listaItensSugeridos = response.data.itens_sugeridos;
           console.log(this.listaItensSugeridos);
@@ -1030,7 +1043,7 @@ export default {
   text-align: center;
 }
 
-.change-exibition{
+.change-exibition {
   font-family: 'Urbanist-Regular';
   font-size: 1rem;
   font-weight: bold;
@@ -1046,11 +1059,11 @@ export default {
 .color-revisao {
   color: #ee4e4e !important;
   font-weight: 600;
-  
+
 
 }
 
-.tooltip1Teste{
+.tooltip1Teste {
   color: #fff;
 }
 </style>
