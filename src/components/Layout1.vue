@@ -261,7 +261,7 @@ import axios from 'axios';
 
 //Informações sobre os itens.
 import jsonDataQuestoes0 from '../assets/questao/questoes_extrato0.json';
-import jsonDataQuestoes1 from '../assets/questao/questoes_extrato1.json';              //Primeiro estrato a ser utilizado.
+import jsonDataQuestoes1 from '../assets/questao/questoes_extrato1.json';              //Primeiro percurso a ser utilizado.
 import jsonDataQuestoes2 from '../assets/questao/questoes_extrato2.json';
 import jsonDataQuestoes3 from '../assets/questao/questoes_extrato3.json';
 import jsonDataQuestoes2Nt from '../assets/questao/extrato2_nt';
@@ -295,26 +295,25 @@ export default {
             imgSrc: '../assets/imgs/Logo-Impacto-removebg.png',
             layoutCheck: '',
             questionNumber: 0,
-            questionId: '',
+            questionId: '',           //ID (código) da questão
             questionStatement: '',    //Enunciado escrito(Texto no lugar da imagem)
-            questionTextTitle: '',
+            questionTextTitle: '',    
             questionText: '',     //Enunciado da questão
             questionAudio1: '',   //Audio 1
             questionAudio2: '',   //Audio 2
             questionType: '',     //tipo(Matéria da questão)
             questionImg1: '',     //Imagem 1 da questão
-            questionImg2: '',    //Imagem 2 da questão
+            questionImg2: '',     //Imagem 2 da questão
             questionAlt1: '',     //Alternativa1
             questionAlt2: '',     //Alternativa2
-            questionAlt3: '',      //Alternativa3
+            questionAlt3: '',     //Alternativa3
             questionAlt4: '',     //Alternativa4
-            questionAnswer: '',   //Alternativa4 resposta da pergunta
+            questionAnswer: '',   //Resposta da pergunta
             alt1Img: '',          //Caso tenha uma imagem na alternativa
-            alt2Img: '',
-            alt3Img: '',
-            alt4Img: '',
-            fonte: '',
-
+            alt2Img: '',          //Caso tenha uma imagem na alternativa
+            alt3Img: '',          //Caso tenha uma imagem na alternativa
+            alt4Img: '',          //Caso tenha uma imagem na alternativa
+            fonte: '',            //Fonte da questão
             questionSubtitle: '', //Caso a questão tenha um sub-titulo
 
             stMargin: '',
@@ -423,7 +422,7 @@ export default {
         }
     },
 
-    created() {  //Sempre é chamado quando a pagina é carregada
+    created() {  
 
         this.horaInicio = new Date();
         this.tempoInicioQuestao = new Date();
