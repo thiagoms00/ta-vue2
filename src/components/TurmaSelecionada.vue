@@ -1,5 +1,8 @@
 <template>
   <div class="mt-4">
+
+  </div>
+  <div>
     <TurmaNiveisInfo
       v-if="tab_turma === 'option-1'"
       :listaDeAlunos="listaFiltrada()"
@@ -76,3 +79,5 @@ export default {
   },
 };
 </script>
+
+

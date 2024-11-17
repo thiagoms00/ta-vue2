@@ -6,19 +6,25 @@
     height="50"
   >
     <div class="d-flex align-center">
-<!--       <v-icon icon="mdi-ballot"> </v-icon>
- -->      
-    <div class="text-button ml-4 mt-1 tab-name-escola">Selecione uma escola</div>
+      <div class="text-button ml-4 mt-1 tab-name-escola">
+        {{ getTextForLevel }}
+      </div>
     </div>
 
-    <v-icon
-      v-if="level !== 'escola'"
-      @click="voltar"
-      style="cursor: pointer; margin-left: 10px"
-      color="white"
+    <div v-if="level !== 'escola'" class="d-flex align-center mr-3"
+    @click="voltar"
+        style="cursor: pointer; margin-left: 10px"
     >
-      mdi-arrow-left
-    </v-icon>
+      
+      <v-icon
+        color="white"
+      >
+        mdi-arrow-left
+      </v-icon>
+      <div class="tab-name-escola">
+        VOLTAR
+      </div>
+    </div>
   </v-sheet>
 
   <!-- CONTEÙDO -->
@@ -63,7 +69,7 @@ export default {
     dadosTurma: {},
     tab: "option-1",
     habilidadesTurmaAtual: {},
-    escolas: [ ],
+    escolas: [],
   }),
 
   props: {
@@ -81,23 +87,21 @@ export default {
   },
 
   methods: {
-    getEscolas(){
-      
+    getEscolas() {
       const data = {
         tokenAdmin: localStorage.getItem("tokenAdmin"),
         idAdmin: localStorage.getItem("idAdmin"),
       };
 
-      let url = "https://ta-back.onrender.com/admin/getEscolas"
-      
+      let url = "https://ta-back.onrender.com/admin/getEscolas";
+
       axios({
         url: url,
         data,
         method: "POST",
-      })
-        .then((response) => {
-          this.escolas = response.data;
-        })
+      }).then((response) => {
+        this.escolas = response.data;
+      });
     },
 
     updateTurma(newLevel, dadosTurma) {
@@ -124,7 +128,18 @@ export default {
 
   // FIM DO METHODSSSSSSS
 
-  computed: {},
+  computed: {
+    getTextForLevel() {
+      switch (this.level) {
+        case "escola":
+          return "Escolha uma escola";
+        case "turmas":
+          return "Escolha uma turma";
+        default:
+          return "Selecione uma opção";
+      }
+    },
+  },
 
   watch: {
     level(newVal) {
@@ -153,10 +168,8 @@ export default {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra para dar sensação de elevação */
 }
 
-.tab-name-escola{
-  font-family: 'Urbanist-SB';
+.tab-name-escola {
+  font-family: "Urbanist-SB";
   font-size: 0.95rem !important;
-   
 }
-
 </style>

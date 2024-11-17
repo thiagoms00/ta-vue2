@@ -191,10 +191,6 @@
               <v-col cols="9">
                 <!-- MENSAGEM DE SELEÇÂO DE TURMA -->
                 <div>
-                  <v-sheet
-                    class="rounded-lg d-flex elevation-4"
-                    color="grey-lighten-5"
-                  >
                     <v-window v-model="tab" class="w-100">
                       <!-- Janela de Dados 1 -->
                       <v-window-item value="option-1">
@@ -224,7 +220,6 @@
                         <AdminAddItem ref="AdminAddItem"></AdminAddItem>
                       </v-window-item>
                     </v-window>
-                  </v-sheet>
                 </div>
               </v-col>
             </v-row>
@@ -257,7 +252,7 @@ export default {
   data: () => ({
     tab_turma: "option1",
     tab: "option-1",
-    layer: false,
+    layer: '',
     menuBanco: ["Percursos", "Habilidades"],
     search: "",
   }),
