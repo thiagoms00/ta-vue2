@@ -280,7 +280,7 @@ export default {
             console.log(`Item sugerido: ${JSON.stringify(itemSugerido)}`);
             const data = itemSugerido;
 
-            /* axios({ url: 'https://ta-back.onrender.com/admin/addItem', data, method: 'POST' })
+             axios({ url: 'https://ta-back.onrender.com/admin/addItem', data, method: 'POST' })
                .then((response) => {
                    console.log(`Status da resposta do servidor: ${response.status} \n`);
                    console.log(`Mensagem do servidor: ${response.data.message}`);
@@ -290,7 +290,7 @@ export default {
                .catch((error) => {
                    // Tratar erros aqui
                    console.error(error);
-               });  */
+               });  
         },
 
     },
