@@ -322,13 +322,8 @@ export default {
   font-size: 1.3rem;
 }
 
-<<<<<<< Updated upstream
-.text-function{
-  font-size: 0.95rem;
-=======
 .text-function {
   font-size: 0.92rem;
   font-style: italic;
->>>>>>> Stashed changes
 }
 </style>
