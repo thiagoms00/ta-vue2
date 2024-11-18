@@ -1,7 +1,11 @@
 <template>
   <!-- SHEET DE TITULO -->
   <v-sheet
-    class="rounded-t-lg elevation-2 pa-2 d-flex align-center justify-space-between"
+    :class="{
+      'rounded-t-lg': level !== 'turmaselecionado',
+      'rounded-lg': level === 'turmaselecionado'
+    }"
+    class="rounded-t-lg pa-2 d-flex align-center justify-space-between"
     color="#1E3892"
     height="50"
   >
@@ -136,7 +140,7 @@ export default {
         case "turmas":
           return "Escolha uma turma";
         default:
-          return "Selecione uma opção";
+          return "";
       }
     },
   },

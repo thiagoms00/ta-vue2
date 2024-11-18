@@ -14,16 +14,20 @@
                   >
                     <!-- AVATAR -->
                     <div class="d-flex justify-center">
-                      <div class="avatar-color d-flex align-center justify-center rounded-t-lg">
-                        <v-avatar color="grey" size="75" class="elevation-2 admin-avatar">
-                         <v-img 
-                          src="https://thumbs.dreamstime.com/b/light-blue-outline-user-avatar-flat-icon-light-blue-outline-user-avatar-flat-icon-isolated-white-background-vector-illustration-250739962.jpg"
-                          cover
-                        ></v-img> 
-
-                      </v-avatar>
+                      <div
+                        class="avatar-color d-flex align-center justify-center rounded-t-lg"
+                      >
+                        <v-avatar
+                          color="grey"
+                          size="75"
+                          class="elevation-2 admin-avatar"
+                        >
+                          <v-img
+                            src="https://thumbs.dreamstime.com/b/light-blue-outline-user-avatar-flat-icon-light-blue-outline-user-avatar-flat-icon-isolated-white-background-vector-illustration-250739962.jpg"
+                            cover
+                          ></v-img>
+                        </v-avatar>
                       </div>
-                      
                     </div>
 
                     <div class="d-flex justify-center">
@@ -37,11 +41,12 @@
                 </div>
 
                 <v-sheet
-                  class="custom-switch mt-5 elevation-2 d-flex justify-center align-center"
-                  rounded="lg"
-                  v-if="layer!='turmaselecionado'"
+                  class="custom-switch mt-5 elevation-2 d-flex 
+                  justify-center align-center rounded-lg"
+                  v-if="layer != 'turmaselecionado'"
                 >
-                  <v-tabs class="py-2"
+                  <v-tabs
+                    class="py-2"
                     v-model="tab"
                     color="primary"
                     direction="vertical"
@@ -55,7 +60,7 @@
                       <span class="menu-option">Escolas</span>
                     </v-tab>
 
-                   <!--  <v-tab
+                    <!--  <v-tab
                       prepend-icon="mdi-account-clock-outline"
                       value="option-3"
                       class="pl-5 d-flex justify-start"
@@ -89,10 +94,10 @@
                 </v-sheet>
 
                 <!-- DIV DE SUBMENU DE UMA TURMA -->
-                <div v-if="layer=='turmaselecionado'">
+                <div v-if="layer == 'turmaselecionado'">
                   <v-sheet
-                    class="custom-switch mt-4 elevation-2 d-flex justify-center align-center"
-                    rounded="lg"
+                    class="custom-switch mt-4 elevation-2 d-flex justify-center 
+                    align-center rounded-lg"
                   >
                     <v-tabs
                       v-model="tab_turma"
@@ -170,7 +175,6 @@
                           turma
                         </v-tooltip>
                       </v-tab>
-
                     </v-tabs>
                   </v-sheet>
                   <!-- Campo de busca de aluno -->
@@ -191,37 +195,37 @@
               <v-col cols="9">
                 <!-- MENSAGEM DE SELEÇÂO DE TURMA -->
                 <div>
-                 
-                    <v-window v-model="tab" class="w-100">
-                      <!-- Janela de Dados 1 -->
-                      <v-window-item value="option-1">
-                        <Escolas @levelAplicationValue="levelAplicationValue" 
+                  <v-window v-model="tab" class="w-100">
+                    <!-- Janela de Dados 1 -->
+                    <v-window-item value="option-1">
+                      <Escolas
+                        @levelAplicationValue="levelAplicationValue"
                         :tab_turma="tab_turma"
-                        :search="search"/>
-                      </v-window-item>
+                        :search="search"
+                      />
+                    </v-window-item>
 
-                      <!-- Janela de Dados 2 -->
-                      <v-window-item value="option-2">
-                        <TurmaItensInfo ref="turmaItensInfo"> </TurmaItensInfo>
-                      </v-window-item>
+                    <!-- Janela de Dados 2 -->
+                    <v-window-item value="option-2">
+                      <TurmaItensInfo ref="turmaItensInfo"> </TurmaItensInfo>
+                    </v-window-item>
 
-                      <!-- Janela de Dados 3 -->
+                    <!-- Janela de Dados 3 -->
 
-                      <v-window-item value="option-3"> TELA 3 </v-window-item>
+                    <v-window-item value="option-3"> TELA 3 </v-window-item>
 
-                      <!-- Janela de Dados 4 -->
+                    <!-- Janela de Dados 4 -->
 
-                      <v-window-item value="option-4">
-                        <TurmaItensHab ref="turmaHabInfo"> </TurmaItensHab>
-                      </v-window-item>
+                    <v-window-item value="option-4">
+                      <TurmaItensHab ref="turmaHabInfo"> </TurmaItensHab>
+                    </v-window-item>
 
-                      <!-- Janela de Dados 5 -->
+                    <!-- Janela de Dados 5 -->
 
-                      <v-window-item value="option-5">
-                        <AdminAddItem ref="AdminAddItem"></AdminAddItem>
-                      </v-window-item>
-                    </v-window>
-
+                    <v-window-item value="option-5">
+                      <AdminAddItem ref="AdminAddItem"></AdminAddItem>
+                    </v-window-item>
+                  </v-window>
                 </div>
               </v-col>
             </v-row>
@@ -254,19 +258,17 @@ export default {
   data: () => ({
     tab_turma: "option1",
     tab: "option-1",
-    layer: '',
+    layer: "",
     menuBanco: ["Percursos", "Habilidades"],
     search: "",
   }),
 
-  created() {
-
-  },
+  created() {},
 
   methods: {
     levelAplicationValue(layer) {
       this.layer = layer;
-      console.log(this.layer)
+      console.log(this.layer);
     },
   },
   // FIM DO METHODSSSSSSS
@@ -276,9 +278,12 @@ export default {
 </script>
 
 <style>
+.custom-border .v-field{
+  border-radius: 8px;
+}
+
 .borda-diagonal {
   border-radius: 16px 0 16px 0 !important;
-  /* Bordas diagonais arredondadas */
 }
 
 .degrade {
@@ -294,15 +299,15 @@ export default {
   font-family: "Urbanist-Regular";
 }
 
-.avatar-color{
+.avatar-color {
   width: 100%;
   align-items: center;
   overflow: hidden;
   height: 11vh;
-  background: linear-gradient(to bottom, #1E3892 58%, transparent 50%);
+  background: linear-gradient(to bottom, #1e3892 58%, transparent 50%);
 }
 
-.admin-avatar{
+.admin-avatar {
   margin-top: 1vh;
   border: 1px solid #fff;
 }
@@ -317,10 +322,13 @@ export default {
   font-size: 1.3rem;
 }
 
+<<<<<<< Updated upstream
 .text-function{
   font-size: 0.95rem;
+=======
+.text-function {
+  font-size: 0.92rem;
+  font-style: italic;
+>>>>>>> Stashed changes
 }
-
-
-
 </style>

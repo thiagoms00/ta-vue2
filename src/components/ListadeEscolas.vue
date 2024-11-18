@@ -11,7 +11,7 @@
         <v-col cols="12" sm="6" md="4" lg="3" class="pt-8 pb-8 pl-8 d-flex align-center justify-center">
           <v-sheet
             height="200"
-            width="300"
+            
             elevation="2"
             rounded="lg"
             class="pa-4 d-flex flex-column align-center borda-diagonal clickable-item position-relative justify-center degrade"
@@ -58,7 +58,7 @@
           <v-sheet
             elevation="2"
             height="200"
-            width="300"
+            
             rounded="lg"
             class="pa-4 d-flex flex-column align-center borda-diagonal degrade clickable-item position-relative justify-center"
             @click="fetchTurmas(index, escola.id_escola)"

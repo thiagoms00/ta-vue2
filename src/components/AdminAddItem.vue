@@ -8,7 +8,7 @@
         </div>
 
     </v-sheet>
-    <v-sheet class="rounded-lg d-flex elevation-4 aux-sheet" color="">
+    <v-sheet class="rounded-b-lg d-flex elevation-4 aux-sheet" color="">
         <v-row cols=12 class="main-row">
             <v-col cols="6" class="">
                 <v-sheet class="mx-auto main-sheet left-sheet">
