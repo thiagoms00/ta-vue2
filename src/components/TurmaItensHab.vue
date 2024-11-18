@@ -17,7 +17,7 @@
       <v-tab value="p10" class="tab-name" @click="selectedTab(5)">H10</v-tab>
       <v-tab value="p11" class="tab-name" @click="selectedTab(5)">H11</v-tab>
       <v-tab value="p12" class="tab-name" @click="selectedTab(6)">Reportados</v-tab>
-      <v-tab value="p13" class="tab-name" @click="selectedTab(6)">Sugeridos</v-tab>
+      <v-tab value="p13" class="tab-name" @click="selectedTab(6)">Pendentes</v-tab>
 
       <v-spacer></v-spacer>
 

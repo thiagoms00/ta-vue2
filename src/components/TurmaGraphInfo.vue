@@ -4,11 +4,10 @@
       <v-sheet
         class="rounded-t-lg elevation-2 pa-2 d-flex align-center justify-space-between"
         color="#1E3892"
-        height="48"
+        height="50"
       >
       <div class="d-flex align-center" >
-        <v-icon icon="mdi-chart-bar"> </v-icon>
-        <div class="text-button ml-2">Dados gerais da turma</div>
+        <div class="text-button ml-2 mt-1 tab-name-niveis">Panorama da turma</div>
       </div>
       <div class="text-button mr-2"> {{ this.nomeTurma }} </div>
       </v-sheet>

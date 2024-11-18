@@ -14,7 +14,7 @@
                       <v-expansion-panel-title
                         class="rounded-lg"
                         v-ripple
-                        style="height: 4vh"
+                        style="height: 5.5vh"
                         :disabled="loading"
                       >
                         <div
@@ -28,7 +28,7 @@
                           />
                           <template v-else>
                             <v-icon icon="mdi-school-outline"></v-icon>
-                            <div class="text-button pl-2">TURMAS</div>
+                            <div class="text-button pl-2 expansive-text">TURMAS</div>
                           </template>
                         </div>
                       </v-expansion-panel-title>
@@ -69,18 +69,19 @@
                 </div>
 
                 <v-sheet
-                  class="custom-switch mt-4 elevation-2 d-flex justify-center align-center"
+                  class="custom-switch mt-5 elevation-2 d-flex justify-center align-center"
                   rounded="lg"
                 >
                   <v-tabs 
                     v-model="tab"
+                    class="py-2"
                     color="primary"
                     direction="vertical"
                     style="width: 100%"
                   >
                     <v-tab @click="changeItens(false)"
                       value="option-1"
-                      class="pl-4 d-flex justify-start"
+                      class="pl-5 d-flex justify-start"
                       prepend-icon="mdi-menu"
                     >
                       <span>Níveis de aprendizado</span>
@@ -97,7 +98,7 @@
                     <v-tab @click="changeItens(false)"
                       prepend-icon="mdi-compass-outline"
                       value="option-2"
-                      class="pl-4 d-flex justify-start"
+                      class="pl-5 d-flex justify-start"
                     >
                       <span>Sequência na avaliação</span>
                       <v-tooltip
@@ -113,7 +114,7 @@
                     <v-tab @click="changeItens(false)"
                       prepend-icon="mdi-checkbox-outline"
                       value="option-3"
-                      class="pl-4 d-flex justify-start"
+                      class="pl-5 d-flex justify-start"
                     >
                       <span>Dados gerais</span>
                       <v-tooltip
@@ -135,7 +136,7 @@
                     <v-tab @click="changeItens(false)"
                       prepend-icon="mdi-chart-bar"
                       value="option-4"
-                      class="pl-4 d-flex justify-start"
+                      class="pl-5 d-flex justify-start"
                     >
                       <span>Panorama da Turma</span>
                       <v-tooltip
@@ -848,6 +849,10 @@ export default {
 .optionButton {
   width: 5px !important;
   min-width: 35px !important;
+}
+
+.expansive-text{
+  font-size: 0.95rem !important;
 }
 
 .custom-panel-text {

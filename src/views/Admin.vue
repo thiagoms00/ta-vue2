@@ -31,7 +31,7 @@
                     </div>
 
                     <div class="d-flex justify-center">
-                      <p class="text-profile text-function">Administrador</p>
+                      <p class="text-profile text-function">Adimnistrador</p>
                     </div>
                   </v-sheet>
                 </div>
@@ -318,8 +318,7 @@ export default {
 }
 
 .text-function{
-  font-size: 0.92rem;
-  font-style: italic;
+  font-size: 0.95rem;
 }
 
 

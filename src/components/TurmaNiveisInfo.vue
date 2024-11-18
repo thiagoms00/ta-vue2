@@ -4,10 +4,10 @@
       <!-- Mensagem de Seleção de Turma -->
       <v-row>
         <v-col>
-          <v-sheet class="rounded-t-lg pa-2 d-flex align-center justify-space-between" color="#1E3892" height="48">
+          <v-sheet class="rounded-t-lg pa-2 d-flex align-center justify-space-between" color="#1E3892" height="50">
             <div class="d-flex align-center">
-              <v-icon icon="mdi-ballot"> </v-icon>
-              <div class="text-button ml-2">Níveis de Aprendizado</div>
+<!--               <v-icon icon="mdi-ballot"> </v-icon>
+ -->              <div class="text-button ml-2 mt-1 tab-name-niveis">Níveis de Aprendizado</div>
             </div>
 
             <div class="text-button mr-2">{{ this.nomeTurma }}</div>
@@ -24,17 +24,17 @@
               </template>
               <v-row class="align-center">
                 <v-col class="pa-2" cols="3">
-                  <div class="text-overline">Aluno</div>
+                  <div class="text-overline table-title">Aluno</div>
                 </v-col>
 
                 <v-col class="pa-2" cols="1">
                   <div class="text-center main-text">
-                    <div class="text-overline">Nível</div>
+                    <div class="text-overline table-title">Nível</div>
                   </div>
                 </v-col>
 
                 <v-col class="pa-2" cols="8">
-                  <div class="text-overline">Descrição</div>
+                  <div class="text-overline table-title">Descrição</div>
                 </v-col>
               </v-row>
             </v-expansion-panel-title>
@@ -678,6 +678,16 @@ export default {
 
 .subHab{
   font-style: italic;
+}
+
+.tab-name-niveis{
+  font-family: 'Urbanist-SB';
+  font-size: 0.92rem !important;
+
+}
+
+.table-title{
+  font-weight: bold;
 }
 
 @media (max-width: 1800px) {}

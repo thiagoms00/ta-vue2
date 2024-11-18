@@ -6,11 +6,11 @@
       <v-sheet
         class="rounded-t-lg elevation-2 pa-2 d-flex align-center justify-space-between"
         color="#1E3892"
-        height="48"
+        height="50"
       >
         <div class="d-flex align-center">
-          <v-icon icon="mdi-ballot"> </v-icon>
-          <div class="text-button ml-2">Mapa de habilidade</div>
+          
+          <div class="text-button ml-2 mt-1 tab-name-niveis">Mapa de habilidade</div>
         </div>
 
         <div class="text-button mr-2">{{ this.nomeTurma }}</div>
@@ -22,7 +22,7 @@
             <tr>
               <!-- Coluna para Nome -->
               <th style="width: 20%">
-                <div class="text-center text-overline">Aluno</div>
+                <div class="text-center text-overline table-title">Aluno</div>
               </th>
 
               <!-- Percurso colunas com `v-for` -->
@@ -31,7 +31,7 @@
                 :key="i"
                 style="width: calc(80% / 3); border-left: 1px solid #ccc"
               >
-                <div class="text-center text-overline">
+                <div class="text-center text-overline table-title">
                   Percurso {{ i - aux_estrato + 1 }}
                 </div>
               </th>

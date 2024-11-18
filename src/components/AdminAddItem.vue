@@ -343,6 +343,7 @@ export default {
     font-family: 'Urbanist-Regular';
     font-size: 1.15rem;
     margin-left: 0.05vw;
+    margin-top: 1vh;
 }
 
 .message-field {
