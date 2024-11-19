@@ -1,36 +1,21 @@
 <template>
   <!-- Sheet que engloba todo o componente -->
-  <v-sheet
-    elevation="2"
-    class="d-flex flex-column rounded-b-lg"
-    color="white"
-  >
+  <v-sheet elevation="2" class="d-flex flex-column rounded-b-lg" color="white">
     <div class="d-flex flex-column w-100">
       <div>
         <v-row class="pa-8">
-          <!-- Botão para adicionar nova turma -->
-          <v-col cols="12" sm="4">
-            <v-sheet
-              elevation="3"
-              rounded="lg"
-              class="pa-4 d-flex align-center borda-diagonal degrade clickable-item"
-              style="cursor: pointer"
-              height="100"
-            >
-              <v-avatar size="50" color="white">
-                <v-icon size="x-large" color="primary">mdi-plus</v-icon>
-              </v-avatar>
-              <div class="text-center text-body-2 mx-4">Adicionar Nova Turma</div>
-            </v-sheet>
-          </v-col>
-
           <!-- Iteração das turmas existentes -->
-          <v-col v-for="(turma, index) in turmas" :key="index" cols="12" sm="4">
+          <v-col
+            v-for="(turma, index) in turmasFinal"
+            :key="index"
+            cols="12"
+            sm="4"
+          >
             <v-sheet
               elevation="3"
               rounded="lg"
               class="pa-4 d-flex align-center borda-diagonal degrade clickable-item"
-              @click="selecionaTurma(turma._id, index)"
+              @click="handleCardClick(turma, index)"
               style="cursor: pointer"
               height="100"
             >
@@ -48,32 +33,58 @@
 
               <!-- Conteúdo do Card -->
               <template v-else>
-                <v-avatar size="50" color="white" class="mr-4 hidden-sm-and-down">
-                  <v-icon size="large" color="primary">mdi-account-group</v-icon>
-                </v-avatar>
-                <div class="mx-2">
-                  <div>
-                    Nome: <span class="font-weight-bold">{{ turma.nome }}</span>
+                <!-- Card "Adicionar Nova Turma" -->
+                <template v-if="turma.nome === 'Adicionar Nova Turma'">
+                  <v-avatar
+                    size="50"
+                    color="white"
+                    class="mr-4 hidden-sm-and-down"
+                  >
+                    <v-icon size="large" color="primary">mdi-plus</v-icon>
+                  </v-avatar>
+                  <div class="mx-2">
+                    <div class="font-weight-bold text-center">
+                      Adicionar Nova Turma
+                    </div>
                   </div>
-                  <div>
-                    Número de alunos:
-                    <span class="font-weight-bold">{{
-                      turma.numero_alunos
-                    }}</span>
-                  </div>
-                </div>
-                <div class="ml-5 hidden-lg-and-down">
-                  <div>Professores:</div>
-                  <div>
-                    <span
-                      v-for="(professor, profIndex) in turma.listaDeProfs"
-                      :key="profIndex"
-                      class="font-weight-bold"
+                </template>
+
+                <!-- Card padrão para as outras turmas -->
+                <template v-else>
+                  <v-avatar
+                    size="50"
+                    color="white"
+                    class="mr-4 hidden-sm-and-down"
+                  >
+                    <v-icon size="large" color="primary"
+                      >mdi-account-group</v-icon
                     >
-                      {{ professor }}
-                    </span>
+                  </v-avatar>
+                  <div class="mx-2">
+                    <div>
+                      Nome:
+                      <span class="font-weight-bold">{{ turma.nome }}</span>
+                    </div>
+                    <div>
+                      Número de alunos:
+                      <span class="font-weight-bold">{{
+                        turma.numero_alunos
+                      }}</span>
+                    </div>
                   </div>
-                </div>
+                  <div class="ml-5 hidden-lg-and-down">
+                    <div>Professores:</div>
+                    <div>
+                      <span
+                        v-for="(professor, profIndex) in turma.listaDeProfs"
+                        :key="profIndex"
+                        class="font-weight-bold"
+                      >
+                        {{ professor }}
+                      </span>
+                    </div>
+                  </div>
+                </template>
               </template>
             </v-sheet>
           </v-col>
@@ -82,7 +93,6 @@
     </div>
   </v-sheet>
 </template>
-
 
 <script>
 import axios from "axios";
@@ -102,6 +112,15 @@ export default {
     },
   },
 
+  computed: {
+    turmasFinal() {
+      return [
+        { novaTurma: true, nome: "Adicionar Nova Turma" },
+        ...this.turmas,
+      ];
+    },
+  },
+
   watch: {
     turmas: {
       handler(newVal) {
@@ -115,6 +134,14 @@ export default {
   },
 
   methods: {
+    handleCardClick(turma, index) {
+      if (turma.nome === "Adicionar Nova Turma") {
+        console.log("Adicionar nova turma");
+      } else {
+        this.selecionaTurma(turma._id, index);
+      }
+    },
+
     selecionaTurma(turmaId, index) {
       // Define o loader apenas para o card clicado
       this.isCardLoading[index] = true;
@@ -132,7 +159,7 @@ export default {
       })
         .then((response) => {
           this.dadosTurma = response.data;
-          console.log(this.dadosTurma)
+          console.log(this.dadosTurma);
           this.$emit("changeLevel", "turmaselecionado", this.dadosTurma);
         })
         .catch((error) => {
