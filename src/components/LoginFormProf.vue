@@ -172,7 +172,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .text-login {
   font-size: 3rem;
   font-family: Manrope;
