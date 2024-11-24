@@ -18,7 +18,7 @@
                 ></v-img>
               </div>
 
-              <div class="text-h2 text-md-h4 text-sm-h4 text-xs-h5 d-flex mb-2">
+              <div class="text-md-h3 text-sm-h4 text-xs-h5 d-flex mb-10">
                 Login
               </div>
 
