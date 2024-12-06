@@ -73,10 +73,10 @@
 
                   <v-col cols="3" class="d-flex justify-center">
                     <span v-if="item.status === 'Disponivel'" class="color-disponivel">
-                       {{ item.status }}
+                      {{ item.status }}
                     </span>
                     <span v-if="item.status === 'Em revisão'" class="color-revisao">
-                       {{ item.status }}
+                      {{ item.status }}
                     </span>
                   </v-col>
                 </v-row>
@@ -95,11 +95,32 @@
                           </tr>
                           <tr>
                             <td class="td-left">Percurso</td>
-                            <td class="td-right">{{ item.nestr+1 }}</td>
+                            <td class="td-right">{{ item.nestr + 1 }}</td>
                           </tr>
                           <tr>
                             <td class="td-left">Resposta</td>
                             <td class="td-right">{{ this.itemSelected.resposta }}</td>
+                          </tr>
+                          <tr>
+                            <td class="td-left">Percentual de escolha: <span class="alt-span">a</span></td>
+                            <td class="td-right">{{ calculaPercAlt(item.dadosAlt.qtdA,
+                              item.dadosAlt.qtdA + item.dadosAlt.qtdB + item.dadosAlt.qtdC + item.dadosAlt.qtdD
+                            ) + ' %' }}</td>
+                          </tr>
+                          <tr>
+                            <td class="td-left">Percentual de escolha: <span class="alt-span">b</span></td>
+                            <td class="td-right">{{ calculaPercAlt(item.dadosAlt.qtdB,
+                              item.dadosAlt.qtdA + item.dadosAlt.qtdB + item.dadosAlt.qtdC+item.dadosAlt.qtdD)+ ' %'  }}</td>
+                          </tr>
+                          <tr>
+                            <td class="td-left">Percentual de escolha: <span class="alt-span">c</span></td>
+                            <td class="td-right">{{ calculaPercAlt(item.dadosAlt.qtdC,
+                              item.dadosAlt.qtdA + item.dadosAlt.qtdB + item.dadosAlt.qtdC+item.dadosAlt.qtdD) +' %' }}</td>
+                          </tr>
+                          <tr>
+                            <td class="td-left">Percentual de escolha: <span class="alt-span">d</span></td>
+                            <td class="td-right">{{ calculaPercAlt(item.dadosAlt.qtdD,
+                              item.dadosAlt.qtdA + item.dadosAlt.qtdB + item.dadosAlt.qtdC+item.dadosAlt.qtdD) + ' %' }}</td>
                           </tr>
                           <tr>
                             <td class="td-left">Fonte</td>
@@ -117,7 +138,7 @@
 
                 <v-divider :thickness="1"></v-divider>
                 <div class="btn-area">
-                  <v-btn variant="outlined" class="item-btn" @click="openItemHab(item.nestr+1,this.itemSelected.id)">
+                  <v-btn variant="outlined" class="item-btn" @click="openItemHab(item.nestr + 1, this.itemSelected.id)">
                     Ver item
                   </v-btn>
 
@@ -216,8 +237,8 @@
 
       </v-window-item>
 
-       <!-- Janela dos itens sugeridos -->
-       <v-window-item value="p13">
+      <!-- Janela dos itens sugeridos -->
+      <v-window-item value="p13">
         <v-sheet rounded="lg" class="" :class="{ 'fade-in': animacaoListaAtiva }">
           <v-expansion-panels variant="accordion" class="" v-model="expansionPanelModel[3]">
             <v-expansion-panel v-for="(item, index) in listaItensSugeridos" :key="item.id" ref="panels"
@@ -296,7 +317,7 @@
                             <td class="td-left">Fonte</td>
                             <td class="td-right">{{ item.fonte }}</td>
                           </tr>
-                        
+
 
                         </tbody>
                       </v-table>
@@ -428,6 +449,7 @@ export default {
       resposta: '',
       fonte: '',
       layout: '',
+      dadosAlt: {},
     },
 
     questoesP1: [],
@@ -442,9 +464,9 @@ export default {
     errorModel: '', //Model do text-field de erro.
     colmunTitles: ['Código', 'Percurso', 'Aprendizagem', 'Status'], //Títulos que aparecem nas colunas.
     itemExibition: 'habilidades',
-    listaItensSugeridos : [],
+    listaItensSugeridos: [],
     rules: {  //Objeto utilizado para verificar se um campo obrigatório foi preenchido.
-        required: value => !!value || 'Campo obrigatório',
+      required: value => !!value || 'Campo obrigatório',
     },
   }),
 
@@ -477,7 +499,9 @@ export default {
     this.itemSelected.layout = this.questoesP1[0].layout;
     this.itemSelected.percurso = 1;
     this.itemSelected.resposta = this.questoesP1[0].answer;
-    this.itemSelected.fonte = this.questoesP1[0].fonte;
+    this.itemSelected.fonte = this.questoesP1[0].fonte
+    this.itemSelected.dadosAlt = {}
+
 
   },
 
@@ -492,6 +516,7 @@ export default {
 
     obtemDadosItem(id, percurso) {
       let item;
+
       switch (percurso) {
         case 1:
           item = this.questoesP1.find(item => item.id === id);
@@ -500,6 +525,7 @@ export default {
           this.itemSelected.percurso = item.percurso;
           this.itemSelected.resposta = item.answer;
           this.itemSelected.fonte = item.fonte;
+          this.itemSelected.dadosAlt = item.dadosAlt;
           break;
         case 2:
           item = this.questoesP2.find(item => item.id === id);
@@ -508,6 +534,8 @@ export default {
           this.itemSelected.percurso = item.percurso;
           this.itemSelected.resposta = item.answer;
           this.itemSelected.fonte = item.fonte;
+          this.itemSelected.dadosAlt = item.dadosAlt;
+
           break;
         case 3:
           item = this.questoesP3.find(item => item.id === id);
@@ -516,6 +544,8 @@ export default {
           this.itemSelected.percurso = item.percurso;
           this.itemSelected.resposta = item.answer;
           this.itemSelected.fonte = item.fonte;
+          this.itemSelected.dadosAlt = item.dadosAlt;
+
           break;
         case 4:
           item = this.questoesP4.find(item => item.id === id);
@@ -524,10 +554,12 @@ export default {
           this.itemSelected.percurso = item.percurso;
           this.itemSelected.resposta = item.answer;
           this.itemSelected.fonte = item.fonte;
+          this.itemSelected.dadosAlt = item.dadosAlt;
+
           break;
       }
       //console.log(item)
-      console.log(this.itemSelected)
+      console.log(item)
 
     },
 
@@ -574,11 +606,11 @@ export default {
       this.tabNumber = tabNum;
       this.expansionPanelModel = [null, null, null, null];
       if (tabNum === 6) {
-         this.colmunTitles = ['Código', 'Percurso', 'Administrador', 'Data']
-       }
-       else {
-         this.colmunTitles = ['Código', 'Habilidade', 'Aprendizagem', 'Status']
-       } 
+        this.colmunTitles = ['Código', 'Percurso', 'Administrador', 'Data']
+      }
+      else {
+        this.colmunTitles = ['Código', 'Habilidade', 'Aprendizagem', 'Status']
+      }
 
     },
 
@@ -597,24 +629,24 @@ export default {
     },
 
     //Abre o Item selecionado em uma nova TAB (Precisa do percurso e do ID)
-    openItemHab(percursoItem,id) {
-      let index=0;
-      switch(percursoItem){
+    openItemHab(percursoItem, id) {
+      let index = 0;
+      switch (percursoItem) {
         case 1:
-         index = this.questoesP1.findIndex(item => item.id === id);
+          index = this.questoesP1.findIndex(item => item.id === id);
 
-        break;
+          break;
         case 2:
-        index = this.questoesP2.findIndex(item => item.id === id);
+          index = this.questoesP2.findIndex(item => item.id === id);
 
-        break;
+          break;
         case 3:
-        index = this.questoesP3.findIndex(item => item.id === id);
+          index = this.questoesP3.findIndex(item => item.id === id);
 
-        break;
+          break;
         case 4:
-        index = this.questoesP4.findIndex(item => item.id === id);
-        break;
+          index = this.questoesP4.findIndex(item => item.id === id);
+          break;
       }
 
       let dadosItem = {
@@ -724,9 +756,11 @@ export default {
         idAdmin: localStorage.getItem('idAdmin'),
         tokenAdmin: localStorage.getItem('tokenAdmin'),
       }
-      axios({ url: 'https://ta-back.onrender.com/admin/dadosItensHab',
-      data, 
-      method: 'POST' })
+      axios({
+        url: 'https://ta-back.onrender.com/admin/dadosItensHab',
+        data,
+        method: 'POST'
+      })
         .then((response) => {
 
 
@@ -763,8 +797,10 @@ export default {
 
     returnItens() {
 
-      axios({ url: 'https://ta-back.onrender.com/professores/dadosItens', 
-      method: 'POST' })
+      axios({
+        url: 'https://ta-back.onrender.com/professores/dadosItens',
+        method: 'POST'
+      })
         .then((response) => {
           this.listaItens = response.data.itens.listaItens1;
           this.listaItens0 = response.data.itens.listaItens0;
@@ -785,9 +821,11 @@ export default {
         idAdmin: localStorage.getItem('idAdmin'),
         tokenAdmin: localStorage.getItem('tokenAdmin'),
       }
-      axios({ url: 'https://ta-back.onrender.com/admin/returnReported', 
-      data,
-      method: 'POST' })
+      axios({
+        url: 'https://ta-back.onrender.com/admin/returnReported',
+        data,
+        method: 'POST'
+      })
         .then((response) => {
           this.listaItensReportados = response.data.itens_reportados;
           console.log(this.listaItensReportados);
@@ -801,13 +839,15 @@ export default {
     },
 
     returnItensSugeridos() {
-    const data = {
-      idAdmin: localStorage.getItem('idAdmin'),
-      tokenAdmin: localStorage.getItem('tokenAdmin'),
-    }
-      axios({ url: 'https://ta-back.onrender.com/admin/returnSuggested', 
-      data,
-      method: 'POST' })
+      const data = {
+        idAdmin: localStorage.getItem('idAdmin'),
+        tokenAdmin: localStorage.getItem('tokenAdmin'),
+      }
+      axios({
+        url: 'https://ta-back.onrender.com/admin/returnSuggested',
+        data,
+        method: 'POST'
+      })
         .then((response) => {
           this.listaItensSugeridos = response.data.itens_sugeridos;
           console.log(this.listaItensSugeridos);
@@ -817,6 +857,22 @@ export default {
         .catch((error) => {
           console.error(error);
         });
+    },
+
+    calculaPercAlt(acertos, qtd) {
+      if (Number(qtd) === 0 || isNaN(Number(qtd))) {
+        console.log(`${acertos} ${qtd}`);
+        console.log('Resultado inválido');
+        return 0; // Retorna 0 ou outro valor padrão
+      }
+
+      const resultado = Number(acertos) * 100 / Number(qtd);
+      const resultadoFormatado = parseFloat(resultado.toFixed(2));
+
+      console.log(`${acertos} ${qtd}`);
+      console.log(`${resultadoFormatado}`);
+
+      return resultadoFormatado;
     },
 
     toggleIcon(index, value) {
@@ -991,8 +1047,10 @@ export default {
 .color-revisao {
   color: #ee4e4e !important;
   font-weight: 600;
-  
-
 }
 
+.alt-span{
+  font-weight: bold !important;
+  font-size: 1.03rem;
+}
 </style>

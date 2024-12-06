@@ -247,6 +247,7 @@ export default {
             }
             else {
                 this.sugestModel = true;
+                this.sugereItem();
             }
         },
 
@@ -260,7 +261,7 @@ export default {
             const currentDate = new Date();
             const formattedDate = currentDate.toLocaleDateString('pt-BR');
             const itemSugerido = {
-                id: this.codModel,
+                idItem: this.codModel,
                 hab: this.selectHab,
                 percurso: this.selectPercurso,
                 alt1: this.alt1Model,

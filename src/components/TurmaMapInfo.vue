@@ -3,14 +3,12 @@
     <v-col cols="12">
       <!-- Mensagem de Seleção de Turma -->
 
-      <v-sheet
-        class="rounded-t-lg elevation-2 pa-2 d-flex align-center justify-space-between"
-        color="#1E3892"
-        height="50"
-      >
-        <div class="d-flex align-center">
-          
+      <v-sheet class="rounded-t-lg elevation-2 pa-2 d-flex align-center justify-space-between" color="#1E3892"
+        height="50">
+        <div class="d-flex align-center ">
+
           <div class="text-button ml-2 mt-1 tab-name-niveis">Mapa de habilidade</div>
+           
         </div>
 
         <div class="text-button mr-2">{{ this.nomeTurma }}</div>
@@ -26,11 +24,7 @@
               </th>
 
               <!-- Percurso colunas com `v-for` -->
-              <th
-                v-for="i in 3"
-                :key="i"
-                style="width: calc(80% / 3); border-left: 1px solid #ccc"
-              >
+              <th v-for="i in 3" :key="i" style="width: calc(80% / 3); border-left: 1px solid #ccc">
                 <div class="text-center text-overline table-title">
                   Percurso {{ i - aux_estrato + 1 }}
                 </div>
@@ -41,34 +35,18 @@
           <tbody>
             <tr v-for="item in listaTurma" :key="item.name" class="pa-6">
               <td style="width: 20%" class="px-4 py-2">
-                <div >{{ item.user["nome"] }}</div>
+                <div>{{ item.user["nome"] }}</div>
               </td>
 
-              <td
-                v-for="i in 3"
-                :key="i"
-                style="width: calc(80% / 3); border-left: 1px solid #ccc"
-              >
+              <td v-for="i in 3" :key="i" style="width: calc(80% / 3); border-left: 1px solid #ccc">
                 <div class="d-flex flex-wrap">
-                  <v-chip
-                    v-for="(itemListQuest, index) in getChipsForEstrato(
-                      i,
-                      item.listaDeTestes?.[item.listaDeTestes.length - 1]
-                        ?.listaQuest
-                    )"
-                    :key="index"
-                    :color="getColor(itemListQuest.acertou)"
-                    size="x-small"
-                    label
-                    class="ml-1 mb-1"
-                  >
-                    <v-tooltip
-                      activator="parent"
-                      location="top"
-                      :open-delay="0"
-                      :close-delay="0"
-                      transition="fade-transition"
-                    >
+                  <v-chip v-for="(itemListQuest, index) in getChipsForEstrato(
+                    i,
+                    item.listaDeTestes?.[item.listaDeTestes.length - 1]
+                      ?.listaQuest
+                  )" :key="index" :color="getColor(itemListQuest.acertou)" size="x-small" label class="ml-1 mb-1">
+                    <v-tooltip activator="parent" location="top" :open-delay="0" :close-delay="0"
+                      transition="fade-transition">
                       {{
                         getHabilidadeDescricao(
                           extractDigitsFromId(itemListQuest.id)
@@ -191,4 +169,15 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.button-area {
+  align-items: center;
+  justify-content: center;
+  margin-left: 58vw;
+
+}
+
+.planilha-btn{
+  width: 0.1vw !important;
+}
+</style>
