@@ -1,5 +1,5 @@
 <template>
-
+  <!-- Componente que exibe os itens separados por percurso -->
   <v-sheet class="rounded-t-lg" :class="{ 'fade-in': animacaoListaAtiva }">
 
     <v-tabs v-model="tab" bg-color="#1E3892" class="rounded-t-lg tab-toolbar">
@@ -91,6 +91,20 @@
                             <td class="td-left">Resposta</td>
                             <td class="td-right">{{ this.itemSelected.resposta }}</td>
                           </tr>
+                          <tr>
+                            <td class="td-left">Tentativas Realizadas</td>
+                            <td class="td-right">{{ item.dadosAlt.qtdA+item.dadosAlt.qtdB+
+                               item.dadosAlt.qtdC +item.dadosAlt.qtdD
+                              }}</td>
+                          </tr>
+                          <tr>
+                            <td class="td-left">Percentual de Acerto</td>
+                            <td class="td-right">{{ 
+                              calculaPercAcerto(item) + ' %'
+                              }}</td>
+                          </tr>
+                          
+                          
                           <tr>
                             <td class="td-left">Percentual de escolha: <span class="alt-span">a</span></td>
                             <td class="td-right">{{ calculaPercAlt(item.dadosAlt.qtdA,
@@ -195,6 +209,18 @@
                           <tr>
                             <td class="td-left">Resposta</td>
                             <td class="td-right">{{ this.itemSelected.resposta }}</td>
+                          </tr>
+                          <tr>
+                            <td class="td-left">Tentativas Realizadas</td>
+                            <td class="td-right">{{ item.dadosAlt.qtdA+item.dadosAlt.qtdB+
+                               item.dadosAlt.qtdC +item.dadosAlt.qtdD
+                              }}</td>
+                          </tr>
+                          <tr>
+                            <td class="td-left">Percentual de Acerto</td>
+                            <td class="td-right">{{ 
+                              calculaPercAcerto(item) + ' %'
+                              }}</td>
                           </tr>
                           <tr>
                             <td class="td-left">Percentual de escolha: <span class="alt-span">a</span></td>
@@ -306,6 +332,18 @@
                             <td class="td-right">{{ this.itemSelected.resposta }}</td>
                           </tr>
                           <tr>
+                            <td class="td-left">Tentativas Realizadas</td>
+                            <td class="td-right">{{ item.dadosAlt.qtdA+item.dadosAlt.qtdB+
+                               item.dadosAlt.qtdC +item.dadosAlt.qtdD
+                              }}</td>
+                          </tr>
+                          <tr>
+                            <td class="td-left">Percentual de Acerto</td>
+                            <td class="td-right">{{ 
+                              calculaPercAcerto(item) + ' %'
+                              }}</td>
+                          </tr>
+                          <tr>
                             <td class="td-left">Percentual de escolha: <span class="alt-span">a</span></td>
                             <td class="td-right">{{ calculaPercAlt(item.dadosAlt.qtdA,
                               item.dadosAlt.qtdA + item.dadosAlt.qtdB + item.dadosAlt.qtdC + item.dadosAlt.qtdD
@@ -408,6 +446,19 @@
                             <td class="td-left">Resposta</td>
                             <td class="td-right">{{ this.itemSelected.resposta }}</td>
                           </tr>
+                          <tr>
+                            <td class="td-left">Tentativas Realizadas</td>
+                            <td class="td-right">{{ item.dadosAlt.qtdA+item.dadosAlt.qtdB+
+                               item.dadosAlt.qtdC +item.dadosAlt.qtdD
+                              }}</td>
+                          </tr>
+                          <tr>
+                            <td class="td-left">Percentual de Acerto</td>
+                            <td class="td-right">{{ 
+                              calculaPercAcerto(item) + ' %'
+                              }}</td>
+                          </tr>
+                          
                           <tr>
                             <td class="td-left">Percentual de escolha: <span class="alt-span">a</span></td>
                             <td class="td-right">{{ calculaPercAlt(item.dadosAlt.qtdA,
@@ -959,19 +1010,30 @@ export default {
           console.error(error);
         });
     },
+    //Retorna o percentual geral.
+
+    calculaPercAcerto(item){
+      let tentativas = item.dadosAlt.qtdA+item.dadosAlt.qtdB+item.dadosAlt.qtdC+item.dadosAlt.qtdD;
+      let acertos = item.dadosAlt.acertosA+item.dadosAlt.acertosB+item.dadosAlt.acertosC+item.dadosAlt.acertosD;
+      if(tentativas === 0 || acertos === 0){
+        return 0;
+      }
+      else{
+        const percAcerto = (acertos*100)/tentativas;
+        return percAcerto.toFixed(2);
+      }
+    },
+
+    //Retorna o percentual de escolha de cada alternativa.
     calculaPercAlt(acertos, qtd) {
       if (Number(qtd) === 0 || isNaN(Number(qtd))) {
-        console.log(`${acertos} ${qtd}`);
-        console.log('Resultado inválido');
-        return 0; // Retorna 0 ou outro valor padrão
+        return 0;
       }
 
       const resultado = Number(acertos) * 100 / Number(qtd);
       const resultadoFormatado = parseFloat(resultado.toFixed(2));
 
-      console.log(`${acertos} ${qtd}`);
-      console.log(`${resultadoFormatado}`);
-
+   
       return resultadoFormatado;
     },
 
