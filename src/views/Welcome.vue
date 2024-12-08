@@ -162,7 +162,7 @@ export default {
   },
 
   created() {
-    verificaLogin(this.$router, this.$route);
+    //verificaLogin(this.$router, this.$route);
   },
 };
 </script>
