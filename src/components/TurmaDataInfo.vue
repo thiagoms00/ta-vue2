@@ -108,6 +108,7 @@
                   overflow: hidden;
                   white-space: nowrap;
                 "
+                class="percurso-text py-2"
               >
                 {{
                   item.listaDeTestes.length > 0 &&
@@ -741,4 +742,7 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+
+
+</style>
