@@ -832,7 +832,6 @@ export default {
           this.listaItensH10 = response.data.itens.listaItensH10;
           this.listaItensH11 = response.data.itens.listaItensH11;
 
-          console.log(this.listaItensH);
 
         })
 
@@ -881,7 +880,6 @@ export default {
       })
         .then((response) => {
           this.listaItensReportados = response.data.itens_reportados;
-          console.log(this.listaItensReportados);
 
         })
 
@@ -914,8 +912,7 @@ export default {
 
     calculaPercAlt(acertos, qtd) {
       if (Number(qtd) === 0 || isNaN(Number(qtd))) {
-        console.log(`${acertos} ${qtd}`);
-        console.log('Resultado inválido');
+     
         return 0; // Retorna 0 ou outro valor padrão
       }
 

@@ -100,10 +100,11 @@ export default {
 
   computed: {
     escolasFinal() {
-      return [
+      /* return [
         { novaEscola: true, nome_escola: "Adicionar Nova Escola" },
         ...this.escolas,
-      ];
+      ]; */
+      return this.escolas;
     },
   },
 
