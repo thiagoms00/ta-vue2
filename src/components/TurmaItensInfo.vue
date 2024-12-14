@@ -18,6 +18,18 @@
     </v-tabs>
 
     <v-window v-model="tab">
+      <v-card class="perc-info d-flex flex-column pa-2" v-if="percursoInfo">
+        <div class="icon-text d-flex flex-row pa-1 ">
+          <v-icon icon="mdi-bullseye-arrow" class="perc-icon bull-icon" size="large"> </v-icon>
+          <h3 class="perc-text ml-2">Tentativas: {{percursoAtual.tentativas}}</h3>
+        </div>
+        <div class="icon-text d-flex flex-row pa-1 ">
+          <v-icon class="perc-icon correct-icon" icon="mdi-check-circle-outline" size="large"></v-icon>
+          <h3 class="perc-text ml-2">Percentual de acerto: {{calculaPercAlt(percursoAtual.acertos,percursoAtual.tentativas)}} %</h3>
+        </div>
+        
+      </v-card>
+      
 
       <v-row class="dflex align-center title-row">
 
@@ -41,7 +53,7 @@
 
 
 
-      </v-row>
+      </v-row>  
       <v-window-item value="p1">
         <v-sheet rounded="lg" class="" :class="{ 'fade-in': animacaoListaAtiva }">
           <v-expansion-panels variant="accordion" class="" v-model="expansionPanelModel[0]">
@@ -98,6 +110,11 @@
                               }}</td>
                           </tr>
                           <tr>
+                            <td class="td-left">Nível de exposição </td>
+                            <td class="td-right">{{ calculaNivelExp(item.dadosAlt.qtdA+item.dadosAlt.qtdB+
+                               item.dadosAlt.qtdC +item.dadosAlt.qtdD)}}</td>
+                          </tr>
+                          <tr>
                             <td class="td-left">Percentual de Acerto</td>
                             <td class="td-right">{{ 
                               calculaPercAcerto(item) + ' %'
@@ -130,10 +147,10 @@
                             <td class="td-left">Fonte</td>
                             <td class="td-right">{{ this.itemSelected.fonte }}</td>
                           </tr>
-                          <tr>
+                         <!--  <tr>
                             <td class="td-left">Layout</td>
                             <td class="td-right">{{ this.itemSelected.layout }}</td>
-                          </tr>
+                          </tr> -->
                         </tbody>
                       </v-table>
                     </v-col>
@@ -217,6 +234,11 @@
                               }}</td>
                           </tr>
                           <tr>
+                            <td class="td-left">Nível de exposição </td>
+                            <td class="td-right">{{ calculaNivelExp(item.dadosAlt.qtdA+item.dadosAlt.qtdB+
+                               item.dadosAlt.qtdC +item.dadosAlt.qtdD)}}</td>
+                          </tr>
+                          <tr>
                             <td class="td-left">Percentual de Acerto</td>
                             <td class="td-right">{{ 
                               calculaPercAcerto(item) + ' %'
@@ -247,10 +269,10 @@
                             <td class="td-left">Fonte</td>
                             <td class="td-right">{{ this.itemSelected.fonte }}</td>
                           </tr>
-                          <tr>
+                         <!--  <tr>
                             <td class="td-left">Layout</td>
                             <td class="td-right">{{ this.itemSelected.layout }}</td>
-                          </tr>
+                          </tr> -->
                         </tbody>
                       </v-table>
                     </v-col>
@@ -338,6 +360,11 @@
                               }}</td>
                           </tr>
                           <tr>
+                            <td class="td-left">Nível de exposição </td>
+                            <td class="td-right">{{ calculaNivelExp(item.dadosAlt.qtdA+item.dadosAlt.qtdB+
+                               item.dadosAlt.qtdC +item.dadosAlt.qtdD)}}</td>
+                          </tr>
+                          <tr>
                             <td class="td-left">Percentual de Acerto</td>
                             <td class="td-right">{{ 
                               calculaPercAcerto(item) + ' %'
@@ -368,10 +395,10 @@
                             <td class="td-left">Fonte</td>
                             <td class="td-right">{{ this.itemSelected.fonte }}</td>
                           </tr>
-                          <tr>
+                         <!--  <tr>
                             <td class="td-left">Layout</td>
                             <td class="td-right">{{ this.itemSelected.layout }}</td>
-                          </tr>
+                          </tr> -->
                         </tbody>
                       </v-table>
                     </v-col>
@@ -453,6 +480,11 @@
                               }}</td>
                           </tr>
                           <tr>
+                            <td class="td-left">Nível de exposição </td>
+                            <td class="td-right">{{ calculaNivelExp(item.dadosAlt.qtdA+item.dadosAlt.qtdB+
+                               item.dadosAlt.qtdC +item.dadosAlt.qtdD)}}</td>
+                          </tr>
+                          <tr>
                             <td class="td-left">Percentual de Acerto</td>
                             <td class="td-right">{{ 
                               calculaPercAcerto(item) + ' %'
@@ -484,10 +516,10 @@
                             <td class="td-left">Fonte</td>
                             <td class="td-right">{{ this.itemSelected.fonte }}</td>
                           </tr>
-                          <tr>
+                         <!--  <tr>
                             <td class="td-left">Layout</td>
                             <td class="td-right">{{ this.itemSelected.layout }}</td>
-                          </tr>
+                          </tr> -->
                         </tbody>
                       </v-table>
                     </v-col>
@@ -780,6 +812,8 @@ export default {
     listaItens3: [],  //Lista de Itens do percurso 4
     listaItensReportados: [], //Lista com os itens reportados
     listaItensSugeridos: [],
+    listaPercursos : [],
+    percursoAtual: {},
 
     listaItens: [], //Itens sendo exibidos, começando pelo estrato 1.
 
@@ -806,6 +840,8 @@ export default {
     rules: {  //Objeto utilizado para verificar se um campo obrigatório foi preenchido.
         required: value => !!value || 'Campo obrigatório',
     },
+    percursoInfo : true,
+    totalTent : 0,   //conta quantas vezes os itens foram respondidos(todos os percursos)
   }),
 
   props: {
@@ -836,8 +872,6 @@ export default {
     this.itemSelected.percurso = 1;
     this.itemSelected.resposta = this.questoesP1[0].answer;
     this.itemSelected.fonte = this.questoesP1[0].fonte;
-
-    console.log(this.itemSelected)
 
 
   },
@@ -913,9 +947,27 @@ export default {
       this.expansionPanelModel = [null, null, null, null];
       if (tabNum >= 5) {
         this.colmunTitles = ['Código', 'Percurso', 'Administrador', 'Data']
+        this.percursoInfo = false;
       }
       else {
         this.colmunTitles = ['Código', 'Habilidade', 'Aprendizagem', 'Status']
+        this.percursoInfo = true;
+         switch(tabNum){ //Muda os dados exibidos no v-card do percurso.
+          case 1:
+            this.percursoAtual = this.listaPercursos[0]
+          break;
+          case 2:
+            this.percursoAtual = this.listaPercursos[1]
+
+          break;
+          case 3:
+            this.percursoAtual = this.listaPercursos[2]
+
+          break;
+          case 4:
+            this.percursoAtual = this.listaPercursos[3]
+          break;
+        }
       }
 
     },
@@ -971,7 +1023,7 @@ export default {
       }
     },
 
-    returnItens() {
+    returnItens() {  //Retorna os dados relativos aos itens.
 
       axios({ url: 'https://ta-back.onrender.com/professores/dadosItens', method: 'POST' })
         .then((response) => {
@@ -980,7 +1032,11 @@ export default {
           this.listaItens1 = response.data.itens.listaItens1;
           this.listaItens2 = response.data.itens.listaItens2;
           this.listaItens3 = response.data.itens.listaItens3;
-
+          this.listaPercursos = response.data.listaPercursos;
+          this.percursoAtual =this.listaPercursos[0];
+          for(const number in this.listaPercursos){                   //Obtendo o total de tentativas.
+            this.totalTent += this.listaPercursos[number].tentativas;
+          }
         })
 
         .catch((error) => {
@@ -1010,8 +1066,25 @@ export default {
           console.error(error);
         });
     },
-    //Retorna o percentual geral.
+    
 
+    calculaNivelExp(qtdItem){
+      let perc = (qtdItem*100)/this.totalTent;
+      if(perc >= 70){
+        return 'Muito exposto'
+      }
+      else if(perc<70 && perc>=20){
+        return 'Exposto moderadamente'
+      }
+      else if(perc<20 && perc>=1){
+        return 'Pouco exposto'
+      }
+      else{
+        return 'Não aplicado'
+      }
+    },
+
+    //Retorna o percentual geral.
     calculaPercAcerto(item){
       let tentativas = item.dadosAlt.qtdA+item.dadosAlt.qtdB+item.dadosAlt.qtdC+item.dadosAlt.qtdD;
       let acertos = item.dadosAlt.acertosA+item.dadosAlt.acertosB+item.dadosAlt.acertosC+item.dadosAlt.acertosD;
@@ -1128,6 +1201,25 @@ export default {
 @font-face {
   font-family: 'Urbanist-SB';
   src: url(../assets/fonts/Urbanist/static/Urbanist-SemiBold.ttf);
+}
+
+
+.icon-text{
+  border-radius: 0.3rem;
+}
+
+.correct-icon{
+  color: #34a52a;
+
+}
+
+.bull-icon{
+  color: rgb(71, 172, 223);
+}
+
+.perc-text{
+  font-family: 'Urbanist-Regular';
+  font-size: 1.15rem;
 }
 
 .item-btn {

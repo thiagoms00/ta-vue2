@@ -102,6 +102,23 @@
                             <td class="td-right">{{ this.itemSelected.resposta }}</td>
                           </tr>
                           <tr>
+                            <td class="td-left">Tentativas Realizadas</td>
+                            <td class="td-right">{{ item.dadosAlt.qtdA+item.dadosAlt.qtdB+
+                               item.dadosAlt.qtdC +item.dadosAlt.qtdD
+                              }}</td>
+                          </tr>
+                          <tr>
+                            <td class="td-left">Nível de exposição </td>
+                            <td class="td-right">{{ calculaNivelExp(item.dadosAlt.qtdA+item.dadosAlt.qtdB+
+                               item.dadosAlt.qtdC +item.dadosAlt.qtdD)}}</td>
+                          </tr>
+                          <tr>
+                            <td class="td-left">Percentual de Acerto</td>
+                            <td class="td-right">{{ 
+                              calculaPercAcerto(item) + ' %'
+                              }}</td>
+                          </tr>
+                          <tr>
                             <td class="td-left">Percentual de escolha: <span class="alt-span">a</span></td>
                             <td class="td-right">{{ calculaPercAlt(item.dadosAlt.qtdA,
                               item.dadosAlt.qtdA + item.dadosAlt.qtdB + item.dadosAlt.qtdC + item.dadosAlt.qtdD
@@ -126,10 +143,10 @@
                             <td class="td-left">Fonte</td>
                             <td class="td-right">{{ this.itemSelected.fonte }}</td>
                           </tr>
-                          <tr>
+                         <!--  <tr>
                             <td class="td-left">Layout</td>
                             <td class="td-right">{{ this.itemSelected.layout }}</td>
-                          </tr>
+                          </tr> -->
                         </tbody>
                       </v-table>
                     </v-col>
@@ -423,6 +440,8 @@ export default {
     listaItens1: [],  //Lista de Itens do percurso 2
     listaItens2: [],  //Lista de Itens do percurso 3
     listaItens3: [],  //Lista de Itens do percurso 4
+    listaPercursos : [],
+
 
     listaItensH: [],
     listaItensH01: [],
@@ -465,6 +484,8 @@ export default {
     colmunTitles: ['Código', 'Percurso', 'Aprendizagem', 'Status'], //Títulos que aparecem nas colunas.
     itemExibition: 'habilidades',
     listaItensSugeridos: [],
+    percursoInfo : true,
+    totalTent : 0,   //conta quantas vezes os itens foram respondidos(todos os percursos)
     rules: {  //Objeto utilizado para verificar se um campo obrigatório foi preenchido.
       required: value => !!value || 'Campo obrigatório',
     },
@@ -513,6 +534,34 @@ export default {
   emits: ["eventDeleteTest"],
 
   methods: {
+
+    calculaPercAcerto(item){
+      let tentativas = item.dadosAlt.qtdA+item.dadosAlt.qtdB+item.dadosAlt.qtdC+item.dadosAlt.qtdD;
+      let acertos = item.dadosAlt.acertosA+item.dadosAlt.acertosB+item.dadosAlt.acertosC+item.dadosAlt.acertosD;
+      if(tentativas === 0 || acertos === 0){
+        return 0;
+      }
+      else{
+        const percAcerto = (acertos*100)/tentativas;
+        return percAcerto.toFixed(2);
+      }
+    },
+
+    calculaNivelExp(qtdItem){
+      let perc = (qtdItem*100)/this.totalTent;
+      if(perc >= 70){
+        return 'Muito exposto'
+      }
+      else if(perc<70 && perc>=20){
+        return 'Exposto moderadamente'
+      }
+      else if(perc<20 && perc>=1){
+        return 'Pouco exposto'
+      }
+      else{
+        return 'Não aplicado'
+      }
+    },
 
     obtemDadosItem(id, percurso) {
       let item;
@@ -807,6 +856,10 @@ export default {
           this.listaItens1 = response.data.itens.listaItens1;
           this.listaItens2 = response.data.itens.listaItens2;
           this.listaItens3 = response.data.itens.listaItens3;
+          this.listaPercursos = response.data.listaPercursos;
+          for(const number in this.listaPercursos){                   //Obtendo o total de tentativas.
+            this.totalTent += this.listaPercursos[number].tentativas;
+          }
 
         })
 
