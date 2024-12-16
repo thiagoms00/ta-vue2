@@ -61,16 +61,17 @@
                   </v-btn>
                 </div>
 
-                <v-alert v-if="showAlert" type="error" class="mt-4">
+                <v-alert v-if="showAlert" color="red-darken-1" type="error" class="mt-4">
                   {{ error }}
                 </v-alert>
 
                 <v-progress-linear
                   v-if="showAlert"
                   :model-value="progress"
-                  height="3"
-                  color="red"
+                  height="10"
+                  color="red-darken-1"
                   class="mt-2"
+                  striped
                 ></v-progress-linear>
               </v-form>
             </v-col>
@@ -215,19 +216,35 @@ export default {
         .catch((error) => {
           localStorage.removeItem("token");
           console.error("Erro no login:", error);
+          this.showAlert = true;
           this.error =
             "Usuário ou senha incorretos. Por favor, tente novamente.";
+          this.startProgress();
         })
         .finally(() => {
           this.loading = false;
           this.buttonText = "Entrar";
 
           setTimeout(() => {
-            // Define loading para false para esconder o botão de carregamento
+            this.showAlert = false;
             this.error = "";
-            // Aqui você pode adicionar lógica para tratar a resposta do backend
           }, 5000);
         });
+    },
+
+    startProgress() {
+      const duration = 5000; // Duração total em milissegundos (5 segundos)
+      const intervalTime = 100; // Intervalo entre atualizações (100ms)
+      const decrement = 100 / (duration / intervalTime); // Quanto diminuir por intervalo
+
+      const interval = setInterval(() => {
+        if (this.progress <= 0) {
+          clearInterval(interval); // Para o intervalo quando o progresso atingir 0
+          this.progress = 100; // Garante que o valor final seja exatamente 0
+        } else {
+          this.progress -= decrement; // Decrementa o progresso
+        }
+      }, intervalTime);
     },
 
     togglePasswordVisibility() {
