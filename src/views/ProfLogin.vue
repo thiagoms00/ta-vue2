@@ -97,14 +97,12 @@
 
 <script>
 import LogoImpacto from "@/components/LogoImpacto.vue";
-import LoginFormProf from "@/components/LoginFormProf.vue";
 import axios from "axios";
 import { verificaLogin } from "@/utils/helpers";
 
 export default {
   name: "Login",
   components: {
-    LoginFormProf,
     LogoImpacto,
   },
   data: () => ({
