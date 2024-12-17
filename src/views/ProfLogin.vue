@@ -141,26 +141,42 @@ export default {
 
   methods: {
     verificaLogin() {
-      const dataToken = localStorage.getItem("tokenProf");
+      const dataTokenProf = localStorage.getItem("tokenProf");
+      const dataTokenAdmin = localStorage.getItem("tokenAdmin");
+      let data = null
 
-      if (dataToken === null || dataToken === undefined) {
-        console.log(
-          'O localStorage está vazio ou o item "token" não está definido.'
-        );
-      } else {
-        const data = {
-          token: dataToken,
+      if (dataTokenProf != null && dataTokenAdmin == null) {
+        data = { 
+          token: dataTokenProf,
+          type: localStorage.getItem("type")
         };
+      }
+      else if(dataTokenProf == null && dataTokenAdmin != null){
+        data = { 
+          token: dataTokenAdmin,
+          type: localStorage.getItem("type")
+        };
+        
+      }
+
+      console.log(data);
+
+
+      if(dataTokenProf != null || dataTokenAdmin != null){
         axios({
-          url: "https://ta-back.onrender.com/professores/verificaToken",
+          url: "https://ta-back.onrender.com/generalMethods/verificaToken",
           data,
           method: "POST",
         })
           .then((response) => {
             console.log(response.status);
             if (response.status === 200) {
-              // Token é válido
-              this.$router.push("/turma");
+              if(localStorage.getItem("type") === "prof"){
+                this.$router.push("/turma");  
+              }
+              else if(localStorage.getItem("type") === "admin"){
+                this.$router.push("/admin");
+              }
             }
           })
           .catch((error) => {
@@ -170,6 +186,9 @@ export default {
             console.error(error);
           });
       }
+      
+      
+        
     },
 
     submitForm() {
@@ -183,7 +202,7 @@ export default {
       };
 
       axios({
-        url: "https://ta-back.onrender.com/professores/login",
+        url: "https://ta-back.onrender.com/generalMethods/login",
         data: userData,
         method: "POST",
       })
@@ -202,6 +221,7 @@ export default {
             axios.defaults.headers.common["Authorization"] = token;
             console.log("Login de admin bem-sucedido");
             this.$router.push("/admin");
+
           } else {
             localStorage.setItem("tokenProf", tokenProf);
             localStorage.setItem("idProf", idProf);
@@ -228,12 +248,13 @@ export default {
           setTimeout(() => {
             this.showAlert = false;
             this.error = "";
-          }, 5000);
+          }, 7000);
         });
     },
 
+    // Animação de erro de login ou senha
     startProgress() {
-      const duration = 5000; // Duração total em milissegundos (5 segundos)
+      const duration = 7000; // Duração total em milissegundos (5 segundos)
       const intervalTime = 100; // Intervalo entre atualizações (100ms)
       const decrement = 100 / (duration / intervalTime); // Quanto diminuir por intervalo
 
@@ -247,6 +268,7 @@ export default {
       }, intervalTime);
     },
 
+    // Permite visualizar ou não senha
     togglePasswordVisibility() {
       this.showPassword = !this.showPassword;
     },
