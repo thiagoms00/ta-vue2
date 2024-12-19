@@ -62,7 +62,6 @@ export default createStore({
         token: localStorage.getItem("token"),
       };
 
-      //url: 'https://ta-back.onrender.com/alunos/verificaToken'
       return axios({
         url: "https://ta-back.onrender.com/alunos/verificaToken",
         data,

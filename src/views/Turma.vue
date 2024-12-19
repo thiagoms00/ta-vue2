@@ -377,7 +377,6 @@ export default {
       this.controlItens = value;
     },
 
-    
     excluirTeste(data) {
       const indexAluno = data.indexAluno;
       const indexTeste = data.indexTeste;

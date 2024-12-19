@@ -31,7 +31,7 @@
                 </div>
 
                 <div class="d-flex justify-center">
-                  <p class="text-profile text-function">Adimnistrador</p>
+                  <p class="text-profile text-function">Administrador</p>
                 </div>
               </v-sheet>
             </div>
@@ -55,7 +55,7 @@
                   <span class="menu-option">Escolas</span>
                 </v-tab>
 
-                 <!-- <v-tab
+                <!-- <v-tab
                       prepend-icon="mdi-account-clock-outline"
                       value="option-3"
                       class="pl-5 d-flex justify-start"
@@ -255,9 +255,37 @@ export default {
     search: "",
   }),
 
-  created() {},
+  created() {
+    this.verificaTokenAdmin();
+  },
 
   methods: {
+    // Se a página for acessada diretamente sem Token é feita uma verificação de permissão.
+    verificaTokenAdmin() {
+      const data = {
+        token: localStorage.getItem("tokenAdmin"),
+        type: localStorage.getItem("type")
+      };
+
+      return axios({
+        url: "https://ta-back.onrender.com/generalMethods/verificaToken",
+        data,
+        method: "POST",
+      })
+        .then((response) => {
+          console.log(response.status);
+          if(response.status !== 200) {
+            localStorage.clear();
+            this.$router.push("/profLogin");
+          }
+        })
+        .catch((error) => {
+          localStorage.clear();
+          this.$router.push("/profLogin");
+          console.error(error);
+        });
+    },
+
     levelAplicationValue(layer) {
       this.layer = layer;
       console.log(this.layer);

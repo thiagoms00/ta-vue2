@@ -159,9 +159,6 @@ export default {
         
       }
 
-      console.log(data);
-
-
       if(dataTokenProf != null || dataTokenAdmin != null){
         axios({
           url: "https://ta-back.onrender.com/generalMethods/verificaToken",
