@@ -273,10 +273,12 @@ export default {
         method: "POST",
       })
         .then((response) => {
-          console.log(response.status);
           if(response.status !== 200) {
             localStorage.clear();
             this.$router.push("/profLogin");
+          }
+          else{
+            console.log("Dados confirmados com sucesso.");
           }
         })
         .catch((error) => {

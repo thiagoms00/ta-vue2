@@ -140,7 +140,7 @@ export default {
   },
 
   methods: {
-    verificaLogin() {
+    verificaLogin(){
       const dataTokenProf = localStorage.getItem("tokenProf");
       const dataTokenAdmin = localStorage.getItem("tokenAdmin");
       let data = null
@@ -182,6 +182,9 @@ export default {
             this.$router.push("/proflogin");
             console.error(error);
           });
+      }
+      else{
+        console.log("Não há token pré-salvos nesta sessão.")
       }
       
       
