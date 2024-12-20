@@ -166,12 +166,12 @@ export default {
 
     verificaLogin() {
       if (localStorage.getItem("token") != null) {
-        data = {
+        const data = {
           token: localStorage.getItem("token"),
         };
 
         axios({
-          url: "https://ta-back.onrender.com/aluno/verificaToken",
+          url: "https://ta-back.onrender.com/alunos/verificaToken",
           data,
           method: "POST",
         })
@@ -188,15 +188,17 @@ export default {
               localStorage.setItem("anoAtual", anoAtual);
               localStorage.setItem("idTurma", idTurma);
               localStorage.setItem("estratoInicial", estratoInicial);
+
+              this.$router.push("/welcome");
             }
           })
           .catch((error) => {
-            // Tratar erros aqui
             localStorage.clear();
             this.$router.push("/login");
             console.error(error);
           });
       } else {
+        this.$router.push("/login");
         console.log("Não há token pré-salvos nesta sessão.");
       }
     },

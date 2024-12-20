@@ -99,7 +99,6 @@
 <script>
 import LogoImpacto from "@/components/LogoImpacto.vue";
 import axios from "axios";
-import { verificaLogin } from "@/utils/helpers";
 
 export default {
   name: "Login",
@@ -222,14 +221,13 @@ export default {
             console.log("Login de admin bem-sucedido");
             this.$router.push("/admin");
 
-          } else {
+          } else if(type == "prof"){
             localStorage.setItem("tokenProf", tokenProf);
             localStorage.setItem("idProf", idProf);
             localStorage.setItem("type", type);
 
             axios.defaults.headers.common["Authorization"] = tokenProf;
-
-            console.log("Login bem-sucedido");
+            console.log("Login de prof bem-sucedido");
             this.$router.push("/turma");
           }
         })

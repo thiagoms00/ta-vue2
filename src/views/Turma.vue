@@ -299,7 +299,6 @@
 
 <script>
 import axios from "axios";
-// import Chart from '@/components/Chart.vue'
 import ChartBar from "@/components/ChartBar.vue";
 import DialogExcluirTeste from "@/components/DialogExcluirTeste.vue";
 import TurmaDataInfo from "@/components/TurmaDataInfo.vue";
@@ -311,7 +310,6 @@ import TurmaGraphInfo from "@/components/TurmaGraphInfo.vue";
 import TurmaConfig from "@/components/TurmaConfig.vue";
 import TurmaCompara from "@/components/TurmaCompara.vue";
 import TurmaItensInfo from "@/components/TurmaItensInfo.vue";
-import { verificaLogin } from "@/utils/helpers";
 
 export default {
   name: "Turma",
@@ -362,8 +360,7 @@ export default {
   }),
 
   created() {
-    // verificaLogin(this.$router, this.$route);
-    this.$store.dispatch("verificarTokenProfs", { router: this.$router });
+    this.verificaLogin();
     this.listaNomeTurma = this.returnTurmas();
     let flag = false;
     const adminToken = localStorage.getItem("admin");
@@ -371,7 +368,39 @@ export default {
   },
 
   methods: {
+    verificaLogin() {
+      if (localStorage.getItem("tokenProf") != null) {
+        const data = {
+          token: localStorage.getItem("tokenProf"),
+        };
 
+        axios({
+          url: "https://ta-back.onrender.com/professores/verificaToken",
+          data,
+          method: "POST",
+        })
+          .then((response) => {
+            if (response.status === 200) {
+              const tokenProf = response.data.tokenProf;
+              const idProf = response.data.idProf;
+              const type = response.data.type;
+
+
+              localStorage.setItem("tokenProf", tokenProf);
+              localStorage.setItem("idProf", idProf);
+              localStorage.setItem("type", type);
+            }
+          })
+          .catch((error) => {
+            // Tratar erros aqui
+            localStorage.clear();
+            this.$router.push("/login");
+            console.error(error);
+          });
+      } else {
+        console.log("Não há token pré-salvos nesta sessão.");
+      }
+    },
 
     changeItens(value){
       this.controlItens = value;

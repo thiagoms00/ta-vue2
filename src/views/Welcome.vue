@@ -121,6 +121,8 @@ export default {
               localStorage.setItem("anoAtual", anoAtual);
               localStorage.setItem("idTurma", idTurma);
               localStorage.setItem("estratoInicial", estratoInicial);
+
+              this.$router.push("/welcome");
             }
           })
           .catch((error) => {
