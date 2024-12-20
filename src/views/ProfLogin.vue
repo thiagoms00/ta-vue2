@@ -254,16 +254,16 @@ export default {
 
     // Animação de erro de login ou senha
     startProgress() {
-      const duration = 7000; // Duração total em milissegundos (5 segundos)
-      const intervalTime = 100; // Intervalo entre atualizações (100ms)
-      const decrement = 100 / (duration / intervalTime); // Quanto diminuir por intervalo
+      const duration = 7000; 
+      const intervalTime = 100; 
+      const decrement = 100 / (duration / intervalTime); 
 
       const interval = setInterval(() => {
         if (this.progress <= 0) {
-          clearInterval(interval); // Para o intervalo quando o progresso atingir 0
-          this.progress = 100; // Garante que o valor final seja exatamente 0
+          clearInterval(interval); 
+          this.progress = 100;
         } else {
-          this.progress -= decrement; // Decrementa o progresso
+          this.progress -= decrement;
         }
       }, intervalTime);
     },

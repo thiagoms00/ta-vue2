@@ -67,8 +67,6 @@
 </template>
 
 <script>
-import { verificaLogin } from "@/utils/helpers";
-// import LogoImpacto from '@/components/LogoImpacto.vue'
 import Megaphone from "@/components/Megaphone.vue";
 import audiowelcome from "@/assets/audios/outros_audios/audio_bemvindo.mp3";
 import axios from "axios";
@@ -94,7 +92,49 @@ export default {
     this.playAudio();
   },
 
+  created() {
+    this.verificaLogin();
+  },
+
   methods: {
+    verificaLogin() {
+      if (localStorage.getItem("token") != null) {
+        const data = {
+          token: localStorage.getItem("token"),
+        };
+
+        axios({
+          url: "https://ta-back.onrender.com/alunos/verificaToken",
+          data,
+          method: "POST",
+        })
+          .then((response) => {
+            if (response.status === 200) {
+              const token = response.data.token;
+              const id = response.data.id;
+              const anoAtual = response.data.anoAtual;
+              const idTurma = response.data.idTurma;
+              const estratoInicial = response.data.estratoInicial;
+
+              localStorage.setItem("token", token);
+              localStorage.setItem("id", id);
+              localStorage.setItem("anoAtual", anoAtual);
+              localStorage.setItem("idTurma", idTurma);
+              localStorage.setItem("estratoInicial", estratoInicial);
+            }
+          })
+          .catch((error) => {
+            // Tratar erros aqui
+            localStorage.clear();
+            this.$router.push("/login");
+            console.error(error);
+          });
+      } else {
+        this.$router.push("/login");
+        console.log("Não há token pré-salvos nesta sessão.");
+      }
+    },
+
     proximaPagina() {
       this.audioAux.pause();
       this.$router.push("/testStart");
@@ -159,10 +199,6 @@ export default {
         this.animaButton = false;
       }
     },
-  },
-
-  created() {
-    //verificaLogin(this.$router, this.$route);
   },
 };
 </script>

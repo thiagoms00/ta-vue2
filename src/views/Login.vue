@@ -61,7 +61,12 @@
                   </v-btn>
                 </div>
 
-                <v-alert v-if="showAlert" color="red-darken-1" type="error" class="mt-4">
+                <v-alert
+                  v-if="showAlert"
+                  color="red-darken-1"
+                  type="error"
+                  class="mt-4"
+                >
                   {{ error }}
                 </v-alert>
 
@@ -99,38 +104,37 @@
 <script>
 import axios from "axios";
 
-
 export default {
   name: "Login",
-  components: {
-  },
+  components: {},
 
   data: () => ({
     showAlert: false,
     showPassword: false,
+    progress: 100,
 
     loading: false,
-    buttonText: 'Entrar',
+    buttonText: "Entrar",
 
-    error: '',
+    error: "",
 
     valid: false,
-    email: '',
-    senha: '',
+    email: "",
+    senha: "",
 
     emailRules: [
-      value => {
-        if (value) return true
+      (value) => {
+        if (value) return true;
 
-        return 'Insira um usuário.'
-      }
+        return "Insira um usuário.";
+      },
     ],
     senhaRules: [
-      value => {
-        if (value) return true
+      (value) => {
+        if (value) return true;
 
-        return 'Insira sua senha.'
-      }
+        return "Insira sua senha.";
+      },
     ],
   }),
 
@@ -139,6 +143,22 @@ export default {
   },
 
   methods: {
+    // Animação de erro de login ou senha
+    startProgress() {
+      const duration = 7000; 
+      const intervalTime = 100;
+      const decrement = 100 / (duration / intervalTime); 
+
+      const interval = setInterval(() => {
+        if (this.progress <= 0) {
+          clearInterval(interval); 
+          this.progress = 100;
+        } else {
+          this.progress -= decrement;
+        }
+      }, intervalTime);
+    },
+
     // Permite visualizar ou não senha
     togglePasswordVisibility() {
       this.showPassword = !this.showPassword;
@@ -213,18 +233,25 @@ export default {
             console.log("Login bem-sucedido");
             this.$router.push("/welcome");
           }
-
-          resolve(response);
         })
         .catch((error) => {
+          localStorage.removeItem("token");
           console.error("Erro no login:", error);
+          this.showAlert = true;
           this.error =
             "Usuário ou senha incorretos. Por favor, tente novamente.";
           this.loading = false;
           this.buttonText = "Entrar";
+          this.startProgress();
+        })
+        .finally(() => {
+          this.loading = false;
+          this.buttonText = "Entrar";
 
-          localStorage.removeItem("token");
-          reject(error);
+          setTimeout(() => {
+            this.showAlert = false;
+            this.error = "";
+          }, 7000);
         });
     },
   },
