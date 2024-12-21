@@ -1,15 +1,28 @@
 <template>
+  
+
+
   <!-- Componente que exibe os itens separados por percurso -->
   <v-sheet class="rounded-t-lg" :class="{ 'fade-in': animacaoListaAtiva }">
-
     <v-tabs v-model="tab" bg-color="#1E3892" class="rounded-t-lg tab-toolbar">
-
-      <v-tab value="p1" class="tab-name" @click="selectedTab(1)">Percurso 1</v-tab>
-      <v-tab value="p2" class="tab-name" @click="selectedTab(2)">Percurso 2</v-tab>
-      <v-tab value="p3" class="tab-name" @click="selectedTab(3)">Percurso 3</v-tab>
-      <v-tab value="p4" class="tab-name" @click="selectedTab(4)">Percurso 4</v-tab>
-      <v-tab value="p5" class="tab-name" @click="selectedTab(5)">Reportados</v-tab>
-      <v-tab value="p6" class="tab-name" @click="selectedTab(6)">Pendentes</v-tab>
+      <v-tab value="p1" class="tab-name" @click="selectedTab(1)"
+        >Percurso 1</v-tab
+      >
+      <v-tab value="p2" class="tab-name" @click="selectedTab(2)"
+        >Percurso 2</v-tab
+      >
+      <v-tab value="p3" class="tab-name" @click="selectedTab(3)"
+        >Percurso 3</v-tab
+      >
+      <v-tab value="p4" class="tab-name" @click="selectedTab(4)"
+        >Percurso 4</v-tab
+      >
+      <v-tab value="p5" class="tab-name" @click="selectedTab(5)"
+        >Reportados</v-tab
+      >
+      <v-tab value="p6" class="tab-name" @click="selectedTab(6)"
+        >Pendentes</v-tab
+      >
 
       <v-spacer></v-spacer>
       <!--  <v-btn variant="text" prepend-icon="mdi-swap-horizontal" class="change-exibition" @click="changeItemExibition()">
@@ -17,52 +30,104 @@
       </v-btn>  -->
     </v-tabs>
 
-    <v-window v-model="tab">
+    <v-skeleton-loader
+    type="table-tbody"
+    v-if="loadingSkeleton"
+  >
+  </v-skeleton-loader>
+
+    <v-window v-model="tab" v-if="!loadingSkeleton">
       <v-card class="perc-info d-flex flex-column pa-2" v-if="percursoInfo">
-        <div class="icon-text d-flex flex-row pa-1 ">
-          <v-icon icon="mdi-bullseye-arrow" class="perc-icon bull-icon" size="large"> </v-icon>
-          <h3 class="perc-text ml-2">Tentativas: {{percursoAtual.tentativas}}</h3>
+        <div class="icon-text d-flex flex-row pa-1">
+          <v-icon
+            icon="mdi-bullseye-arrow"
+            class="perc-icon bull-icon"
+            size="large"
+          >
+          </v-icon>
+          <h3 class="perc-text ml-2">
+            Tentativas: {{ percursoAtual.tentativas }}
+          </h3>
         </div>
-        <div class="icon-text d-flex flex-row pa-1 ">
-          <v-icon class="perc-icon correct-icon" icon="mdi-check-circle-outline" size="large"></v-icon>
-          <h3 class="perc-text ml-2">Percentual de acerto: {{calculaPercAlt(percursoAtual.acertos,percursoAtual.tentativas)}} %</h3>
+        <div class="icon-text d-flex flex-row pa-1">
+          <v-icon
+            class="perc-icon correct-icon"
+            icon="mdi-check-circle-outline"
+            size="large"
+          ></v-icon>
+          <h3 class="perc-text ml-2">
+            Percentual de acerto:
+            {{
+              calculaPercAlt(percursoAtual.acertos, percursoAtual.tentativas)
+            }}
+            %
+          </h3>
         </div>
-        
       </v-card>
-      
 
       <v-row class="dflex align-center title-row">
-
         <v-col cols="3" class="d-flex justify-center">
-          <v-btn class="title-btn" block :ripple="false" variant="text">{{ colmunTitles[0] }}</v-btn>
+          <v-btn class="title-btn" block :ripple="false" variant="text">{{
+            colmunTitles[0]
+          }}</v-btn>
         </v-col>
 
         <v-col cols="3" class="d-flex justify-center">
-          <v-btn class="title-btn" block :append-icon="icon[1]" :ripple="false" variant="text">{{ colmunTitles[1]
-            }}</v-btn>
+          <v-btn
+            class="title-btn"
+            block
+            :append-icon="icon[1]"
+            :ripple="false"
+            variant="text"
+            >{{ colmunTitles[1] }}</v-btn
+          >
         </v-col>
 
         <v-col cols="3" class="d-flex justify-center pr-9">
-          <v-btn class="title-btn" block :append-icon="icon[2]" :ripple="false" variant="text">{{ colmunTitles[2]
-            }}</v-btn>
+          <v-btn
+            class="title-btn"
+            block
+            :append-icon="icon[2]"
+            :ripple="false"
+            variant="text"
+            >{{ colmunTitles[2] }}</v-btn
+          >
         </v-col>
         <v-col cols="3" class="d-flex justify-center pr-15">
-          <v-btn class="title-btn pr-11" block :append-icon="icon[3]" :ripple="false" variant="text">{{ colmunTitles[3]
-            }}</v-btn>
+          <v-btn
+            class="title-btn pr-11"
+            block
+            :append-icon="icon[3]"
+            :ripple="false"
+            variant="text"
+            >{{ colmunTitles[3] }}</v-btn
+          >
         </v-col>
-
-
-
-      </v-row>  
+      </v-row>
       <v-window-item value="p1">
-        <v-sheet rounded="lg" class="" :class="{ 'fade-in': animacaoListaAtiva }">
-          <v-expansion-panels variant="accordion" class="" v-model="expansionPanelModel[0]">
-            <v-expansion-panel v-for="(item, index) in listaItens0" :key="item.id" ref="panels" class="rounded-b-lg"
-              style="border-radius: 0px;">
-              <v-expansion-panel-title style="height: 5vh;" class="color-painel"
-                @click="changeItem(index, this.tabNumber)">
+        <v-sheet
+          rounded="lg"
+          class=""
+          :class="{ 'fade-in': animacaoListaAtiva }"
+        >
+          <v-expansion-panels
+            variant="accordion"
+            class=""
+            v-model="expansionPanelModel[0]"
+          >
+            <v-expansion-panel
+              v-for="(item, index) in listaItens0"
+              :key="item.id"
+              ref="panels"
+              class="rounded-b-lg"
+              style="border-radius: 0px"
+            >
+              <v-expansion-panel-title
+                style="height: 5vh"
+                class="color-painel"
+                @click="changeItem(index, this.tabNumber)"
+              >
                 <v-row class="d-flex align-center">
-
                   <v-col cols="3" class="d-flex justify-center">
                     {{ item.id }}
                   </v-col>
@@ -71,18 +136,21 @@
                     {{ item.habilidade }}
                   </v-col>
 
-                  <v-col cols="3" class="d-flex justify-center">
-                    Geral
-                  </v-col>
+                  <v-col cols="3" class="d-flex justify-center"> Geral </v-col>
 
                   <v-col cols="3" class="d-flex justify-center">
-
-                    <span v-if="item.status === 'Disponivel'" class="color-disponivel">{{ item.status }}</span>
-                    <span v-if="item.status === 'Em revisão'" class="color-revisao">{{ item.status }}</span>
-
+                    <span
+                      v-if="item.status === 'Disponivel'"
+                      class="color-disponivel"
+                      >{{ item.status }}</span
+                    >
+                    <span
+                      v-if="item.status === 'Em revisão'"
+                      class="color-revisao"
+                      >{{ item.status }}</span
+                    >
                   </v-col>
                 </v-row>
-
               </v-expansion-panel-title>
 
               <v-expansion-panel-text>
@@ -101,53 +169,116 @@
                           </tr>
                           <tr>
                             <td class="td-left">Resposta</td>
-                            <td class="td-right">{{ this.itemSelected.resposta }}</td>
+                            <td class="td-right">
+                              {{ this.itemSelected.resposta }}
+                            </td>
                           </tr>
                           <tr>
                             <td class="td-left">Tentativas Realizadas</td>
-                            <td class="td-right">{{ item.dadosAlt.qtdA+item.dadosAlt.qtdB+
-                               item.dadosAlt.qtdC +item.dadosAlt.qtdD
-                              }}</td>
+                            <td class="td-right">
+                              {{
+                                item.dadosAlt.qtdA +
+                                item.dadosAlt.qtdB +
+                                item.dadosAlt.qtdC +
+                                item.dadosAlt.qtdD
+                              }}
+                            </td>
                           </tr>
                           <tr>
-                            <td class="td-left">Nível de exposição </td>
-                            <td class="td-right">{{ calculaNivelExp(item.dadosAlt.qtdA+item.dadosAlt.qtdB+
-                               item.dadosAlt.qtdC +item.dadosAlt.qtdD)}}</td>
+                            <td class="td-left">Nível de exposição</td>
+                            <td class="td-right">
+                              {{
+                                calculaNivelExp(
+                                  item.dadosAlt.qtdA +
+                                    item.dadosAlt.qtdB +
+                                    item.dadosAlt.qtdC +
+                                    item.dadosAlt.qtdD
+                                )
+                              }}
+                            </td>
                           </tr>
                           <tr>
                             <td class="td-left">Percentual de Acerto</td>
-                            <td class="td-right">{{ 
-                              calculaPercAcerto(item) + ' %'
-                              }}</td>
+                            <td class="td-right">
+                              {{ calculaPercAcerto(item) + " %" }}
+                            </td>
                           </tr>
-                          
-                          
+
                           <tr>
-                            <td class="td-left">Percentual de escolha: <span class="alt-span">a</span></td>
-                            <td class="td-right">{{ calculaPercAlt(item.dadosAlt.qtdA,
-                              item.dadosAlt.qtdA + item.dadosAlt.qtdB + item.dadosAlt.qtdC + item.dadosAlt.qtdD
-                            ) + ' %' }}</td>
+                            <td class="td-left">
+                              Percentual de escolha:
+                              <span class="alt-span">a</span>
+                            </td>
+                            <td class="td-right">
+                              {{
+                                calculaPercAlt(
+                                  item.dadosAlt.qtdA,
+                                  item.dadosAlt.qtdA +
+                                    item.dadosAlt.qtdB +
+                                    item.dadosAlt.qtdC +
+                                    item.dadosAlt.qtdD
+                                ) + " %"
+                              }}
+                            </td>
                           </tr>
                           <tr>
-                            <td class="td-left">Percentual de escolha: <span class="alt-span">b</span></td>
-                            <td class="td-right">{{ calculaPercAlt(item.dadosAlt.qtdB,
-                              item.dadosAlt.qtdA + item.dadosAlt.qtdB + item.dadosAlt.qtdC+item.dadosAlt.qtdD)+ ' %'  }}</td>
+                            <td class="td-left">
+                              Percentual de escolha:
+                              <span class="alt-span">b</span>
+                            </td>
+                            <td class="td-right">
+                              {{
+                                calculaPercAlt(
+                                  item.dadosAlt.qtdB,
+                                  item.dadosAlt.qtdA +
+                                    item.dadosAlt.qtdB +
+                                    item.dadosAlt.qtdC +
+                                    item.dadosAlt.qtdD
+                                ) + " %"
+                              }}
+                            </td>
                           </tr>
                           <tr>
-                            <td class="td-left">Percentual de escolha: <span class="alt-span">c</span></td>
-                            <td class="td-right">{{ calculaPercAlt(item.dadosAlt.qtdC,
-                              item.dadosAlt.qtdA + item.dadosAlt.qtdB + item.dadosAlt.qtdC+item.dadosAlt.qtdD) +' %' }}</td>
+                            <td class="td-left">
+                              Percentual de escolha:
+                              <span class="alt-span">c</span>
+                            </td>
+                            <td class="td-right">
+                              {{
+                                calculaPercAlt(
+                                  item.dadosAlt.qtdC,
+                                  item.dadosAlt.qtdA +
+                                    item.dadosAlt.qtdB +
+                                    item.dadosAlt.qtdC +
+                                    item.dadosAlt.qtdD
+                                ) + " %"
+                              }}
+                            </td>
                           </tr>
                           <tr>
-                            <td class="td-left">Percentual de escolha: <span class="alt-span">d</span></td>
-                            <td class="td-right">{{ calculaPercAlt(item.dadosAlt.qtdD,
-                              item.dadosAlt.qtdA + item.dadosAlt.qtdB + item.dadosAlt.qtdC+item.dadosAlt.qtdD) + ' %' }}</td>
+                            <td class="td-left">
+                              Percentual de escolha:
+                              <span class="alt-span">d</span>
+                            </td>
+                            <td class="td-right">
+                              {{
+                                calculaPercAlt(
+                                  item.dadosAlt.qtdD,
+                                  item.dadosAlt.qtdA +
+                                    item.dadosAlt.qtdB +
+                                    item.dadosAlt.qtdC +
+                                    item.dadosAlt.qtdD
+                                ) + " %"
+                              }}
+                            </td>
                           </tr>
                           <tr>
                             <td class="td-left">Fonte</td>
-                            <td class="td-right">{{ this.itemSelected.fonte }}</td>
+                            <td class="td-right">
+                              {{ this.itemSelected.fonte }}
+                            </td>
                           </tr>
-                         <!--  <tr>
+                          <!--  <tr>
                             <td class="td-left">Layout</td>
                             <td class="td-right">{{ this.itemSelected.layout }}</td>
                           </tr> -->
@@ -159,36 +290,54 @@
 
                 <v-divider :thickness="1"></v-divider>
                 <div class="btn-area">
-                  <v-btn variant="outlined" class="item-btn" @click="openItem(index)">
+                  <v-btn
+                    variant="outlined"
+                    class="item-btn"
+                    @click="openItem(index)"
+                  >
                     Ver item
                   </v-btn>
 
-                  <v-btn variant="outlined" class="item-btn" @click="reportDialog = true">
+                  <v-btn
+                    variant="outlined"
+                    class="item-btn"
+                    @click="reportDialog = true"
+                  >
                     Reportar item
                   </v-btn>
                 </div>
 
                 <v-divider :thickness="5" color="blue"></v-divider>
-
-
               </v-expansion-panel-text>
-
             </v-expansion-panel>
           </v-expansion-panels>
         </v-sheet>
-
       </v-window-item>
 
       <v-window-item value="p2">
-        <v-sheet rounded="lg" class="" :class="{ 'fade-in': animacaoListaAtiva }">
-          <v-expansion-panels variant="accordion" class="" v-model="expansionPanelModel[1]">
-            <v-expansion-panel v-for="(item, index) in listaItens1" :key="item.id" ref="panels" class="rounded-b-lg"
-              style="border-radius: 0px;">
-
-              <v-expansion-panel-title style="height: 5vh;" class="color-painel"
-                @click="changeItem(index, this.tabNumber)">
+        <v-sheet
+          rounded="lg"
+          class=""
+          :class="{ 'fade-in': animacaoListaAtiva }"
+        >
+          <v-expansion-panels
+            variant="accordion"
+            class=""
+            v-model="expansionPanelModel[1]"
+          >
+            <v-expansion-panel
+              v-for="(item, index) in listaItens1"
+              :key="item.id"
+              ref="panels"
+              class="rounded-b-lg"
+              style="border-radius: 0px"
+            >
+              <v-expansion-panel-title
+                style="height: 5vh"
+                class="color-painel"
+                @click="changeItem(index, this.tabNumber)"
+              >
                 <v-row class="d-flex align-center">
-
                   <v-col cols="3" class="d-flex justify-center">
                     {{ item.id }}
                   </v-col>
@@ -197,16 +346,21 @@
                     {{ item.habilidade }}
                   </v-col>
 
-                  <v-col cols="3" class="d-flex justify-center">
-                    Geral
-                  </v-col>
+                  <v-col cols="3" class="d-flex justify-center"> Geral </v-col>
 
                   <v-col cols="3" class="d-flex justify-center">
-                    <span v-if="item.status === 'Disponivel'" class="color-disponivel">{{ item.status }}</span>
-                    <span v-if="item.status === 'Em revisão'" class="color-revisao">{{ item.status }}</span>
+                    <span
+                      v-if="item.status === 'Disponivel'"
+                      class="color-disponivel"
+                      >{{ item.status }}</span
+                    >
+                    <span
+                      v-if="item.status === 'Em revisão'"
+                      class="color-revisao"
+                      >{{ item.status }}</span
+                    >
                   </v-col>
                 </v-row>
-
               </v-expansion-panel-title>
 
               <v-expansion-panel-text>
@@ -225,51 +379,115 @@
                           </tr>
                           <tr>
                             <td class="td-left">Resposta</td>
-                            <td class="td-right">{{ this.itemSelected.resposta }}</td>
+                            <td class="td-right">
+                              {{ this.itemSelected.resposta }}
+                            </td>
                           </tr>
                           <tr>
                             <td class="td-left">Tentativas Realizadas</td>
-                            <td class="td-right">{{ item.dadosAlt.qtdA+item.dadosAlt.qtdB+
-                               item.dadosAlt.qtdC +item.dadosAlt.qtdD
-                              }}</td>
+                            <td class="td-right">
+                              {{
+                                item.dadosAlt.qtdA +
+                                item.dadosAlt.qtdB +
+                                item.dadosAlt.qtdC +
+                                item.dadosAlt.qtdD
+                              }}
+                            </td>
                           </tr>
                           <tr>
-                            <td class="td-left">Nível de exposição </td>
-                            <td class="td-right">{{ calculaNivelExp(item.dadosAlt.qtdA+item.dadosAlt.qtdB+
-                               item.dadosAlt.qtdC +item.dadosAlt.qtdD)}}</td>
+                            <td class="td-left">Nível de exposição</td>
+                            <td class="td-right">
+                              {{
+                                calculaNivelExp(
+                                  item.dadosAlt.qtdA +
+                                    item.dadosAlt.qtdB +
+                                    item.dadosAlt.qtdC +
+                                    item.dadosAlt.qtdD
+                                )
+                              }}
+                            </td>
                           </tr>
                           <tr>
                             <td class="td-left">Percentual de Acerto</td>
-                            <td class="td-right">{{ 
-                              calculaPercAcerto(item) + ' %'
-                              }}</td>
+                            <td class="td-right">
+                              {{ calculaPercAcerto(item) + " %" }}
+                            </td>
                           </tr>
                           <tr>
-                            <td class="td-left">Percentual de escolha: <span class="alt-span">a</span></td>
-                            <td class="td-right">{{ calculaPercAlt(item.dadosAlt.qtdA,
-                              item.dadosAlt.qtdA + item.dadosAlt.qtdB + item.dadosAlt.qtdC + item.dadosAlt.qtdD
-                            ) + ' %' }}</td>
+                            <td class="td-left">
+                              Percentual de escolha:
+                              <span class="alt-span">a</span>
+                            </td>
+                            <td class="td-right">
+                              {{
+                                calculaPercAlt(
+                                  item.dadosAlt.qtdA,
+                                  item.dadosAlt.qtdA +
+                                    item.dadosAlt.qtdB +
+                                    item.dadosAlt.qtdC +
+                                    item.dadosAlt.qtdD
+                                ) + " %"
+                              }}
+                            </td>
                           </tr>
                           <tr>
-                            <td class="td-left">Percentual de escolha: <span class="alt-span">b</span></td>
-                            <td class="td-right">{{ calculaPercAlt(item.dadosAlt.qtdB,
-                              item.dadosAlt.qtdA + item.dadosAlt.qtdB + item.dadosAlt.qtdC+item.dadosAlt.qtdD)+ ' %'  }}</td>
+                            <td class="td-left">
+                              Percentual de escolha:
+                              <span class="alt-span">b</span>
+                            </td>
+                            <td class="td-right">
+                              {{
+                                calculaPercAlt(
+                                  item.dadosAlt.qtdB,
+                                  item.dadosAlt.qtdA +
+                                    item.dadosAlt.qtdB +
+                                    item.dadosAlt.qtdC +
+                                    item.dadosAlt.qtdD
+                                ) + " %"
+                              }}
+                            </td>
                           </tr>
                           <tr>
-                            <td class="td-left">Percentual de escolha: <span class="alt-span">c</span></td>
-                            <td class="td-right">{{ calculaPercAlt(item.dadosAlt.qtdC,
-                              item.dadosAlt.qtdA + item.dadosAlt.qtdB + item.dadosAlt.qtdC+item.dadosAlt.qtdD) +' %' }}</td>
+                            <td class="td-left">
+                              Percentual de escolha:
+                              <span class="alt-span">c</span>
+                            </td>
+                            <td class="td-right">
+                              {{
+                                calculaPercAlt(
+                                  item.dadosAlt.qtdC,
+                                  item.dadosAlt.qtdA +
+                                    item.dadosAlt.qtdB +
+                                    item.dadosAlt.qtdC +
+                                    item.dadosAlt.qtdD
+                                ) + " %"
+                              }}
+                            </td>
                           </tr>
                           <tr>
-                            <td class="td-left">Percentual de escolha: <span class="alt-span">d</span></td>
-                            <td class="td-right">{{ calculaPercAlt(item.dadosAlt.qtdD,
-                              item.dadosAlt.qtdA + item.dadosAlt.qtdB + item.dadosAlt.qtdC+item.dadosAlt.qtdD) + ' %' }}</td>
+                            <td class="td-left">
+                              Percentual de escolha:
+                              <span class="alt-span">d</span>
+                            </td>
+                            <td class="td-right">
+                              {{
+                                calculaPercAlt(
+                                  item.dadosAlt.qtdD,
+                                  item.dadosAlt.qtdA +
+                                    item.dadosAlt.qtdB +
+                                    item.dadosAlt.qtdC +
+                                    item.dadosAlt.qtdD
+                                ) + " %"
+                              }}
+                            </td>
                           </tr>
                           <tr>
                             <td class="td-left">Fonte</td>
-                            <td class="td-right">{{ this.itemSelected.fonte }}</td>
+                            <td class="td-right">
+                              {{ this.itemSelected.fonte }}
+                            </td>
                           </tr>
-                         <!--  <tr>
+                          <!--  <tr>
                             <td class="td-left">Layout</td>
                             <td class="td-right">{{ this.itemSelected.layout }}</td>
                           </tr> -->
@@ -281,39 +499,53 @@
 
                 <v-divider :thickness="4"></v-divider>
                 <div class="btn-area">
-                  <v-btn variant="outlined" class="item-btn" @click="openItem(index)">
-                    Ver item</v-btn>
-                  <v-btn variant="outlined" class="item-btn" @click="reportDialog = true, console.log(reportDialog)">
+                  <v-btn
+                    variant="outlined"
+                    class="item-btn"
+                    @click="openItem(index)"
+                  >
+                    Ver item</v-btn
+                  >
+                  <v-btn
+                    variant="outlined"
+                    class="item-btn"
+                    @click="(reportDialog = true), console.log(reportDialog)"
+                  >
                     Reportar item
                   </v-btn>
                 </div>
 
                 <v-divider :thickness="4"></v-divider>
-
-
               </v-expansion-panel-text>
-
-
             </v-expansion-panel>
-
-
-
           </v-expansion-panels>
-
         </v-sheet>
-
       </v-window-item>
 
       <v-window-item value="p3">
-        <v-sheet rounded="lg" class="" :class="{ 'fade-in': animacaoListaAtiva }">
-          <v-expansion-panels variant="accordion" class="" v-model="expansionPanelModel[2]">
-            <v-expansion-panel v-for="(item, index) in listaItens2" :key="item.id" ref="panels" class="rounded-b-lg"
-              style="border-radius: 0px;">
-
-              <v-expansion-panel-title style="height: 5vh;" class="color-painel"
-                @click="changeItem(index, this.tabNumber)">
+        <v-sheet
+          rounded="lg"
+          class=""
+          :class="{ 'fade-in': animacaoListaAtiva }"
+        >
+          <v-expansion-panels
+            variant="accordion"
+            class=""
+            v-model="expansionPanelModel[2]"
+          >
+            <v-expansion-panel
+              v-for="(item, index) in listaItens2"
+              :key="item.id"
+              ref="panels"
+              class="rounded-b-lg"
+              style="border-radius: 0px"
+            >
+              <v-expansion-panel-title
+                style="height: 5vh"
+                class="color-painel"
+                @click="changeItem(index, this.tabNumber)"
+              >
                 <v-row class="d-flex align-center">
-
                   <v-col cols="3" class="d-flex justify-center">
                     {{ item.id }}
                   </v-col>
@@ -322,18 +554,22 @@
                     {{ item.habilidade }}
                   </v-col>
 
-                  <v-col cols="3" class="d-flex justify-center">
-                    Geral
-                  </v-col>
+                  <v-col cols="3" class="d-flex justify-center"> Geral </v-col>
 
                   <v-col cols="3" class="d-flex justify-center">
-                    <span v-if="item.status === 'Disponivel'" class="color-disponivel">{{ item.status }}</span>
-                    <span v-if="item.status === 'Em revisão'" class="color-revisao">{{ item.status }}</span>
+                    <span
+                      v-if="item.status === 'Disponivel'"
+                      class="color-disponivel"
+                      >{{ item.status }}</span
+                    >
+                    <span
+                      v-if="item.status === 'Em revisão'"
+                      class="color-revisao"
+                      >{{ item.status }}</span
+                    >
                   </v-col>
                 </v-row>
-
               </v-expansion-panel-title>
-
 
               <v-expansion-panel-text>
                 <v-sheet>
@@ -351,51 +587,115 @@
                           </tr>
                           <tr>
                             <td class="td-left">Resposta</td>
-                            <td class="td-right">{{ this.itemSelected.resposta }}</td>
+                            <td class="td-right">
+                              {{ this.itemSelected.resposta }}
+                            </td>
                           </tr>
                           <tr>
                             <td class="td-left">Tentativas Realizadas</td>
-                            <td class="td-right">{{ item.dadosAlt.qtdA+item.dadosAlt.qtdB+
-                               item.dadosAlt.qtdC +item.dadosAlt.qtdD
-                              }}</td>
+                            <td class="td-right">
+                              {{
+                                item.dadosAlt.qtdA +
+                                item.dadosAlt.qtdB +
+                                item.dadosAlt.qtdC +
+                                item.dadosAlt.qtdD
+                              }}
+                            </td>
                           </tr>
                           <tr>
-                            <td class="td-left">Nível de exposição </td>
-                            <td class="td-right">{{ calculaNivelExp(item.dadosAlt.qtdA+item.dadosAlt.qtdB+
-                               item.dadosAlt.qtdC +item.dadosAlt.qtdD)}}</td>
+                            <td class="td-left">Nível de exposição</td>
+                            <td class="td-right">
+                              {{
+                                calculaNivelExp(
+                                  item.dadosAlt.qtdA +
+                                    item.dadosAlt.qtdB +
+                                    item.dadosAlt.qtdC +
+                                    item.dadosAlt.qtdD
+                                )
+                              }}
+                            </td>
                           </tr>
                           <tr>
                             <td class="td-left">Percentual de Acerto</td>
-                            <td class="td-right">{{ 
-                              calculaPercAcerto(item) + ' %'
-                              }}</td>
+                            <td class="td-right">
+                              {{ calculaPercAcerto(item) + " %" }}
+                            </td>
                           </tr>
                           <tr>
-                            <td class="td-left">Percentual de escolha: <span class="alt-span">a</span></td>
-                            <td class="td-right">{{ calculaPercAlt(item.dadosAlt.qtdA,
-                              item.dadosAlt.qtdA + item.dadosAlt.qtdB + item.dadosAlt.qtdC + item.dadosAlt.qtdD
-                            ) + ' %' }}</td>
+                            <td class="td-left">
+                              Percentual de escolha:
+                              <span class="alt-span">a</span>
+                            </td>
+                            <td class="td-right">
+                              {{
+                                calculaPercAlt(
+                                  item.dadosAlt.qtdA,
+                                  item.dadosAlt.qtdA +
+                                    item.dadosAlt.qtdB +
+                                    item.dadosAlt.qtdC +
+                                    item.dadosAlt.qtdD
+                                ) + " %"
+                              }}
+                            </td>
                           </tr>
                           <tr>
-                            <td class="td-left">Percentual de escolha: <span class="alt-span">b</span></td>
-                            <td class="td-right">{{ calculaPercAlt(item.dadosAlt.qtdB,
-                              item.dadosAlt.qtdA + item.dadosAlt.qtdB + item.dadosAlt.qtdC+item.dadosAlt.qtdD)+ ' %'  }}</td>
+                            <td class="td-left">
+                              Percentual de escolha:
+                              <span class="alt-span">b</span>
+                            </td>
+                            <td class="td-right">
+                              {{
+                                calculaPercAlt(
+                                  item.dadosAlt.qtdB,
+                                  item.dadosAlt.qtdA +
+                                    item.dadosAlt.qtdB +
+                                    item.dadosAlt.qtdC +
+                                    item.dadosAlt.qtdD
+                                ) + " %"
+                              }}
+                            </td>
                           </tr>
                           <tr>
-                            <td class="td-left">Percentual de escolha: <span class="alt-span">c</span></td>
-                            <td class="td-right">{{ calculaPercAlt(item.dadosAlt.qtdC,
-                              item.dadosAlt.qtdA + item.dadosAlt.qtdB + item.dadosAlt.qtdC+item.dadosAlt.qtdD) +' %' }}</td>
+                            <td class="td-left">
+                              Percentual de escolha:
+                              <span class="alt-span">c</span>
+                            </td>
+                            <td class="td-right">
+                              {{
+                                calculaPercAlt(
+                                  item.dadosAlt.qtdC,
+                                  item.dadosAlt.qtdA +
+                                    item.dadosAlt.qtdB +
+                                    item.dadosAlt.qtdC +
+                                    item.dadosAlt.qtdD
+                                ) + " %"
+                              }}
+                            </td>
                           </tr>
                           <tr>
-                            <td class="td-left">Percentual de escolha: <span class="alt-span">d</span></td>
-                            <td class="td-right">{{ calculaPercAlt(item.dadosAlt.qtdD,
-                              item.dadosAlt.qtdA + item.dadosAlt.qtdB + item.dadosAlt.qtdC+item.dadosAlt.qtdD) + ' %' }}</td>
+                            <td class="td-left">
+                              Percentual de escolha:
+                              <span class="alt-span">d</span>
+                            </td>
+                            <td class="td-right">
+                              {{
+                                calculaPercAlt(
+                                  item.dadosAlt.qtdD,
+                                  item.dadosAlt.qtdA +
+                                    item.dadosAlt.qtdB +
+                                    item.dadosAlt.qtdC +
+                                    item.dadosAlt.qtdD
+                                ) + " %"
+                              }}
+                            </td>
                           </tr>
                           <tr>
                             <td class="td-left">Fonte</td>
-                            <td class="td-right">{{ this.itemSelected.fonte }}</td>
+                            <td class="td-right">
+                              {{ this.itemSelected.fonte }}
+                            </td>
                           </tr>
-                         <!--  <tr>
+                          <!--  <tr>
                             <td class="td-left">Layout</td>
                             <td class="td-right">{{ this.itemSelected.layout }}</td>
                           </tr> -->
@@ -407,34 +707,53 @@
 
                 <v-divider :thickness="4"></v-divider>
                 <div class="btn-area">
-                  <v-btn variant="outlined" class="item-btn" @click="openItem(index)">
-                    Ver item</v-btn>
-                  <v-btn variant="outlined" class="item-btn" @click="reportDialog = true">
+                  <v-btn
+                    variant="outlined"
+                    class="item-btn"
+                    @click="openItem(index)"
+                  >
+                    Ver item</v-btn
+                  >
+                  <v-btn
+                    variant="outlined"
+                    class="item-btn"
+                    @click="reportDialog = true"
+                  >
                     Reportar item
                   </v-btn>
                 </div>
 
                 <v-divider :thickness="4"></v-divider>
-
-
               </v-expansion-panel-text>
-
             </v-expansion-panel>
           </v-expansion-panels>
         </v-sheet>
-
       </v-window-item>
 
       <v-window-item value="p4">
-        <v-sheet rounded="lg" class="" :class="{ 'fade-in': animacaoListaAtiva }">
-          <v-expansion-panels variant="accordion" class="" v-model="expansionPanelModel[3]">
-            <v-expansion-panel v-for="(item, index) in listaItens3" :key="item.id" ref="panels" class="rounded-b-lg"
-              style="border-radius: 0px;">
-
-              <v-expansion-panel-title style="height: 5vh;" class="color-painel"
-                @click="changeItem(index, this.tabNumber)">
+        <v-sheet
+          rounded="lg"
+          class=""
+          :class="{ 'fade-in': animacaoListaAtiva }"
+        >
+          <v-expansion-panels
+            variant="accordion"
+            class=""
+            v-model="expansionPanelModel[3]"
+          >
+            <v-expansion-panel
+              v-for="(item, index) in listaItens3"
+              :key="item.id"
+              ref="panels"
+              class="rounded-b-lg"
+              style="border-radius: 0px"
+            >
+              <v-expansion-panel-title
+                style="height: 5vh"
+                class="color-painel"
+                @click="changeItem(index, this.tabNumber)"
+              >
                 <v-row class="d-flex align-center">
-
                   <v-col cols="3" class="d-flex justify-center">
                     {{ item.id }}
                   </v-col>
@@ -443,16 +762,21 @@
                     {{ item.habilidade }}
                   </v-col>
 
-                  <v-col cols="3" class="d-flex justify-center">
-                    Geral
-                  </v-col>
+                  <v-col cols="3" class="d-flex justify-center"> Geral </v-col>
 
                   <v-col cols="3" class="d-flex justify-center">
-                    <span v-if="item.status === 'Disponivel'" class="color-disponivel">{{ item.status }}</span>
-                    <span v-if="item.status === 'Em revisão'" class="color-revisao">{{ item.status }}</span>
+                    <span
+                      v-if="item.status === 'Disponivel'"
+                      class="color-disponivel"
+                      >{{ item.status }}</span
+                    >
+                    <span
+                      v-if="item.status === 'Em revisão'"
+                      class="color-revisao"
+                      >{{ item.status }}</span
+                    >
                   </v-col>
                 </v-row>
-
               </v-expansion-panel-title>
 
               <v-expansion-panel-text>
@@ -471,52 +795,116 @@
                           </tr>
                           <tr>
                             <td class="td-left">Resposta</td>
-                            <td class="td-right">{{ this.itemSelected.resposta }}</td>
+                            <td class="td-right">
+                              {{ this.itemSelected.resposta }}
+                            </td>
                           </tr>
                           <tr>
                             <td class="td-left">Tentativas Realizadas</td>
-                            <td class="td-right">{{ item.dadosAlt.qtdA+item.dadosAlt.qtdB+
-                               item.dadosAlt.qtdC +item.dadosAlt.qtdD
-                              }}</td>
+                            <td class="td-right">
+                              {{
+                                item.dadosAlt.qtdA +
+                                item.dadosAlt.qtdB +
+                                item.dadosAlt.qtdC +
+                                item.dadosAlt.qtdD
+                              }}
+                            </td>
                           </tr>
                           <tr>
-                            <td class="td-left">Nível de exposição </td>
-                            <td class="td-right">{{ calculaNivelExp(item.dadosAlt.qtdA+item.dadosAlt.qtdB+
-                               item.dadosAlt.qtdC +item.dadosAlt.qtdD)}}</td>
+                            <td class="td-left">Nível de exposição</td>
+                            <td class="td-right">
+                              {{
+                                calculaNivelExp(
+                                  item.dadosAlt.qtdA +
+                                    item.dadosAlt.qtdB +
+                                    item.dadosAlt.qtdC +
+                                    item.dadosAlt.qtdD
+                                )
+                              }}
+                            </td>
                           </tr>
                           <tr>
                             <td class="td-left">Percentual de Acerto</td>
-                            <td class="td-right">{{ 
-                              calculaPercAcerto(item) + ' %'
-                              }}</td>
+                            <td class="td-right">
+                              {{ calculaPercAcerto(item) + " %" }}
+                            </td>
                           </tr>
-                          
+
                           <tr>
-                            <td class="td-left">Percentual de escolha: <span class="alt-span">a</span></td>
-                            <td class="td-right">{{ calculaPercAlt(item.dadosAlt.qtdA,
-                              item.dadosAlt.qtdA + item.dadosAlt.qtdB + item.dadosAlt.qtdC + item.dadosAlt.qtdD
-                            ) + ' %' }}</td>
+                            <td class="td-left">
+                              Percentual de escolha:
+                              <span class="alt-span">a</span>
+                            </td>
+                            <td class="td-right">
+                              {{
+                                calculaPercAlt(
+                                  item.dadosAlt.qtdA,
+                                  item.dadosAlt.qtdA +
+                                    item.dadosAlt.qtdB +
+                                    item.dadosAlt.qtdC +
+                                    item.dadosAlt.qtdD
+                                ) + " %"
+                              }}
+                            </td>
                           </tr>
                           <tr>
-                            <td class="td-left">Percentual de escolha: <span class="alt-span">b</span></td>
-                            <td class="td-right">{{ calculaPercAlt(item.dadosAlt.qtdB,
-                              item.dadosAlt.qtdA + item.dadosAlt.qtdB + item.dadosAlt.qtdC+item.dadosAlt.qtdD)+ ' %'  }}</td>
+                            <td class="td-left">
+                              Percentual de escolha:
+                              <span class="alt-span">b</span>
+                            </td>
+                            <td class="td-right">
+                              {{
+                                calculaPercAlt(
+                                  item.dadosAlt.qtdB,
+                                  item.dadosAlt.qtdA +
+                                    item.dadosAlt.qtdB +
+                                    item.dadosAlt.qtdC +
+                                    item.dadosAlt.qtdD
+                                ) + " %"
+                              }}
+                            </td>
                           </tr>
                           <tr>
-                            <td class="td-left">Percentual de escolha: <span class="alt-span">c</span></td>
-                            <td class="td-right">{{ calculaPercAlt(item.dadosAlt.qtdC,
-                              item.dadosAlt.qtdA + item.dadosAlt.qtdB + item.dadosAlt.qtdC+item.dadosAlt.qtdD) +' %' }}</td>
+                            <td class="td-left">
+                              Percentual de escolha:
+                              <span class="alt-span">c</span>
+                            </td>
+                            <td class="td-right">
+                              {{
+                                calculaPercAlt(
+                                  item.dadosAlt.qtdC,
+                                  item.dadosAlt.qtdA +
+                                    item.dadosAlt.qtdB +
+                                    item.dadosAlt.qtdC +
+                                    item.dadosAlt.qtdD
+                                ) + " %"
+                              }}
+                            </td>
                           </tr>
                           <tr>
-                            <td class="td-left">Percentual de escolha: <span class="alt-span">d</span></td>
-                            <td class="td-right">{{ calculaPercAlt(item.dadosAlt.qtdD,
-                              item.dadosAlt.qtdA + item.dadosAlt.qtdB + item.dadosAlt.qtdC+item.dadosAlt.qtdD) + ' %' }}</td>
+                            <td class="td-left">
+                              Percentual de escolha:
+                              <span class="alt-span">d</span>
+                            </td>
+                            <td class="td-right">
+                              {{
+                                calculaPercAlt(
+                                  item.dadosAlt.qtdD,
+                                  item.dadosAlt.qtdA +
+                                    item.dadosAlt.qtdB +
+                                    item.dadosAlt.qtdC +
+                                    item.dadosAlt.qtdD
+                                ) + " %"
+                              }}
+                            </td>
                           </tr>
                           <tr>
                             <td class="td-left">Fonte</td>
-                            <td class="td-right">{{ this.itemSelected.fonte }}</td>
+                            <td class="td-right">
+                              {{ this.itemSelected.fonte }}
+                            </td>
                           </tr>
-                         <!--  <tr>
+                          <!--  <tr>
                             <td class="td-left">Layout</td>
                             <td class="td-right">{{ this.itemSelected.layout }}</td>
                           </tr> -->
@@ -528,35 +916,54 @@
 
                 <v-divider :thickness="4"></v-divider>
                 <div class="btn-area">
-                  <v-btn variant="outlined" class="item-btn" @click="openItem(index)">
-                    Ver item</v-btn>
-                  <v-btn variant="outlined" class="item-btn" @click="reportDialog = true">
+                  <v-btn
+                    variant="outlined"
+                    class="item-btn"
+                    @click="openItem(index)"
+                  >
+                    Ver item</v-btn
+                  >
+                  <v-btn
+                    variant="outlined"
+                    class="item-btn"
+                    @click="reportDialog = true"
+                  >
                     Reportar item
                   </v-btn>
                 </div>
 
                 <v-divider :thickness="4"></v-divider>
-
-
               </v-expansion-panel-text>
-
             </v-expansion-panel>
           </v-expansion-panels>
         </v-sheet>
-
       </v-window-item>
 
       <!-- Janela dos itens reportados -->
       <v-window-item value="p5">
-        <v-sheet rounded="lg" class="" :class="{ 'fade-in': animacaoListaAtiva }">
-          <v-expansion-panels variant="accordion" class="" v-model="expansionPanelModel[3]">
-            <v-expansion-panel v-for="(item, index) in listaItensReportados" :key="item.id" ref="panels"
-              class="rounded-b-lg" style="border-radius: 0px;">
-
-              <v-expansion-panel-title style="height: 5vh;" class="color-painel"
-                @click="changeItem(index, this.tabNumber)">
+        <v-sheet
+          rounded="lg"
+          class=""
+          :class="{ 'fade-in': animacaoListaAtiva }"
+        >
+          <v-expansion-panels
+            variant="accordion"
+            class=""
+            v-model="expansionPanelModel[3]"
+          >
+            <v-expansion-panel
+              v-for="(item, index) in listaItensReportados"
+              :key="item.id"
+              ref="panels"
+              class="rounded-b-lg"
+              style="border-radius: 0px"
+            >
+              <v-expansion-panel-title
+                style="height: 5vh"
+                class="color-painel"
+                @click="changeItem(index, this.tabNumber)"
+              >
                 <v-row class="d-flex align-center">
-
                   <v-col cols="3" class="d-flex justify-center">
                     {{ item.idItem }}
                   </v-col>
@@ -573,7 +980,6 @@
                     {{ item.dataErro }}
                   </v-col>
                 </v-row>
-
               </v-expansion-panel-title>
 
               <v-expansion-panel-text>
@@ -598,36 +1004,43 @@
                             <td class="td-left">Erro</td>
                             <td class="td-right">{{ item.msgErro }}</td>
                           </tr>
-
                         </tbody>
                       </v-table>
                     </v-col>
                   </v-row>
                 </v-sheet>
                 <v-divider :thickness="4"></v-divider>
-
-
               </v-expansion-panel-text>
-
             </v-expansion-panel>
           </v-expansion-panels>
         </v-sheet>
-
       </v-window-item>
-
-
 
       <!-- Janela dos itens sugeridos -->
       <v-window-item value="p6">
-        <v-sheet rounded="lg" class="" :class="{ 'fade-in': animacaoListaAtiva }">
-          <v-expansion-panels variant="accordion" class="" v-model="expansionPanelModel[3]">
-            <v-expansion-panel v-for="(item, index) in listaItensSugeridos" :key="item.id" ref="panels"
-              class="rounded-b-lg" style="border-radius: 0px;">
-
-              <v-expansion-panel-title style="height: 5vh;" class="color-painel"
-                @click="changeItem(index, this.tabNumber)">
+        <v-sheet
+          rounded="lg"
+          class=""
+          :class="{ 'fade-in': animacaoListaAtiva }"
+        >
+          <v-expansion-panels
+            variant="accordion"
+            class=""
+            v-model="expansionPanelModel[3]"
+          >
+            <v-expansion-panel
+              v-for="(item, index) in listaItensSugeridos"
+              :key="item.id"
+              ref="panels"
+              class="rounded-b-lg"
+              style="border-radius: 0px"
+            >
+              <v-expansion-panel-title
+                style="height: 5vh"
+                class="color-painel"
+                @click="changeItem(index, this.tabNumber)"
+              >
                 <v-row class="d-flex align-center">
-
                   <v-col cols="3" class="d-flex justify-center">
                     {{ item.idItem }}
                   </v-col>
@@ -644,7 +1057,6 @@
                     {{ item.data }}
                   </v-col>
                 </v-row>
-
               </v-expansion-panel-title>
 
               <v-expansion-panel-text>
@@ -701,52 +1113,56 @@
                             <td class="td-left">Imagem</td>
                             <td class="td-right"><v-btn @click="abrirImg(item.imagem)">IMG</v-btn></td>
                           </tr> -->
-
                         </tbody>
                       </v-table>
                     </v-col>
                   </v-row>
                 </v-sheet>
                 <v-divider :thickness="4"></v-divider>
-
-
               </v-expansion-panel-text>
-
             </v-expansion-panel>
           </v-expansion-panels>
         </v-sheet>
-
       </v-window-item>
-
-
-
-
-
     </v-window>
     <!-- Dialog de report -->
     <v-dialog v-model="reportDialog" width="auto">
       <v-card min-width="700">
-
         <v-toolbar color="#1E3892" density="comfortable">
           <v-icon icon="mdi-alert-circle-outline" class="ml-5"></v-icon>
-          <v-toolbar-title class="ml-2 toolbar-title">Reportar Item</v-toolbar-title>
+          <v-toolbar-title class="ml-2 toolbar-title"
+            >Reportar Item</v-toolbar-title
+          >
           <v-spacer></v-spacer>
         </v-toolbar>
 
         <template v-slot:actions class="">
           <div class="d-flex flex-column report-area pa-5">
             <h4 class="ml-2 report-id">{{ this.itemSelected.id }}</h4>
-            <v-text-field clearable label="Erro" variant="outlined" class="mt-5" v-model="errorModel"
-              :rules="[rules.required]">
+            <v-text-field
+              clearable
+              label="Erro"
+              variant="outlined"
+              class="mt-5"
+              v-model="errorModel"
+              :rules="[rules.required]"
+            >
             </v-text-field>
             <div class="report-buttons d-flex mt-5">
-              <v-btn variant="outlined" class="mx-auto report-button" text="Reportar"
-                @click="reportaItem(this.itemSelected)"></v-btn>
-              <v-btn variant="outlined" class="mx-auto report-button" text="Voltar"
-                @click="reportDialog = false, clearErrorField()"></v-btn>
+              <v-btn
+                variant="outlined"
+                class="mx-auto report-button"
+                text="Reportar"
+                @click="reportaItem(this.itemSelected)"
+              ></v-btn>
+              <v-btn
+                variant="outlined"
+                class="mx-auto report-button"
+                text="Voltar"
+                @click="(reportDialog = false), clearErrorField()"
+              ></v-btn>
             </div>
           </div>
-
         </template>
       </v-card>
     </v-dialog>
@@ -755,28 +1171,31 @@
 
     <v-dialog v-model="reportSuccess" width="auto">
       <v-card min-width="500">
-
         <v-toolbar color="#1E3892" density="comfortable">
           <v-icon icon="mdi-alert-circle-outline" class="ml-5"></v-icon>
-          <v-toolbar-title class="ml-2 toolbar-title">Reportar Item</v-toolbar-title>
+          <v-toolbar-title class="ml-2 toolbar-title"
+            >Reportar Item</v-toolbar-title
+          >
           <v-spacer></v-spacer>
         </v-toolbar>
 
         <template v-slot:actions class="">
           <div class="d-flex flex-column report-area pa-5">
-            <h4 class="mx-auto report-success-text">O Item foi reportado com sucesso!!</h4>
+            <h4 class="mx-auto report-success-text">
+              O Item foi reportado com sucesso!!
+            </h4>
             <div class="report-buttons d-flex mt-5">
-              <v-btn variant="outlined" class="mx-auto report-button" text="Fechar"
-                @click="reportSuccess = false, clearErrorField()"></v-btn>
+              <v-btn
+                variant="outlined"
+                class="mx-auto report-button"
+                text="Fechar"
+                @click="(reportSuccess = false), clearErrorField()"
+              ></v-btn>
             </div>
           </div>
-
         </template>
       </v-card>
     </v-dialog>
-
-
-
   </v-sheet>
 </template>
 
@@ -784,13 +1203,13 @@
 import DialogExcluirTeste from "@/components/DialogExcluirTeste.vue";
 import ChartBar from "@/components/ChartBar.vue";
 import TurmaProgInfo from "./TurmaProgInfo.vue";
-import axios from 'axios';
+import axios from "axios";
 
 //Informações sobre os itens.
-import jsonDataQuestoes0 from '../assets/questao/questoes_extrato0.json';
-import jsonDataQuestoes1 from '../assets/questao/questoes_extrato1.json';              //Primeiro estrato a ser utilizado.
-import jsonDataQuestoes2 from '../assets/questao/questoes_extrato2.json';
-import jsonDataQuestoes3 from '../assets/questao/questoes_extrato3.json';
+import jsonDataQuestoes0 from "../assets/questao/questoes_extrato0.json";
+import jsonDataQuestoes1 from "../assets/questao/questoes_extrato1.json"; //Primeiro estrato a ser utilizado.
+import jsonDataQuestoes2 from "../assets/questao/questoes_extrato2.json";
+import jsonDataQuestoes3 from "../assets/questao/questoes_extrato3.json";
 
 export default {
   name: "TurmaItensInfo",
@@ -802,27 +1221,28 @@ export default {
   },
 
   data: () => ({
+    loadingSkeleton: true,
     animacaoListaAtiva: false,
     icon: ["", "", "", "", "", ""],
     tab: null,
-    listaTurma: [],   //Lista com os alunos.
-    listaItens0: [],  //Lista de Itens do percurso 1
-    listaItens1: [],  //Lista de Itens do percurso 2
-    listaItens2: [],  //Lista de Itens do percurso 3
-    listaItens3: [],  //Lista de Itens do percurso 4
+    listaTurma: [], //Lista com os alunos.
+    listaItens0: [], //Lista de Itens do percurso 1
+    listaItens1: [], //Lista de Itens do percurso 2
+    listaItens2: [], //Lista de Itens do percurso 3
+    listaItens3: [], //Lista de Itens do percurso 4
     listaItensReportados: [], //Lista com os itens reportados
     listaItensSugeridos: [],
-    listaPercursos : [],
+    listaPercursos: [],
     percursoAtual: {},
 
     listaItens: [], //Itens sendo exibidos, começando pelo estrato 1.
 
     itemSelected: {
-      id: '',
-      percurso: '',
-      resposta: '',
-      fonte: '',
-      layout: '',
+      id: "",
+      percurso: "",
+      resposta: "",
+      fonte: "",
+      layout: "",
     },
 
     questoesP1: [],
@@ -832,28 +1252,26 @@ export default {
     tabNumber: 1,
     lastIndex: 0,
     expansionPanelModel: [null, null, null, null],
-    reportDialog: false,  // Variavel de controle do dialog de report.
+    reportDialog: false, // Variavel de controle do dialog de report.
     reportSuccess: false, // Variavel de controle do dialog de report bem sucedido.
-    errorModel: '', //Model do text-field de erro.
-    colmunTitles: ['Código', 'Habilidade', 'Aprendizagem', 'Status'], //Títulos que aparecem nas colunas.
-    itemExibition: 'habilidades',
-    rules: {  //Objeto utilizado para verificar se um campo obrigatório foi preenchido.
-        required: value => !!value || 'Campo obrigatório',
+    errorModel: "", //Model do text-field de erro.
+    colmunTitles: ["Código", "Habilidade", "Aprendizagem", "Status"], //Títulos que aparecem nas colunas.
+    itemExibition: "habilidades",
+    rules: {
+      //Objeto utilizado para verificar se um campo obrigatório foi preenchido.
+      required: (value) => !!value || "Campo obrigatório",
     },
-    percursoInfo : true,
-    totalTent : 0,   //conta quantas vezes os itens foram respondidos(todos os percursos)
+    percursoInfo: true,
+    totalTent: 0, //conta quantas vezes os itens foram respondidos(todos os percursos)
   }),
 
-  props: {
-
-  },
+  props: {},
 
   watch: {
     // Observa mudanças em `listaDeAlunos`
     /* listaDeAlunos(newVal) {
       this.listaTurma = newVal;
     }, */
-
   },
 
   created() {
@@ -873,57 +1291,59 @@ export default {
     this.itemSelected.resposta = this.questoesP1[0].answer;
     this.itemSelected.fonte = this.questoesP1[0].fonte;
 
-
+    
   },
 
   mounted() {
     this.listaTurma = this.listaDeAlunos;
   },
 
-
   emits: ["eventDeleteTest"],
 
   methods: {
     //Função que muda o modo de visualização dos itens.
     changeItemExibition() {
-      if (this.itemExibition === 'habilidades') {
-        this.itemExibition = 'percursos'
-
-      }
-      else if (this.itemExibition === 'percursos') {
-        this.itemExibition = 'habilidades'
-
+      if (this.itemExibition === "habilidades") {
+        this.itemExibition = "percursos";
+      } else if (this.itemExibition === "percursos") {
+        this.itemExibition = "habilidades";
       }
     },
 
-    abrirImg(img){
-      console.log(img)
-      const blob = new Blob([img], { type: 'image/jpeg' }); // Adjust the MIME type if necessary
+    abrirImg(img) {
+      console.log(img);
+      const blob = new Blob([img], { type: "image/jpeg" }); // Adjust the MIME type if necessary
       const imageUrl = URL.createObjectURL(blob);
-      window.open(imageUrl, '_blank');
+      window.open(imageUrl, "_blank");
     },
 
     //Função que envia um item reportado para o back-end.
     async reportaItem(item) {
-      if (this.errorModel != '') {
+      if (this.errorModel != "") {
         this.reportDialog = false;
         this.reportSuccess = true;
         const currentDate = new Date();
-        const formattedDate = currentDate.toLocaleDateString('pt-BR');
+        const formattedDate = currentDate.toLocaleDateString("pt-BR");
         const itemReportado = {
           idItem: item.id,
-          idAdmin: localStorage.getItem('idAdmin'),
-          tokenAdmin: localStorage.getItem('tokenAdmin'),
+          idAdmin: localStorage.getItem("idAdmin"),
+          tokenAdmin: localStorage.getItem("tokenAdmin"),
           msgErro: this.errorModel,
           percurso: this.tabNumber,
           dataErro: formattedDate,
-        }
+        };
         console.log(`Item reportado: ${JSON.stringify(itemReportado)}`);
         const data = itemReportado;
 
-        axios({ url: 'https://ta-back.onrender.com/admin/reportItens', data, method: 'POST' })
+        axios({
+          url: "https://ta-back.onrender.com/admin/reportItens",
+          data,
+          method: "POST",
+        })
           .then((response) => {
-            console.log(`Status da resposta do servidor: ${response.status} \n`);
+            console.log(
+              `Status da resposta do servidor: ${response.status} \n`
+            );
             console.log(`Mensagem do servidor: ${response.data.message}`);
             this.returnItensReportados();
             this.returnItens();
@@ -934,55 +1354,54 @@ export default {
             console.error(error);
           });
       }
-
     },
 
     //Função que limpa o text field do erro de item reportado.
     clearErrorField() {
-      this.errorModel = '';
+      this.errorModel = "";
     },
 
     selectedTab(tabNum) {
       this.tabNumber = tabNum;
       this.expansionPanelModel = [null, null, null, null];
       if (tabNum >= 5) {
-        this.colmunTitles = ['Código', 'Percurso', 'Administrador', 'Data']
+        this.colmunTitles = ["Código", "Percurso", "Administrador", "Data"];
         this.percursoInfo = false;
-      }
-      else {
-        this.colmunTitles = ['Código', 'Habilidade', 'Aprendizagem', 'Status']
+      } else {
+        this.colmunTitles = ["Código", "Habilidade", "Aprendizagem", "Status"];
         this.percursoInfo = true;
-         switch(tabNum){ //Muda os dados exibidos no v-card do percurso.
+        switch (
+          tabNum //Muda os dados exibidos no v-card do percurso.
+        ) {
           case 1:
-            this.percursoAtual = this.listaPercursos[0]
-          break;
+            this.percursoAtual = this.listaPercursos[0];
+            break;
           case 2:
-            this.percursoAtual = this.listaPercursos[1]
+            this.percursoAtual = this.listaPercursos[1];
 
-          break;
+            break;
           case 3:
-            this.percursoAtual = this.listaPercursos[2]
+            this.percursoAtual = this.listaPercursos[2];
 
-          break;
+            break;
           case 4:
-            this.percursoAtual = this.listaPercursos[3]
-          break;
+            this.percursoAtual = this.listaPercursos[3];
+            break;
         }
       }
-
     },
 
     openItem(index) {
       let dadosItem = {
         index: index,
-        percurso: this.tabNumber
-      }
+        percurso: this.tabNumber,
+      };
       const routeData = this.$router.resolve({
-        name: 'Itens',
-        query: { data: JSON.stringify(dadosItem) }
+        name: "Itens",
+        query: { data: JSON.stringify(dadosItem) },
       });
 
-      window.open(routeData.href, '_blank');
+      window.open(routeData.href, "_blank");
     },
 
     //Muda o item selecionado na tabela.
@@ -1023,9 +1442,12 @@ export default {
       }
     },
 
-    returnItens() {  //Retorna os dados relativos aos itens.
-
-      axios({ url: 'https://ta-back.onrender.com/professores/dadosItens', method: 'POST' })
+    //Retorna os dados relativos aos itens.
+    returnItens() {
+      axios({
+        url: "https://ta-back.onrender.com/professores/dadosItens",
+        method: "POST",
+      })
         .then((response) => {
           this.listaItens = response.data.itens.listaItens1;
           this.listaItens0 = response.data.itens.listaItens0;
@@ -1033,8 +1455,9 @@ export default {
           this.listaItens2 = response.data.itens.listaItens2;
           this.listaItens3 = response.data.itens.listaItens3;
           this.listaPercursos = response.data.listaPercursos;
-          this.percursoAtual =this.listaPercursos[0];
-          for(const number in this.listaPercursos){                   //Obtendo o total de tentativas.
+          this.percursoAtual = this.listaPercursos[0];
+          for (const number in this.listaPercursos) {
+            //Obtendo o total de tentativas.
             this.totalTent += this.listaPercursos[number].tentativas;
           }
         })
@@ -1047,18 +1470,17 @@ export default {
 
     returnItensReportados() {
       const data = {
-        idAdmin: localStorage.getItem('idAdmin'),
-        tokenAdmin: localStorage.getItem('tokenAdmin'),
-      }
+        idAdmin: localStorage.getItem("idAdmin"),
+        tokenAdmin: localStorage.getItem("tokenAdmin"),
+      };
       axios({
-        url: 'https://ta-back.onrender.com/admin/returnReported',
+        url: "https://ta-back.onrender.com/admin/returnReported",
         data,
-        method: 'POST'
+        method: "POST",
       })
         .then((response) => {
           this.listaItensReportados = response.data.itens_reportados;
           //console.log(this.listaItensReportados);
-
         })
 
         .catch((error) => {
@@ -1066,33 +1488,36 @@ export default {
           console.error(error);
         });
     },
-    
 
-    calculaNivelExp(qtdItem){
-      let perc = (qtdItem*100)/this.totalTent;
-      if(perc >= 70){
-        return 'Muito exposto'
-      }
-      else if(perc<70 && perc>=20){
-        return 'Exposto moderadamente'
-      }
-      else if(perc<20 && perc>=1){
-        return 'Pouco exposto'
-      }
-      else{
-        return 'Não aplicado'
+    calculaNivelExp(qtdItem) {
+      let perc = (qtdItem * 100) / this.totalTent;
+      if (perc >= 70) {
+        return "Muito exposto";
+      } else if (perc < 70 && perc >= 20) {
+        return "Exposto moderadamente";
+      } else if (perc < 20 && perc >= 1) {
+        return "Pouco exposto";
+      } else {
+        return "Não aplicado";
       }
     },
 
     //Retorna o percentual geral.
-    calculaPercAcerto(item){
-      let tentativas = item.dadosAlt.qtdA+item.dadosAlt.qtdB+item.dadosAlt.qtdC+item.dadosAlt.qtdD;
-      let acertos = item.dadosAlt.acertosA+item.dadosAlt.acertosB+item.dadosAlt.acertosC+item.dadosAlt.acertosD;
-      if(tentativas === 0 || acertos === 0){
+    calculaPercAcerto(item) {
+      let tentativas =
+        item.dadosAlt.qtdA +
+        item.dadosAlt.qtdB +
+        item.dadosAlt.qtdC +
+        item.dadosAlt.qtdD;
+      let acertos =
+        item.dadosAlt.acertosA +
+        item.dadosAlt.acertosB +
+        item.dadosAlt.acertosC +
+        item.dadosAlt.acertosD;
+      if (tentativas === 0 || acertos === 0) {
         return 0;
-      }
-      else{
-        const percAcerto = (acertos*100)/tentativas;
+      } else {
+        const percAcerto = (acertos * 100) / tentativas;
         return percAcerto.toFixed(2);
       }
     },
@@ -1103,27 +1528,26 @@ export default {
         return 0;
       }
 
-      const resultado = Number(acertos) * 100 / Number(qtd);
+      const resultado = (Number(acertos) * 100) / Number(qtd);
       const resultadoFormatado = parseFloat(resultado.toFixed(2));
 
-   
       return resultadoFormatado;
     },
 
     returnItensSugeridos() {
       const data = {
-        idAdmin: localStorage.getItem('idAdmin'),
-        tokenAdmin: localStorage.getItem('tokenAdmin'),
-      }
+        idAdmin: localStorage.getItem("idAdmin"),
+        tokenAdmin: localStorage.getItem("tokenAdmin"),
+      };
       axios({
-        url: 'https://ta-back.onrender.com/admin/returnSuggested',
+        url: "https://ta-back.onrender.com/admin/returnSuggested",
         data,
-        method: 'POST'
+        method: "POST",
       })
         .then((response) => {
           this.listaItensSugeridos = response.data.itens_sugeridos;
+          this.loadingSkeleton = !this.loadingSkeleton;
           console.log(this.listaItensSugeridos);
-
         })
 
         .catch((error) => {
@@ -1191,34 +1615,30 @@ export default {
       }
       return value !== undefined ? value : "-";
     },
-
-
   },
 };
 </script>
 
 <style scoped>
 @font-face {
-  font-family: 'Urbanist-SB';
+  font-family: "Urbanist-SB";
   src: url(../assets/fonts/Urbanist/static/Urbanist-SemiBold.ttf);
 }
 
-
-.icon-text{
+.icon-text {
   border-radius: 0.3rem;
 }
 
-.correct-icon{
+.correct-icon {
   color: #34a52a;
-
 }
 
-.bull-icon{
+.bull-icon {
   color: rgb(71, 172, 223);
 }
 
-.perc-text{
-  font-family: 'Urbanist-Regular';
+.perc-text {
+  font-family: "Urbanist-Regular";
   font-size: 1.15rem;
 }
 
@@ -1226,8 +1646,7 @@ export default {
   font-size: 0.9rem;
   margin-left: 1vw;
   font-weight: 600;
-  font-family: 'Urbanist-Regular';
-
+  font-family: "Urbanist-Regular";
 }
 
 .title-btn {
@@ -1244,7 +1663,6 @@ export default {
 .td-right {
   font-weight: 400;
   font-size: 0.95rem;
-
 }
 
 .btn-area {
@@ -1258,13 +1676,11 @@ export default {
 .report-card {
   width: 500px;
   height: 25vh;
-
 }
 
 .toolbar-title {
-  font-family: 'Urbanist-Regular';
+  font-family: "Urbanist-Regular";
   font-size: 1.3rem;
-
 }
 
 .report-area {
@@ -1284,30 +1700,30 @@ export default {
   height: 4vh;
   font-size: 1rem;
   font-weight: bold;
-  font-family: 'Urbanist-Regular';
+  font-family: "Urbanist-Regular";
 }
 
 .report-success-text {
   font-size: 1.5rem;
-  font-family: 'Urbanist-Regular';
+  font-family: "Urbanist-Regular";
 }
 
 .tab-name {
-  font-family: 'Urbanist-Regular';
+  font-family: "Urbanist-Regular";
   font-size: 0.83rem;
   font-weight: bold;
 }
 
 .percurso-select {
-  font-family: 'Urbanist-Regular';
+  font-family: "Urbanist-Regular";
   font-size: 3rem !important;
   font-weight: bold;
-  color: #FFF;
+  color: #fff;
   text-align: center;
 }
 
 .change-exibition {
-  font-family: 'Urbanist-Regular';
+  font-family: "Urbanist-Regular";
   font-size: 1rem;
   font-weight: bold;
   margin-top: 0.6vh;
@@ -1322,8 +1738,6 @@ export default {
 .color-revisao {
   color: #ee4e4e !important;
   font-weight: 600;
-
-
 }
 
 .tooltip1Teste {
