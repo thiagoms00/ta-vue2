@@ -4,10 +4,17 @@
       <!-- Mensagem de Seleção de Turma -->
       <v-row>
         <v-col>
-          <v-sheet class="rounded-t-lg pa-2 d-flex align-center justify-space-between" color="#1E3892" height="50">
+          <v-sheet
+            class="rounded-t-lg pa-2 d-flex align-center justify-space-between"
+            color="#1E3892"
+            height="50"
+          >
             <div class="d-flex align-center">
-<!--               <v-icon icon="mdi-ballot"> </v-icon>
- -->              <div class="text-button ml-2 mt-1 tab-name-niveis">Níveis de Aprendizado</div>
+              <!--               <v-icon icon="mdi-ballot"> </v-icon>
+ -->
+              <div class="text-button ml-2 mt-1 tab-name-niveis">
+                Níveis de Aprendizado
+              </div>
             </div>
 
             <div class="text-button mr-2">{{ this.nomeTurma }}</div>
@@ -17,7 +24,7 @@
 
       <v-sheet>
         <v-expansion-panels :readonly="true">
-          <v-expansion-panel style="border-radius: 0;">
+          <v-expansion-panel style="border-radius: 0">
             <v-expansion-panel-title style="height: 6vh" disable-icon>
               <template v-slot:actions>
                 <!-- Só pra retirar o ícone. -->
@@ -40,12 +47,19 @@
             </v-expansion-panel-title>
           </v-expansion-panel>
         </v-expansion-panels>
+
         <v-divider></v-divider>
 
-        <v-expansion-panels variant="accordion">
-          <v-expansion-panel v-for="(item, index) in listaTurma" :key="item.name" ref="panels" style="border-radius: 0;"
-            @click="geraDescricaoHab(index)">
-            <v-expansion-panel-title style="height: 6vh">
+        <v-expansion-panels variant="accordion" >
+          <v-expansion-panel
+            v-for="(item, index) in listaTurma"
+            :key="item.name"
+            ref="panels"
+            style="border-radius: 0"
+            @click="geraDescricaoHab(index)"
+            
+          >
+            <v-expansion-panel-title style="height: 6vh" >
               <v-row class="align-center">
                 <v-col class="pa-2" cols="3">
                   <div class="nome-aluno">
@@ -63,55 +77,76 @@
 
                 <v-col class="pa-2" cols="8">
                   <div class="px-2">
-                    <p class="text-left" style="font-weight: normal !important; font-size: 0.9375rem !important">
+                    <p
+                      class="text-left"
+                      style="
+                        font-weight: normal !important;
+                        font-size: 0.9375rem !important;
+                      "
+                    >
                       {{ getDescricaoResultadoFinal(item) }}
                     </p>
                   </div>
                 </v-col>
               </v-row>
             </v-expansion-panel-title>
-            <v-expansion-panel-text>
-              <v-table>
-                <thead>
-                  <tr class="tread1">
-                    <th class="table-text">
-                      Habilidade
-                    </th>
-                    <th>
-                      <div class="table-text d-flex justify-space-between">
-                        Descrição
-                        <div>
 
-                        </div>
-                      </div>
-                    </th>
+            <v-expansion-panel-text>
+              <v-table class="rounded-lg elevation-2">
+                <thead>
+                  <tr>
+                    <th class="text-overline">Habilidade</th>
+                    <th class="text-overline">Descrição</th>
                   </tr>
                 </thead>
 
                 <tbody>
                   <tr v-for="(item, index) in habilidades" :key="item.nome">
-                    <td class="text-left text-h">{{ item.nome }}</td>
+                    <td>
+                      <v-chip :class="habilidades[index].colorClass" outlined>
+                        {{ item.nome }}
+                      </v-chip>
+                    </td>
                     <td class="desc-hab" :class="habilidades[index].colorClass">
                       {{ item.desc }}
 
                       <!-- Início da Tooltip -->
-                      <v-tooltip activator="parent" location="top left" class="main-tooltip" :open-delay="0"
-                        :close-delay="0" transition="fade-transition" v-if="habilidades[index].colorClass == 'hab100'
-                          || habilidades[index].colorClass == 'hab50' || habilidades[index].colorClass == 'hab0'">
+                      <v-tooltip
+                        activator="parent"
+                        location="top left"
+                        class="main-tooltip"
+                        :open-delay="0"
+                        :close-delay="0"
+                        transition="fade-transition"
+                        v-if="
+                          habilidades[index].colorClass == 'hab100' ||
+                          habilidades[index].colorClass == 'hab50' ||
+                          habilidades[index].colorClass == 'hab0'
+                        "
+                      >
                         <!-- Conteúdo da Tooltip com Quebra de Linha -->
 
                         <div v-if="habilidades[index].colorClass === 'hab100'">
                           <div class="tooltip1Teste">
-                            <v-chip color="green lighten-1" dark small class="mr-2">
+                            <v-chip
+                              color="green lighten-1"
+                              dark
+                              small
+                              class="mr-2"
+                            >
                               VERDE
                             </v-chip>
                             {{ tooltip1 }}
                           </div>
-
                         </div>
                         <div v-if="habilidades[index].colorClass === 'hab50'">
                           <div class="my-2 tooltip1Teste">
-                            <v-chip color="orange darken-1" dark small class="mr-2">
+                            <v-chip
+                              color="orange darken-1"
+                              dark
+                              small
+                              class="mr-2"
+                            >
                               LARANJA
                             </v-chip>
                             {{ tooltip2 }}
@@ -119,51 +154,44 @@
                         </div>
                         <div v-if="habilidades[index].colorClass === 'hab0'">
                           <div class="tooltip1Teste">
-                            <v-chip color="red darken-2" dark small class="mr-2">
+                            <v-chip
+                              color="red darken-2"
+                              dark
+                              small
+                              class="mr-2"
+                            >
                               VERMELHO
                             </v-chip>
                             {{ tooltip3 }}
                           </div>
                         </div>
-                        <div v-else>
-
-                        </div>
-
+                        <div v-else></div>
                       </v-tooltip>
                       <!-- Fim da Tooltip -->
-                      
-
                     </td>
                   </tr>
                   <!-- Jogar um V-for aqui quando tiver as listas de sub-habilidades. -->
                   <tr>
                     <td class="text-left text-h subHab">H2.1</td>
-                    <td class="desc-hab">O aluno não respondeu uma questão com essa habilidade.</td>
+                    <td class="desc-hab">
+                      O aluno não respondeu uma questão com essa habilidade.
+                    </td>
                   </tr>
                   <tr>
                     <td class="text-left text-h subHab">H5.1</td>
-                    <td class="desc-hab">O aluno não respondeu uma questão com essa habilidade.</td>
+                    <td class="desc-hab">
+                      O aluno não respondeu uma questão com essa habilidade.
+                    </td>
                   </tr>
-                  
                 </tbody>
               </v-table>
-
-              <v-divider :thickness="5" color="blue"></v-divider>
-             
 
             </v-expansion-panel-text>
           </v-expansion-panel>
         </v-expansion-panels>
       </v-sheet>
-
     </v-col>
   </v-row>
-
-
-  <!-- 
- 
- 
- -->
 </template>
 
 <script>
@@ -189,22 +217,19 @@ export default {
           nome: "Verde",
           desc: "Taxa de acerto de 100% na habilidade.",
           colorClass: "hab100",
-          chipColor: 'Verde'
-
+          chipColor: "Verde",
         },
         {
           nome: "Laranja",
           desc: "Taxa de acerto inferior à 100% na habilidade.",
           colorClass: "hab50",
-          chipColor: 'Laranja'
-
+          chipColor: "Laranja",
         },
         {
           nome: "Vermelho",
           desc: "Nenhum acerto na habilidade.",
           colorClass: "hab0",
-          chipColor: 'Vermelho'
-
+          chipColor: "Vermelho",
         },
       ],
       habilidades: [
@@ -293,7 +318,7 @@ export default {
     this.listaTurma = this.listaDeAlunos;
   },
 
-  mounted() { },
+  mounted() {},
 
   methods: {
     generateTurmasPDf() {
@@ -377,35 +402,6 @@ export default {
       }
     },
 
-    getResultadoFinal2(item) {
-      if (item.listaDeTestes.length === 0) {
-        return "-";
-      }
-
-      const ultimoTeste = item.listaDeTestes[item.listaDeTestes.length - 1];
-
-      if (ultimoTeste.status !== "Finalizado") {
-        return "-";
-      }
-
-      switch (ultimoTeste.resultado_final) {
-        case "0 - Reprovado":
-          return 1;
-        case "0 - Aprovado":
-        case "1 - Reprovado":
-          return 2;
-        case "1 - Aprovado":
-        case "2 - Reprovado":
-          return 3;
-        case "2 - Aprovado":
-        case "3 - Reprovado":
-          return 4;
-        case "3 - Aprovado":
-          return 5;
-        default:
-          return null;
-      }
-    },
     //Gera a descrição adequada com base na lista de habilidades de cada aluno
     geraDescricaoHab(index) {
       console.clear();
@@ -604,6 +600,20 @@ export default {
 </script>
 
 <style>
+.v-expansion-panel--active .v-expansion-panel-title {
+  background-color: #c5d4e2; /* Cor desejada para o painel expandido */
+}
+
+.v-expansion-panel--active .v-expansion-panel-text {
+  background-color: #d5e3f0; /* Cor desejada para o conteúdo do painel */
+  color: #333; /* Ajuste a cor do texto, se necessário */
+  padding: 16px; /* Opcional: ajuste de espaçamento interno */
+}
+
+.v-expansion-panel-text__wrapper {
+  padding: 0 4px;
+}
+
 .nome-aluno {
   white-space: nowrap;
   overflow: hidden;
@@ -669,26 +679,26 @@ export default {
 }
 
 .hab0 {
-  color: #ef2d2d !important;
+  color: #c93c3c !important;
 }
 
-.tooltip1Teste{
+.tooltip1Teste {
   color: #fff;
 }
 
-.subHab{
+.subHab {
   font-style: italic;
 }
 
-.tab-name-niveis{
-  font-family: 'Urbanist-SB';
+.tab-name-niveis {
+  font-family: "Urbanist-SB";
   font-size: 0.92rem !important;
-
 }
 
-.table-title{
+.table-title {
   font-weight: bold;
 }
 
-@media (max-width: 1800px) {}
+@media (max-width: 1800px) {
+}
 </style>
