@@ -33,6 +33,7 @@
 
   <!-- CONTEÙDO -->
   <ListadeEscolas
+    
     v-if="level === 'escola'"
     :escolas="escolas"
     @changeLevel="updateLevel"

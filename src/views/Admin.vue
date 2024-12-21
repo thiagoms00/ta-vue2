@@ -189,9 +189,10 @@
           <v-col cols="9">
             <!-- MENSAGEM DE SELEÇÂO DE TURMA -->
             <div>
-              <v-window v-model="tab" class="w-100">
+              <v-window v-model="tab" class="w-100 rounded-b-lg elevation-2" > 
                 <!-- Janela de Dados 1 -->
-                <v-window-item value="option-1">
+                <v-window-item value="option-1"
+                >
                   <Escolas
                     @levelAplicationValue="levelAplicationValue"
                     :tab_turma="tab_turma"
