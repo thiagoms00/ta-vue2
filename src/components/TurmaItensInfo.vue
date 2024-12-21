@@ -1,7 +1,4 @@
 <template>
-  
-
-
   <!-- Componente que exibe os itens separados por percurso -->
   <v-sheet class="rounded-t-lg" :class="{ 'fade-in': animacaoListaAtiva }">
     <v-tabs v-model="tab" bg-color="#1E3892" class="rounded-t-lg tab-toolbar">
@@ -30,11 +27,8 @@
       </v-btn>  -->
     </v-tabs>
 
-    <v-skeleton-loader
-    type="table-tbody"
-    v-if="loadingSkeleton"
-  >
-  </v-skeleton-loader>
+    <v-skeleton-loader type="table-tbody" v-if="loadingSkeleton">
+    </v-skeleton-loader>
 
     <v-window v-model="tab" v-if="!loadingSkeleton">
       <v-card class="perc-info d-flex flex-column pa-2" v-if="percursoInfo">
@@ -1290,8 +1284,6 @@ export default {
     this.itemSelected.percurso = 1;
     this.itemSelected.resposta = this.questoesP1[0].answer;
     this.itemSelected.fonte = this.questoesP1[0].fonte;
-
-    
   },
 
   mounted() {

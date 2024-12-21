@@ -23,7 +23,10 @@
 
     </v-tabs>
 
-    <v-window v-model="tab">
+    <v-skeleton-loader type="table-tbody" v-if="loadingSkeleton">
+    </v-skeleton-loader>
+
+    <v-window v-model="tab" v-if="!loadingSkeleton">
 
       <v-row class="dflex align-center title-row">
 
@@ -432,6 +435,8 @@ export default {
   },
 
   data: () => ({
+    loadingSkeleton: true,
+
     animacaoListaAtiva: false,
     icon: ["", "", "", "", "", ""],
     tab: null,
@@ -902,6 +907,7 @@ export default {
         .then((response) => {
           this.listaItensSugeridos = response.data.itens_sugeridos;
           console.log(this.listaItensSugeridos);
+          this.loadingSkeleton = !this.loadingSkeleton;
 
         })
 
