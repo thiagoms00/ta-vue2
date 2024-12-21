@@ -599,7 +599,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .v-expansion-panel--active .v-expansion-panel-title {
   background-color: #c5d4e2; /* Cor desejada para o painel expandido */
 }
