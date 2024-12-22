@@ -394,11 +394,12 @@ export default {
           .catch((error) => {
             // Tratar erros aqui
             localStorage.clear();
-            this.$router.push("/login");
+            this.$router.push("/proflogin");
             console.error(error);
           });
       } else {
         console.log("Não há token pré-salvos nesta sessão.");
+        this.$router.push("/proflogin");
       }
     },
 
