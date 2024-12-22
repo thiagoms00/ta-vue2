@@ -30,7 +30,10 @@
     <v-skeleton-loader type="table-tbody" v-if="loadingSkeleton">
     </v-skeleton-loader>
 
-    <v-sheet class="d-flex pa-3 align-center border-b-sm" v-if="percursoInfo && !loadingSkeleton">
+    <v-sheet
+      class="d-flex pa-3 align-center border-b-sm"
+      v-if="percursoInfo && !loadingSkeleton"
+    >
       <div class="d-flex align-center pa-1">
         <v-icon
           icon="mdi-bullseye-arrow"
@@ -96,6 +99,7 @@
           >
         </v-col>
       </v-row>
+
       <v-window-item value="p1">
         <v-sheet
           rounded="lg"
@@ -166,22 +170,29 @@
                             </td>
                           </tr>
                           <tr>
-                            <td class="td-left">Total de exposições</td>
-                            <td class="td-right">{{ item.dadosAlt.qtdA+item.dadosAlt.qtdB+
-                               item.dadosAlt.qtdC +item.dadosAlt.qtdD
-                              }}</td>
+                            <td class="td-left">Tentativas Realizadas</td>
+                            <td class="td-right">
+                              {{
+                                item.dadosAlt.qtdA +
+                                item.dadosAlt.qtdB +
+                                item.dadosAlt.qtdC +
+                                item.dadosAlt.qtdD
+                              }}
+                            </td>
                           </tr>
                           <tr>
                             <td class="td-left">Nível de exposição</td>
                             <td class="td-right">
-                              {{
-                                calculaNivelExp(
-                                  item.dadosAlt.qtdA +
-                                    item.dadosAlt.qtdB +
-                                    item.dadosAlt.qtdC +
-                                    item.dadosAlt.qtdD
-                                )
-                              }}
+                              <div>
+                                <span>{{ calculaNivelExp(item.dadosAlt.qtdA + item.dadosAlt.qtdB + item.dadosAlt.qtdC + item.dadosAlt.qtdD).mensagem }}</span>
+
+                                <v-progress-linear
+                                  :model-value="calculaNivelExp(item.dadosAlt.qtdA + item.dadosAlt.qtdB + item.dadosAlt.qtdC + item.dadosAlt.qtdD).perc"
+                                  height="8"
+                                  color="blue"
+                                  class="mt-2"
+                                ></v-progress-linear>
+                              </div>
                             </td>
                           </tr>
                           <tr>
@@ -192,76 +203,39 @@
                           </tr>
 
                           <tr>
-                            <td class="td-left">
-                              Percentual de escolha:
-                              <span class="alt-span">a</span>
-                            </td>
+                            <td class="td-left">Percentual de escolhas:</td>
                             <td class="td-right">
-                              {{
-                                calculaPercAlt(
-                                  item.dadosAlt.qtdA,
-                                  item.dadosAlt.qtdA +
-                                    item.dadosAlt.qtdB +
-                                    item.dadosAlt.qtdC +
-                                    item.dadosAlt.qtdD
-                                ) + " %"
-                              }}
+                              <v-chip
+                                v-for="(alt, index) in ['A', 'B', 'C', 'D']"
+                                :key="alt"
+                                class="ma-1"
+                                :color="
+                                  itemSelected.alternativaCorreta ===
+                                  alt.toLowerCase()
+                                    ? 'green-lighten-1'
+                                    : 'red-lighten-1'
+                                "
+                                text-color="black"
+                              >
+                                {{ alt }}:
+                                {{
+                                  calculaPercAlt(
+                                    item.dadosAlt[`qtd${alt}`],
+                                    item.dadosAlt.qtdA +
+                                      item.dadosAlt.qtdB +
+                                      item.dadosAlt.qtdC +
+                                      item.dadosAlt.qtdD
+                                  ) + " %"
+                                }}
+                              </v-chip>
                             </td>
                           </tr>
+
                           <tr>
-                            <td class="td-left">
-                              Percentual de escolha:
-                              <span class="alt-span">b</span>
-                            </td>
+                            <td class="td-left">Fonte</td>
                             <td class="td-right">
-                              {{
-                                calculaPercAlt(
-                                  item.dadosAlt.qtdB,
-                                  item.dadosAlt.qtdA +
-                                    item.dadosAlt.qtdB +
-                                    item.dadosAlt.qtdC +
-                                    item.dadosAlt.qtdD
-                                ) + " %"
-                              }}
+                              {{ this.itemSelected.fonte }}
                             </td>
-                          </tr>
-                          <tr>
-                            <td class="td-left">
-                              Percentual de escolha:
-                              <span class="alt-span">c</span>
-                            </td>
-                            <td class="td-right">
-                              {{
-                                calculaPercAlt(
-                                  item.dadosAlt.qtdC,
-                                  item.dadosAlt.qtdA +
-                                    item.dadosAlt.qtdB +
-                                    item.dadosAlt.qtdC +
-                                    item.dadosAlt.qtdD
-                                ) + " %"
-                              }}
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="td-left">
-                              Percentual de escolha:
-                              <span class="alt-span">d</span>
-                            </td>
-                            <td class="td-right">
-                              {{
-                                calculaPercAlt(
-                                  item.dadosAlt.qtdD,
-                                  item.dadosAlt.qtdA +
-                                    item.dadosAlt.qtdB +
-                                    item.dadosAlt.qtdC +
-                                    item.dadosAlt.qtdD
-                                ) + " %"
-                              }}
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="td-left">Referência</td>
-                            <td class="td-right">{{ this.itemSelected.fonte }}</td>
                           </tr>
                           <!--  <tr>
                             <td class="td-left">Layout</td>
@@ -369,22 +343,29 @@
                             </td>
                           </tr>
                           <tr>
-                            <td class="td-left">Total de exposições: </td>
-                            <td class="td-right">{{ item.dadosAlt.qtdA+item.dadosAlt.qtdB+
-                               item.dadosAlt.qtdC +item.dadosAlt.qtdD
-                              }}</td>
+                            <td class="td-left">Tentativas Realizadas</td>
+                            <td class="td-right">
+                              {{
+                                item.dadosAlt.qtdA +
+                                item.dadosAlt.qtdB +
+                                item.dadosAlt.qtdC +
+                                item.dadosAlt.qtdD
+                              }}
+                            </td>
                           </tr>
                           <tr>
                             <td class="td-left">Nível de exposição</td>
                             <td class="td-right">
-                              {{
-                                calculaNivelExp(
-                                  item.dadosAlt.qtdA +
-                                    item.dadosAlt.qtdB +
-                                    item.dadosAlt.qtdC +
-                                    item.dadosAlt.qtdD
-                                )
-                              }}
+                              <div>
+                                <span>{{ calculaNivelExp(item.dadosAlt.qtdA + item.dadosAlt.qtdB + item.dadosAlt.qtdC + item.dadosAlt.qtdD).mensagem }}</span>
+
+                                <v-progress-linear
+                                  :model-value="calculaNivelExp(item.dadosAlt.qtdA + item.dadosAlt.qtdB + item.dadosAlt.qtdC + item.dadosAlt.qtdD).perc"
+                                  height="8"
+                                  color="blue"
+                                  class="mt-2"
+                                ></v-progress-linear>
+                              </div>
                             </td>
                           </tr>
                           <tr>
@@ -394,76 +375,38 @@
                             </td>
                           </tr>
                           <tr>
-                            <td class="td-left">
-                              Percentual de escolha:
-                              <span class="alt-span">a</span>
-                            </td>
+                            <td class="td-left">Percentual de escolhas:</td>
                             <td class="td-right">
-                              {{
-                                calculaPercAlt(
-                                  item.dadosAlt.qtdA,
-                                  item.dadosAlt.qtdA +
-                                    item.dadosAlt.qtdB +
-                                    item.dadosAlt.qtdC +
-                                    item.dadosAlt.qtdD
-                                ) + " %"
-                              }}
+                              <v-chip
+                                v-for="(alt, index) in ['A', 'B', 'C', 'D']"
+                                :key="alt"
+                                class="ma-1"
+                                :color="
+                                  itemSelected.alternativaCorreta ===
+                                  alt.toLowerCase()
+                                    ? 'green-lighten-1'
+                                    : 'red-lighten-1'
+                                "
+                                text-color="black"
+                              >
+                                {{ alt }}:
+                                {{
+                                  calculaPercAlt(
+                                    item.dadosAlt[`qtd${alt}`],
+                                    item.dadosAlt.qtdA +
+                                      item.dadosAlt.qtdB +
+                                      item.dadosAlt.qtdC +
+                                      item.dadosAlt.qtdD
+                                  ) + " %"
+                                }}
+                              </v-chip>
                             </td>
                           </tr>
                           <tr>
-                            <td class="td-left">
-                              Percentual de escolha:
-                              <span class="alt-span">b</span>
-                            </td>
+                            <td class="td-left">Fonte</td>
                             <td class="td-right">
-                              {{
-                                calculaPercAlt(
-                                  item.dadosAlt.qtdB,
-                                  item.dadosAlt.qtdA +
-                                    item.dadosAlt.qtdB +
-                                    item.dadosAlt.qtdC +
-                                    item.dadosAlt.qtdD
-                                ) + " %"
-                              }}
+                              {{ this.itemSelected.fonte }}
                             </td>
-                          </tr>
-                          <tr>
-                            <td class="td-left">
-                              Percentual de escolha:
-                              <span class="alt-span">c</span>
-                            </td>
-                            <td class="td-right">
-                              {{
-                                calculaPercAlt(
-                                  item.dadosAlt.qtdC,
-                                  item.dadosAlt.qtdA +
-                                    item.dadosAlt.qtdB +
-                                    item.dadosAlt.qtdC +
-                                    item.dadosAlt.qtdD
-                                ) + " %"
-                              }}
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="td-left">
-                              Percentual de escolha:
-                              <span class="alt-span">d</span>
-                            </td>
-                            <td class="td-right">
-                              {{
-                                calculaPercAlt(
-                                  item.dadosAlt.qtdD,
-                                  item.dadosAlt.qtdA +
-                                    item.dadosAlt.qtdB +
-                                    item.dadosAlt.qtdC +
-                                    item.dadosAlt.qtdD
-                                ) + " %"
-                              }}
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="td-left">Referência</td>
-                            <td class="td-right">{{ this.itemSelected.fonte }}</td>
                           </tr>
                           <!--  <tr>
                             <td class="td-left">Layout</td>
@@ -570,10 +513,15 @@
                             </td>
                           </tr>
                           <tr>
-                            <td class="td-left">Total de exposições: </td>
-                            <td class="td-right">{{ item.dadosAlt.qtdA+item.dadosAlt.qtdB+
-                               item.dadosAlt.qtdC +item.dadosAlt.qtdD
-                              }}</td>
+                            <td class="td-left">Tentativas Realizadas</td>
+                            <td class="td-right">
+                              {{
+                                item.dadosAlt.qtdA +
+                                item.dadosAlt.qtdB +
+                                item.dadosAlt.qtdC +
+                                item.dadosAlt.qtdD
+                              }}
+                            </td>
                           </tr>
                           <tr>
                             <td class="td-left">Nível de exposição</td>
@@ -595,76 +543,38 @@
                             </td>
                           </tr>
                           <tr>
-                            <td class="td-left">
-                              Percentual de escolha:
-                              <span class="alt-span">a</span>
-                            </td>
+                            <td class="td-left">Percentual de escolhas:</td>
                             <td class="td-right">
-                              {{
-                                calculaPercAlt(
-                                  item.dadosAlt.qtdA,
-                                  item.dadosAlt.qtdA +
-                                    item.dadosAlt.qtdB +
-                                    item.dadosAlt.qtdC +
-                                    item.dadosAlt.qtdD
-                                ) + " %"
-                              }}
+                              <v-chip
+                                v-for="(alt, index) in ['A', 'B', 'C', 'D']"
+                                :key="alt"
+                                class="ma-1"
+                                :color="
+                                  itemSelected.alternativaCorreta ===
+                                  alt.toLowerCase()
+                                    ? 'green-lighten-1'
+                                    : 'red-lighten-1'
+                                "
+                                text-color="black"
+                              >
+                                {{ alt }}:
+                                {{
+                                  calculaPercAlt(
+                                    item.dadosAlt[`qtd${alt}`],
+                                    item.dadosAlt.qtdA +
+                                      item.dadosAlt.qtdB +
+                                      item.dadosAlt.qtdC +
+                                      item.dadosAlt.qtdD
+                                  ) + " %"
+                                }}
+                              </v-chip>
                             </td>
                           </tr>
                           <tr>
-                            <td class="td-left">
-                              Percentual de escolha:
-                              <span class="alt-span">b</span>
-                            </td>
+                            <td class="td-left">Fonte</td>
                             <td class="td-right">
-                              {{
-                                calculaPercAlt(
-                                  item.dadosAlt.qtdB,
-                                  item.dadosAlt.qtdA +
-                                    item.dadosAlt.qtdB +
-                                    item.dadosAlt.qtdC +
-                                    item.dadosAlt.qtdD
-                                ) + " %"
-                              }}
+                              {{ this.itemSelected.fonte }}
                             </td>
-                          </tr>
-                          <tr>
-                            <td class="td-left">
-                              Percentual de escolha:
-                              <span class="alt-span">c</span>
-                            </td>
-                            <td class="td-right">
-                              {{
-                                calculaPercAlt(
-                                  item.dadosAlt.qtdC,
-                                  item.dadosAlt.qtdA +
-                                    item.dadosAlt.qtdB +
-                                    item.dadosAlt.qtdC +
-                                    item.dadosAlt.qtdD
-                                ) + " %"
-                              }}
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="td-left">
-                              Percentual de escolha:
-                              <span class="alt-span">d</span>
-                            </td>
-                            <td class="td-right">
-                              {{
-                                calculaPercAlt(
-                                  item.dadosAlt.qtdD,
-                                  item.dadosAlt.qtdA +
-                                    item.dadosAlt.qtdB +
-                                    item.dadosAlt.qtdC +
-                                    item.dadosAlt.qtdD
-                                ) + " %"
-                              }}
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="td-left">Referência</td>
-                            <td class="td-right">{{ this.itemSelected.fonte }}</td>
                           </tr>
                           <!--  <tr>
                             <td class="td-left">Layout</td>
@@ -771,10 +681,15 @@
                             </td>
                           </tr>
                           <tr>
-                            <td class="td-left">Total de exposições: </td>
-                            <td class="td-right">{{ item.dadosAlt.qtdA+item.dadosAlt.qtdB+
-                               item.dadosAlt.qtdC +item.dadosAlt.qtdD
-                              }}</td>
+                            <td class="td-left">Tentativas Realizadas</td>
+                            <td class="td-right">
+                              {{
+                                item.dadosAlt.qtdA +
+                                item.dadosAlt.qtdB +
+                                item.dadosAlt.qtdC +
+                                item.dadosAlt.qtdD
+                              }}
+                            </td>
                           </tr>
                           <tr>
                             <td class="td-left">Nível de exposição</td>
@@ -797,76 +712,38 @@
                           </tr>
 
                           <tr>
-                            <td class="td-left">
-                              Percentual de escolha:
-                              <span class="alt-span">a</span>
-                            </td>
+                            <td class="td-left">Percentual de escolhas:</td>
                             <td class="td-right">
-                              {{
-                                calculaPercAlt(
-                                  item.dadosAlt.qtdA,
-                                  item.dadosAlt.qtdA +
-                                    item.dadosAlt.qtdB +
-                                    item.dadosAlt.qtdC +
-                                    item.dadosAlt.qtdD
-                                ) + " %"
-                              }}
+                              <v-chip
+                                v-for="(alt, index) in ['A', 'B', 'C', 'D']"
+                                :key="alt"
+                                class="ma-1"
+                                :color="
+                                  itemSelected.alternativaCorreta ===
+                                  alt.toLowerCase()
+                                    ? 'green-lighten-1'
+                                    : 'red-lighten-1'
+                                "
+                                text-color="black"
+                              >
+                                {{ alt }}:
+                                {{
+                                  calculaPercAlt(
+                                    item.dadosAlt[`qtd${alt}`],
+                                    item.dadosAlt.qtdA +
+                                      item.dadosAlt.qtdB +
+                                      item.dadosAlt.qtdC +
+                                      item.dadosAlt.qtdD
+                                  ) + " %"
+                                }}
+                              </v-chip>
                             </td>
                           </tr>
                           <tr>
-                            <td class="td-left">
-                              Percentual de escolha:
-                              <span class="alt-span">b</span>
-                            </td>
+                            <td class="td-left">Fonte</td>
                             <td class="td-right">
-                              {{
-                                calculaPercAlt(
-                                  item.dadosAlt.qtdB,
-                                  item.dadosAlt.qtdA +
-                                    item.dadosAlt.qtdB +
-                                    item.dadosAlt.qtdC +
-                                    item.dadosAlt.qtdD
-                                ) + " %"
-                              }}
+                              {{ this.itemSelected.fonte }}
                             </td>
-                          </tr>
-                          <tr>
-                            <td class="td-left">
-                              Percentual de escolha:
-                              <span class="alt-span">c</span>
-                            </td>
-                            <td class="td-right">
-                              {{
-                                calculaPercAlt(
-                                  item.dadosAlt.qtdC,
-                                  item.dadosAlt.qtdA +
-                                    item.dadosAlt.qtdB +
-                                    item.dadosAlt.qtdC +
-                                    item.dadosAlt.qtdD
-                                ) + " %"
-                              }}
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="td-left">
-                              Percentual de escolha:
-                              <span class="alt-span">d</span>
-                            </td>
-                            <td class="td-right">
-                              {{
-                                calculaPercAlt(
-                                  item.dadosAlt.qtdD,
-                                  item.dadosAlt.qtdA +
-                                    item.dadosAlt.qtdB +
-                                    item.dadosAlt.qtdC +
-                                    item.dadosAlt.qtdD
-                                ) + " %"
-                              }}
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="td-left">Referência</td>
-                            <td class="td-right">{{ this.itemSelected.fonte }}</td>
                           </tr>
                           <!--  <tr>
                             <td class="td-left">Layout</td>
@@ -1070,7 +947,7 @@
                             <td class="td-right">{{ item.resposta }}</td>
                           </tr>
                           <tr>
-                            <td class="td-left">Referência</td>
+                            <td class="td-left">Fonte</td>
                             <td class="td-right">{{ item.fonte }}</td>
                           </tr>
                           <!-- <tr>
@@ -1207,6 +1084,7 @@ export default {
       resposta: "",
       fonte: "",
       layout: "",
+      alternativaCorreta: "",
     },
 
     questoesP1: [],
@@ -1231,12 +1109,7 @@ export default {
 
   props: {},
 
-  watch: {
-    // Observa mudanças em `listaDeAlunos`
-    /* listaDeAlunos(newVal) {
-      this.listaTurma = newVal;
-    }, */
-  },
+  watch: {},
 
   created() {
     this.returnItens();
@@ -1254,6 +1127,8 @@ export default {
     this.itemSelected.percurso = 1;
     this.itemSelected.resposta = this.questoesP1[0].answer;
     this.itemSelected.fonte = this.questoesP1[0].fonte;
+    this.itemSelected.alternativaCorreta =
+      this.questoesP1[0].alternativaCorreta;
   },
 
   mounted() {
@@ -1376,6 +1251,9 @@ export default {
           this.itemSelected.percurso = 1;
           this.itemSelected.resposta = this.questoesP1[index].answer;
           this.itemSelected.fonte = this.questoesP1[index].fonte;
+          this.itemSelected.alternativaCorreta =
+            this.questoesP1[index].alternativaCorreta;
+
           break;
         case 2:
           this.itemSelected.id = this.questoesP2[index].id;
@@ -1383,6 +1261,8 @@ export default {
           this.itemSelected.percurso = 2;
           this.itemSelected.resposta = this.questoesP2[index].answer;
           this.itemSelected.fonte = this.questoesP2[index].fonte;
+          this.itemSelected.alternativaCorreta =
+            this.questoesP2[index].alternativaCorreta;
 
           break;
         case 3:
@@ -1391,6 +1271,9 @@ export default {
           this.itemSelected.percurso = 3;
           this.itemSelected.resposta = this.questoesP3[index].answer;
           this.itemSelected.fonte = this.questoesP3[index].fonte;
+          this.itemSelected.alternativaCorreta =
+            this.questoesP3[index].alternativaCorreta;
+
           break;
         case 4:
           this.itemSelected.id = this.questoesP4[index].id;
@@ -1398,6 +1281,9 @@ export default {
           this.itemSelected.percurso = 4;
           this.itemSelected.resposta = this.questoesP4[index].answer;
           this.itemSelected.fonte = this.questoesP4[index].fonte;
+          this.itemSelected.alternativaCorreta =
+            this.questoesP4[index].alternativaCorreta;
+
           break;
         default:
           break;
@@ -1452,17 +1338,22 @@ export default {
     },
 
     calculaNivelExp(qtdItem) {
-      let perc = (qtdItem * 100) / this.totalTent;
-      if (perc >= 70) {
-        return "Muito exposto";
-      } else if (perc < 70 && perc >= 20) {
-        return "Exposto moderadamente";
-      } else if (perc < 20 && perc >= 1) {
-        return "Pouco exposto";
-      } else {
-        return "Não aplicado";
-      }
-    },
+  let perc = (qtdItem * 100) / this.totalTent;
+  let mensagem;
+
+  if (perc >= 70) {
+    mensagem = "Muito exposto";
+  } else if (perc < 70 && perc >= 20) {
+    mensagem = "Exposto moderadamente";
+  } else if (perc < 20 && perc >= 1) {
+    mensagem = "Pouco exposto";
+  } else {
+    mensagem = "Não aplicado";
+  }
+
+  return { mensagem, perc }; // Retorna a mensagem e a porcentagem
+},
+
 
     //Retorna o percentual geral.
     calculaPercAcerto(item) {
