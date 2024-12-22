@@ -41,7 +41,7 @@
           size="24"
         ></v-icon>
         <h3 class="perc-text ml-1">
-          Tentativas: {{ percursoAtual.tentativas }}
+          Total de exposições: {{ percursoAtual.tentativas }}
         </h3>
       </div>
 
