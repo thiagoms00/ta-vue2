@@ -162,9 +162,9 @@
                     Ver item
                   </v-btn>
 
-                  <v-btn variant="outlined" class="item-btn" @click="reportDialog = true">
+                <!--   <v-btn variant="outlined" class="item-btn" @click="reportDialog = true">
                     Reportar item
-                  </v-btn>
+                  </v-btn> -->
                 </div>
 
                 <v-divider :thickness="5" color="blue"></v-divider>

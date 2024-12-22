@@ -52,7 +52,14 @@
 
                 </form>
 
-                <ContButton class="button-m1" id="buttonM1" @click="openDialog" />
+                <!-- <ContButton class="button-m1" id="buttonM1" @click="openDialog" /> -->
+                <v-btn
+                    variant="outlined"
+                    class="item-btn report-m3"
+                    @click="reportDialog = true"
+                  >
+                    Reportar item
+                  </v-btn>  
 
             </div>
         </div>
@@ -103,8 +110,13 @@
 
                 </form>
 
-                <button class="question-button button-m2" @click="openDialog">Continuar</button>
-
+                <v-btn
+                    variant="outlined"
+                    class="item-btn report-m2"
+                    @click="reportDialog = true"
+                    >
+                    Reportar item
+                </v-btn> 
             </div>
 
         </div>
@@ -158,8 +170,13 @@
 
                 </form>
 
-                <ContButton id="buttonM3" class="button-m3" @click="openDialog" />
-
+                <v-btn
+                    variant="outlined"
+                    class="item-btn report-m3"
+                    @click="reportDialog = true"
+                  >
+                    Reportar item
+                  </v-btn>                
 
 
 
@@ -202,12 +219,17 @@
                 </div>
             </div>
 
-            <ContButton class="button-m4" id="buttonM4" @click="openDialog" />
-
+            <v-btn
+                variant="outlined"
+                class="item-btn report-m4"
+                @click="reportDialog = true"
+                >
+                Reportar item
+            </v-btn>  
 
         </div>
 
-        <!-- Layout de questõs pequenas (sem imagem/texto) -->
+        <!-- Layout de questões pequenas (sem imagem/texto) -->
         <div class="conteudo conteudo-m2" v-else="layoutCheck=='m5'">
 
             <div class="pergunta pergunta-m4">
@@ -251,11 +273,98 @@
 
             </div>
 
-            <ContButton class="question-button button-m5" @click="openDialog" />
-
+<!--             <ContButton class="question-button button-m5" @click="openDialog" />
+ -->
+        <v-btn
+            variant="outlined"
+            class="item-btn report-m5"
+            @click="reportDialog = true"
+            >
+            Reportar item
+        </v-btn>  
 
 
         </div>
+
+        <!-- Dialog de report -->
+    <v-dialog v-model="reportDialog" width="auto">
+      <v-card min-width="700"
+      ref="draggableCard"
+          style="cursor: pointer; position: absolute;"
+          :style="{ left: `${position.x}px`, top: `${position.y}px` }"
+          @mousedown="startDrag"
+      
+      >
+        <v-toolbar color="#1E3892" density="comfortable">
+          <v-icon icon="mdi-alert-circle-outline" class="ml-5"></v-icon>
+          <v-toolbar-title class="ml-2 toolbar-title"
+            >Reportar Item</v-toolbar-title
+          >
+          <v-spacer></v-spacer>
+        </v-toolbar>
+
+        <template v-slot:actions class="">
+          <div class="d-flex flex-column report-area pa-5">
+            <h4 class="ml-2 report-id">{{ this.questionId }}</h4>
+            <v-text-field
+              clearable
+              label="Erro"
+              variant="outlined"
+              class="mt-5"
+              v-model="errorModel"
+              :rules="[rules.required]"
+            >
+            </v-text-field>
+            <div class="report-buttons d-flex mt-5">
+              <v-btn
+                variant="outlined"
+                class="mx-auto report-button"
+                text="Reportar"
+                @click="reportaItem()"
+              ></v-btn>
+              <v-btn
+                variant="outlined"
+                class="mx-auto report-button"
+                text="Voltar"
+                @click="(reportDialog = false), clearErrorField()"
+              ></v-btn>
+            </div>
+          </div>
+        </template>
+      </v-card>
+    </v-dialog>
+
+    <!-- Dialog de report bem sucedido-->
+
+    <v-dialog v-model="reportSuccess" width="auto">
+      <v-card min-width="500">
+        <v-toolbar color="#1E3892" density="comfortable">
+          <v-icon icon="mdi-alert-circle-outline" class="ml-5"></v-icon>
+          <v-toolbar-title class="ml-2 toolbar-title"
+            >Reportar Item</v-toolbar-title
+          >
+          <v-spacer></v-spacer>
+        </v-toolbar>
+
+        <template v-slot:actions class="">
+          <div class="d-flex flex-column report-area pa-5">
+            <h4 class="mx-auto report-success-text">
+              O Item foi reportado com sucesso!!
+            </h4>
+            <div class="report-buttons d-flex mt-5">
+              <v-btn
+                variant="outlined"
+                class="mx-auto report-button"
+                text="Fechar"
+                @click="(reportSuccess = false), clearErrorField()"
+              ></v-btn>
+            </div>
+          </div>
+        </template>
+      </v-card>
+    </v-dialog>
+
+
         <!-- Dialog com o seletor de itens -->
 
         <v-dialog v-model="imgDialog" width="auto">
@@ -509,6 +618,19 @@ export default {
             itens_p4: [],
             tabNumber: 1,
             paramItem : {},
+            errorModel: "", //Model do text-field de erro.
+            reportDialog: false, // Variavel de controle do dialog de report.
+            reportSuccess: false, // Variavel de controle do dialog de report bem sucedido.
+            rules: {
+            //Objeto utilizado para verificar se um campo obrigatório foi preenchido.
+                required: (value) => !!value || "Campo obrigatório",
+            },
+            dialog: false,
+            position: { x: 0, y: 0 },
+            isDragging: false,
+            startX: 0,
+            startY: 0,
+            
         }
     },
 
@@ -606,6 +728,45 @@ export default {
 
     methods: {
 
+        //Função que envia um item reportado para o back-end.
+    async reportaItem(item) {
+        if (this.errorModel != "") {
+            this.reportDialog = false;
+            this.reportSuccess = true;
+            const currentDate = new Date();
+            const formattedDate = currentDate.toLocaleDateString("pt-BR");
+            const itemReportado = {
+                idItem: this.questionId,
+                idAdmin: localStorage.getItem("idAdmin"),
+                tokenAdmin: localStorage.getItem("tokenAdmin"),
+                msgErro: this.errorModel,
+                percurso: this.tabNumber,
+                dataErro: formattedDate,
+            };
+            console.log(`Item reportado: ${JSON.stringify(itemReportado)}`);
+            const data = itemReportado;
+
+            axios({
+            url: "https://ta-back.onrender.com/admin/reportItens",
+            data,
+            method: "POST",
+            })
+            .then((response) => {
+                console.log(
+                `Status da resposta do servidor: ${response.status} \n`
+                );
+                console.log(`Mensagem do servidor: ${response.data.message}`);
+                
+            })
+
+            .catch((error) => {
+                // Tratar erros aqui
+                console.error(error);
+            });
+        }
+        },
+
+
         /* Define o numero da última TAB que foi selecionada */
         selectedTab(tabNum) {
             this.tabNumber = tabNum;
@@ -619,8 +780,23 @@ export default {
             this.infoDialog = true;
         },
 
-        openItem(){
-
+        startDrag(event) {
+            this.isDragging = true;
+            this.startX = event.clientX - this.position.x;
+            this.startY = event.clientY - this.position.y;
+            document.addEventListener("mousemove", this.onDrag);
+            document.addEventListener("mouseup", this.stopDrag);
+        },
+        onDrag(event) {
+        if (this.isDragging) {
+            this.position.x = event.clientX - this.startX;
+            this.position.y = event.clientY - this.startY;
+        }
+        },
+        stopDrag() {
+            this.isDragging = false;
+            document.removeEventListener("mousemove", this.onDrag);
+            document.removeEventListener("mouseup", this.stopDrag);
         },
 
 
@@ -1339,8 +1515,6 @@ export default {
 
         async changeQuestionAlt(percurso, indice) {
 
-
-
             this.questionNumber = this.ordem[percurso][indice];
 
             if (percurso === 0) {
@@ -1441,6 +1615,9 @@ export default {
             const remainingSeconds = Math.floor(seconds % 60); // arredondando para baixo para remover casas decimais
             return `${minutes}m${remainingSeconds}s`;
         },
+        clearErrorField() {
+            this.errorModel = "";
+        },
 
     },
 
@@ -1474,6 +1651,79 @@ export default {
     font-family: 'Manrope', sans-serif;
 
 }
+
+/* Botão de report */
+
+.report-success-text {
+  font-size: 1.5rem !important;
+}
+
+.toolbar-title {
+  font-family: "Urbanist-Regular";
+  font-size: 1.3rem;
+}
+
+.report-area {
+  width: 100%;
+}
+
+.report-buttons {
+  width: 100%;
+}
+
+.report-id {
+  font-size: 1.05rem;
+}
+
+.report-button {
+  width: 10vw;
+  height: 4vh;
+  font-size: 1rem;
+  font-weight: bold;
+  font-family: "Urbanist-Regular";
+}
+
+
+.item-btn {
+    font-size: 1.35rem !important;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10vh;
+    font-weight: 600;
+    font-family: 'Urbanist-Regular';
+    width: 50% !important;
+    color :#f4f4f4 !important; 
+    background-color : #1E3892 !important;
+    border-radius: 0.3rem !important;
+
+}
+
+.report-m3{
+    width: 55% !important;
+    height: 7vh !important;
+}
+
+.report-m2{
+    font-size: 1.25rem !important;
+
+    margin-left: 38vw;
+    margin-top: 2vh !important;
+    height: 6.5vh !important;
+
+}
+
+.report-m5{
+    margin-top: 0vh !important;
+    width: 25% !important;
+    height: 7vh !important;
+}
+
+.report-m4{
+    margin-top: 18vh !important;
+    width: 25% !important;
+    height: 7vh !important;
+}
+
 
 .conteudo {
     display: flex;
@@ -1899,6 +2149,15 @@ export default {
 
 
 @media (max-width: 1550px) {
+
+    .report-m3,.report-m5,.report-m2, .report-m4{
+        font-size: 0.95rem !important;
+    }   
+
+    .report-m5{
+        font-size: 0.95rem !important;
+    }   
+
     .icon-mega {
         width: 70px;
         height: 70px;
@@ -2020,7 +2279,13 @@ export default {
 
 /* Tablet(Modo com a largura maior) */
 
+
+
 @media (max-width: 1024px) {
+
+    .report-m3, .report-m5, .report-m2, .report-m4{
+        font-size: 0.7rem !important;
+    }
     .icon-mega {
         width: 70px;
         height: 70px;
@@ -2306,6 +2571,8 @@ export default {
         margin-left: 8vw;
     }
 
-
+    /* Botão de report */
+    
+   
 }
 </style>

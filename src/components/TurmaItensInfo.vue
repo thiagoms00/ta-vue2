@@ -257,13 +257,13 @@
                     Ver item
                   </v-btn>
 
-                  <v-btn
+                 <!--  <v-btn
                     variant="outlined"
                     class="item-btn"
                     @click="reportDialog = true"
                   >
                     Reportar item
-                  </v-btn>
+                  </v-btn> -->
                 </div>
 
                 <v-divider :thickness="5" color="blue"></v-divider>
@@ -427,13 +427,13 @@
                   >
                     Ver item</v-btn
                   >
-                  <v-btn
+                 <!--  <v-btn
                     variant="outlined"
                     class="item-btn"
                     @click="(reportDialog = true), console.log(reportDialog)"
                   >
                     Reportar item
-                  </v-btn>
+                  </v-btn> -->
                 </div>
 
                 <v-divider :thickness="4"></v-divider>
@@ -595,13 +595,13 @@
                   >
                     Ver item</v-btn
                   >
-                  <v-btn
+                  <!-- <v-btn
                     variant="outlined"
                     class="item-btn"
                     @click="reportDialog = true"
                   >
                     Reportar item
-                  </v-btn>
+                  </v-btn> -->
                 </div>
 
                 <v-divider :thickness="4"></v-divider>
@@ -764,13 +764,13 @@
                   >
                     Ver item</v-btn
                   >
-                  <v-btn
+                 <!--  <v-btn
                     variant="outlined"
                     class="item-btn"
                     @click="reportDialog = true"
                   >
                     Reportar item
-                  </v-btn>
+                  </v-btn> -->
                 </div>
 
                 <v-divider :thickness="4"></v-divider>
