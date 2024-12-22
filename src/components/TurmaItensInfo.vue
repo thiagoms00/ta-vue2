@@ -30,35 +30,33 @@
     <v-skeleton-loader type="table-tbody" v-if="loadingSkeleton">
     </v-skeleton-loader>
 
-    <v-window v-model="tab" v-if="!loadingSkeleton">
-      <v-card class="perc-info d-flex flex-column pa-2" v-if="percursoInfo">
-        <div class="icon-text d-flex flex-row pa-1">
-          <v-icon
-            icon="mdi-bullseye-arrow"
-            class="perc-icon bull-icon"
-            size="large"
-          >
-          </v-icon>
-          <h3 class="perc-text ml-2">
-            Tentativas: {{ percursoAtual.tentativas }}
-          </h3>
-        </div>
-        <div class="icon-text d-flex flex-row pa-1">
-          <v-icon
-            class="perc-icon correct-icon"
-            icon="mdi-check-circle-outline"
-            size="large"
-          ></v-icon>
-          <h3 class="perc-text ml-2">
-            Percentual de acerto:
-            {{
-              calculaPercAlt(percursoAtual.acertos, percursoAtual.tentativas)
-            }}
-            %
-          </h3>
-        </div>
-      </v-card>
+    <v-sheet class="d-flex pa-3 align-center border-b-sm" v-if="percursoInfo && !loadingSkeleton">
+      <div class="d-flex align-center pa-1">
+        <v-icon
+          icon="mdi-bullseye-arrow"
+          color="light-blue-darken-1"
+          size="24"
+        ></v-icon>
+        <h3 class="perc-text ml-1">
+          Tentativas: {{ percursoAtual.tentativas }}
+        </h3>
+      </div>
 
+      <div class="d-flex flex-row pa-1 ml-4">
+        <v-icon
+          color="green-darken-2"
+          icon="mdi-check-circle-outline"
+          size="large"
+        ></v-icon>
+        <h3 class="perc-text ml-1">
+          Percentual de acerto:
+          {{ calculaPercAlt(percursoAtual.acertos, percursoAtual.tentativas) }}
+          %
+        </h3>
+      </div>
+    </v-sheet>
+
+    <v-window v-model="tab" v-if="!loadingSkeleton">
       <v-row class="dflex align-center title-row">
         <v-col cols="3" class="d-flex justify-center">
           <v-btn class="title-btn" block :ripple="false" variant="text">{{
@@ -1617,21 +1615,8 @@ export default {
   src: url(../assets/fonts/Urbanist/static/Urbanist-SemiBold.ttf);
 }
 
-.icon-text {
-  border-radius: 0.3rem;
-}
-
-.correct-icon {
-  color: #34a52a;
-}
-
-.bull-icon {
-  color: rgb(71, 172, 223);
-}
-
 .perc-text {
   font-family: "Urbanist-Regular";
-  font-size: 1.15rem;
 }
 
 .item-btn {
