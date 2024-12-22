@@ -105,7 +105,7 @@
                             <td class="td-right">{{ this.itemSelected.resposta }}</td>
                           </tr>
                           <tr>
-                            <td class="td-left">Tentativas Realizadas</td>
+                            <td class="td-left">Total de exposições</td>
                             <td class="td-right">{{ item.dadosAlt.qtdA+item.dadosAlt.qtdB+
                                item.dadosAlt.qtdC +item.dadosAlt.qtdD
                               }}</td>
@@ -143,7 +143,7 @@
                               item.dadosAlt.qtdA + item.dadosAlt.qtdB + item.dadosAlt.qtdC+item.dadosAlt.qtdD) + ' %' }}</td>
                           </tr>
                           <tr>
-                            <td class="td-left">Fonte</td>
+                            <td class="td-left">Referência</td>
                             <td class="td-right">{{ this.itemSelected.fonte }}</td>
                           </tr>
                          <!--  <tr>

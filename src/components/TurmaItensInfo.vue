@@ -166,15 +166,10 @@
                             </td>
                           </tr>
                           <tr>
-                            <td class="td-left">Tentativas Realizadas</td>
-                            <td class="td-right">
-                              {{
-                                item.dadosAlt.qtdA +
-                                item.dadosAlt.qtdB +
-                                item.dadosAlt.qtdC +
-                                item.dadosAlt.qtdD
-                              }}
-                            </td>
+                            <td class="td-left">Total de exposições</td>
+                            <td class="td-right">{{ item.dadosAlt.qtdA+item.dadosAlt.qtdB+
+                               item.dadosAlt.qtdC +item.dadosAlt.qtdD
+                              }}</td>
                           </tr>
                           <tr>
                             <td class="td-left">Nível de exposição</td>
@@ -265,10 +260,8 @@
                             </td>
                           </tr>
                           <tr>
-                            <td class="td-left">Fonte</td>
-                            <td class="td-right">
-                              {{ this.itemSelected.fonte }}
-                            </td>
+                            <td class="td-left">Referência</td>
+                            <td class="td-right">{{ this.itemSelected.fonte }}</td>
                           </tr>
                           <!--  <tr>
                             <td class="td-left">Layout</td>
@@ -376,15 +369,10 @@
                             </td>
                           </tr>
                           <tr>
-                            <td class="td-left">Tentativas Realizadas</td>
-                            <td class="td-right">
-                              {{
-                                item.dadosAlt.qtdA +
-                                item.dadosAlt.qtdB +
-                                item.dadosAlt.qtdC +
-                                item.dadosAlt.qtdD
-                              }}
-                            </td>
+                            <td class="td-left">Total de exposições: </td>
+                            <td class="td-right">{{ item.dadosAlt.qtdA+item.dadosAlt.qtdB+
+                               item.dadosAlt.qtdC +item.dadosAlt.qtdD
+                              }}</td>
                           </tr>
                           <tr>
                             <td class="td-left">Nível de exposição</td>
@@ -474,10 +462,8 @@
                             </td>
                           </tr>
                           <tr>
-                            <td class="td-left">Fonte</td>
-                            <td class="td-right">
-                              {{ this.itemSelected.fonte }}
-                            </td>
+                            <td class="td-left">Referência</td>
+                            <td class="td-right">{{ this.itemSelected.fonte }}</td>
                           </tr>
                           <!--  <tr>
                             <td class="td-left">Layout</td>
@@ -584,15 +570,10 @@
                             </td>
                           </tr>
                           <tr>
-                            <td class="td-left">Tentativas Realizadas</td>
-                            <td class="td-right">
-                              {{
-                                item.dadosAlt.qtdA +
-                                item.dadosAlt.qtdB +
-                                item.dadosAlt.qtdC +
-                                item.dadosAlt.qtdD
-                              }}
-                            </td>
+                            <td class="td-left">Total de exposições: </td>
+                            <td class="td-right">{{ item.dadosAlt.qtdA+item.dadosAlt.qtdB+
+                               item.dadosAlt.qtdC +item.dadosAlt.qtdD
+                              }}</td>
                           </tr>
                           <tr>
                             <td class="td-left">Nível de exposição</td>
@@ -682,10 +663,8 @@
                             </td>
                           </tr>
                           <tr>
-                            <td class="td-left">Fonte</td>
-                            <td class="td-right">
-                              {{ this.itemSelected.fonte }}
-                            </td>
+                            <td class="td-left">Referência</td>
+                            <td class="td-right">{{ this.itemSelected.fonte }}</td>
                           </tr>
                           <!--  <tr>
                             <td class="td-left">Layout</td>
@@ -792,15 +771,10 @@
                             </td>
                           </tr>
                           <tr>
-                            <td class="td-left">Tentativas Realizadas</td>
-                            <td class="td-right">
-                              {{
-                                item.dadosAlt.qtdA +
-                                item.dadosAlt.qtdB +
-                                item.dadosAlt.qtdC +
-                                item.dadosAlt.qtdD
-                              }}
-                            </td>
+                            <td class="td-left">Total de exposições: </td>
+                            <td class="td-right">{{ item.dadosAlt.qtdA+item.dadosAlt.qtdB+
+                               item.dadosAlt.qtdC +item.dadosAlt.qtdD
+                              }}</td>
                           </tr>
                           <tr>
                             <td class="td-left">Nível de exposição</td>
@@ -891,10 +865,8 @@
                             </td>
                           </tr>
                           <tr>
-                            <td class="td-left">Fonte</td>
-                            <td class="td-right">
-                              {{ this.itemSelected.fonte }}
-                            </td>
+                            <td class="td-left">Referência</td>
+                            <td class="td-right">{{ this.itemSelected.fonte }}</td>
                           </tr>
                           <!--  <tr>
                             <td class="td-left">Layout</td>
@@ -1098,7 +1070,7 @@
                             <td class="td-right">{{ item.resposta }}</td>
                           </tr>
                           <tr>
-                            <td class="td-left">Fonte</td>
+                            <td class="td-left">Referência</td>
                             <td class="td-right">{{ item.fonte }}</td>
                           </tr>
                           <!-- <tr>

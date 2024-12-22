@@ -26,19 +26,19 @@
                         <v-select v-model="selectPercurso" :items="opcoesPercurso" density="compact" label=""
                             variant="outlined" class="message-field" :rules="[rules.required]"></v-select>
 
-                        <h3 class="label-form">Alternativa 1</h3>
+                        <h3 class="label-form">Alternativa a</h3>
                         <v-text-field label="" variant="outlined" density="compact" class="message-field"
                             v-model="alt1Model"></v-text-field>
 
-                        <h3 class="label-form">Alternativa 2</h3>
+                        <h3 class="label-form">Alternativa b</h3>
                         <v-text-field label="" variant="outlined" density="compact" class="message-field"
                             v-model="alt2Model"></v-text-field>
 
-                        <h3 class="label-form">Alternativa 3</h3>
+                        <h3 class="label-form">Alternativa c</h3>
                         <v-text-field label="" variant="outlined" density="compact" class="message-field"
                             v-model="alt3Model"></v-text-field>
 
-                        <h3 class="label-form">Alternativa 4</h3>
+                        <h3 class="label-form">Alternativa d</h3>
                         <v-text-field label="" variant="outlined" density="compact" class="message-field"
                             v-model="alt4Model"></v-text-field>
 
@@ -52,7 +52,7 @@
                 <v-sheet class="mx-auto main-sheet rigth-sheet" width="">
                     <div class=custom-form>
 
-                        <h3 class="label-form">Comando</h3>
+                        <h3 class="label-form">Enunciado</h3>
                         <v-text-field label="" class="message-field" variant="outlined" density="compact"
                             v-model="comandoModel"></v-text-field>
 
@@ -64,7 +64,7 @@
                         <v-text-field label="" class="message-field" variant="outlined" density="compact"
                             v-model="respoModel"></v-text-field>
 
-                        <h3 class="label-form">Fonte</h3>
+                        <h3 class="label-form">Referência</h3>
                         <v-text-field label="" class="message-field" variant="outlined" density="compact"
                             v-model="fonteModel"></v-text-field>
 
