@@ -10,14 +10,14 @@
       <v-tab value="p3" class="tab-name" @click="selectedTab(3)">H03</v-tab>
       <v-tab value="p4" class="tab-name" @click="selectedTab(4)">H04</v-tab>
       <v-tab value="p5" class="tab-name" @click="selectedTab(5)">H05</v-tab>
-      <v-tab value="p6" class="tab-name" @click="selectedTab(1)">H06</v-tab>
-      <v-tab value="p7" class="tab-name" @click="selectedTab(2)">H07</v-tab>
-      <v-tab value="p8" class="tab-name" @click="selectedTab(3)">H08</v-tab>
-      <v-tab value="p9" class="tab-name" @click="selectedTab(4)">H09</v-tab>
-      <v-tab value="p10" class="tab-name" @click="selectedTab(5)">H10</v-tab>
-      <v-tab value="p11" class="tab-name" @click="selectedTab(5)">H11</v-tab>
-      <v-tab value="p12" class="tab-name" @click="selectedTab(6)">Reportados</v-tab>
-      <v-tab value="p13" class="tab-name" @click="selectedTab(6)">Pendentes</v-tab>
+      <v-tab value="p6" class="tab-name" @click="selectedTab(6)">H06</v-tab>
+      <v-tab value="p7" class="tab-name" @click="selectedTab(7)">H07</v-tab>
+      <v-tab value="p8" class="tab-name" @click="selectedTab(8)">H08</v-tab>
+      <v-tab value="p9" class="tab-name" @click="selectedTab(9)">H09</v-tab>
+      <v-tab value="p10" class="tab-name" @click="selectedTab(10)">H10</v-tab>
+      <v-tab value="p11" class="tab-name" @click="selectedTab(11)">H11</v-tab>
+      <v-tab value="p12" class="tab-name" @click="selectedTab(0)">Reportados</v-tab>
+      <v-tab value="p13" class="tab-name" @click="selectedTab(0)">Pendentes</v-tab>
 
       <v-spacer></v-spacer>
 
@@ -25,6 +25,37 @@
 
     <v-skeleton-loader type="table-tbody" v-if="loadingSkeleton">
     </v-skeleton-loader>
+
+
+    <v-sheet
+      class="d-flex pa-3 align-center border-b-sm"
+      v-if="percursoInfo && !loadingSkeleton"
+    >
+      <!-- <div class="d-flex align-center pa-1">
+        <v-icon
+          icon="mdi-bullseye-arrow"
+          color="light-blue-darken-1"
+          size="24"
+        ></v-icon>
+        <h3 class="perc-text ml-1">
+          Total de exposições: {{ habExibida.tentativas }}
+        </h3>
+      </div>
+
+      <div class="d-flex flex-row pa-1 ml-4">
+        <v-icon
+          color="green-darken-2"
+          icon="mdi-check-circle-outline"
+          size="large"
+        ></v-icon>
+        <h3 class="perc-text ml-1">
+          Percentual de acerto:
+          {{  }}
+          %
+        </h3>
+      </div> -->
+    </v-sheet>
+
 
     <v-window v-model="tab" v-if="!loadingSkeleton">
 
@@ -490,10 +521,16 @@ export default {
     itemExibition: 'habilidades',
     listaItensSugeridos: [],
     percursoInfo : true,
-    totalTent : 0,   //conta quantas vezes os itens foram respondidos(todos os percursos)
+    totalTent : 0,   //conta quantas vezes os itens foram respondidos(todos os percursos).
     rules: {  //Objeto utilizado para verificar se um campo obrigatório foi preenchido.
       required: value => !!value || 'Campo obrigatório',
     },
+
+    dadosHab : [],  //Dados relativos à habilidades(dados estatisticos, qtd de acertos etc...)
+    habExibida : {
+      "tentativas"  : 0,
+      "acertos" : 0,
+    }, //Dados da habilidade que está sendo exibida atualmente.
   }),
 
   props: {
@@ -659,7 +696,7 @@ export default {
     selectedTab(tabNum) {
       this.tabNumber = tabNum;
       this.expansionPanelModel = [null, null, null, null];
-      if (tabNum === 6) {
+      if (tabNum === 0) {
         this.colmunTitles = ['Código', 'Percurso', 'Administrador', 'Data']
       }
       else {
@@ -811,20 +848,22 @@ export default {
         tokenAdmin: localStorage.getItem('tokenAdmin'),
       }
       axios({
-        url: 'https://ta-back.onrender.com/admin/dadosItensHab',
+        url: 'https://ta-back.onrender.com/admin/dadosItensHab', 
         data,
         method: 'POST'
       })
         .then((response) => {
-
 
           this.listaItensH = [response.data.itens.listaItensH01, response.data.itens.listaItensH02,
           response.data.itens.listaItensH03, response.data.itens.listaItensH04, response.data.itens.listaItensH05,
           response.data.itens.listaItensH06, response.data.itens.listaItensH07, response.data.itens.listaItensH08,
           response.data.itens.listaItensH09, response.data.itens.listaItensH10, response.data.itens.listaItensH11
           ]
-
-
+          this.dadosHab = response.data.habilidades;
+          console.log(this.dadosHab);
+          this.habExibida.tentativas = this.dadosHab[0].tentativas;
+          this.habExibida.perc = this.calculaPercAlt(this.dadosHab[0].acertos,this.dadosHab[0].tentativas);
+         
           this.listaItensH01 = response.data.itens.listaItensH01;
           this.listaItensH02 = response.data.itens.listaItensH02;
           this.listaItensH03 = response.data.itens.listaItensH03;
@@ -1109,4 +1148,8 @@ export default {
   font-weight: bold !important;
   font-size: 1.03rem;
 }
+.perc-text {
+  font-family: "Urbanist-Regular";
+}
+
 </style>
