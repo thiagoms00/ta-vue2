@@ -31,7 +31,7 @@
       class="d-flex pa-3 align-center border-b-sm"
       v-if="percursoInfo && !loadingSkeleton"
     >
-      <!-- <div class="d-flex align-center pa-1">
+      <div class="d-flex align-center pa-1">
         <v-icon
           icon="mdi-bullseye-arrow"
           color="light-blue-darken-1"
@@ -50,10 +50,10 @@
         ></v-icon>
         <h3 class="perc-text ml-1">
           Percentual de acerto:
-          {{  }}
+          {{ habExibida.perc }}
           %
         </h3>
-      </div> -->
+      </div> 
     </v-sheet>
 
 
@@ -149,7 +149,7 @@
                           <tr>
                             <td class="td-left">Percentual de Acerto</td>
                             <td class="td-right">{{ 
-                              calculaPercAcerto(item) + ' %'
+                              calculaPercAcerto(item,index) + ' %'
                               }}</td>
                           </tr>
                           <tr>
@@ -577,7 +577,27 @@ export default {
 
   methods: {
 
-    calculaPercAcerto(item){
+    //Essa função calcula os dados de uso das habilidades, OBS: Só usar ela enquanto nao temos os dados salvos no banco.
+    calculaDadosHab (){
+      let totalHab = [];
+      let totalAc = [];
+      let count = 0;
+      let countAcertos = 0;
+      for(let i=0; i<this.listaItensH.length; i++){
+        for(let j=0; j<this.listaItensH[i].length; j++){
+          count += this.listaItensH[i][j].dadosAlt.qtdA+this.listaItensH[i][j].dadosAlt.qtdB+this.listaItensH[i][j].dadosAlt.qtdC+this.listaItensH[i][j].dadosAlt.qtdD;
+          countAcertos += this.listaItensH[i][j].dadosAlt.acertosA + this.listaItensH[i][j].dadosAlt.acertosB + this.listaItensH[i][j].dadosAlt.acertosC + this.listaItensH[i][j].dadosAlt.acertosD;
+        }
+        totalHab.push(count);
+        totalAc.push(countAcertos);
+        countAcertos = 0;
+        count = 0;
+      } 
+  
+
+    },  
+
+    calculaPercAcerto(item,index){
       let tentativas = item.dadosAlt.qtdA+item.dadosAlt.qtdB+item.dadosAlt.qtdC+item.dadosAlt.qtdD;
       let acertos = item.dadosAlt.acertosA+item.dadosAlt.acertosB+item.dadosAlt.acertosC+item.dadosAlt.acertosD;
       if(tentativas === 0 || acertos === 0){
@@ -696,6 +716,9 @@ export default {
     selectedTab(tabNum) {
       this.tabNumber = tabNum;
       this.expansionPanelModel = [null, null, null, null];
+      this.habExibida.tentativas = this.dadosHab[tabNum-1].tentativas;
+      this.habExibida.perc = this.calculaPercAlt(this.dadosHab[this.tabNumber-1].acertos,this.dadosHab[this.tabNumber-1].tentativas);
+
       if (tabNum === 0) {
         this.colmunTitles = ['Código', 'Percurso', 'Administrador', 'Data']
       }
@@ -859,10 +882,11 @@ export default {
           response.data.itens.listaItensH06, response.data.itens.listaItensH07, response.data.itens.listaItensH08,
           response.data.itens.listaItensH09, response.data.itens.listaItensH10, response.data.itens.listaItensH11
           ]
-          this.dadosHab = response.data.habilidades;
+          this.dadosHab = response.data.habilidades[0];  //Dados de uso das habildades(tentativas,acertos,etc)
           console.log(this.dadosHab);
-          this.habExibida.tentativas = this.dadosHab[0].tentativas;
-          this.habExibida.perc = this.calculaPercAlt(this.dadosHab[0].acertos,this.dadosHab[0].tentativas);
+          this.habExibida.tentativas = this.dadosHab[this.tabNumber-1].tentativas;
+          this.habExibida.perc = this.calculaPercAlt(this.dadosHab[this.tabNumber-1].acertos,this.dadosHab[this.tabNumber-1].tentativas);
+
          
           this.listaItensH01 = response.data.itens.listaItensH01;
           this.listaItensH02 = response.data.itens.listaItensH02;
@@ -875,7 +899,6 @@ export default {
           this.listaItensH09 = response.data.itens.listaItensH09;
           this.listaItensH10 = response.data.itens.listaItensH10;
           this.listaItensH11 = response.data.itens.listaItensH11;
-
 
         })
 
@@ -964,8 +987,7 @@ export default {
       const resultado = Number(acertos) * 100 / Number(qtd);
       const resultadoFormatado = parseFloat(resultado.toFixed(2));
 
-      console.log(`${acertos} ${qtd}`);
-      console.log(`${resultadoFormatado}`);
+   
 
       return resultadoFormatado;
     },
