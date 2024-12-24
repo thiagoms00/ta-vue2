@@ -230,6 +230,8 @@
         </div>
 
         <!-- Layout de questões pequenas (sem imagem/texto) -->
+
+
         <div class="conteudo conteudo-m2" v-else="layoutCheck=='m5'">
 
             <div class="pergunta pergunta-m4">
@@ -288,7 +290,7 @@
 
         <!-- Dialog de report -->
     <v-dialog v-model="reportDialog" width="auto">
-      <v-card min-width="700"
+      <v-card min-width=""  class="report-card"
       ref="draggableCard"
           style="cursor: pointer; position: absolute;"
           :style="{ left: `${position.x}px`, top: `${position.y}px` }"
@@ -304,18 +306,21 @@
         </v-toolbar>
 
         <template v-slot:actions class="">
-          <div class="d-flex flex-column report-area pa-5">
+          <div class="d-flex flex-column report-area pa-4">
             <h4 class="ml-2 report-id">{{ this.questionId }}</h4>
-            <v-text-field
-              clearable
-              label="Erro"
-              variant="outlined"
-              class="mt-5"
-              v-model="errorModel"
-              :rules="[rules.required]"
-            >
-            </v-text-field>
-            <div class="report-buttons d-flex mt-5">
+            <v-responsive class="" max-width="" max-height="130">
+                <v-text-field
+                    clearable
+                    label="Erro"
+                    variant="outlined"
+                    class="mt-4 error-field"
+                    v-model="errorModel"
+                    :rules="[rules.required]"
+                    >
+                    </v-text-field>
+            </v-responsive>
+          
+            <div class="report-buttons d-flex mt-1">
               <v-btn
                 variant="outlined"
                 class="mx-auto report-button"
@@ -626,7 +631,7 @@ export default {
                 required: (value) => !!value || "Campo obrigatório",
             },
             dialog: false,
-            position: { x: 0, y: 0 },
+            position: { x: -340, y: -150 },
             isDragging: false,
             startX: 0,
             startY: 0,
@@ -1654,13 +1659,17 @@ export default {
 
 /* Botão de report */
 
+.report-card{
+    width: 40vw;
+}
+
 .report-success-text {
   font-size: 1.5rem !important;
 }
 
 .toolbar-title {
   font-family: "Urbanist-Regular";
-  font-size: 1.3rem;
+  font-size: 1.2rem !important;
 }
 
 .report-area {
@@ -1675,9 +1684,13 @@ export default {
   font-size: 1.05rem;
 }
 
+.error-field{
+    font-size: 0.1rem !important;
+}
+
 .report-button {
   width: 10vw;
-  height: 4vh;
+  height: 4.1vh !important;
   font-size: 1rem;
   font-weight: bold;
   font-family: "Urbanist-Regular";
@@ -2150,6 +2163,14 @@ export default {
 
 @media (max-width: 1550px) {
 
+    .report-card{
+        width: 45vw;
+    }
+
+    .report-button{
+        height: 4.2vh  !important;
+    }
+
     .report-m3,.report-m5,.report-m2, .report-m4{
         font-size: 0.95rem !important;
     }   
@@ -2280,8 +2301,24 @@ export default {
 /* Tablet(Modo com a largura maior) */
 
 
+@media(max-width: 1280px){
+    .report-card{
+        width: 50vw;
+    }
+
+   
+}
+
+
 
 @media (max-width: 1024px) {
+
+
+    .report-card{
+        width: 45vw;
+    }
+
+    
 
     .report-m3, .report-m5, .report-m2, .report-m4{
         font-size: 0.7rem !important;
