@@ -341,31 +341,31 @@
                             <td class="td-right">{{ item.emailAdmin }}</td>
                           </tr>
                           <tr>
-                            <td class="td-left">Comando</td>
+                            <td class="td-left">Enunciado</td>
                             <td class="td-right">{{ item.comando }}</td>
                           </tr>
                           <tr>
-                            <td class="td-left">Alternativa 1</td>
+                            <td class="td-left">Alternativa a</td>
                             <td class="td-right">{{ item.alt1 }}</td>
                           </tr>
                           <tr>
-                            <td class="td-left">Alternativa 2</td>
+                            <td class="td-left">Alternativa b</td>
                             <td class="td-right">{{ item.alt2 }}</td>
                           </tr>
                           <tr>
-                            <td class="td-left">Alternativa 3</td>
+                            <td class="td-left">Alternativa c</td>
                             <td class="td-right">{{ item.alt3 }}</td>
                           </tr>
                           <tr>
-                            <td class="td-left">Alternativa 4</td>
+                            <td class="td-left">Alternativa d</td>
                             <td class="td-right">{{ item.alt4 }}</td>
                           </tr>
                           <tr>
-                            <td class="td-left">Resposta</td>
+                            <td class="td-left">Alternativa correta</td>
                             <td class="td-right">{{ item.resposta }}</td>
                           </tr>
                           <tr>
-                            <td class="td-left">Fonte</td>
+                            <td class="td-left">Referência</td>
                             <td class="td-right">{{ item.fonte }}</td>
                           </tr>
 

@@ -334,7 +334,7 @@
                 variant="outlined"
                 class="mx-auto report-button"
                 text="Voltar"
-                @click="(reportDialog = false), clearErrorField()"
+                @click="(reportDialog = false)"
               ></v-btn>
             </div>
           </div>
