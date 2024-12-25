@@ -288,7 +288,7 @@
 
         </div>
 
-        <!-- Dialog de report -->
+    <!-- Dialog de report -->
     <v-dialog v-model="reportDialog" width="auto">
       <v-card min-width=""  class="report-card"
       ref="draggableCard"
@@ -303,21 +303,24 @@
             >Reportar Item</v-toolbar-title
           >
           <v-spacer></v-spacer>
+         
+
         </v-toolbar>
 
         <template v-slot:actions class="">
           <div class="d-flex flex-column report-area pa-4">
             <h4 class="ml-2 report-id">{{ this.questionId }}</h4>
-            <v-responsive class="" max-width="" max-height="130">
-                <v-text-field
+            <v-responsive class="" max-width="">
+                <v-textarea
                     clearable
+                    rows="3"
                     label="Erro"
                     variant="outlined"
                     class="mt-4 error-field"
                     v-model="errorModel"
                     :rules="[rules.required]"
                     >
-                    </v-text-field>
+                    </v-textarea>
             </v-responsive>
           
             <div class="report-buttons d-flex mt-1">
@@ -1695,7 +1698,6 @@ export default {
   font-weight: bold;
   font-family: "Urbanist-Regular";
 }
-
 
 .item-btn {
     font-size: 1.35rem !important;
