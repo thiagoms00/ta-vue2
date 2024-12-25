@@ -274,12 +274,6 @@
                               </div>
                             </td>
                           </tr>
-                          <tr>
-                            <td class="td-left">Percentual de Acerto</td>
-                            <td class="td-right">
-                              {{ calculaPercAcerto(item) + " %" }}
-                            </td>
-                          </tr>
 
                           <tr>
                             <td class="td-left">Percentual de escolhas:</td>
@@ -781,12 +775,7 @@
                               </div>
                             </td>
                           </tr>
-                          <tr>
-                            <td class="td-left">Percentual de Acerto</td>
-                            <td class="td-right">
-                              {{ calculaPercAcerto(item) + " %" }}
-                            </td>
-                          </tr>
+ 
                           <tr>
                             <td class="td-left">Percentual de escolhas:</td>
                             <td class="td-right">
@@ -1035,12 +1024,6 @@
                                   </v-col>
                                 </v-row>
                               </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td class="td-left">Percentual de Acerto</td>
-                            <td class="td-right">
-                              {{ calculaPercAcerto(item) + " %" }}
                             </td>
                           </tr>
 

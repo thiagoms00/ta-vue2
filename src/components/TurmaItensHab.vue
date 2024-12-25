@@ -89,6 +89,7 @@
           <v-expansion-panels variant="accordion" class="" v-model="expansionPanelModel[0]">
             <v-expansion-panel v-for="(item, index) in listaItensH[index]" :key="item.id" ref="panels"
               class="rounded-b-lg" style="border-radius: 0px;">
+              
               <v-expansion-panel-title style="height: 5vh;" class="color-painel"
                 @click="obtemDadosItem(item.id, item.nestr + 1)">
                 <v-row class="d-flex align-center">
@@ -106,19 +107,36 @@
                   </v-col>
 
                   <v-col cols="3" class="d-flex justify-center">
-                    <span v-if="item.status === 'Disponivel'" class="color-disponivel">
-                      {{ item.status }}
-                    </span>
-                    <span v-if="item.status === 'Em revisão'" class="color-revisao">
-                      {{ item.status }}
-                    </span>
+                    <div>
+                      <v-chip
+                        v-if="item.status === 'Disponivel'"
+                        color="green"
+                        dark
+                        class="ma-2"
+                      >
+                        <v-icon left class="mr-1">mdi-check</v-icon>
+                        {{ item.status }}
+                      </v-chip>
+
+                      <v-chip
+                        v-if="item.status === 'Em revisão'"
+                        color="orange"
+                        dark
+                        class="ma-2"
+                      >
+                        <v-icon left class="mr-1"
+                          >mdi-alert-circle-outline</v-icon
+                        >
+                        {{ item.status }}
+                      </v-chip>
+                    </div>
                   </v-col>
                 </v-row>
 
               </v-expansion-panel-title>
 
               <v-expansion-panel-text>
-                <v-sheet>
+                <v-sheet class="rounded-lg" >
                   <v-row>
                     <v-col>
                       <v-table class="mt-2">
@@ -143,35 +161,114 @@
                           </tr>
                           <tr>
                             <td class="td-left">Nível de exposição </td>
-                            <td class="td-right">{{ calculaNivelExp(item.dadosAlt.qtdA+item.dadosAlt.qtdB+
-                               item.dadosAlt.qtdC +item.dadosAlt.qtdD)}}</td>
+                            <td class="td-right">
+                              <div>
+                                <v-row align="center" dense>
+                                  <v-col cols="auto">
+                                    <v-chip
+                                      :color="
+                                        getBarColor(
+                                          calculaNivelExp(
+                                            item.dadosAlt.qtdA +
+                                              item.dadosAlt.qtdB +
+                                              item.dadosAlt.qtdC +
+                                              item.dadosAlt.qtdD
+                                          ).perc
+                                        )
+                                      "
+                                      dark
+                                      class="ml-2"
+                                    >
+                                      {{
+                                        calculaNivelExp(
+                                          item.dadosAlt.qtdA +
+                                            item.dadosAlt.qtdB +
+                                            item.dadosAlt.qtdC +
+                                            item.dadosAlt.qtdD
+                                        ).mensagem
+                                      }}
+                                    </v-chip>
+                                    <v-chip
+                                      :color="
+                                        getBarColor(
+                                          calculaNivelExp(
+                                            item.dadosAlt.qtdA +
+                                              item.dadosAlt.qtdB +
+                                              item.dadosAlt.qtdC +
+                                              item.dadosAlt.qtdD
+                                          ).perc
+                                        )
+                                      "
+                                      dark
+                                      class="ml-2"
+                                    >
+                                      {{
+                                        calculaNivelExp(
+                                          item.dadosAlt.qtdA +
+                                            item.dadosAlt.qtdB +
+                                            item.dadosAlt.qtdC +
+                                            item.dadosAlt.qtdD
+                                        ).perc.toFixed(2)
+                                      }}
+                                      %
+                                    </v-chip>
+                                  </v-col>
+                                  <v-col>
+                                    <v-progress-linear
+                                      :model-value="
+                                        calculaNivelExp(
+                                          item.dadosAlt.qtdA +
+                                            item.dadosAlt.qtdB +
+                                            item.dadosAlt.qtdC +
+                                            item.dadosAlt.qtdD
+                                        ).perc
+                                      "
+                                      height="8"
+                                      :color="
+                                        getBarColor(
+                                          calculaNivelExp(
+                                            item.dadosAlt.qtdA +
+                                              item.dadosAlt.qtdB +
+                                              item.dadosAlt.qtdC +
+                                              item.dadosAlt.qtdD
+                                          ).perc
+                                        )
+                                      "
+                                      rounded
+                                    >
+                                    </v-progress-linear>
+                                  </v-col>
+                                </v-row>
+                              </div>
+                            </td>
                           </tr>
                           <tr>
-                            <td class="td-left">Percentual de Acerto</td>
-                            <td class="td-right">{{ 
-                              calculaPercAcerto(item,index) + ' %'
-                              }}</td>
-                          </tr>
-                          <tr>
-                            <td class="td-left">Percentual de escolha: <span class="alt-span">a</span></td>
-                            <td class="td-right">{{ calculaPercAlt(item.dadosAlt.qtdA,
-                              item.dadosAlt.qtdA + item.dadosAlt.qtdB + item.dadosAlt.qtdC + item.dadosAlt.qtdD
-                            ) + ' %' }}</td>
-                          </tr>
-                          <tr>
-                            <td class="td-left">Percentual de escolha: <span class="alt-span">b</span></td>
-                            <td class="td-right">{{ calculaPercAlt(item.dadosAlt.qtdB,
-                              item.dadosAlt.qtdA + item.dadosAlt.qtdB + item.dadosAlt.qtdC+item.dadosAlt.qtdD)+ ' %'  }}</td>
-                          </tr>
-                          <tr>
-                            <td class="td-left">Percentual de escolha: <span class="alt-span">c</span></td>
-                            <td class="td-right">{{ calculaPercAlt(item.dadosAlt.qtdC,
-                              item.dadosAlt.qtdA + item.dadosAlt.qtdB + item.dadosAlt.qtdC+item.dadosAlt.qtdD) +' %' }}</td>
-                          </tr>
-                          <tr>
-                            <td class="td-left">Percentual de escolha: <span class="alt-span">d</span></td>
-                            <td class="td-right">{{ calculaPercAlt(item.dadosAlt.qtdD,
-                              item.dadosAlt.qtdA + item.dadosAlt.qtdB + item.dadosAlt.qtdC+item.dadosAlt.qtdD) + ' %' }}</td>
+                            <td class="td-left">Percentual de escolhas:</td>
+                            <td class="td-right">
+                              <v-chip
+                                v-for="(alt, index) in ['A', 'B', 'C', 'D']"
+                                :key="alt"
+                                class="ma-1"
+                                :color="
+                                  itemSelected.alternativaCorreta ===
+                                  alt.toLowerCase()
+                                    ? 'green-lighten-1'
+                                    : 'red-lighten-1'
+                                "
+                                text-color="black"
+                              >
+                                {{ alt }}:
+                                {{
+                                  calculaPercAlt(
+                                    item.dadosAlt[`qtd${alt}`],
+                                    item.dadosAlt.qtdA +
+                                      item.dadosAlt.qtdB +
+                                      item.dadosAlt.qtdC +
+                                      item.dadosAlt.qtdD
+                                  ) + " %"
+                                }}
+                              </v-chip>
+                            </td>
                           </tr>
                           <tr>
                             <td class="td-left">Referência</td>
@@ -187,18 +284,29 @@
                   </v-row>
                 </v-sheet>
 
-                <v-divider :thickness="1"></v-divider>
-                <div class="btn-area">
-                  <v-btn variant="outlined" class="item-btn" @click="openItemHab(item.nestr + 1, this.itemSelected.id)">
-                    Ver item
-                  </v-btn>
+                <v-sheet
+                  class="mt-6 rounded-lg px-4 py-2 d-flex align-center justify-space-between"
+                >
+                  <div>
+                    <v-btn
+                      variant="outlined"
+                      class="item-btn"
+                      @click="openItem(index)"
+                    >
+                      Ver item
+                    </v-btn>
 
-                <!--   <v-btn variant="outlined" class="item-btn" @click="reportDialog = true">
-                    Reportar item
-                  </v-btn> -->
-                </div>
+                    <!--  <v-btn
+                      variant="outlined"
+                      class="item-btn"
+                      @click="reportDialog = true"
+                    >
+                      Reportar item
+                    </v-btn> -->
+                  </div>
 
-                <v-divider :thickness="5" color="blue"></v-divider>
+                  <div class = "text-button"> Ações </div>
+                </v-sheet>
 
 
               </v-expansion-panel-text>
@@ -206,6 +314,8 @@
             </v-expansion-panel>
           </v-expansion-panels>
         </v-sheet>
+
+        
 
       </v-window-item>
 
@@ -505,6 +615,7 @@ export default {
       fonte: '',
       layout: '',
       dadosAlt: {},
+      alternativaCorreta: "",
     },
 
     questoesP1: [],
@@ -564,6 +675,7 @@ export default {
     this.itemSelected.resposta = this.questoesP1[0].answer;
     this.itemSelected.fonte = this.questoesP1[0].fonte
     this.itemSelected.dadosAlt = {}
+    this.itemSelected.alternativaCorreta = this.questoesP1[0].alternativaCorreta;
 
 
   },
@@ -576,6 +688,17 @@ export default {
   emits: ["eventDeleteTest"],
 
   methods: {
+    getBarColor(perc) {
+      if (perc >= 70) {
+        return "red"; // Muito exposto
+      } else if (perc < 70 && perc >= 20) {
+        return "orange"; // Exposto moderadamente
+      } else if (perc < 20 && perc >= 1) {
+        return "light-blue"; // Pouco exposto
+      } else {
+        return "block"; // Não aplicado
+      }
+    },
 
     //Essa função calcula os dados de uso das habilidades, OBS: Só usar ela enquanto nao temos os dados salvos no banco.
     calculaDadosHab (){
@@ -609,20 +732,21 @@ export default {
       }
     },
 
-    calculaNivelExp(qtdItem){
-      let perc = (qtdItem*100)/this.totalTent;
-      if(perc >= 70){
-        return 'Muito exposto'
+    calculaNivelExp(qtdItem) {
+      let perc = (qtdItem * 100) / this.totalTent;
+      let mensagem;
+
+      if (perc >= 70) {
+        mensagem = "Muito exposto";
+      } else if (perc < 70 && perc >= 20) {
+        mensagem = "Exposto moderadamente";
+      } else if (perc < 20 && perc >= 1) {
+        mensagem = "Pouco exposto";
+      } else {
+        mensagem = "Não aplicado";
       }
-      else if(perc<70 && perc>=20){
-        return 'Exposto moderadamente'
-      }
-      else if(perc<20 && perc>=1){
-        return 'Pouco exposto'
-      }
-      else{
-        return 'Não aplicado'
-      }
+
+      return { mensagem, perc }; // Retorna a mensagem e a porcentagem
     },
 
     obtemDadosItem(id, percurso) {
@@ -637,6 +761,7 @@ export default {
           this.itemSelected.resposta = item.answer;
           this.itemSelected.fonte = item.fonte;
           this.itemSelected.dadosAlt = item.dadosAlt;
+          this.itemSelected.alternativaCorreta = item.alternativaCorreta;
           break;
         case 2:
           item = this.questoesP2.find(item => item.id === id);
@@ -646,6 +771,8 @@ export default {
           this.itemSelected.resposta = item.answer;
           this.itemSelected.fonte = item.fonte;
           this.itemSelected.dadosAlt = item.dadosAlt;
+          this.itemSelected.alternativaCorreta = item.alternativaCorreta;
+
 
           break;
         case 3:
@@ -656,6 +783,8 @@ export default {
           this.itemSelected.resposta = item.answer;
           this.itemSelected.fonte = item.fonte;
           this.itemSelected.dadosAlt = item.dadosAlt;
+          this.itemSelected.alternativaCorreta = item.alternativaCorreta;
+
 
           break;
         case 4:
@@ -666,10 +795,11 @@ export default {
           this.itemSelected.resposta = item.answer;
           this.itemSelected.fonte = item.fonte;
           this.itemSelected.dadosAlt = item.dadosAlt;
+          this.itemSelected.alternativaCorreta = item.alternativaCorreta;
+
 
           break;
       }
-      //console.log(item)
       console.log(item)
 
     },
@@ -909,7 +1039,6 @@ export default {
     },
 
     //Retorna um objeto com os itens separados por percurso.
-
     returnItens() {
 
       axios({
@@ -1059,17 +1188,25 @@ export default {
 </script>
 
 <style scoped>
+
+.v-expansion-panel--active .v-expansion-panel-title {
+  background-color: #d5d8dc;
+}
+
+.v-expansion-panel--active .v-expansion-panel-text {
+  background-color: #d5d8dc;
+
+  padding: 16px; /* Opcional: ajuste de espaçamento interno */
+}
+
 @font-face {
   font-family: 'Urbanist-SB';
   src: url(../assets/fonts/Urbanist/static/Urbanist-SemiBold.ttf);
 }
 
 .item-btn {
-  font-size: 0.9rem;
-  margin-left: 1vw;
   font-weight: 600;
-  font-family: 'Urbanist-Regular';
-
+  font-family: "Urbanist-Regular";
 }
 
 .title-btn {
