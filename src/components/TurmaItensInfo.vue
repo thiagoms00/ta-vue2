@@ -1564,6 +1564,7 @@ export default {
 
     //Muda o item selecionado na tabela.
     changeItem(index, percurso) {
+
       this.newIndex = index; //para o changeItem do changeTab
       switch (percurso) {
         case 1:
@@ -1612,7 +1613,7 @@ export default {
     },
 
     //Retorna os dados relativos aos itens.
-    returnItens() {
+    returnItens(){
       axios({
         url: "https://ta-back.onrender.com/professores/dadosItens",
         method: "POST",
@@ -1622,6 +1623,7 @@ export default {
           this.listaItens0 = response.data.itens.listaItens0;
           this.listaItens1 = response.data.itens.listaItens1;
           this.listaItens2 = response.data.itens.listaItens2;
+          console.log(this.listaItens1);
           this.listaItens3 = response.data.itens.listaItens3;
           this.listaPercursos = response.data.listaPercursos;
           this.percursoAtual = this.listaPercursos[0];
@@ -1649,7 +1651,6 @@ export default {
       })
         .then((response) => {
           this.listaItensReportados = response.data.itens_reportados;
-          //console.log(this.listaItensReportados);
         })
 
         .catch((error) => {
@@ -1732,7 +1733,6 @@ export default {
         .then((response) => {
           this.listaItensSugeridos = response.data.itens_sugeridos;
           this.loadingSkeleton = !this.loadingSkeleton;
-          console.log(this.listaItensSugeridos);
         })
 
         .catch((error) => {

@@ -33,16 +33,17 @@
 
   <!-- CONTEÙDO -->
   <ListadeEscolas
-    
     v-if="level === 'escola'"
     :escolas="escolas"
     @changeLevel="updateLevel"
+    @changeNomeEscola="attNomeEscola"
   />
 
   <ListadeTurmas
     v-if="level === 'turmas'"
     :turmas="turmas"
     @changeLevel="updateTurma"
+    @changeNomeTurma="attNomeTurma"
   />
 
   <TurmaSelecionada
@@ -75,6 +76,8 @@ export default {
     tab: "option-1",
     habilidadesTurmaAtual: {},
     escolas: [],
+    nome_escola_atual:"",
+    nome_turma_atual:""
   }),
 
   props: {
@@ -92,6 +95,14 @@ export default {
   },
 
   methods: {
+    attNomeTurma(nome_turma){
+      this.nome_turma_atual = nome_turma
+    },
+
+    attNomeEscola(nome_escola){
+      this.nome_escola_atual = nome_escola
+    },
+
     getEscolas() {
       const data = {
         tokenAdmin: localStorage.getItem("tokenAdmin"),
@@ -139,7 +150,9 @@ export default {
         case "escola":
           return "Escolha uma escola";
         case "turmas":
-          return "Escolha uma turma";
+          return this.nome_escola_atual;
+        case "turmaselecionado":
+          return `${this.nome_escola_atual} / ${this.nome_turma_atual}`;
         default:
           return "";
       }

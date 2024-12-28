@@ -110,6 +110,9 @@ export default {
       type: Array,
       required: true,
     },
+    nomeEscolaAtual:{
+      type: String
+    }
   },
 
   computed: {
@@ -138,11 +141,11 @@ export default {
       if (turma.nome === "Adicionar Nova Turma") {
         console.log("Adicionar nova turma");
       } else {
-        this.selecionaTurma(turma._id, index);
+        this.selecionaTurma(turma._id, index, turma.nome);
       }
     },
 
-    selecionaTurma(turmaId, index) {
+    selecionaTurma(turmaId, index, turmaNome) {
       // Define o loader apenas para o card clicado
       this.isCardLoading[index] = true;
 
@@ -161,6 +164,7 @@ export default {
           this.dadosTurma = response.data;
           console.log(this.dadosTurma);
           this.$emit("changeLevel", "turmaselecionado", this.dadosTurma);
+          this.$emit("changeNomeTurma", turmaNome);
         })
         .catch((error) => {
           console.error(error);

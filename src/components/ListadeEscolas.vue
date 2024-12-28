@@ -128,11 +128,11 @@ export default {
       if (escola.nome_escola === "Adicionar Nova Escola") {
         console.log("Adicionar nova turma");
       } else {
-        this.fetchTurmas(index, escola.id_escola);
+        this.fetchTurmas(index, escola.id_escola, escola.nome_escola);
       }
     },
 
-    fetchTurmas(index, id) {
+    fetchTurmas(index, id, nome_escola) {
       // Ativa o carregamento para o card específico pelo índice
       this.isCardLoading[index] = true;
 
@@ -151,6 +151,7 @@ export default {
           if (response.status === 200) {
             this.turmas = response.data.turmas;
             this.$emit("changeLevel", "turmas", this.turmas);
+            this.$emit("changeNomeEscola", nome_escola)
           }
         })
         .catch((error) => {
