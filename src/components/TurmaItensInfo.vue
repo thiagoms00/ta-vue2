@@ -327,7 +327,7 @@
                     <v-btn
                       variant="outlined"
                       class="item-btn"
-                      @click="openItem(index)"
+                      @click="openItem(index, item._id)"
                     >
                       Ver item
                     </v-btn>
@@ -576,7 +576,7 @@
                     <v-btn
                       variant="outlined"
                       class="item-btn"
-                      @click="openItem(index)"
+                      @click="openItem(index, item._id)"
                     >
                       Ver item
                     </v-btn>
@@ -827,7 +827,7 @@
                     <v-btn
                       variant="outlined"
                       class="item-btn"
-                      @click="openItem(index)"
+                      @click="openItem(index, item._id)"
                     >
                       Ver item
                     </v-btn>
@@ -1078,7 +1078,7 @@
                     <v-btn
                       variant="outlined"
                       class="item-btn"
-                      @click="openItem(index)"
+                      @click="openItem(index, item._id)"
                     >
                       Ver item
                     </v-btn>
@@ -1171,11 +1171,29 @@
                     </v-col>
                   </v-row>
                 </v-sheet>
+                <v-sheet
+                  class="mt-6 rounded-lg px-4 py-2 d-flex align-center justify-space-between"
+                >
+                  <div>
+                    <v-tooltip>teste</v-tooltip>
+                    <v-btn
+                      variant="outlined"
+                      class="item-btn"
+                      prepend-icon="mdi-delete"
+                      @click="deleteReported(item._id,item.obj_item)"    
+                    >
+                      Excluir
+                    </v-btn>
+                  </div>
+
+                  <div class = "text-button"> Ações </div>
+                </v-sheet>
                 <v-divider :thickness="4"></v-divider>
               </v-expansion-panel-text>
             </v-expansion-panel>
           </v-expansion-panels>
         </v-sheet>
+        
       </v-window-item>
 
       <!-- Janela dos itens sugeridos -->
@@ -1279,6 +1297,22 @@
                       </v-table>
                     </v-col>
                   </v-row>
+                </v-sheet>
+                <v-sheet
+                  class="mt-6 rounded-lg px-4 py-2 d-flex align-center justify-space-between"
+                >
+                  <div>
+                    <v-btn
+                      variant="outlined"
+                      class="item-btn"
+                       prepend-icon="mdi-delete"
+                      @click="deleteSuggested(item._id)"
+                    >
+                      Excluir
+                    </v-btn>
+                  </div>
+
+                  <div class = "text-button"> Ações </div>
                 </v-sheet>
                 <v-divider :thickness="4"></v-divider>
               </v-expansion-panel-text>
@@ -1459,6 +1493,77 @@ export default {
   emits: ["eventDeleteTest"],
 
   methods: {
+
+    deleteSuggested(id){
+        
+        const suggest = {
+          idSuggest: id,
+          idAdmin: localStorage.getItem("idAdmin"),
+          tokenAdmin: localStorage.getItem("tokenAdmin"),
+       
+        };
+        console.log(`Item reportado: ${JSON.stringify(suggest)}`);
+        const data = suggest;
+
+        axios({
+          url: "https://ta-back.onrender.com/admin/deleteSuggested",
+          data,
+          method: "POST",
+        })
+          .then((response) => {
+            console.log(
+              `Status da resposta do servidor: ${response.status} \n`
+            );
+            console.log(`Mensagem do servidor: ${response.data.message}`);
+            this.returnItensSugeridos();
+            this.returnItens();
+          })
+
+          .catch((error) => {
+            // Tratar erros aqui
+            console.error(error);
+          });
+      
+    },
+
+
+
+
+    //Função que deleta um report de item.
+    deleteReported(id,obj_Item){
+        
+        const report = {
+          idItem: id,
+          objItem: obj_Item,
+          idAdmin: localStorage.getItem("idAdmin"),
+          tokenAdmin: localStorage.getItem("tokenAdmin"),
+       
+        };
+        console.log(`Item reportado: ${JSON.stringify(report)}`);
+        const data = report;
+
+        axios({
+          url: "https://ta-back.onrender.com/admin/deleteReported",
+          data,
+          method: "POST",
+        })
+          .then((response) => {
+            console.log(
+              `Status da resposta do servidor: ${response.status} \n`
+            );
+            console.log(`Mensagem do servidor: ${response.data.message}`);
+            this.returnItensReportados();
+            this.returnItens();
+          })
+
+          .catch((error) => {
+            // Tratar erros aqui
+            console.error(error);
+          });
+      
+    },
+
+
     //Função que muda o modo de visualização dos itens.
     changeItemExibition() {
       if (this.itemExibition === "habilidades") {
@@ -1549,10 +1654,11 @@ export default {
       }
     },
 
-    openItem(index) {
+    openItem(index,objItem) {
       let dadosItem = {
         index: index,
         percurso: this.tabNumber,
+        objItem: objItem
       };
       const routeData = this.$router.resolve({
         name: "Itens",
@@ -1651,6 +1757,8 @@ export default {
       })
         .then((response) => {
           this.listaItensReportados = response.data.itens_reportados;
+          console.log(this.listaItensReportados);
+          //console.log(this.listaItensReportados);
         })
 
         .catch((error) => {

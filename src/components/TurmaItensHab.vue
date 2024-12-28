@@ -29,7 +29,7 @@
 
     <v-sheet
       class="d-flex pa-3 align-center border-b-sm"
-      v-if="percursoInfo && !loadingSkeleton"
+      v-if="percursoInfo && !loadingSkeleton && tabNumber!=0"
     >
       <div class="d-flex align-center pa-1">
         <v-icon
@@ -291,18 +291,12 @@
                     <v-btn
                       variant="outlined"
                       class="item-btn"
-                      @click="openItem(index)"
+                      @click="openItemHab(itemSelected.percurso,item.id,item._id)"
                     >
                       Ver item
                     </v-btn>
 
-                    <!--  <v-btn
-                      variant="outlined"
-                      class="item-btn"
-                      @click="reportDialog = true"
-                    >
-                      Reportar item
-                    </v-btn> -->
+                  
                   </div>
 
                   <div class = "text-button"> Ações </div>
@@ -381,11 +375,23 @@
                   </v-row>
                 </v-sheet>
 
-                <!-- <v-divider :thickness="4"></v-divider>
-                  <div class="btn-area">
-                     <v-btn variant="outlined" class="item-btn" @click="openItem(index)">
-                      Ver item</v-btn> 
-                  </div> -->
+                <v-sheet
+                  class="mt-6 rounded-lg px-4 py-2 d-flex align-center justify-space-between"
+                >
+                  <div>
+                    <v-tooltip>teste</v-tooltip>
+                    <v-btn
+                      variant="outlined"
+                      class="item-btn"
+                      prepend-icon="mdi-delete"
+                      @click="deleteReported(item._id,item.obj_item)"    
+                    >
+                      Excluir
+                    </v-btn>
+                  </div>
+
+                  <div class = "text-button"> Ações </div>
+                </v-sheet>
 
                 <v-divider :thickness="4"></v-divider>
 
@@ -688,6 +694,40 @@ export default {
   emits: ["eventDeleteTest"],
 
   methods: {
+
+    deleteReported(id,obj_Item){
+        
+        const report = {
+          idItem: id,
+          objItem: obj_Item,
+          idAdmin: localStorage.getItem("idAdmin"),
+          tokenAdmin: localStorage.getItem("tokenAdmin"),
+       
+        };
+        console.log(`Item reportado: ${JSON.stringify(report)}`);
+        const data = report;
+
+        axios({
+          url: "https://ta-back.onrender.com/admin/deleteReported",
+          data,
+          method: "POST",
+        })
+          .then((response) => {
+            console.log(
+              `Status da resposta do servidor: ${response.status} \n`
+            );
+            console.log(`Mensagem do servidor: ${response.data.message}`);
+            this.returnItensReportados();
+            this.returnItensHab();
+          })
+
+          .catch((error) => {
+            // Tratar erros aqui
+            console.error(error);
+          });
+      
+    },
+
     getBarColor(perc) {
       if (perc >= 70) {
         return "red"; // Muito exposto
@@ -846,8 +886,11 @@ export default {
     selectedTab(tabNum) {
       this.tabNumber = tabNum;
       this.expansionPanelModel = [null, null, null, null];
-      this.habExibida.tentativas = this.dadosHab[tabNum-1].tentativas;
-      this.habExibida.perc = this.calculaPercAlt(this.dadosHab[this.tabNumber-1].acertos,this.dadosHab[this.tabNumber-1].tentativas);
+      if(tabNum!==0){
+        this.habExibida.tentativas = this.dadosHab[tabNum-1].tentativas;
+        this.habExibida.perc = this.calculaPercAlt(this.dadosHab[this.tabNumber-1].acertos,this.dadosHab[this.tabNumber-1].tentativas);
+      }
+      
 
       if (tabNum === 0) {
         this.colmunTitles = ['Código', 'Percurso', 'Administrador', 'Data']
@@ -873,7 +916,7 @@ export default {
     },
 
     //Abre o Item selecionado em uma nova TAB (Precisa do percurso e do ID)
-    openItemHab(percursoItem, id) {
+    openItemHab(percursoItem, id,obj_item) {
       let index = 0;
       switch (percursoItem) {
         case 1:
@@ -895,7 +938,9 @@ export default {
 
       let dadosItem = {
         index: index,
-        percurso: percursoItem
+        percurso: percursoItem,
+        objItem: obj_item
+
       }
       const routeData = this.$router.resolve({
         name: 'Itens',
@@ -991,6 +1036,8 @@ export default {
         default:
           break;
       }
+      console.log(this.itemSelected.percurso);
+
     },
 
     //Retorna um objeto com os itens separados por habilidade.
@@ -1014,9 +1061,12 @@ export default {
           ]
           this.dadosHab = response.data.habilidades[0];  //Dados de uso das habildades(tentativas,acertos,etc)
           console.log(this.dadosHab);
-          this.habExibida.tentativas = this.dadosHab[this.tabNumber-1].tentativas;
-          this.habExibida.perc = this.calculaPercAlt(this.dadosHab[this.tabNumber-1].acertos,this.dadosHab[this.tabNumber-1].tentativas);
+          if(this.tabNumber !==0){
+            this.habExibida.tentativas = this.dadosHab[this.tabNumber-1].tentativas;
+            this.habExibida.perc = this.calculaPercAlt(this.dadosHab[this.tabNumber-1].acertos,this.dadosHab[this.tabNumber-1].tentativas);
 
+          }
+       
          
           this.listaItensH01 = response.data.itens.listaItensH01;
           this.listaItensH02 = response.data.itens.listaItensH02;

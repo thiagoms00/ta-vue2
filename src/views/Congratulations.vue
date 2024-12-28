@@ -53,7 +53,7 @@
 
 <script>
 // import LogoImpacto from '@/components/LogoImpacto.vue'
-import { verificaLogin } from "@/utils/helpers";
+//import { verificaLogin } from "@/utils/helpers";
 import Megaphone from "@/components/Megaphone.vue";
 
 export default {

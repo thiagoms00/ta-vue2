@@ -656,7 +656,7 @@ export default {
 
         this.startTest();
 
-        console.log(this.paramItem.percurso)
+
 
       
         /* Propriedades do item à ser respondido. */
@@ -744,6 +744,7 @@ export default {
             const currentDate = new Date();
             const formattedDate = currentDate.toLocaleDateString("pt-BR");
             const itemReportado = {
+                objItem : this.paramItem.objItem,
                 idItem: this.questionId,
                 idAdmin: localStorage.getItem("idAdmin"),
                 tokenAdmin: localStorage.getItem("tokenAdmin"),
