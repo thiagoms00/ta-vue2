@@ -16,7 +16,7 @@
       <v-tab value="p9" class="tab-name" @click="selectedTab(9)">H09</v-tab>
       <v-tab value="p10" class="tab-name" @click="selectedTab(10)">H10</v-tab>
       <v-tab value="p11" class="tab-name" @click="selectedTab(11)">H11</v-tab>
-      <v-tab value="p12" class="tab-name" @click="selectedTab(0)">Reportados</v-tab>
+      <v-tab value="p12" class="tab-name" @click="selectedTab(0), atualizaReport()">Reportados</v-tab>
       <v-tab value="p13" class="tab-name" @click="selectedTab(0)">Pendentes</v-tab>
 
       <v-spacer></v-spacer>
@@ -503,58 +503,34 @@
       </v-window-item>
 
     </v-window>
-    <!-- Dialog de report -->
-    <v-dialog v-model="reportDialog" width="auto">
-      <v-card min-width="700">
+      <!-- Dialog de report bem sucedido-->
 
+      <v-dialog v-model="deleteReportModel" width="auto">
+      <v-card min-width="420">
         <v-toolbar color="#1E3892" density="comfortable">
-          <v-icon icon="mdi-alert-circle-outline" class="ml-5"></v-icon>
-          <v-toolbar-title class="ml-2 toolbar-title">Reportar Item</v-toolbar-title>
+          <v-icon icon="mdi-alert-circle-outline" class="ml-4"></v-icon>
+          <v-toolbar-title class="ml-1 toolbar-title delete-rep-toolbar"
+            >Excluir Registro</v-toolbar-title
+          >
           <v-spacer></v-spacer>
         </v-toolbar>
-
         <template v-slot:actions class="">
-          <div class="d-flex flex-column report-area pa-5">
-            <h4 class="ml-2 report-id">{{ this.itemSelected.id }}</h4>
-            <v-text-field clearable label="Erro" variant="outlined" class="mt-5" v-model="errorModel"
-              :rules="[rules.required]">
-            </v-text-field>
+          <div class="d-flex flex-column report-area pa-4">
+            <h4 class="mx-auto report-success-text">
+              Registro excluído com sucesso
+            </h4>
             <div class="report-buttons d-flex mt-5">
-              <v-btn variant="outlined" class="mx-auto report-button" text="Reportar"
-                @click="reportaItem(this.itemSelected)"></v-btn>
-              <v-btn variant="outlined" class="mx-auto report-button" text="Voltar"
-                @click="reportDialog = false, clearErrorField()"></v-btn>
+              <v-btn
+                variant="outlined"
+                class="mx-auto report-button"
+                text="Fechar"
+                @click="deleteReportModel = false"
+              ></v-btn>
             </div>
           </div>
-
         </template>
       </v-card>
     </v-dialog>
-
-    <!-- Dialog de report bem sucedido-->
-
-    <v-dialog v-model="reportSuccess" width="auto">
-      <v-card min-width="500">
-
-        <v-toolbar color="#1E3892" density="comfortable">
-          <v-icon icon="mdi-alert-circle-outline" class="ml-5"></v-icon>
-          <v-toolbar-title class="ml-2 toolbar-title">Reportar Item</v-toolbar-title>
-          <v-spacer></v-spacer>
-        </v-toolbar>
-
-        <template v-slot:actions class="">
-          <div class="d-flex flex-column report-area pa-5">
-            <h4 class="mx-auto report-success-text">O Item foi reportado com sucesso!!</h4>
-            <div class="report-buttons d-flex mt-5">
-              <v-btn variant="outlined" class="mx-auto report-button" text="Fechar"
-                @click="reportSuccess = false, clearErrorField()"></v-btn>
-            </div>
-          </div>
-
-        </template>
-      </v-card>
-    </v-dialog>
-
 
 
   </v-sheet>
@@ -642,6 +618,8 @@ export default {
     rules: {  //Objeto utilizado para verificar se um campo obrigatório foi preenchido.
       required: value => !!value || 'Campo obrigatório',
     },
+    loadingReport : false, // boolean que define o loading dos itens reportados.
+    deleteReportModel : false, //model pop-up do "excluir report"
 
     dadosHab : [],  //Dados relativos à habilidades(dados estatisticos, qtd de acertos etc...)
     habExibida : {
@@ -695,6 +673,11 @@ export default {
 
   methods: {
 
+    atualizaReport(){
+      this.returnItensReportados();
+    },
+
+
     deleteReported(id,obj_Item){
         
         const report = {
@@ -719,6 +702,9 @@ export default {
             console.log(`Mensagem do servidor: ${response.data.message}`);
             this.returnItensReportados();
             this.returnItensHab();
+            if(response.status == 200){
+              this.deleteReportModel = true;
+            }
           })
 
           .catch((error) => {
@@ -1295,6 +1281,11 @@ export default {
   font-size: 1.3rem;
 
 }
+
+.delete-rep-toolbar{
+  font-size: 1.4rem;
+}
+
 
 .report-area {
   width: 100%;

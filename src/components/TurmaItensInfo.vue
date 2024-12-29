@@ -14,7 +14,7 @@
       <v-tab value="p4" class="tab-name" @click="selectedTab(4)"
         >Percurso 4</v-tab
       >
-      <v-tab value="p5" class="tab-name" @click="selectedTab(5)"
+      <v-tab value="p5" class="tab-name" @click="selectedTab(5), atualizaReport()"
         >Reportados</v-tab
       >
       <v-tab value="p6" class="tab-name" @click="selectedTab(6)"
@@ -1113,6 +1113,7 @@
             class=""
             v-model="expansionPanelModel[3]"
           >
+          
             <v-expansion-panel
               v-for="(item, index) in listaItensReportados"
               :key="item.id"
@@ -1365,27 +1366,26 @@
 
     <!-- Dialog de report bem sucedido-->
 
-    <v-dialog v-model="reportSuccess" width="auto">
-      <v-card min-width="500">
+    <v-dialog v-model="deleteReportModel" width="auto">
+      <v-card min-width="420">
         <v-toolbar color="#1E3892" density="comfortable">
-          <v-icon icon="mdi-alert-circle-outline" class="ml-5"></v-icon>
-          <v-toolbar-title class="ml-2 toolbar-title"
-            >Reportar Item</v-toolbar-title
+          <v-icon icon="mdi-alert-circle-outline" class="ml-4"></v-icon>
+          <v-toolbar-title class="ml-1 toolbar-title delete-rep-toolbar"
+            >Excluir Registro</v-toolbar-title
           >
           <v-spacer></v-spacer>
         </v-toolbar>
-
         <template v-slot:actions class="">
-          <div class="d-flex flex-column report-area pa-5">
+          <div class="d-flex flex-column report-area pa-4">
             <h4 class="mx-auto report-success-text">
-              O Item foi reportado com sucesso!!
+              Registro excluído com sucesso
             </h4>
             <div class="report-buttons d-flex mt-5">
               <v-btn
                 variant="outlined"
                 class="mx-auto report-button"
                 text="Fechar"
-                @click="(reportSuccess = false), clearErrorField()"
+                @click="deleteReportModel = false"
               ></v-btn>
             </div>
           </div>
@@ -1460,6 +1460,8 @@ export default {
     },
     percursoInfo: true,
     totalTent: 0, //conta quantas vezes os itens foram respondidos(todos os percursos)
+    loadingReport : false, // boolean que define o loading dos itens reportados.
+    deleteReportModel : false, //model pop-up do "excluir report"
   }),
 
   props: {},
@@ -1493,6 +1495,10 @@ export default {
   emits: ["eventDeleteTest"],
 
   methods: {
+    //É chamado sempre que a aba de report é clicada.
+    atualizaReport(){
+      this.returnItensReportados();
+    },
 
     deleteSuggested(id){
         
@@ -1554,6 +1560,9 @@ export default {
             console.log(`Mensagem do servidor: ${response.data.message}`);
             this.returnItensReportados();
             this.returnItens();
+            if(response.status == 200){
+              this.deleteReportModel = true;
+            }
           })
 
           .catch((error) => {
@@ -1969,6 +1978,10 @@ export default {
 .toolbar-title {
   font-family: "Urbanist-Regular";
   font-size: 1.3rem;
+}
+
+.delete-rep-toolbar{
+  font-size: 1.4rem;
 }
 
 .report-area {
