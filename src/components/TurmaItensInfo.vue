@@ -1107,8 +1107,15 @@
           rounded="lg"
           class=""
           :class="{ 'fade-in': animacaoListaAtiva }"
+          
         >
+        <v-skeleton-loader
+            v-if="loadingDelReport"
+            type="list-item, list-item"
+        ></v-skeleton-loader>
+        
           <v-expansion-panels
+           v-else
             variant="accordion"
             class=""
             v-model="expansionPanelModel[3]"
@@ -1199,11 +1206,15 @@
 
       <!-- Janela dos itens sugeridos -->
       <v-window-item value="p6">
+        
         <v-sheet
           rounded="lg"
           class=""
           :class="{ 'fade-in': animacaoListaAtiva }"
         >
+         
+        
+    
           <v-expansion-panels
             variant="accordion"
             class=""
@@ -1460,7 +1471,7 @@ export default {
     },
     percursoInfo: true,
     totalTent: 0, //conta quantas vezes os itens foram respondidos(todos os percursos)
-    loadingReport : false, // boolean que define o loading dos itens reportados.
+    loadingDelReport : true, // boolean que define o loading dos itens reportados.
     deleteReportModel : false, //model pop-up do "excluir report"
   }),
 
@@ -1755,6 +1766,7 @@ export default {
     },
 
     returnItensReportados() {
+      this.loadingDelReport = true;
       const data = {
         idAdmin: localStorage.getItem("idAdmin"),
         tokenAdmin: localStorage.getItem("tokenAdmin"),
@@ -1766,6 +1778,7 @@ export default {
       })
         .then((response) => {
           this.listaItensReportados = response.data.itens_reportados;
+          this.loadingDelReport = false;
           console.log(this.listaItensReportados);
           //console.log(this.listaItensReportados);
         })

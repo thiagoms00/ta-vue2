@@ -319,7 +319,11 @@
 
       <v-window-item value="p12">
         <v-sheet rounded="lg" class="" :class="{ 'fade-in': animacaoListaAtiva }">
-          <v-expansion-panels variant="accordion" class="" v-model="expansionPanelModel[3]">
+          <v-skeleton-loader
+            v-if="loadingDelReport"
+            type="list-item, list-item"
+         ></v-skeleton-loader>
+          <v-expansion-panels v-else variant="accordion" class="" v-model="expansionPanelModel[3]">
             <v-expansion-panel v-for="(item, index) in listaItensReportados" :key="item.id" ref="panels"
               class="rounded-b-lg" style="border-radius: 0px;">
 
@@ -618,7 +622,7 @@ export default {
     rules: {  //Objeto utilizado para verificar se um campo obrigatório foi preenchido.
       required: value => !!value || 'Campo obrigatório',
     },
-    loadingReport : false, // boolean que define o loading dos itens reportados.
+    loadingDelReport : false, // boolean que define o loading dos itens reportados.
     deleteReportModel : false, //model pop-up do "excluir report"
 
     dadosHab : [],  //Dados relativos à habilidades(dados estatisticos, qtd de acertos etc...)
@@ -1101,6 +1105,8 @@ export default {
     },
 
     returnItensReportados() {
+      this.loadingDelReport = true;
+
       const data = {
         idAdmin: localStorage.getItem('idAdmin'),
         tokenAdmin: localStorage.getItem('tokenAdmin'),
@@ -1112,7 +1118,7 @@ export default {
       })
         .then((response) => {
           this.listaItensReportados = response.data.itens_reportados;
-
+          this.loadingDelReport = false; //Escondendo o loader.
         })
 
         .catch((error) => {
