@@ -1103,7 +1103,11 @@
 
       <!-- Janela dos itens reportados -->
       <v-window-item value="p5">
-        <v-sheet
+        <v-sheet rounded="lg" class="noReportSheet d-flex align-center justify-center" v-if="listaItensReportados.length == 0" height="500">
+          <h3 class="noReportText">Nenhum item reportado encontrado</h3>
+        </v-sheet>
+
+        <v-sheet v-else
           rounded="lg"
           class=""
           :class="{ 'fade-in': animacaoListaAtiva }"
@@ -1171,7 +1175,7 @@
                             <td class="td-right">{{ item.emailAdmin }}</td>
                           </tr>
                           <tr>
-                            <td class="td-left">Erro</td>
+                            <td class="td-left">Erro reportado</td>
                             <td class="td-right">{{ item.msgErro }}</td>
                           </tr>
                         </tbody>
@@ -1206,8 +1210,12 @@
 
       <!-- Janela dos itens sugeridos -->
       <v-window-item value="p6">
+
+        <v-sheet rounded="lg" class="noReportSheet d-flex align-center justify-center" v-if="listaItensSugeridos.length == 0" height="500">
+          <h3 class="noReportText">Nenhum item pendente encontrado</h3>
+        </v-sheet>
         
-        <v-sheet
+        <v-sheet v-else
           rounded="lg"
           class=""
           :class="{ 'fade-in': animacaoListaAtiva }"
@@ -1764,7 +1772,7 @@ export default {
           console.error(error);
         });
     },
-
+    //Retorna a lista de itens reportados.
     returnItensReportados() {
       this.loadingDelReport = true;
       const data = {
@@ -1778,9 +1786,8 @@ export default {
       })
         .then((response) => {
           this.listaItensReportados = response.data.itens_reportados;
-          this.loadingDelReport = false;
+          this.loadingDelReport = false;                                //Para esconder o loader.
           console.log(this.listaItensReportados);
-          //console.log(this.listaItensReportados);
         })
 
         .catch((error) => {
@@ -1935,6 +1942,14 @@ export default {
 </script>
 
 <style scoped>
+
+.noReportText{
+  font-size: 3.5rem;
+  font-family: 'Urbanist-Regular';
+  color: rgba(128, 128, 128, 0.61);
+  font-style: italic;
+  font-weight: 300;
+}
 .v-expansion-panel--active .v-expansion-panel-title {
   background-color: #d5d8dc;
 }

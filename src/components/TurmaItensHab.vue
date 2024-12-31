@@ -318,7 +318,14 @@
 
 
       <v-window-item value="p12">
-        <v-sheet rounded="lg" class="" :class="{ 'fade-in': animacaoListaAtiva }">
+
+        <v-sheet rounded="lg" class="noReportSheet d-flex align-center justify-center" v-if="listaItensReportados.length == 0" height="500">
+          <h3 class="noReportText">Nenhum item reportado encontrado</h3>
+        </v-sheet>
+
+
+
+        <v-sheet v-else rounded="lg" class="" :class="{ 'fade-in': animacaoListaAtiva }">
           <v-skeleton-loader
             v-if="loadingDelReport"
             type="list-item, list-item"
@@ -369,7 +376,7 @@
                             <td class="td-right">{{ item.emailAdmin }}</td>
                           </tr>
                           <tr>
-                            <td class="td-left">Erro</td>
+                            <td class="td-left">Erro reportado</td>
                             <td class="td-right">{{ item.msgErro }}</td>
                           </tr>
 
@@ -410,7 +417,13 @@
 
       <!-- Janela dos itens sugeridos -->
       <v-window-item value="p13">
-        <v-sheet rounded="lg" class="" :class="{ 'fade-in': animacaoListaAtiva }">
+
+        <v-sheet rounded="lg" class="noReportSheet d-flex align-center justify-center" v-if="listaItensSugeridos.length == 0" height="500">
+          <h3 class="noReportText">Nenhum item pendente encontrado</h3>
+        </v-sheet>
+
+
+        <v-sheet v-else rounded="lg" class="" :class="{ 'fade-in': animacaoListaAtiva }">
           <v-expansion-panels variant="accordion" class="" v-model="expansionPanelModel[3]">
             <v-expansion-panel v-for="(item, index) in listaItensSugeridos" :key="item.id" ref="panels"
               class="rounded-b-lg" style="border-radius: 0px;">
@@ -494,6 +507,22 @@
                       </v-table>
                     </v-col>
                   </v-row>
+                </v-sheet>
+                <v-sheet
+                  class="mt-6 rounded-lg px-4 py-2 d-flex align-center justify-space-between"
+                >
+                  <div>
+                    <v-btn
+                      variant="outlined"
+                      class="item-btn"
+                       prepend-icon="mdi-delete"
+                      @click="deleteSuggested(item._id)"
+                    >
+                      Excluir
+                    </v-btn>
+                  </div>
+
+                  <div class = "text-button"> Ações </div>
                 </v-sheet>
                 <v-divider :thickness="4"></v-divider>
 
@@ -676,6 +705,38 @@ export default {
   emits: ["eventDeleteTest"],
 
   methods: {
+    deleteSuggested(id){
+        
+        const suggest = {
+          idSuggest: id,
+          idAdmin: localStorage.getItem("idAdmin"),
+          tokenAdmin: localStorage.getItem("tokenAdmin"),
+       
+        };
+        console.log(`Item reportado: ${JSON.stringify(suggest)}`);
+        const data = suggest;
+
+        axios({
+          url: "https://ta-back.onrender.com/admin/deleteSuggested",
+          data,
+          method: "POST",
+        })
+          .then((response) => {
+            console.log(
+              `Status da resposta do servidor: ${response.status} \n`
+            );
+            console.log(`Mensagem do servidor: ${response.data.message}`);
+            this.returnItensSugeridos();
+            this.returnItens();
+          })
+
+          .catch((error) => {
+            // Tratar erros aqui
+            console.error(error);
+          });
+      
+    },
+
 
     atualizaReport(){
       this.returnItensReportados();
@@ -1230,6 +1291,14 @@ export default {
 </script>
 
 <style scoped>
+
+.noReportText{
+  font-size: 3.5rem;
+  font-family: 'Urbanist-Regular';
+  color: rgba(128, 128, 128, 0.61);
+  font-style: italic;
+  font-weight: 300;
+}
 
 .v-expansion-panel--active .v-expansion-panel-title {
   background-color: #d5d8dc;
