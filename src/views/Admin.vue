@@ -27,7 +27,7 @@
                 </div>
 
                 <div class="d-flex justify-center">
-                  <p class="text-profile text-name">João da Silva</p>
+                  <p class="text-profile text-name">{{ nome_user }}</p>
                 </div>
 
                 <div class="d-flex justify-center">
@@ -254,6 +254,7 @@ export default {
     layer: "",
     menuBanco: ["Percursos", "Habilidades"],
     search: "",
+    nome_user : ""
   }),
 
   created() {
@@ -269,7 +270,7 @@ export default {
       };
 
       return axios({
-        url: "https://ta-back.onrender.com/generalMethods/verificaToken",
+        url: "https://ta-back.onrender.com/admin/verificaToken",
         data,
         method: "POST",
       })
@@ -280,6 +281,7 @@ export default {
           }
           else{
             console.log("Dados confirmados com sucesso.");
+            this.nome_user = response.data.nome;
           }
         })
         .catch((error) => {
