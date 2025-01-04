@@ -1,58 +1,64 @@
 <template>
-  <div class="main-div">
-    <v-container class="d-flex justify-end align-end absoluteClass h-100" fluid>
-      <LogoImpacto />
-    </v-container>
-    <v-container class="fill-height">
-      <v-sheet
-        class="d-flex align-center justify-center flex-column text-center mx-auto px-4 rounded-lg"
-        elevation="10"
-        rounded-shaped
-        color="grey-lighten-5"
-        width="60vw"
-        height="60vh"
-        border="md"
-      >
-        <v-container class="d-flex flex-column align-center mainContainer">
-          <div class="d-flex align-center">
-            <v-img
-              :aspect-ratio="1"
-              src="../assets/imgs/prancheto_abertura.png"
-              width="180"
-              class="img-mascote"
-            ></v-img>
-            <h1 class="msg mt-3">
-              Você finalizou as questões! Parabéns e até a próxima!
-            </h1>
-          </div>
 
-          <v-divider class="my-4" width="70%"></v-divider>
+  <v-container class="main-div fill-height py-0" fluid>
+    <v-row class="fill-height d-flex justify-center align-center">
+      <!-- Primeira coluna -->
+      <v-col cols="2" sm="2" md="2"> </v-col>
+
+      <!-- Coluna de conteudo -->
+      <v-col cols="8" sm="8" md="8">
+        <v-sheet class="rounded-lg elevation-2 pa-2 d-flex flex-column justify-center">
+
+          <div class="d-flex justify-center py-4">
+            <img
+              src="../assets/imgs/prancheto_abertura.png"
+              alt="Mascote"
+              width="180"
+              style="aspect-ratio: 1; object-fit: contain;"
+            />
+          </div>
+          
+          <div class="text-md-h6 text-sm-body-1 text-xs-body-2 d-flex justify-center my-2 font-weight-bold"> 
+            Você finalizou as questões! Parabêns e até a próxima! 
+          </div>
+          
+          <v-divider class="my-4 mx-auto" width="70%"></v-divider> 
 
           <Megaphone class="icon-mega3" @click="playAudio()" />
 
-          <p class="finish-msg ml-2 mt-4">
+          <div class="text-h6 d-flex justify-center my-2 x-4"> 
             Clique no botão abaixo para finalizar o teste!
-          </p>
-          <v-btn
-            class="flex-grow-1 mt-4 finish-btn"
-            height="50"
-            size="large"
-            width="50%"
-            variant="flat"
-            color="#1E3892"
-            elevation-15
-            @click="proximaPagina()"
-          >
-            Finalizar
-          </v-btn>
-        </v-container>
-      </v-sheet>
-    </v-container>
-  </div>
+          </div>
+
+          <div class="d-flex justify-center">
+            <v-btn
+              class="my-4"
+              size="large"
+              width="40%"
+              color="#1E3892"
+              @click="proximaPagina()"
+            >
+              Finalizar
+            </v-btn>
+          </div>
+
+        </v-sheet>
+      </v-col>
+
+      <v-col cols="2" sm="2" md="2" class="fill-height d-flex justify-end align-end">
+  <img
+    src="../assets/imgs/Logo-Impacto-removebg.png"
+    alt="Mascote"
+    style="aspect-ratio: 2/1; object-fit: contain; max-width: 180px;"
+  />
+</v-col>
+
+    </v-row>
+  </v-container>
+
 </template>
 
 <script>
-// import LogoImpacto from '@/components/LogoImpacto.vue'
 //import { verificaLogin } from "@/utils/helpers";
 import Megaphone from "@/components/Megaphone.vue";
 
@@ -60,7 +66,7 @@ export default {
   name: "Congratulations",
 
   components: {
-    //LogoImpacto,
+
     Megaphone,
   },
 
@@ -117,13 +123,8 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .main-div {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-  align-items: center;
   background: url("../assets/imgs/homeBackground.jpg");
   background-size: cover;
 }
