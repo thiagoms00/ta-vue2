@@ -1480,6 +1480,7 @@ export default {
     percursoInfo: true,
     totalTent: 0, //conta quantas vezes os itens foram respondidos(todos os percursos)
     loadingDelReport : true, // boolean que define o loading dos itens reportados.
+    loadingPending : true,
     deleteReportModel : false, //model pop-up do "excluir report"
   }),
 

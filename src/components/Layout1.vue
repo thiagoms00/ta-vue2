@@ -358,6 +358,7 @@ export default {
             extrato1Flag: false,               //Vai ser usado para determinar se o usuario já foi reprovado no extrato1.
             changeTestAudio: false,
             indiceEs1: 0,                        //Índice do Estrato n (inicial).
+            percursoInicial : 1,               //OBS: Percurso = Estrato -1
 
 
             dadosTeste: {                      /* Objeto que armazena as informações do teste. */
@@ -386,7 +387,8 @@ export default {
                 diaTeste: undefined,
                 resultado_final: '',
                 taxaFinal: 0,
-                dados_planilha: []
+                dados_planilha: [],
+                percursoInicial: 1,
             },
 
             dadosTeste2: {             //Objeto com os dados da parte 2 do teste.
@@ -429,6 +431,8 @@ export default {
         this.tempoItem = new Date();
         //this.anoAluno = localStorage.getItem('anoAtual');
         this.estratoInicial = Number(localStorage.getItem('estratoInicial'));
+        this.percursoInicial = Number(localStorage.getItem('percursoInicial'));
+        this.dadosTeste.percursoInicial = this.percursoInicial;
         this.defineEstratoN();
 
 
@@ -454,7 +458,7 @@ export default {
 
 
         /* Verificando se existe um teste atual em andamento.
-           Caso não exista um teste em andamento, um teste novo é iniciado e a função "startTest é chamada".
+           Caso não exista um teste em andamento, um teste novo é iniciado e a função "startTest é chamada".    
            Caso exista um teste, a função "resumeTest é chamada".
         */
 
@@ -568,46 +572,18 @@ export default {
             aux = document.getElementById("radioLabel4");
             aux.style.letterSpacing = 'normal';
 
-
         },
 
         async checkAnswer() {                     //É chamado sempre que um usuario clicar no botão "Continuar"
 
             this.resetTimer();
-            this.changeByID();
+            //await this.changeByID();
 
             const radioButtons = document.querySelectorAll('input[name="question-choice"]');  //seleciona todos os radio buttons.
             for (const radioButton of radioButtons) {
-                if (radioButton.checked) {                                                     //Vê qual radio button foi selecionado.
+                if (radioButton.checked) {                                                    //Vê qual radio button foi selecionado.
                     let selectedButton = radioButton.value;
-                    if (!this.coletaDados) {
-                        this.aplicaQuestao(radioButton.value - 1);
-                    }
-                    else {
-                        let alt = (parseInt(selectedButton));
-                        this.coletaDadosInd++;
-                        this.AtualizaDadosTeste(alt);
-
-                        if (this.coletaDadosInd >= this.jsonData.questoes.length) {     //termina a coleta de dados.
-                            let auxDate = new Date();
-                            this.dadosTeste2.tempoTeste2 = (auxDate - this.dadosTeste2.tempoTeste2) / 1000;    //Obtem tempo total do teste
-                            this.questionFlag = true;
-                            this.dadosTeste2.tokenAluno = localStorage.getItem('token');
-                            this.testeStatus(0);
-
-
-                            console.log(this.dadosTeste2);
-                            this.sendDataTest2(this.dadosTeste2)
-
-                            this.$router.push('/congratulations');
-                        }
-                        else {
-                            await this.changeQuestion();        //Altera questão exibida para o usuario.
-                            this.changeByID();
-                        }
-
-
-                    }
+                    this.aplicaQuestao(radioButton.value - 1);                              
                 }
 
             }
@@ -640,11 +616,9 @@ export default {
 
 
 
-        changeByID() {                                          //Muda detalhes com base no ID do item
-
+        async changeByID() {    //Muda detalhes(visuais) com base no ID do item
 
             let aux, aux2;
-
 
             switch (this.questionId) {
                 case 'LP_H05_11_001':
@@ -1184,11 +1158,15 @@ export default {
             this.ordem = [ordem_0, ordem_1, ordem_2, ordem_3];
             this.dadosTeste.ordemQuestoes = this.ordem;         //Para o cookie do aluno.
 
-            if (this.anoAluno == 4 || this.anoAluno == 5 || this.anoAluno == 6) {
+           /*  if (this.percursoInicial >= 2) {
                 this.nestr++;
                 console.log(this.nestr)
-                this.resetaExtrato(this.nestr, this.jquest);
-            }
+                //this.resetaExtrato(this.nestr, this.jquest);
+            } */
+            console.log(this.percursoInicial);
+            this.nestr = this.percursoInicial;
+            console.log(this.nestr)
+
             this.resetaExtrato(this.nestr, this.jquest);
             localStorage.setItem('testeStart', JSON.stringify(this.dadosTeste));
 
@@ -1210,6 +1188,7 @@ export default {
             this.firstQuestion = this.dadosTeste.firstQuestion;
             this.qtdResp = this.dadosTeste.qtdResp;
             this.indiceEs1 = this.dadosTeste.indiceEs1;
+            this.percursoInicial = this.dadosTeste.percursoInicial;
 
             this.PSR = this.dadosTeste.dadosPSR;
             this.PS = 0.5;
@@ -1362,45 +1341,19 @@ export default {
             */
             switch (nestr) {
                 case 0:
-                    if (this.anoAluno == 1 || this.anoAluno == 2 || this.anoAluno == 3) {
                         this.jsonData = jsonDataQuestoes0;
-                    }
-                    else if (this.anoAluno == 4 || this.anoAluno == 5) {
-                        this.jsonData = jsonDataQuestoes0;
-                        //this.nestr++;
-
-                    }
                     break;
                 case 1:
-                    if (this.anoAluno == 1 || this.anoAluno == 2 || this.anoAluno == 3) {
                         this.jsonData = jsonDataQuestoes1;
-                    }
-                    else if (this.anoAluno == 4 || this.anoAluno == 5) {
-                        this.jsonData = jsonDataQuestoes1;
-                        //this.nestr++;
-                    }
                     break;
                 case 2:
-                    if (this.anoAluno == 1 || this.anoAluno == 2 || this.anoAluno == 3) {
                         this.jsonData = jsonDataQuestoes2;
-                    }
-                    else if (this.anoAluno == 4 || this.anoAluno == 5) {
-                        this.jsonData = jsonDataQuestoes2;
-                        //this.nestr++;
-
-                    }
                     break;
-                case 3:
-                    if (this.anoAluno == 1 || this.anoAluno == 2 || this.anoAluno == 3) {
+                case 3:                    
                         this.jsonData = jsonDataQuestoes3;
-                    }
-                    else if (this.anoAluno == 4 || this.anoAluno == 5) {
-                        this.jsonData = jsonDataQuestoes3;
-
-                    }
                     break;
             }
-
+            nestr = 0;
 
 
             this.Questoes = Array(this.nq[nestr] - jquest).fill(0);  // lista que armazenará os identificadores das questões apresentadas
@@ -1631,12 +1584,19 @@ export default {
                     }
                     break;
 
+                /* Estrato 1 ou Percurso 2
+                   Caso o aluno tenha sido aprovado ou reprovado.
+                   Se estrato inicial = 1, o usuario deve continuar o teste.
+                   Se estrato inicial = 2, ele retrocedeu um estrato para chegar aqui, o teste deve terminar.
+                   Se estrato inical = 0, o aluno avançou um estrato para chegar aqui, o teste deve terminar.
+                   Não é possivel chegar ao estrato 1 começando do estrato 3/percurso 4
+                */
 
-                case 1:                                 //ESTRATO 1
+                case 1:   
                     if (this.PSR > this.pouts && this.qtdResp >= 5) {            // aprovação no estrato 1
-
-
-                        if (this.anoAluno >= 4) {                                    //Ano 4 ou mais, logo o teste termina.
+                        console.log(`percurso inicial : ${this.percursoInicial}`);
+                        if (this.percursoInicial == 0 || this.percursoInicial == 2
+                        ) {                                    
                             //this.resetaExtrato(this.nestr, this.estrato2Ind);
                             this.dadosTeste.resultado = 1;
                             this.dadosTeste.resultado_final = '1 - Aprovado';
@@ -1645,7 +1605,7 @@ export default {
                             this.testeStatus(0);
                             this.$router.push('/congratulations');
                         }
-                        else {
+                        else if(this.percursoInicial == 1) {
 
                             this.resultado = 1;
                             console.log("Fim do estrato 1: Avançando para o Estrato 2");
@@ -1659,25 +1619,13 @@ export default {
                             this.resetaExtrato(this.nestr, 0);
                         }
 
-
-
-                        /* if(this.anoAluno>=4){                                    //Ano 4 ou mais, logo o teste termina.
-                            //this.resetaExtrato(this.nestr, this.estrato2Ind);
-                            this.dadosTeste.resultado = 1;
-                            this.sendDataTest(this.dadosTeste);
-                            this.questionFlag = true;
-                            this.testeStatus(0);
-                            this.$router.push('/congratulations');
-                        } */
-
-
-                        //Usado caso o teste seja retomado.
+                  
 
                     } else if (this.PSR < this.poutn && this.qtdResp >= 5) {     // reprovação no estrato 1
                         this.resultado = -1;
                         this.nestr = 0;
 
-                        if (this.anoAluno == 4 || this.anoAluno == 5 || this.anoAluno == 6) {
+                        if (this.percursoInicial === 0 || this.percursoInicial === 2) {
                             //this.popupIntervalo();
                             this.dadosTeste.resultado = 1;
                             this.dadosTeste.resultado_final = '1 - Reprovado';
@@ -1688,7 +1636,7 @@ export default {
                             this.$router.push('/congratulations');
                         }
 
-                        if (this.extrato1Flag === false) {      //Aluno foi reprovado pela primeira vez no estrato 1
+                       /*  if (this.extrato1Flag === false) {      //Aluno foi reprovado pela primeira vez no estrato 1
                             console.log("Fim do estrato 1: Retrocedendo ao estrato 0");
 
                             this.extrato1Flag = true;
@@ -1718,7 +1666,7 @@ export default {
                                 this.testeStatus(0);
                                 this.$router.push('/congratulations');
                             }
-                        }
+                        } */
 
                     } else if (this.jiter >= this.nq[this.nestr] - this.jquest) { // termina indefinido
                         console.log("Fim do estrato 1");
@@ -1750,10 +1698,19 @@ export default {
                     break;
 
 
-                case 2:                                     //ESTRATO 2
+                case 2: 
+
+                /* Estrato 2 ou Percurso 3
+                   Caso o aluno tenha sido aprovado ou reprovado.
+                   Se estrato inicial = 1, o aluno avançou um estrato para chegar aqui, o teste deve terminar.
+                   Se estrato inicial = 2, o teste deve continuar.
+                   Se estrato inicial = 3, o aluno retrocedeu um percurso para chegar aqui , o teste deve terminar.
+                   Não é possivel chegar ao estrato 2 começando do estrato 0/percurso 1
+                */
+
                     if (this.PSR > this.pouts && this.qtdResp >= 5) {            // aprovação no extrato 2
 
-                        if (this.anoAluno <= 3) {      //alunos que começam no estrato 1(ano 1,2 e 3).
+                        if (this.percursoInicial == 1) {      //alunos que começam no estrato 1(ano 1,2 e 3).
                             this.resultado = -1;
                             this.dadosTeste.resultado = 2;
                             this.dadosTeste.resultado_final = '2 - Aprovado';
@@ -1764,7 +1721,7 @@ export default {
                             this.testeStatus(0);
                             this.$router.push('/congratulations');
                         }
-                        else {                     //alunos que começam no estrato 2 ou superior.
+                        else if(this.percursoInicial == 2) {                     //alunos que começam no estrato 2 ou superior.
                             this.resultado = 1;
                             console.log("Fim do extrato 2: Avançando para o Extrato 3");
                             this.nestr = 3;
@@ -1777,10 +1734,9 @@ export default {
                             this.resetaExtrato(this.nestr, 0);
                         }
 
-
                     } else if (this.PSR < this.poutn && this.qtdResp >= 5) {     // reprovação no extrato 2.
                         console.log("Fim do extrato 2: Reprovado no extrato 2");
-                        if (this.anoAluno == 1 || this.anoAluno == 2 || this.anoAluno == 3) {
+                        if (this.percursoInicial == 1) {
                             this.resultado = -1;
                             this.dadosTeste.resultado_final = '2 - Reprovado';
                             this.dadosTeste.resultado = 2;
@@ -1793,7 +1749,7 @@ export default {
                             this.$router.push('/congratulations');
                         }
 
-                        else if (this.anoAluno == 4 || this.anoAluno == 5 || this.anoAluno == 6) {      //alunos que começam no estrato 2.
+                        else if (this.percursoInicial == 2) {      //alunos que começam no estrato 2.
                             this.nestr = 1;
                             this.dadosTeste.extratoAtual = this.nestr;  //Usado caso o teste seja retomado.
                             this.dadosTeste.indiceAtual = 0;            //Usado caso o teste seja retomado.
@@ -1805,19 +1761,6 @@ export default {
                             this.resetaExtrato(1, 0);
                         }
 
-                        if (this.termina === false && this.anoAluno <= 3) {
-                            this.popupIntervalo();
-                            this.sendDataTest(this.dadosTeste);
-                            this.coletaDados = true;
-                            this.startDataTest(2);          //Inicia a coleta de dados.
-                            this.dadosTeste2.tempoTeste2 = new Date();
-
-                        }
-                        else if (this.termina === true && this.anoAluno <= 3) {                              //Coleta de dados finalizada.
-                            this.questionFlag = true;
-                            this.testeStatus(0);
-                            this.$router.push('/congratulations');
-                        }
 
                     } else if (this.jiter >= this.nq[this.nestr] - this.jquest) { // termina indefinido.
 
@@ -1911,7 +1854,7 @@ export default {
 
             if (this.questionFlag == false) {
                 await this.changeQuestion();//Altera questão exibida para o usuario.
-                this.changeByID();
+                await this.changeByID();
             }
 
         },
@@ -2044,9 +1987,14 @@ export default {
 
 
             return new Promise((resolve, reject) => {
-                axios({ url: 'https://ta-back.onrender.com/alunos/dataTest', data: dataTest, method: 'POST' })
+                axios({ 
+                    url: 'https://ta-back.onrender.com/alunos/dataTest', 
+                    data: dataTest, 
+                    method: 'POST'
+                    
+                 })
                     .then((response) => {
-                        console.log(response)
+                        console.log(response)   
                         resolve(response);
                     })
                     .catch((error) => {
@@ -2074,7 +2022,7 @@ export default {
 
 
 
-        resetMegafone() {            //Utilizar esta função sempre que trocar de item.
+        resetMegafone() {  //Utilizar esta função sempre que trocar de item.
             this.megafoneDisable = false;
         },
 

@@ -83,8 +83,8 @@ export default {
   },
 
   mounted() {
-    this.playAudio = this.playAudio.bind(this);
-    this.playAudio();
+   /*  this.playAudio = this.playAudio.bind(this);
+    this.playAudio(); */
   },
 
   methods: {

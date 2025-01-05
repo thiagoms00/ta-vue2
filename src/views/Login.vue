@@ -182,12 +182,14 @@ export default {
               const anoAtual = response.data.anoAtual;
               const idTurma = response.data.idTurma;
               const estratoInicial = response.data.estratoInicial;
+              const percursoInicial = response.data.percurso_inicial;
 
               localStorage.setItem("token", token);
               localStorage.setItem("id", id);
               localStorage.setItem("anoAtual", anoAtual);
               localStorage.setItem("idTurma", idTurma);
               localStorage.setItem("estratoInicial", estratoInicial);
+              localStorage.setitem('percursoInicial', percursoInicial);
 
               this.$router.push("/welcome");
             }
@@ -225,12 +227,15 @@ export default {
             const anoAtual = response.data.anoAtual;
             const idTurma = response.data.idTurma;
             const estratoInicial = response.data.estratoInicial;
+            const percursoInicial = response.data.percurso_inicial;
 
             localStorage.setItem("token", token);
             localStorage.setItem("id", id);
             localStorage.setItem("anoAtual", anoAtual);
             localStorage.setItem("idTurma", idTurma);
             localStorage.setItem("estratoInicial", estratoInicial);
+            localStorage.setItem("percursoInicial", percursoInicial);
+
 
             console.log("Login bem-sucedido");
             this.$router.push("/welcome");
