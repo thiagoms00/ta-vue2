@@ -95,6 +95,7 @@ export default {
       localStorage.removeItem("idTeste");
       localStorage.removeItem("idTurma");
       localStorage.removeItem("estratoInicial");
+      localStorage.removeItem("percursoInicial");
 
       this.$router.push("/login");
     },

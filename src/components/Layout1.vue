@@ -432,6 +432,7 @@ export default {
         //this.anoAluno = localStorage.getItem('anoAtual');
         this.estratoInicial = Number(localStorage.getItem('estratoInicial'));
         this.percursoInicial = Number(localStorage.getItem('percursoInicial'));
+        console.log(this.percursoInicial);  
         this.dadosTeste.percursoInicial = this.percursoInicial;
         this.defineEstratoN();
 
@@ -1702,15 +1703,16 @@ export default {
 
                 /* Estrato 2 ou Percurso 3
                    Caso o aluno tenha sido aprovado ou reprovado.
+                   Se estrato inicial = 0, o aluno não pode chegar nesse estrato/percurso.
                    Se estrato inicial = 1, o aluno avançou um estrato para chegar aqui, o teste deve terminar.
                    Se estrato inicial = 2, o teste deve continuar.
                    Se estrato inicial = 3, o aluno retrocedeu um percurso para chegar aqui , o teste deve terminar.
                    Não é possivel chegar ao estrato 2 começando do estrato 0/percurso 1
                 */
 
-                    if (this.PSR > this.pouts && this.qtdResp >= 5) {            // aprovação no extrato 2
+                    if (this.PSR > this.pouts && this.qtdResp >= 5) {       // aprovação no extrato 2
 
-                        if (this.percursoInicial == 1) {      //alunos que começam no estrato 1(ano 1,2 e 3).
+                        if (this.percursoInicial == 1 || this.percursoInicial == 3) {  
                             this.resultado = -1;
                             this.dadosTeste.resultado = 2;
                             this.dadosTeste.resultado_final = '2 - Aprovado';
@@ -1721,7 +1723,7 @@ export default {
                             this.testeStatus(0);
                             this.$router.push('/congratulations');
                         }
-                        else if(this.percursoInicial == 2) {                     //alunos que começam no estrato 2 ou superior.
+                        else if(this.percursoInicial == 2) {  
                             this.resultado = 1;
                             console.log("Fim do extrato 2: Avançando para o Extrato 3");
                             this.nestr = 3;
@@ -1736,7 +1738,7 @@ export default {
 
                     } else if (this.PSR < this.poutn && this.qtdResp >= 5) {     // reprovação no extrato 2.
                         console.log("Fim do extrato 2: Reprovado no extrato 2");
-                        if (this.percursoInicial == 1) {
+                        if (this.percursoInicial == 1 || this.percursoInicial == 3) {
                             this.resultado = -1;
                             this.dadosTeste.resultado_final = '2 - Reprovado';
                             this.dadosTeste.resultado = 2;
@@ -1789,38 +1791,58 @@ export default {
                     break;
 
 
-                case 3:                                     //ESTRATO 3
+                case 3: 
+
+                    /* Estrato 3 ou Percurso 4
+                   Caso o aluno tenha sido aprovado ou reprovado.
+                   Se estrato inicial = 0, o aluno não pode chegar aqui.
+                   Se estrato inicial = 1, o aluno não pode chegar aqui.
+                   Se estrato inicial = 2, o aluno avançou um estrato para chegar aqui, o teste terminar.
+                   Se estrato inicial = 3, o teste finaliza se for aprovado, e retrocede se for reprovado.
+                    */
+
+
                     if (this.PSR > this.pouts && this.qtdResp >= 5) {            //Aprovação no estrato 3
                         this.resultado = 1;
-                        console.log("Fim do estrato 3: Aprovado no estrato 3");
-
-                        console.log(this.dadosTeste);
-                        if (this.termina === false) {
+                        if(this.percursoInicial === 3 || this.percursoInicial === 2){
+                            console.log("Fim do estrato 3: Aprovado no estrato 3");
+                            console.log(this.dadosTeste);
                             //Enviar dados pro backend
                             this.dadosTeste.resultado_final = '3 - Aprovado';
                             this.dadosTeste.resultado = 4;
                             this.sendDataTest(this.dadosTeste);
                             this.questionFlag = true;
                             this.testeStatus(0);
-
                             this.$router.push('/congratulations');
-
-                        }
+                        }   
+                       
+                        
                     } else if (this.PSR < this.poutn && this.qtdResp >= 5) {     // reprovação no estrato 3
                         this.resultado = -1;
                         console.log("Fim do estrato 3: Reprovado no estrato 3");
                         console.log(this.dadosTeste);
                         this.dadosTeste.resultado = 3;
 
-                        if (this.termina === false) {
+                        if (this.percursoInicial === 2) {
                             this.popupIntervalo();
                             //Enviar dados pro backend
                             this.dadosTeste.resultado_final = '3 - Reprovado';
-
                             this.sendDataTest(this.dadosTeste);
                             this.questionFlag = true;
                             this.testeStatus(0);
                             this.$router.push('/congratulations');
+                        }
+                        else if(this.percursoInicial === 3){
+                            this.resultado = 1;
+                            console.log("Fim do estrato 3: Retrocedendo para o Estrato 2");
+                            this.nestr = 2;
+                            this.dadosTeste.extratoAtual = this.nestr;
+                            this.dadosTeste.indiceAtual = 0;                          //Usado caso o teste seja retomado.
+                            this.dadosTeste.dadosPSR = 0.5;
+                            this.dadosTeste.seqProbDom.fill(1);
+                            this.dadosTeste.seqProbNdom.fill(1);
+                            this.dadosTeste.jiter = 0;
+                            this.resetaExtrato(this.nestr, 0);
                         }
                     } else if (this.jiter >= this.nq[this.nestr] - this.jquest) { // termina indefinido
                         console.log("Fim do estrato 3");
