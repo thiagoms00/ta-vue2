@@ -26,7 +26,7 @@ export default {
     },
 
     created (){
-        this.$store.dispatch('verificarToken', { router: this.$router });
+        // this.$store.dispatch('verificarToken', { router: this.$router });
     },
 }
 </script>
