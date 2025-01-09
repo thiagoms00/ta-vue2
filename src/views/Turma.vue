@@ -422,7 +422,6 @@ export default {
           console.log(response);
         })
         .catch((error) => {
-          // Tratar erros aqui
           console.error(error);
         });
     },

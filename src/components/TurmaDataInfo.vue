@@ -570,7 +570,7 @@ export default {
         indexAluno: indexAluno,
         indexTeste: indexTeste,
       };
-
+      
       this.$emit("eventDeleteTest", data);
     },
 
