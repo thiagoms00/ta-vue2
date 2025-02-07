@@ -4,11 +4,7 @@
       <!-- Mensagem de Seleção de Turma -->
       <v-row>
         <v-col>
-          <v-sheet
-            class="rounded-t-lg pa-2 d-flex align-center justify-space-between"
-            color="#1E3892"
-            height="50"
-          >
+          <v-sheet class="rounded-t-lg pa-2 d-flex align-center justify-space-between" color="#1E3892" height="50">
             <div class="d-flex align-center">
               <!--               <v-icon icon="mdi-ballot"> </v-icon>
  -->
@@ -50,16 +46,10 @@
 
         <v-divider></v-divider>
 
-        <v-expansion-panels variant="accordion" >
-          <v-expansion-panel
-            v-for="(item, index) in listaTurma"
-            :key="item.name"
-            ref="panels"
-            style="border-radius: 0"
-            @click="geraDescricaoHab(index)"
-            
-          >
-            <v-expansion-panel-title style="height: 6vh" >
+        <v-expansion-panels variant="accordion">
+          <v-expansion-panel v-for="(item, index) in listaTurma" :key="item.name" ref="panels" style="border-radius: 0"
+            @click="geraDescricaoHab(index)">
+            <v-expansion-panel-title style="height: 6vh">
               <v-row class="align-center">
                 <v-col class="pa-2" cols="3">
                   <div class="nome-aluno">
@@ -77,13 +67,10 @@
 
                 <v-col class="pa-2" cols="8">
                   <div class="px-2">
-                    <p
-                      class="text-left"
-                      style="
+                    <p class="text-left" style="
                         font-weight: normal !important;
                         font-size: 0.9375rem !important;
-                      "
-                    >
+                      ">
                       {{ getDescricaoResultadoFinal(item) }}
                     </p>
                   </div>
@@ -101,77 +88,58 @@
                 </thead>
 
                 <tbody>
-                  <tr v-for="(item, index) in habilidades" :key="item.nome">
-                    <td>
-                      <v-chip :class="habilidades[index].colorClass" outlined>
-                        {{ item.nome }}
-                      </v-chip>
-                    </td>
-                    <td class="desc-hab" :class="habilidades[index].colorClass">
-                      {{ item.desc }}
+                  <template v-for="(item, index) in habilidades" :key="item.nome">
+                    <tr v-if="item.desc !== 'O aluno não respondeu uma questão com essa habilidade.'">
+                      <td>
+                        <v-chip :class="habilidades[index].colorClass" outlined>
+                          {{ item.nome }}
+                        </v-chip>
+                      </td>
+                      <td class="desc-hab" :class="habilidades[index].colorClass">
+                        {{ item.desc }}
 
-                      <!-- Início da Tooltip -->
-                      <v-tooltip
-                        activator="parent"
-                        location="top left"
-                        class="main-tooltip"
-                        :open-delay="0"
-                        :close-delay="0"
-                        transition="fade-transition"
-                        v-if="
-                          habilidades[index].colorClass == 'hab100' ||
-                          habilidades[index].colorClass == 'hab50' ||
-                          habilidades[index].colorClass == 'hab0'
-                        "
-                      >
-                        <!-- Conteúdo da Tooltip com Quebra de Linha -->
+                        <!-- Início da Tooltip -->
+                        <v-tooltip activator="parent" location="top left" class="main-tooltip" :open-delay="0"
+                          :close-delay="0" transition="fade-transition" v-if="
+                            habilidades[index].colorClass == 'hab100' ||
+                            habilidades[index].colorClass == 'hab50' ||
+                            habilidades[index].colorClass == 'hab0'
+                          ">
+                          <!-- Conteúdo da Tooltip com Quebra de Linha -->
 
-                        <div v-if="habilidades[index].colorClass === 'hab100'">
-                          <div class="tooltip1Teste">
-                            <v-chip
-                              color="green lighten-1"
-                              dark
-                              small
-                              class="mr-2"
-                            >
-                              VERDE
-                            </v-chip>
-                            {{ tooltip1 }}
+                          <div v-if="habilidades[index].colorClass === 'hab100'">
+                            <div class="tooltip1Teste">
+                              <v-chip color="green lighten-1" dark small class="mr-2">
+                                VERDE
+                              </v-chip>
+                              {{ tooltip1 }}
+                            </div>
                           </div>
-                        </div>
-                        <div v-if="habilidades[index].colorClass === 'hab50'">
-                          <div class="my-2 tooltip1Teste">
-                            <v-chip
-                              color="orange darken-1"
-                              dark
-                              small
-                              class="mr-2"
-                            >
-                              LARANJA
-                            </v-chip>
-                            {{ tooltip2 }}
+                          <div v-if="habilidades[index].colorClass === 'hab50'">
+                            <div class="my-2 tooltip1Teste">
+                              <v-chip color="orange darken-1" dark small class="mr-2">
+                                LARANJA
+                              </v-chip>
+                              {{ tooltip2 }}
+                            </div>
                           </div>
-                        </div>
-                        <div v-if="habilidades[index].colorClass === 'hab0'">
-                          <div class="tooltip1Teste">
-                            <v-chip
-                              color="red darken-2"
-                              dark
-                              small
-                              class="mr-2"
-                            >
-                              VERMELHO
-                            </v-chip>
-                            {{ tooltip3 }}
+                          <div v-if="habilidades[index].colorClass === 'hab0'">
+                            <div class="tooltip1Teste">
+                              <v-chip color="red darken-2" dark small class="mr-2">
+                                VERMELHO
+                              </v-chip>
+                              {{ tooltip3 }}
+                            </div>
                           </div>
-                        </div>
-                        <div v-else></div>
-                      </v-tooltip>
-                      <!-- Fim da Tooltip -->
-                    </td>
-                  </tr>
+                          <div v-else></div>
+                        </v-tooltip>
+                        <!-- Fim da Tooltip -->
+                      </td>
+                    </tr>
+                  </template>
+
                   <!-- Jogar um V-for aqui quando tiver as listas de sub-habilidades. -->
-                  <tr>
+                  <!--  <tr>
                     <td class="text-left text-h subHab">H2.1</td>
                     <td class="desc-hab">
                       O aluno não respondeu uma questão com essa habilidade.
@@ -182,7 +150,7 @@
                     <td class="desc-hab">
                       O aluno não respondeu uma questão com essa habilidade.
                     </td>
-                  </tr>
+                  </tr> -->
                 </tbody>
               </v-table>
 
@@ -318,7 +286,7 @@ export default {
     this.listaTurma = this.listaDeAlunos;
   },
 
-  mounted() {},
+  mounted() { },
 
   methods: {
     generateTurmasPDf() {
@@ -601,13 +569,17 @@ export default {
 
 <style scoped>
 .v-expansion-panel--active .v-expansion-panel-title {
-  background-color: #c5d4e2; /* Cor desejada para o painel expandido */
+  background-color: #c5d4e2;
+  /* Cor desejada para o painel expandido */
 }
 
 .v-expansion-panel--active .v-expansion-panel-text {
-  background-color: #d5e3f0; /* Cor desejada para o conteúdo do painel */
-  color: #333; /* Ajuste a cor do texto, se necessário */
-  padding: 16px; /* Opcional: ajuste de espaçamento interno */
+  background-color: #d5e3f0;
+  /* Cor desejada para o conteúdo do painel */
+  color: #333;
+  /* Ajuste a cor do texto, se necessário */
+  padding: 16px;
+  /* Opcional: ajuste de espaçamento interno */
 }
 
 .v-expansion-panel-text__wrapper {
@@ -699,6 +671,5 @@ export default {
   font-weight: bold;
 }
 
-@media (max-width: 1800px) {
-}
+@media (max-width: 1800px) {}
 </style>
