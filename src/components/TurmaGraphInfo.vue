@@ -22,7 +22,7 @@
           >
             <v-tab
               prepend-icon="mdi-apple-keyboard-caps"
-              text="Níveis de Alfabetização e Letramento"
+              text="Estágios de Aprendizado"
               value="option-1"
               class="pa-1 d-flex justify-center"
               style="width: 50%"

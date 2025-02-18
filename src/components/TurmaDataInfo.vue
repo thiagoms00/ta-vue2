@@ -643,11 +643,11 @@ export default {
 
     alteraResultado(str) {
       if (str.endsWith(" - Reprovado")) {
-        return str.replace(" - Reprovado", " - Estágio Inicial");
+        return str.replace(" - Reprovado", ": Inicial");
       } else if (str.endsWith(" - Indefinido")) {
-        return str.replace(" - Indefinido", " - Em desenvolvimento");
+        return str.replace(" - Indefinido", ": Em desenvolvimento");
       } else if (str.endsWith(" - Aprovado")) {
-        return str.replace(" - Aprovado", " - Consolidado");
+        return str.replace(" - Aprovado", ": Consolidado");
       } else {
         console.log(str);
         return str; // Return the original string if no match is found

@@ -9,7 +9,7 @@
               <!--               <v-icon icon="mdi-ballot"> </v-icon>
  -->
               <div class="text-button ml-2 mt-1 tab-name-niveis">
-                Níveis de Aprendizado
+                Estágios de Aprendizado
               </div>
             </div>
 

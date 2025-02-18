@@ -84,7 +84,7 @@
                       class="pl-5 d-flex justify-start"
                       prepend-icon="mdi-menu"
                     >
-                      <span>Níveis de aprendizado</span>
+                      <span>Estágios de Aprendizado</span>
                       <v-tooltip
                         activator="parent"
                         :open-delay="0"
@@ -100,7 +100,7 @@
                       value="option-2"
                       class="pl-5 d-flex justify-start"
                     >
-                      <span>Sequência na avaliação</span>
+                      <span>Fases do Teste</span>
                       <v-tooltip
                         activator="parent"
                         :open-delay="0"

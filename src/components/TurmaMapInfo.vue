@@ -7,7 +7,7 @@
         height="50">
         <div class="d-flex align-center ">
 
-          <div class="text-button ml-2 mt-1 tab-name-niveis">Mapa de habilidade</div>
+          <div class="text-button ml-2 mt-1 tab-name-niveis">Fases do Teste</div>
            
         </div>
 
