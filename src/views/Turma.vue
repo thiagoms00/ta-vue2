@@ -1,6 +1,6 @@
 <template>
   <v-app id="inspire">
-    <NavBar :admin="adminVer"/>
+    <NavBar :admin="adminVer" />
 
     <v-main class="bg-blue-grey-lighten-5">
       <v-container fluid>
@@ -28,7 +28,9 @@
                           />
                           <template v-else>
                             <v-icon icon="mdi-school-outline"></v-icon>
-                            <div class="text-button pl-2 expansive-text">TURMAS</div>
+                            <div class="text-button pl-2 expansive-text">
+                              TURMAS
+                            </div>
                           </template>
                         </div>
                       </v-expansion-panel-title>
@@ -72,14 +74,15 @@
                   class="custom-switch mt-5 elevation-2 d-flex justify-center align-center"
                   rounded="lg"
                 >
-                  <v-tabs 
+                  <v-tabs
                     v-model="tab"
                     class="py-2"
                     color="primary"
                     direction="vertical"
                     style="width: 100%"
                   >
-                    <v-tab @click="changeItens(false)"
+                    <v-tab
+                      @click="changeItens(false)"
                       value="option-1"
                       class="pl-5 d-flex justify-start"
                       prepend-icon="mdi-menu"
@@ -95,7 +98,8 @@
                       </v-tooltip>
                     </v-tab>
 
-                    <v-tab @click="changeItens(false)"
+                    <v-tab
+                      @click="changeItens(false)"
                       prepend-icon="mdi-compass-outline"
                       value="option-2"
                       class="pl-5 d-flex justify-start"
@@ -111,7 +115,8 @@
                       </v-tooltip>
                     </v-tab>
 
-                    <v-tab @click="changeItens(false)"
+                    <v-tab
+                      @click="changeItens(false)"
                       prepend-icon="mdi-checkbox-outline"
                       value="option-3"
                       class="pl-5 d-flex justify-start"
@@ -133,7 +138,8 @@
                       class="border-opacity-25"
                     ></v-divider>
 
-                    <v-tab @click="changeItens(false)"
+                    <v-tab
+                      @click="changeItens(false)"
                       prepend-icon="mdi-chart-bar"
                       value="option-4"
                       class="pl-5 d-flex justify-start"
@@ -203,26 +209,6 @@
               </v-col>
 
               <v-col>
-                <!-- MENSAGEM DE SELEÇÂO DE TURMA -->
-                <v-sheet
-                  v-if="!controlOptions && !controlItens"
-                  class="d-flex justify-center align-center rounded-lg"
-                  height="250"
-                  color="grey-lighten-5"
-                  border="md"
-                >
-                  <p
-                    class="text-overline"
-                    style="
-                      color: #cfd8dc;
-                      font-size: 3rem !important;
-                      text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
-                    "
-                  >
-                    Selecione uma turma
-                  </p>
-                </v-sheet>
-
                 <v-window v-model="tab">
                   <!-- Janela de Dados 1 -->
                   <v-window-item value="option-1" v-if="controlOptions">
@@ -356,13 +342,12 @@ export default {
     loadingGlobal: false,
     adminVer: false,
     newVar: false,
-    controlItens : false,
+    controlItens: false,
   }),
 
   created() {
     this.verificaLogin();
     this.listaNomeTurma = this.returnTurmas();
-    let flag = false;
     const adminToken = localStorage.getItem("admin");
     this.adminVer = adminToken === "true"; //garantindo que o resultado seja um boolean true e não uma string.
   },
@@ -385,7 +370,6 @@ export default {
               const idProf = response.data.idProf;
               const type = response.data.type;
 
-
               localStorage.setItem("tokenProf", tokenProf);
               localStorage.setItem("idProf", idProf);
               localStorage.setItem("type", type);
@@ -403,7 +387,7 @@ export default {
       }
     },
 
-    changeItens(value){
+    changeItens(value) {
       this.controlItens = value;
     },
 
@@ -452,7 +436,6 @@ export default {
     returnTurmas() {
       const type = localStorage.getItem("type");
       const data = {
-        // tokenProf: localStorage.getItem("token"),
         tokenProf: localStorage.getItem("tokenProf"),
       };
 
@@ -474,6 +457,7 @@ export default {
       })
         .then((response) => {
           this.listaNomeTurma = response.data.listaTurmas;
+          this.selecionaTurma(this.listaNomeTurma[0], 0);
         })
         .catch((error) => {
           console.error(error);
@@ -535,8 +519,9 @@ export default {
     },
 
     selecionaTurma(turmaValue, index) {
+      // Impede que outra busca seja feita
       if (this.loadingGlobal) {
-        return; // Impede que outra busca seja feita
+        return;
       }
       this.nomeTurmaSelecionada = turmaValue.nome;
       this.loadingStatesTurmas[index] = true;
@@ -547,6 +532,7 @@ export default {
         idTurma: turmaValue.id,
         idProfessor: localStorage.getItem("idProf"),
       };
+      console.log(data)
       const type = localStorage.getItem("type");
       let urlAdd = "";
       if (type === "coord") {
@@ -596,7 +582,7 @@ export default {
           this.loadingStatesTurmas[index] = false;
           this.loadingGlobal = false;
           this.controlOptions = true;
-          this.tab = 'option-1'
+          this.tab = "option-1";
         });
     },
 
@@ -879,7 +865,7 @@ export default {
   min-width: 35px !important;
 }
 
-.expansive-text{
+.expansive-text {
   font-size: 0.95rem !important;
 }
 
