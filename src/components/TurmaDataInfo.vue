@@ -14,7 +14,7 @@
             </v-col>
             <v-col cols="2" class="d-flex justify-center">
               <v-btn block :append-icon="icon[1]" :ripple="false" variant="text"
-                @click="toggleIcon(1, 'extrato')">Percurso
+                @click="toggleIcon(1, 'extrato')">Fase
                 Final</v-btn>
             </v-col>
             <v-col cols="2" class="d-flex justify-center">

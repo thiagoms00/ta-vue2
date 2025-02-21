@@ -26,7 +26,7 @@
               <!-- Percurso colunas com `v-for` -->
               <th v-for="i in 3" :key="i" style="width: calc(80% / 3); border-left: 1px solid #ccc">
                 <div class="text-center text-overline table-title">
-                  Percurso {{ i - aux_estrato + 1 }}
+                  Fase {{ i - aux_estrato + 1 }}
                 </div>
               </th>
             </tr>
