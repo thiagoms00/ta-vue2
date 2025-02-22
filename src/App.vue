@@ -1,13 +1,10 @@
 <template>
   <v-app>
-    <!-- Sidebar fixa -->
     <Sidebar />
 
     <v-main class="main-container">
-      <!-- Barra superior fixa -->
       <TopBar />
 
-      <!-- Conteúdo principal -->
       <div class="content">
         <router-view></router-view>
       </div>
@@ -42,7 +39,6 @@ body {
   font-family: Manrope, sans-serif;
 }
 
-/* Ajuste de layout */
 .main-container {
   display: flex;
   flex-direction: column;
@@ -50,10 +46,10 @@ body {
   overflow: hidden;
 }
 
-/* Define a área de conteúdo abaixo da TopBar */
 .content {
   flex-grow: 1;
   padding: 16px;
   overflow: auto;
+  background-color: #d6d9df; 
 }
 </style>
