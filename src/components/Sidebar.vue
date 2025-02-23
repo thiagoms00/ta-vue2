@@ -1,10 +1,16 @@
 <template>
   <v-navigation-drawer app>
-    <v-list density="compact" class="sidebar">
-      <v-list-item class="logo-container">
-        <v-list-item-title>LOGO SPACE</v-list-item-title>
-      </v-list-item>
+    <div class="logo-container">
+      <v-img
+        src="../assets/imgs/logoAdapTeste.png"
+        alt="Logo"
+        height="110"
+        width="100%"
+        cover
+      ></v-img>
+    </div>
 
+    <v-list density="compact" class="sidebar">
       <v-list-group :disabled="loadingGlobal">
         <template v-slot:activator="{ props }">
           <v-list-item v-bind="props" style="color: white !important">
@@ -66,10 +72,18 @@ export default {
     return {
       turmas: [],
       menuItems: [
-        { title: "Estágios de aprendizado", icon: "mdi-book-open-variant", route: "/estagios" },
+        {
+          title: "Estágios de aprendizado",
+          icon: "mdi-book-open-variant",
+          route: "/estagios",
+        },
         { title: "Fases do teste", icon: "mdi-timer", route: "/fases" },
         { title: "Dados gerais", icon: "mdi-chart-bar", route: "/dados" },
-        { title: "Panorama da turma", icon: "mdi-view-dashboard", route: "/panorama" },
+        {
+          title: "Panorama da turma",
+          icon: "mdi-view-dashboard",
+          route: "/panorama",
+        },
       ],
       loadingGlobal: false,
       loadingStatesTurmas: [],
@@ -87,24 +101,28 @@ export default {
 
   methods: {
     returnTurmas() {
-      const data = { tokenProf: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InByb2YzYUBnbWFpbC5jb20iLCJzZW5oYSI6InNlbmhhM2EifQ.XvcvVQGS9rFLHnldsDynsZ2BWGQND03yd3gzlIRJosI" };
-      
+      const data = {
+        tokenProf:
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InByb2YzYUBnbWFpbC5jb20iLCJzZW5oYSI6InNlbmhhM2EifQ.XvcvVQGS9rFLHnldsDynsZ2BWGQND03yd3gzlIRJosI",
+      };
+
       this.loadingGlobal = true;
-      let url = "https://ta-back.onrender.com/professores/returnTurmas"
-      
-      axios.post(url, data)
-        .then(response => {
+      let url = "https://ta-back.onrender.com/professores/returnTurmas";
+
+      axios
+        .post(url, data)
+        .then((response) => {
           this.turmas = response.data.listaTurmas;
           this.loadingStatesTurmas = Array(this.turmas.length).fill(false);
         })
-        .catch(error => {
+        .catch((error) => {
           console.error(error);
         })
         .finally(() => {
           this.loadingGlobal = false;
         });
     },
-    
+
     selecionaTurma(turma, index) {
       if (this.loadingGlobal) return;
 
@@ -112,7 +130,8 @@ export default {
       this.loadingGlobal = true;
 
       const data = {
-        token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InByb2YzYUBnbWFpbC5jb20iLCJzZW5oYSI6InNlbmhhM2EifQ.XvcvVQGS9rFLHnldsDynsZ2BWGQND03yd3gzlIRJosI",
+        token:
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InByb2YzYUBnbWFpbC5jb20iLCJzZW5oYSI6InNlbmhhM2EifQ.XvcvVQGS9rFLHnldsDynsZ2BWGQND03yd3gzlIRJosI",
         idTurma: turma.id,
         idProfessor: "66e389aa2636b0ecb8ab4b73",
       };
@@ -156,11 +175,13 @@ export default {
   background: linear-gradient(to bottom, #2c2f4e, #343856);
 }
 
-.menu-item, .submenu-item {
+.menu-item,
+.submenu-item {
   color: white;
 }
 
-.menu-item:hover, .submenu-item:hover {
+.menu-item:hover,
+.submenu-item:hover {
   background: rgba(255, 255, 255, 0.1);
 }
 
