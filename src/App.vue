@@ -2,10 +2,8 @@
   <v-app>
     <Sidebar />
     <TopBar />
-    
-    <v-main class="main-container">
-      
 
+    <v-main class="main-container">
       <div class="content">
         <router-view></router-view>
       </div>
@@ -51,6 +49,6 @@ body {
   flex-grow: 1;
   padding: 16px;
   overflow: auto;
-  background-color: #eaecef; 
+  background-color: #eaecef;
 }
 </style>
