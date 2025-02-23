@@ -58,6 +58,7 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from "vuex";
 import axios from "axios";
 
 export default {
@@ -80,15 +81,16 @@ export default {
     this.returnTurmas();
   },
 
+  computed: {
+    ...mapState("turma", ["turmaAtiva"]),
+  },
+
   methods: {
     returnTurmas() {
-      const type = localStorage.getItem("type");
-      const data = { tokenProf: localStorage.getItem("tokenProf") };
+      const data = { tokenProf: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InByb2YzYUBnbWFpbC5jb20iLCJzZW5oYSI6InNlbmhhM2EifQ.XvcvVQGS9rFLHnldsDynsZ2BWGQND03yd3gzlIRJosI" };
       
       this.loadingGlobal = true;
-      let url = type === "coord" ? "https://ta-back.onrender.com/coordenadores/retorna_turmas" :
-                type === "dir" ? "https://ta-back.onrender.com/diretores/retorna_turmas" :
-                "https://ta-back.onrender.com/professores/returnTurmas";
+      let url = "https://ta-back.onrender.com/professores/returnTurmas"
       
       axios.post(url, data)
         .then(response => {
@@ -105,27 +107,25 @@ export default {
     
     selecionaTurma(turma, index) {
       if (this.loadingGlobal) return;
-      
+
       this.loadingStatesTurmas[index] = true;
       this.loadingGlobal = true;
-      this.turmaSelecionada = turma.id;
-      
+
       const data = {
-        token: localStorage.getItem("tokenProf"),
+        token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InByb2YzYUBnbWFpbC5jb20iLCJzZW5oYSI6InNlbmhhM2EifQ.XvcvVQGS9rFLHnldsDynsZ2BWGQND03yd3gzlIRJosI",
         idTurma: turma.id,
-        idProfessor: localStorage.getItem("idProf"),
+        idProfessor: "66e389aa2636b0ecb8ab4b73",
       };
-      
-      const type = localStorage.getItem("type");
-      let url = type === "coord" ? "https://ta-back.onrender.com/coordenadores/dadosTurma" :
-                type === "dir" ? "https://ta-back.onrender.com/diretores/dadosTurma" :
-                "https://ta-back.onrender.com/professores/dadosTurma";
-      
-      axios.post(url, data)
-        .then(response => {
+
+      let url = "https://ta-back.onrender.com/professores/dadosTurma";
+
+      axios
+        .post(url, data)
+        .then((response) => {
           console.log("Dados da turma carregados:", response.data);
+          this.setTurmaAtiva(response.data);
         })
-        .catch(error => {
+        .catch((error) => {
           console.error("Erro ao carregar dados da turma:", error);
         })
         .finally(() => {
@@ -133,6 +133,8 @@ export default {
           this.loadingGlobal = false;
         });
     },
+
+    ...mapMutations("turma", ["setTurmaAtiva"]),
   },
 };
 </script>

@@ -1,7 +1,11 @@
 import { createStore } from "vuex";
 import axios from "axios";
+import turma from "./turma";
 
 export default createStore({
+  modules: {
+    turma,
+  },
   state: {
     token: localStorage.getItem("token") || "",
     status: "",

@@ -29,7 +29,7 @@
             />
           </v-avatar>
 
-          <span class="user-name">Ana</span>
+          <span class="user-name">Ana Luiza</span>
           <v-icon class="dropdown-icon">mdi-chevron-down</v-icon>
         </v-btn>
       </template>
