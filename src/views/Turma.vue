@@ -74,6 +74,7 @@
                   class="custom-switch mt-5 elevation-2 d-flex justify-center align-center"
                   rounded="lg"
                 >
+
                   <v-tabs
                     v-model="tab"
                     class="py-2"
@@ -83,7 +84,23 @@
                   >
                     <v-tab
                       @click="changeItens(false)"
+                      prepend-icon="mdi-checkbox-outline"
                       value="option-1"
+                      class="pl-5 d-flex justify-start"
+                    >
+                      <span>Dados gerais</span>
+                      <v-tooltip
+                        activator="parent"
+                        :open-delay="0"
+                        :close-delay="0"
+                        transition="fade-transition"
+                      >
+                        Dados individuais de cada aluno
+                      </v-tooltip>
+                    </v-tab>
+                    <v-tab
+                      @click="changeItens(false)"
+                      value="option-2"
                       class="pl-5 d-flex justify-start"
                       prepend-icon="mdi-menu"
                     >
@@ -101,7 +118,7 @@
                     <v-tab
                       @click="changeItens(false)"
                       prepend-icon="mdi-compass-outline"
-                      value="option-2"
+                      value="option-3"
                       class="pl-5 d-flex justify-start"
                     >
                       <span>Fases do Teste</span>
@@ -112,23 +129,6 @@
                         transition="fade-transition"
                       >
                         Trajeto de habilidades do aluno no último teste
-                      </v-tooltip>
-                    </v-tab>
-
-                    <v-tab
-                      @click="changeItens(false)"
-                      prepend-icon="mdi-checkbox-outline"
-                      value="option-3"
-                      class="pl-5 d-flex justify-start"
-                    >
-                      <span>Dados gerais</span>
-                      <v-tooltip
-                        activator="parent"
-                        :open-delay="0"
-                        :close-delay="0"
-                        transition="fade-transition"
-                      >
-                        Dados individuais de cada aluno
                       </v-tooltip>
                     </v-tab>
 
@@ -209,9 +209,11 @@
               </v-col>
 
               <v-col>
+                <v-skeleton-loader type="table-tbody" v-if="turmaLoader">
+                </v-skeleton-loader>
                 <v-window v-model="tab">
                   <!-- Janela de Dados 1 -->
-                  <v-window-item value="option-1" v-if="controlOptions">
+                  <v-window-item value="option-2" v-if="controlOptions">
                     <TurmaNiveisInfo
                       :listaDeAlunos="listaFiltrada"
                       :nomeTurma="nomeTurmaSelecionada"
@@ -220,7 +222,7 @@
                   </v-window-item>
 
                   <!-- Janela de Dados 2 -->
-                  <v-window-item value="option-2" v-if="controlOptions">
+                  <v-window-item value="option-3" v-if="controlOptions">
                     <TurmaMapInfo
                       :listaDeAlunos="listaFiltrada"
                       :anoTurma="anoTurma"
@@ -231,7 +233,7 @@
 
                   <!-- Janela de Dados 3 -->
 
-                  <v-window-item value="option-3" v-if="controlOptions">
+                  <v-window-item value="option-1" v-if="controlOptions">
                     <TurmaDataInfo
                       :listaDeAlunos="listaFiltrada"
                       ref="turmaDataInfo"
@@ -343,6 +345,7 @@ export default {
     adminVer: false,
     newVar: false,
     controlItens: false,
+    turmaLoader: true,
   }),
 
   created() {
@@ -532,7 +535,7 @@ export default {
         idTurma: turmaValue.id,
         idProfessor: localStorage.getItem("idProf"),
       };
-      console.log(data)
+      console.log(data);
       const type = localStorage.getItem("type");
       let urlAdd = "";
       if (type === "coord") {
@@ -553,6 +556,8 @@ export default {
           this.anoTurma = response.data.anoTurma;
           this.estratoInicial = response.data.estratoInicial;
           this.habilidadesTurmaAtual = response.data.habTurma;
+          this.turmaLoader = false;
+
           //criando lista com os ultimos elementos.
           for (let i = 0; i < this.listaTurma.length; i++) {
             if (
