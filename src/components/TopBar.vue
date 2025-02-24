@@ -1,9 +1,9 @@
 <template>
   <v-app-bar app class="top-bar" elevation="0">
-    <v-btn icon>
+    <!-- <v-btn icon>
       <v-icon class="btn-icon-color">mdi-menu</v-icon>
     </v-btn>
-
+ -->
     <v-spacer></v-spacer>
 
     <v-btn icon>
@@ -49,11 +49,18 @@
   </v-app-bar>
 </template>
 
+
 <script>
 export default {};
 </script>
 
 <style scoped>
+
+.top-bar {
+  border-bottom: 1px solid rgba(148, 148, 148, 0.502);
+  padding-bottom: 0.5vh;
+}
+
 
 .dropdown-icon {
   font-size: 18px;
@@ -71,9 +78,6 @@ export default {};
   color: rgba(52, 56, 86, 0.6);
 }
 
-.top-bar {
-  background-color: white;
-}
 
 .user-btn {
   display: flex;

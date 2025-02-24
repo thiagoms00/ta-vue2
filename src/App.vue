@@ -2,10 +2,10 @@
   <v-app>
     <Sidebar />
     <TopBar />
-
     <v-main class="main-container">
       <div class="content">
         <router-view></router-view>
+        <PlaceholderDados></PlaceholderDados>
       </div>
     </v-main>
   </v-app>
@@ -14,11 +14,13 @@
 <script>
 import Sidebar from "@/components/Sidebar.vue";
 import TopBar from "@/components/TopBar.vue";
+import PlaceholderDados from "./components/PlaceholderDados.vue";
 
 export default {
   components: {
     Sidebar,
     TopBar,
+    PlaceholderDados,
   },
 };
 </script>
@@ -47,8 +49,9 @@ body {
 
 .content {
   flex-grow: 1;
-  padding: 16px;
+  padding: 1.5vh;
+  padding-right: 0;
   overflow: auto;
-  background-color: #eaecef;
+  
 }
 </style>

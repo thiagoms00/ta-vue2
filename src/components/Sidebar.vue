@@ -1,35 +1,42 @@
 <template>
-  <v-navigation-drawer app>
+  <v-navigation-drawer class="main-container" app>
     <div class="logo-container">
       <v-img
+        class="mr-12"
         src="../assets/imgs/logoAdapTeste.png"
         alt="Logo"
-        height="110"
-        width="100%"
-        cover
+        height="70"
+        width="70"
+        contain
       ></v-img>
     </div>
 
     <v-list density="compact" class="sidebar">
-      <v-list-group :disabled="loadingGlobal">
+      <v-list-group :disabled="loadingGlobal" class="main-group mx-auto">
         <template v-slot:activator="{ props }">
           <v-list-item v-bind="props" style="color: white !important">
-            <template v-slot:prepend>
+            <!--  <template v-slot:prepend>
               <v-icon style="opacity: 0.6; color: white !important">
                 mdi-school
               </v-icon>
-            </template>
-            <v-list-item-title style="color: white !important">
-              Turma
-              <v-progress-circular
-                v-if="loadingGlobal"
-                indeterminate
-                size="20"
-                width="2"
-                color="white"
-                class="ml-2"
-              ></v-progress-circular>
-            </v-list-item-title>
+            </template> -->
+
+            <div class="turma-div d-flex ml-1">
+              <v-icon class="turma-icon" icon="mdi-school"></v-icon>
+              <v-list-item-title
+                class="turma-title ml-2"
+              >
+                Turma
+                <v-progress-circular
+                  v-if="loadingGlobal"
+                  indeterminate
+                  size="20"
+                  width="2"
+                  color="white"
+                  class="ml-2"
+                ></v-progress-circular>
+              </v-list-item-title>
+            </div>
           </v-list-item>
         </template>
 
@@ -40,12 +47,12 @@
           style="color: white !important"
           @click="selecionaTurma(turma, index)"
         >
-          <v-list-item-title style="color: white !important">
+          <v-list-item-title class="turma-class">
             {{ turma.nome }}
           </v-list-item-title>
         </v-list-item>
       </v-list-group>
-
+      <div class="mt-5"></div>
       <v-list-item
         v-for="(item, index) in menuItems"
         :key="index"
@@ -54,10 +61,15 @@
         class="menu-item"
         :class="{ 'active-item': $route.path === item.route }"
       >
-        <template v-slot:prepend>
+        <!-- <template v-slot:prepend>
           <v-icon :icon="item.icon"></v-icon>
-        </template>
-        <v-list-item-title>{{ item.title }}</v-list-item-title>
+        </template> -->
+        <div class="menu-icon-title d-flex ml-1">
+          <v-icon :icon="item.icon"></v-icon>
+          <v-list-item-title class="menu-title ml-2">{{
+            item.title
+          }}</v-list-item-title>
+        </div>
       </v-list-item>
     </v-list>
   </v-navigation-drawer>
@@ -72,13 +84,14 @@ export default {
     return {
       turmas: [],
       menuItems: [
+        { title: "Dados gerais", icon: "mdi-chart-bar", route: "/dados" },
+
         {
           title: "Estágios de aprendizado",
           icon: "mdi-book-open-variant",
           route: "/estagios",
         },
         { title: "Fases do teste", icon: "mdi-timer", route: "/fases" },
-        { title: "Dados gerais", icon: "mdi-chart-bar", route: "/dados" },
         {
           title: "Panorama da turma",
           icon: "mdi-view-dashboard",
@@ -159,20 +172,63 @@ export default {
 </script>
 
 <style scoped>
+@font-face {
+  font-family: "Poppins-Regular";
+  src: url(../assets/fonts/Poppins/Poppins-Regular.ttf);
+}
+
+@font-face {
+  font-family: "Urbanist-Variable";
+  src: url(../assets/fonts/Urbanist/Urbanist-VariableFont_wght.ttf);
+}
+
+@font-face {
+  font-family: "Raleway-Variable";
+  src: url(../assets/fonts/Raleway/Raleway-VariableFont_wght.ttf);
+}
+
+.main-container {
+  min-width: 15%;
+} 
+
 .sidebar {
   background: linear-gradient(to bottom, #2c2f4e, #343856, #3a3e66);
-  height: 100%;
+  height: 91.6%;
 }
+
 
 .logo-container {
   height: 80px;
   display: flex;
   align-items: center;
-  justify-content: center;
   font-weight: bold;
   font-size: 16px;
   color: white;
-  background: linear-gradient(to bottom, #2c2f4e, #343856);
+  /*   background: linear-gradient(to bottom, #2c2f4e, #343856);
+ */
+  background: #2c2f4e;
+  border-bottom: 1px solid rgba(120, 120, 120, 0.298);
+}
+
+.main-group{
+  width: 80%;
+  border: 1px solid rgba(161, 161, 161, 0.417);
+  border-radius: 5px;
+  margin-top: 2vh;
+}
+
+
+.turma-title{
+  font-family: 'Segoe UI';
+  font-size: 1.3rem;
+  font-weight: 600;
+
+}
+
+.turma-class{
+  font-weight: 500;
+  font-size: 1.1rem;
+
 }
 
 .menu-item,
@@ -193,5 +249,18 @@ export default {
 
 .v-list-item--active {
   color: white !important;
+}
+
+.turma-div {
+  padding: 0;
+}
+
+.menu-title {
+  /*   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+ */
+  font-family: "Segoe UI";
+  font-weight: 500;
+  font-size: 1rem;
+  padding-top: 0.105vh;
 }
 </style>
