@@ -339,6 +339,7 @@ export default {
   },
   mounted() {
     this.listaTurma = this.listaDeAlunos;
+
   },
 
   emits: ["eventDeleteTest"],
