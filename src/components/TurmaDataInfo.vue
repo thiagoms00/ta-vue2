@@ -1,35 +1,50 @@
 <template>
+  <v-row>
+        <v-col>
+          <v-sheet class="rounded-t-lg pa-2 d-flex align-center justify-space-between" color="#1E3892" height="50">
+            <div class="d-flex align-center">
+              <!--               <v-icon icon="mdi-ballot"> </v-icon>
+ -->
+              <div class="text-button ml-2 mt-1 tab-name-niveis">
+                Dados Gerais
+              </div>
+            </div>
+
+<!--             <div class="text-button mr-2">{{ this.nomeTurma }}</div>
+ -->          </v-sheet>
+        </v-col>
+      </v-row>
   <v-sheet elevation="10" class="rounded-t-lg">
     <v-expansion-panels :readonly="true">
-      <v-expansion-panel class="rounded-t-lg" bg-color="#1E3892" style="border-radius: 0px">
+      <v-expansion-panel style="border-radius: 0px">
         <v-expansion-panel-title style="height: 4vh" disable-icon>
           <template v-slot:actions>
             <!-- Só pra retirar o ícone. -->
           </template>
 
           <v-row class="dflex align-center">
-            <v-col cols="2" class="d-flex justify-center">
+            <v-col cols="2" class="d-flex justify-center map-column-title">
               <v-btn block :append-icon="icon[0]" :ripple="false" variant="text"
                 @click="toggleIcon(0, 'nome')">Nome</v-btn>
             </v-col>
-            <v-col cols="2" class="d-flex justify-center">
+            <v-col cols="2" class="d-flex justify-center map-column-title">
               <v-btn block :append-icon="icon[1]" :ripple="false" variant="text"
                 @click="toggleIcon(1, 'extrato')">Fase
                 </v-btn>
             </v-col>
-            <v-col cols="2" class="d-flex justify-center">
+            <v-col cols="2" class="d-flex justify-center map-column-title">
               <v-btn :append-icon="icon[2]" :ripple="false" variant="text" @click="toggleIcon(2, 'nQuestoes')">Nº de
                 questões</v-btn>
             </v-col>
-            <v-col cols="2" class="d-flex justify-center">
+            <v-col cols="2" class="d-flex justify-center map-column-title">
               <v-btn block :append-icon="icon[3]" :ripple="false" variant="text"
                 @click="toggleIcon(3, 'percentTeste')">Porcentagem</v-btn>
             </v-col>
-            <v-col cols="2" class="d-flex justify-center">
+            <v-col cols="2" class="d-flex justify-center map-column-title">
               <v-btn block :append-icon="icon[4]" :ripple="false" variant="text"
                 @click="toggleIcon(4, 'tempo')">Tempo</v-btn>
             </v-col>
-            <v-col cols="2" class="d-flex justify-center">
+            <v-col cols="2" class="d-flex justify-center map-column-title">
               <v-btn block :append-icon="icon[4]" :ripple="false" variant="text"
                 @click="toggleIcon(4, 'status')">Status</v-btn>
             </v-col>
