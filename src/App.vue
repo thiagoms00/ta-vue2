@@ -5,7 +5,7 @@
     <v-main class="main-container">
       <div class="content">
         <router-view></router-view>
-        <PlaceholderDados></PlaceholderDados>
+        <!-- <PlaceholderDados></PlaceholderDados> -->
       </div>
     </v-main>
   </v-app>
@@ -52,6 +52,6 @@ body {
   padding: 1.5vh;
   padding-right: 0;
   overflow: auto;
-  
+  background-color: #eaecef;
 }
 </style>

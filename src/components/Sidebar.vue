@@ -11,21 +11,16 @@
       ></v-img>
     </div>
 
-    <v-list density="compact" class="sidebar">
-      <v-list-group :disabled="loadingGlobal" class="main-group mx-auto">
+    <v-list density="compact">
+      <v-list-group :disabled="loadingGlobal" class="main-group mx-auto" >
         <template v-slot:activator="{ props }">
-          <v-list-item v-bind="props" style="color: white !important">
-            <!--  <template v-slot:prepend>
-              <v-icon style="opacity: 0.6; color: white !important">
-                mdi-school
-              </v-icon>
-            </template> -->
-
-            <div class="turma-div d-flex ml-1">
-              <v-icon class="turma-icon" icon="mdi-school"></v-icon>
-              <v-list-item-title
-                class="turma-title ml-2"
-              >
+          <v-list-item v-bind="props" class="submenu-turma elevation-1" >
+            <div class="turma-div" >
+              <v-list-item-title class="turma-title ml-2">
+                
+                <v-chip class="ma-2" color="grey-darken-2" label>
+                  <v-icon icon="mdi-school"></v-icon>
+                </v-chip>
                 Turma
                 <v-progress-circular
                   v-if="loadingGlobal"
@@ -51,19 +46,16 @@
             {{ turma.nome }}
           </v-list-item-title>
         </v-list-item>
+      
       </v-list-group>
       <div class="mt-5"></div>
       <v-list-item
         v-for="(item, index) in menuItems"
         :key="index"
         :to="item.route"
-        color="primary"
         class="menu-item"
         :class="{ 'active-item': $route.path === item.route }"
       >
-        <!-- <template v-slot:prepend>
-          <v-icon :icon="item.icon"></v-icon>
-        </template> -->
         <div class="menu-icon-title d-flex ml-1">
           <v-icon :icon="item.icon"></v-icon>
           <v-list-item-title class="menu-title ml-2">{{
@@ -172,6 +164,72 @@ export default {
 </script>
 
 <style scoped>
+.submenu-turma {
+  background: white;
+  border-radius: 10px;
+}
+
+.main-container {
+  min-width: 15%;
+  /* Backgroud Cinza */
+  background: linear-gradient(to bottom, #e0dde5, #f7f6f9, #ffffff);
+  /* Background Azul */
+  /* background: linear-gradient(to bottom, #2c2f4e, #343856, #3a3e66); */
+}
+
+.logo-container {
+  height: 80px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(120, 120, 120, 0.298);
+  /*   background: linear-gradient(to bottom, #2c2f4e, #343856);    */
+}
+
+.main-group {
+  width: 90%;
+  border-radius: 5px;
+  margin-top: 2vh;
+}
+
+.turma-title {
+  color: rgb(60, 60, 60) !important;
+  font-weight: 500;
+  font-size: 1rem;
+  padding-top: 0.105vh;
+}
+
+.turma-class {
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+
+.menu-item,
+.submenu-item {
+  color: rgb(60, 60, 60) !important;
+}
+
+.menu-item:hover,
+.submenu-item:hover {
+  background: rgba(60, 60, 60, 0.1);
+  border-radius: 4px;
+}
+
+.active-item {
+  background: transparent !important;
+  color: rgb(60, 60, 60) !important;
+}
+
+.v-list-item--active {
+  color: rgb(60, 60, 60) !important;
+  background: transparent !important;
+}
+
+.menu-title {
+  font-weight: 500;
+  font-size: 1rem;
+  padding-top: 0.105vh;
+}
+
 @font-face {
   font-family: "Poppins-Regular";
   src: url(../assets/fonts/Poppins/Poppins-Regular.ttf);
@@ -185,82 +243,5 @@ export default {
 @font-face {
   font-family: "Raleway-Variable";
   src: url(../assets/fonts/Raleway/Raleway-VariableFont_wght.ttf);
-}
-
-.main-container {
-  min-width: 15%;
-} 
-
-.sidebar {
-  background: linear-gradient(to bottom, #2c2f4e, #343856, #3a3e66);
-  height: 91.6%;
-}
-
-
-.logo-container {
-  height: 80px;
-  display: flex;
-  align-items: center;
-  font-weight: bold;
-  font-size: 16px;
-  color: white;
-  /*   background: linear-gradient(to bottom, #2c2f4e, #343856);
- */
-  background: #2c2f4e;
-  border-bottom: 1px solid rgba(120, 120, 120, 0.298);
-}
-
-.main-group{
-  width: 80%;
-  border: 1px solid rgba(161, 161, 161, 0.417);
-  border-radius: 5px;
-  margin-top: 2vh;
-}
-
-
-.turma-title{
-  font-family: 'Segoe UI';
-  font-size: 1.3rem;
-  font-weight: 600;
-
-}
-
-.turma-class{
-  font-weight: 500;
-  font-size: 1.1rem;
-
-}
-
-.menu-item,
-.submenu-item {
-  color: white;
-}
-
-.menu-item:hover,
-.submenu-item:hover {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.active-item {
-  background: rgba(255, 255, 255, 0.2) !important;
-  color: white !important;
-  border-radius: 4px;
-}
-
-.v-list-item--active {
-  color: white !important;
-}
-
-.turma-div {
-  padding: 0;
-}
-
-.menu-title {
-  /*   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
- */
-  font-family: "Segoe UI";
-  font-weight: 500;
-  font-size: 1rem;
-  padding-top: 0.105vh;
 }
 </style>
