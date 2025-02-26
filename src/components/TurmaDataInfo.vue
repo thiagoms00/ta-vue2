@@ -10,8 +10,8 @@
               </div>
             </div>
 
-<!--             <div class="text-button mr-2">{{ this.nomeTurma }}</div>
- -->          </v-sheet>
+             <div class="text-button mr-2">{{ this.nomeTurma }}</div>
+          </v-sheet>
         </v-col>
       </v-row>
   <v-sheet elevation="10" class="rounded-t-lg">
@@ -343,6 +343,10 @@ export default {
       type: Array,
       required: true,
       default: () => [],
+    },
+    nomeTurma: {
+      type: String,
+      default: "",
     },
   },
 

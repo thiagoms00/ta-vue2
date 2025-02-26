@@ -235,6 +235,7 @@
                   <v-window-item value="option-1" v-if="controlOptions">
                     <TurmaDataInfo
                       :listaDeAlunos="listaFiltrada"
+                      :nomeTurma="nomeTurmaSelecionada"
                       ref="turmaDataInfo"
                       @eventDeleteTest="excluirTeste"
                     />
