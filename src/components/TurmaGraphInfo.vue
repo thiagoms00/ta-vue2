@@ -6,10 +6,12 @@
         color="#1E3892"
         height="50"
       >
-      <div class="d-flex align-center" >
-        <div class="text-button ml-2 mt-1 tab-name-niveis">Panorama da turma</div>
-      </div>
-      <div class="text-button mr-2"> {{ this.nomeTurma }} </div>
+        <div class="d-flex align-center">
+          <div class="text-button ml-2 mt-1 tab-name-niveis">
+            Panorama da turma
+          </div>
+        </div>
+        <div class="text-button mr-2">{{ this.nomeTurma }}</div>
       </v-sheet>
 
       <v-col class="pa-0 rounded-b-lg">
@@ -35,8 +37,6 @@
               class="pa-1 d-flex justify-center"
               style="width: 50%"
             ></v-tab>
-
-            
           </v-tabs>
         </v-sheet>
 
@@ -55,14 +55,14 @@
                     <v-table density="compact">
                       <thead>
                         <tr>
-                          <th class="text-center">Nível</th>
+                          <th class="text-left">Nível</th>
                           <th class="text-left">Descrição</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr v-for="(item, index) in descricoes">
-                          <td>{{ index + 1}}</td>
-                          <td>{{ item }}</td>
+                          <td class="desc-text">{{ index + 1 }}</td>
+                          <td class="desc-text">{{ item }}</td>
                         </tr>
                       </tbody>
                     </v-table>
@@ -206,5 +206,22 @@ export default {
 <style>
 .selectColor .text-primary {
   color: #1e3892;
+}
+
+.desc-text {
+  text-align: justify;
+}
+
+@media (max-width: 1500px) {
+  .text-left {
+    font-size: 0.75rem;
+  }
+
+  .desc-text {
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 1200px) {
 }
 </style>

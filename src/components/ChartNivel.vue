@@ -110,7 +110,9 @@ export default {
                     0
                   );
                   const value = tooltipItems[0].raw;
-                  const percentage = ((value / total) * 100).toFixed(2); // Calcula a porcentagem com 2 casas decimais
+                  const percentageAux = (value / total) * 100;
+
+                  const percentage = percentageAux % 1 !== 0 ? percentageAux.toFixed(2) : percentageAux; // Calcula a porcentagem com 2 casas decimais
 
                   return `${tooltipItems[0].label}: ${percentage}% dos alunos`;
                 },

@@ -15,7 +15,7 @@
             <v-col cols="2" class="d-flex justify-center">
               <v-btn block :append-icon="icon[1]" :ripple="false" variant="text"
                 @click="toggleIcon(1, 'extrato')">Fase
-                Final</v-btn>
+                </v-btn>
             </v-col>
             <v-col cols="2" class="d-flex justify-center">
               <v-btn :append-icon="icon[2]" :ripple="false" variant="text" @click="toggleIcon(2, 'nQuestoes')">Nº de
@@ -645,7 +645,7 @@ export default {
       if (str.endsWith(" - Reprovado")) {
         return str.replace(" - Reprovado", ": Inicial");
       } else if (str.endsWith(" - Indefinido")) {
-        return str.replace(" - Indefinido", ": Em desenvolvimento");
+        return str.replace(" - Indefinido", ": Em consolidação");
       } else if (str.endsWith(" - Aprovado")) {
         return str.replace(" - Aprovado", ": Consolidado");
       } else {

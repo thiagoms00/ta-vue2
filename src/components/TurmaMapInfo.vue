@@ -20,12 +20,12 @@
             <tr>
               <!-- Coluna para Nome -->
               <th style="width: 20%">
-                <div class="text-center text-overline table-title">Aluno</div>
+                <div class="text-center text-overline map-column-title">Aluno</div>
               </th>
 
               <!-- Percurso colunas com `v-for` -->
               <th v-for="i in 3" :key="i" style="width: calc(80% / 3); border-left: 1px solid #ccc">
-                <div class="text-center text-overline table-title">
+                <div class="text-center text-overline map-column-title">
                   Fase {{ i - aux_estrato + 1 }}
                 </div>
               </th>
@@ -180,4 +180,18 @@ export default {
 .planilha-btn{
   width: 0.1vw !important;
 }
+
+.tab-name-niveis {
+  font-family: "Urbanist-SB";
+  font-size: 0.92rem !important;
+}
+
+.map-column-title{
+  font-family: 'Manrope-SB';
+  font-size: 0.81rem !important;
+
+}
+
+
+
 </style>

@@ -28,7 +28,7 @@
                           />
                           <template v-else>
                             <v-icon icon="mdi-school-outline"></v-icon>
-                            <div class="text-button pl-2 expansive-text">
+                            <div class="sidebar-menu-title pl-2">
                               TURMAS
                             </div>
                           </template>
@@ -74,7 +74,6 @@
                   class="custom-switch mt-5 elevation-2 d-flex justify-center align-center"
                   rounded="lg"
                 >
-
                   <v-tabs
                     v-model="tab"
                     class="py-2"
@@ -88,7 +87,7 @@
                       value="option-1"
                       class="pl-5 d-flex justify-start"
                     >
-                      <span>Dados gerais</span>
+                      <span class="sidebar-title">Dados gerais</span>
                       <v-tooltip
                         activator="parent"
                         :open-delay="0"
@@ -104,7 +103,7 @@
                       class="pl-5 d-flex justify-start"
                       prepend-icon="mdi-menu"
                     >
-                      <span>Estágios de Aprendizado</span>
+                      <span class="sidebar-title">Estágios de Aprendizado</span>
                       <v-tooltip
                         activator="parent"
                         :open-delay="0"
@@ -121,7 +120,7 @@
                       value="option-3"
                       class="pl-5 d-flex justify-start"
                     >
-                      <span>Fases do Teste</span>
+                      <span class="sidebar-title">Fases do Teste</span>
                       <v-tooltip
                         activator="parent"
                         :open-delay="0"
@@ -144,7 +143,7 @@
                       value="option-4"
                       class="pl-5 d-flex justify-start"
                     >
-                      <span>Panorama da Turma</span>
+                      <span class="sidebar-title">Panorama da Turma</span>
                       <v-tooltip
                         activator="parent"
                         :open-delay="0"
@@ -840,8 +839,29 @@ export default {
 </script>
 
 <style>
+@font-face {
+  font-family: "Manrope-SB";
+  src: url(../assets/fonts/Manrope/Manrope-SemiBold.ttf);
+}
+
+@font-face {
+  font-family: "Manrope-Medium";
+  src: url(../assets/fonts/Manrope/Manrope-Medium.ttf);
+}
+
+@font-face {
+  font-family: "Manrope-Bold";
+  src: url(../assets/fonts/Manrope/Manrope-Bold.ttf);
+}
+
+.sidebar-menu-title{
+  font-family: 'Manrope-Bold';
+  font-size: 0.97rem;
+}
+
 .name-turma {
-  font-size: 1.1rem !important;
+  font-size: 1.05rem !important;
+  font-family: 'Manrope-SB';
 }
 
 .custom-switch .v-input--density-default {
@@ -888,6 +908,11 @@ export default {
   animation: fade-in 1.2s cubic-bezier(0.39, 0.575, 0.565, 1) both;
 }
 
+.sidebar-title {
+  font-family: "Manrope-SB";
+  font-size: 0.83rem;
+}
+
 @-webkit-keyframes fade-in {
   0% {
     opacity: 0;
@@ -917,12 +942,26 @@ export default {
 
 .border-bottom-orange {
   border-bottom: 2px solid orange;
+
+
 }
+
+@media (max-width: 1800px) {
+
+  .sidebar-title {
+    font-size: 0.76rem;
+  }
+}
+
 
 @media (max-width: 1600px) {
   .buscar-field .v-input__control {
     /* width: 12.5vw !important; */
     font-size: 1px;
+  }
+
+  .sidebar-title {
+    font-size: 0.76rem;
   }
 }
 
@@ -930,6 +969,10 @@ export default {
   .buscar-field .v-input__control {
     /* width: 13vw !important; */
     font-size: 1px;
+  }
+
+  .sidebar-title {
+    font-size: 0.76rem;
   }
 }
 </style>

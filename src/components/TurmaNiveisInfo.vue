@@ -27,25 +27,25 @@
               </template>
               <v-row class="align-center">
                 <v-col class="pa-2" cols="3">
-                  <div class="text-overline table-title">Aluno</div>
+                  <div class="text-overline map-column-title">Aluno</div>
                 </v-col>
 
                 <v-col class="pa-2" cols="1">
                   <div class="text-center main-text">
-                    <div class="text-overline table-title">Nível</div>
+                    <div class="text-overline map-column-title">Nível</div>
                   </div>
                 </v-col>
 
                 <v-col class="pa-2" cols="8">
-                  <div class="text-overline table-title">Descrição</div>
+                  <div class="text-overline map-column-title">Descrição</div>
                 </v-col>
               </v-row>
             </v-expansion-panel-title>
           </v-expansion-panel>
         </v-expansion-panels>
 
-        <v-divider></v-divider>
-
+<!--         <v-divider></v-divider>
+ -->
         <v-expansion-panels variant="accordion">
           <v-expansion-panel v-for="(item, index) in listaTurma" :key="item.name" ref="panels" style="border-radius: 0"
             @click="geraDescricaoHab(index)">
