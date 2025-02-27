@@ -12,15 +12,12 @@
     </div>
 
     <v-list density="compact">
-      <v-list-group :disabled="loadingGlobal" class="main-group mx-auto" >
+      <v-list-group :disabled="loadingGlobal" class="main-group mx-auto">
         <template v-slot:activator="{ props }">
-          <v-list-item v-bind="props" class="submenu-turma elevation-1" >
-            <div class="turma-div" >
-              <v-list-item-title class="turma-title ml-2">
-                
-                <v-chip class="ma-2" color="grey-darken-2" label>
-                  <v-icon icon="mdi-school"></v-icon>
-                </v-chip>
+          <v-list-item v-bind="props" class="submenu-turma elevation-1">
+            <div class="turma-div">
+              <v-list-item-title class="turma-title d-flex">
+                <v-icon icon="mdi-school" class="mr-3"></v-icon>
                 Turma
                 <v-progress-circular
                   v-if="loadingGlobal"
@@ -46,19 +43,21 @@
             {{ turma.nome }}
           </v-list-item-title>
         </v-list-item>
-      
+
       </v-list-group>
+
       <div class="mt-5"></div>
+      
       <v-list-item
         v-for="(item, index) in menuItems"
         :key="index"
         :to="item.route"
-        class="menu-item"
+        class="menu-item d-flex"
         :class="{ 'active-item': $route.path === item.route }"
       >
-        <div class="menu-icon-title d-flex ml-1">
-          <v-icon :icon="item.icon"></v-icon>
-          <v-list-item-title class="menu-title ml-2">{{
+        <div class="d-flex ml-3">
+          <v-icon :icon="item.icon" class="mr-3"></v-icon>
+          <v-list-item-title class="menu-title ">{{
             item.title
           }}</v-list-item-title>
         </div>
@@ -166,7 +165,7 @@ export default {
 <style scoped>
 .submenu-turma {
   background: white;
-  border-radius: 10px;
+  border-radius: 4px;
 }
 
 .main-container {
@@ -188,19 +187,19 @@ export default {
 .main-group {
   width: 90%;
   border-radius: 5px;
-  margin-top: 2vh;
+  margin-top: 1vh;
 }
 
 .turma-title {
   color: rgb(60, 60, 60) !important;
   font-weight: 500;
   font-size: 1rem;
-  padding-top: 0.105vh;
 }
 
 .turma-class {
   font-weight: 500;
   font-size: 1.1rem;
+  
 }
 
 .menu-item,
