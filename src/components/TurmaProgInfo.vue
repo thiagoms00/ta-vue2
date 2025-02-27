@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-card>
-      <v-tabs v-model="tab" bg-color="orange">
+      <v-tabs v-model="tab" bg-color="#fcae21">
         <v-tab value="teste1">
           <v-icon icon="mdi-numeric-1"></v-icon>
         </v-tab>
@@ -72,118 +72,7 @@
           </tbody>
         </v-table>
       </v-window-item>
-      <!-- <v-window-item value="teste2">
-            <v-table v-if="this.testes_org.length>=2">
-                <thead>
-                <tr>
-                    <th class="text-left">
-                    Questão
-                    </th>
-                    <th class="text-left">
-                    Habilidade
-                    </th>
-                </tr>
-                </thead>
-                <tbody>
-                    <tr class=""
-                        v-for="(item, index) in testes_org[1]"
-                        :key="item.estrato"
-                    >
-                        
-                        <td v-if="item.acerto==='Sim'" class="cor-acerto">{{ index + 1 }}</td>
-                        <td v-else class="cor-erro">{{ index + 1 }}</td>
-
-                        <td v-if="item.acerto==='Sim'" class="cor-acerto">{{ this.getHabilidadeDescricao(item.habilidade) }}</td>
-                        <td v-else class="cor-erro">{{ this.getHabilidadeDescricao(item.habilidade) }}</td>
-
-                    </tr>
-                </tbody>
-         </v-table>
-        </v-window-item>
-        <v-window-item value="teste3">
-            <v-table v-if="this.testes_org.length>=3">
-                <thead>
-                <tr>
-                    <th class="text-left">
-                    Questão
-                    </th>
-                    <th class="text-left">
-                    Habilidade
-                    </th>
-                </tr>
-                </thead>
-                <tbody>
-                    <tr class=""
-                        v-for="(item, index) in testes_org[2]"
-                        :key="item.estrato"
-                    >
-                        
-                        <td v-if="item.acerto==='Sim'" class="cor-acerto">{{ index + 1 }}</td>
-                        <td v-else class="cor-erro">{{ index + 1 }}</td>
-
-                        <td v-if="item.acerto==='Sim'" class="cor-acerto">{{ this.getHabilidadeDescricao(item.habilidade) }}</td>
-                        <td v-else class="cor-erro">{{ this.getHabilidadeDescricao(item.habilidade) }}</td>
-
-                    </tr>
-                </tbody>
-         </v-table>
-        </v-window-item>
-        <v-window-item value="teste4">
-            <v-table v-if="this.testes_org.length>=4">
-                <thead>
-                <tr>
-                    <th class="text-left">
-                    Questão
-                    </th>
-                    <th class="text-left">
-                    Habilidade
-                    </th>
-                </tr>
-                </thead>
-                <tbody>
-                    <tr class=""
-                        v-for="(item, index) in testes_org[3]"
-                        :key="item.estrato"
-                    >
-                        
-                        <td v-if="item.acerto==='Sim'" class="cor-acerto">{{ index + 1 }}</td>
-                        <td v-else class="cor-erro">{{ index + 1 }}</td>
-
-                        <td v-if="item.acerto==='Sim'" class="cor-acerto">{{ this.getHabilidadeDescricao(item.habilidade) }}</td>
-                        <td v-else class="cor-erro">{{ this.getHabilidadeDescricao(item.habilidade) }}</td>
-
-                    </tr>
-                </tbody>
-         </v-table>
-        </v-window-item>
-        <v-window-item value="teste5">
-            <v-table v-if="this.testes_org.length>=5">
-                <thead>
-                <tr>
-                    <th class="text-left">
-                    Questão
-                    </th>
-                    <th class="text-left">
-                    Habilidade
-                    </th>
-                </tr>
-                </thead>
-                <tbody>
-                    <tr class=""
-                        v-for="(item, index) in testes_org[4]"
-                        :key="item.estrato"
-                    >
-                        
-                        <td v-if="item.acerto==='Sim'" class="cor-acerto">{{ index + 1 }}</td>
-                        <td v-else class="cor-erro">{{ index + 1 }}</td>
-
-                        <td v-if="item.acerto==='Sim'" class="cor-acerto">{{ this.getHabilidadeDescricao(item.habilidade) }}</td>
-                        <td v-else class="cor-erro">{{ this.getHabilidadeDescricao(item.habilidade) }}</td>
-
-                    </tr>
-                </tbody>
-         </v-table>
-        </v-window-item> -->
+   
     </v-window>
   </v-container>
 </template>
@@ -283,6 +172,7 @@ export default {
   color: black;
   font-size: 1rem;
   font-weight: 500;
+  padding-left: 1vw !important;
 }
 
 .cor-acerto {

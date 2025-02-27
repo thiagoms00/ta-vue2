@@ -1,22 +1,23 @@
 <template>
-  <v-app-bar flat color="#1E3892">
+  <!-- Barra de navegação principal, usada na dashboard de Professor,ADM,Coordenador. -->
+  <v-app-bar class="main-nav" flat color="#1E3892">
     <v-container fluid class="mx-auto">
       <v-row class="d-flex justify-center">
         <v-col cols="11" class="d-flex align-center justify-center">
           <v-avatar class="me-4" color="blue-lighten-4" size="32"></v-avatar>
-          <h1 class="menu-title">Plano A</h1>
+          <h1 class="menu-title">AdapTeste</h1>
 
-         <!--   <v-btn
+          <!--   <v-btn
             v-for="link in links"
             :key="link"
             :text="link"
             variant="text"
           ></v-btn> 
            -->
-          
+
           <v-spacer></v-spacer>
 
-          <v-btn  @click="logout" prepend-icon="mdi-logout-variant">
+          <v-btn class="logout-btn" @click="logout" prepend-icon="mdi-logout-variant">
             SAIR
           </v-btn>
         </v-col>
@@ -27,26 +28,23 @@
 
 <script setup>
 /* const links = ["Dashboard", "Turmas", "Atualizações"];*/
-  const links = [""]
+const links = [""];
 </script>
 
 <script>
 export default {
   name: "NavBar",
-  data (){
-    return {
-      
-    }
+  data() {
+    return {};
   },
-  props : {
-    admin : {
+  props: {
+    admin: {
       type: Boolean,
       required: false,
       default: () => false,
-    }
+    },
   },
-  created () {
-  },
+  created() {},
   methods: {
     logout() {
       localStorage.clear();
@@ -56,29 +54,29 @@ export default {
 };
 </script>
 
-
 <style>
-
-.menu-title{
-  font-family: 'Urbanist-Regular';
-  font-weight: 300;
-  font-size: 1.6rem;
+.menu-title {
+  font-family: "Urbanist-Medium";
+  font-size: 1.7rem;
   color: rgb(228, 230, 230);
   margin-top: 0.2vh;
 }
 
 
 @font-face {
-  font-family: 'Urbanist-Regular';
+  font-family: "Urbanist-Regular";
   src: url(../assets/fonts/Urbanist/static/Urbanist-Regular.ttf);
 }
 
-
 @font-face {
-  font-family: 'Raleway-Regular';
-  src: url(../assets/fonts/Raleway/static/Raleway-Regular.ttf);
+  font-family: "Urbanist-Medium";
+  src: url(../assets/fonts/Urbanist/static/Urbanist-Light.ttf);
 }
 
+@font-face {
+  font-family: "Raleway-Regular";
+  src: url(../assets/fonts/Raleway/static/Raleway-Regular.ttf);
+}
 
 
 </style>

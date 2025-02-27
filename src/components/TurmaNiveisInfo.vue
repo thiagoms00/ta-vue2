@@ -67,7 +67,7 @@
 
                 <v-col class="pa-2" cols="8">
                   <div class="px-2">
-                    <p class="text-left" style="
+                    <p class="desc-text" style="
                         font-weight: normal !important;
                         font-size: 0.9375rem !important;
                       ">
@@ -671,5 +671,18 @@ export default {
   font-weight: bold;
 }
 
-@media (max-width: 1800px) {}
+
+.desc-text{
+    line-height:3vh;
+    width: 90%;
+  }
+
+@media (max-width: 1200px) {
+
+  .desc-text{
+    line-height:3vh;
+  }
+
+
+}
 </style>

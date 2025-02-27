@@ -131,11 +131,7 @@
                       </v-tooltip>
                     </v-tab>
 
-                    <v-divider
-                      :thickness="5"
-                      color="#4f5263"
-                      class="border-opacity-25"
-                    ></v-divider>
+               
 
                     <v-tab
                       @click="changeItens(false)"

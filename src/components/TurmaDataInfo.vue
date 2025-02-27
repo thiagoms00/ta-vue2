@@ -150,20 +150,21 @@
         <v-expansion-panel-text class="border-bottom-orange">
           <v-container>
             <v-card>
-              <v-tabs v-model="tab" bg-color="orange">
+              <v-tabs v-model="tab" bg-color="#fcae21">
                 <v-tab value="dados">
-                  <v-icon icon="mdi-account"></v-icon>
-                  Dados
+                  <v-icon icon="mdi-account" color="#1c1c1c"></v-icon>
+                  <span class="data-tab">Dados</span>
+                  
                 </v-tab>
 
                 <v-tab value="testes">
-                  <v-icon icon="mdi-animation"></v-icon>
-                  Testes
+                  <v-icon icon="mdi-animation" color="#1c1c1c"></v-icon>
+                  <span class="data-tab" >Testes</span>
                 </v-tab>
 
                 <v-tab value="prog">
-                  <v-icon icon="mdi-chart-bubble"></v-icon>
-                  Progressão
+                  <v-icon icon="mdi-chart-bubble"color="#1c1c1c"> </v-icon>
+                  <span class="data-tab" >Progressão</span>
                 </v-tab>
 
                 <!--  <v-tab value="provisorio">
@@ -222,16 +223,16 @@
                     <v-table density="compact">
                       <thead>
                         <tr>
-                          <th>Disciplina</th>
-                          <th>Data</th>
-                          <th>Percurso Final</th>
-                          <th>Quest. Feitas</th>
-                          <th>% de Acerto</th>
+                          <th class="testes-title">Disciplina</th>
+                          <th class="testes-title">Data</th>
+                          <th class="testes-title">Percurso Final</th>
+                          <th class="testes-title">Quest. Feitas</th>
+                          <th class="testes-title">% de Acerto</th>
                           <!-- <th>
                         N. de Hab.
                       </th> -->
-                          <th>Tempo do Teste</th>
-                          <th>Status</th>
+                          <th class="testes-title">Tempo do Teste</th>
+                          <th class="testes-title">Status</th>
                           <th></th>
                         </tr>
                       </thead>
@@ -680,4 +681,21 @@ export default {
 .p-nome {
   text-align: justify !important;
 }
+
+.data-tab{
+  font-family: 'Manrope-SB';
+  font-size: 0.85rem;
+  color: #1c1c1c;
+}
+
+.testes-title{
+  font-family: 'Manrope-SB';
+}
+
+.text-caption{
+  font-size: 0.75rem !important;
+  font-weight: 600;
+  padding-top: 0.4vh;
+}
+
 </style>
