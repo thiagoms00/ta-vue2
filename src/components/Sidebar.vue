@@ -14,20 +14,30 @@
     <v-list density="compact">
       <v-list-group :disabled="loadingGlobal" class="main-group mx-auto">
         <template v-slot:activator="{ props }">
-          <v-list-item v-bind="props" class="submenu-turma elevation-1">
-            <div class="turma-div">
-              <v-list-item-title class="turma-title d-flex">
-                <v-icon icon="mdi-school" class="mr-3"></v-icon>
-                Turma
-                <v-progress-circular
-                  v-if="loadingGlobal"
-                  indeterminate
-                  size="20"
-                  width="2"
-                  color="white"
-                  class="ml-2"
-                ></v-progress-circular>
-              </v-list-item-title>
+          <v-list-item v-bind="props" class="submenu-turma elevation-1 py-4 px-2">
+            <div class="turma-div d-flex align-center ">
+              <v-chip color="blue-darken-4" 
+              class="mr-3" label
+              style="height: 37px;"
+              >
+                <v-icon left>mdi-school</v-icon>
+              </v-chip>
+
+              <div class="d-flex flex-column">
+                <span class="text-body-2 text-grey-darken-3">Turma</span>
+                <span class="text-caption text-grey-lighten-1"
+                  >Escolha uma turma</span
+                >
+              </div>
+
+              <v-progress-circular
+                v-if="loadingGlobal"
+                indeterminate
+                size="20"
+                width="2"
+                color="white"
+                class="ml-2"
+              ></v-progress-circular>
             </div>
           </v-list-item>
         </template>
@@ -43,11 +53,10 @@
             {{ turma.nome }}
           </v-list-item-title>
         </v-list-item>
-
       </v-list-group>
 
       <div class="mt-5"></div>
-      
+
       <v-list-item
         v-for="(item, index) in menuItems"
         :key="index"
@@ -57,7 +66,7 @@
       >
         <div class="d-flex ml-3">
           <v-icon :icon="item.icon" class="mr-3"></v-icon>
-          <v-list-item-title class="menu-title ">{{
+          <v-list-item-title class="menu-title">{{
             item.title
           }}</v-list-item-title>
         </div>
@@ -163,6 +172,14 @@ export default {
 </script>
 
 <style scoped>
+
+::v-deep(.v-list-item__spacer) {
+    width: 0 !important;
+    flex: 0 !important;
+}
+
+
+
 .submenu-turma {
   background: white;
   border-radius: 4px;
@@ -171,7 +188,7 @@ export default {
 .main-container {
   min-width: 15%;
   /* Backgroud Cinza */
-  background: linear-gradient(to bottom, #e0dde5, #f7f6f9, #ffffff);
+  background: #f7f6f9;
   /* Background Azul */
   /* background: linear-gradient(to bottom, #2c2f4e, #343856, #3a3e66); */
 }
@@ -185,7 +202,7 @@ export default {
 }
 
 .main-group {
-  width: 90%;
+  width: 92%;
   border-radius: 5px;
   margin-top: 1vh;
 }
@@ -199,7 +216,6 @@ export default {
 .turma-class {
   font-weight: 500;
   font-size: 1.1rem;
-  
 }
 
 .menu-item,
